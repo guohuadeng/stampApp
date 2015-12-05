@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <adminhtml_stampcustomer_index>
+	<reference name="content">
+	  <block type="stampcustomer/adminhtml_stampcustomer" name="stampcustomer" />
+	</reference>
+  </adminhtml_stampcustomer_index>
+</layout>
