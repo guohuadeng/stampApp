@@ -28,6 +28,88 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 		return true;  
 	}
 	
+	public function ajaxdataAction(){
+		$data = $this->getRequest()->getParams();
+		$verification = Mage::helper("stampcustomer")->isVerification($data);
+		switch($verification){
+			case 1:
+				$result['status'] = false;
+				$result['message'] = urlencode($this->__('查询条件不能为空!'));
+				$response = Mage::helper('core')->jsonEncode($result);
+				$this->getResponse()->setBody(urldecode($response));
+				return;
+			case 2:
+				$result['status'] = false;
+				$result['message'] = urlencode($this->__('姓名至少2字!'));
+				$response = Mage::helper('core')->jsonEncode($result);
+				$this->getResponse()->setBody(urldecode($response));
+				return;
+			case 3:
+				$result['status'] = false;
+				$result['message'] = urlencode($this->__('公司至少3字!'));
+				$response = Mage::helper('core')->jsonEncode($result);
+				$this->getResponse()->setBody(urldecode($response));
+				return;
+			
+		}
+		
+		try{
+			$collection = Mage::getModel("stampcustomer/stampcustomer")->getCollection();
+			if(($data['a_state']) && ($data['a_state'] !="全部")){
+				$collection->addFieldToFilter('a_state',  array('like' => "%".trim($data['a_state'])."%")); 
+			}
+			if($data['a_certsn']){
+				$collection->addFieldToFilter('a_certsn', array('like' => "%".trim($data['a_certsn'])."%"));
+			}
+			if($data['a_stampsn']){
+				$collection->addFieldToFilter('a_stampsn', array('like' => "%".trim($data['a_stampsn'])."%"));
+			}
+			if($data['a_name']){
+				//$names = Mage::helper('core/string')->splitWords($data['a_name']);
+				$collection->addFieldToFilter('a_name', array('like' => "%".trim($data['a_name'])."%"));
+			}
+			if($data['a_company']){
+				$collection->addFieldToFilter('a_company', array('like' => "%".trim($data['a_company'])."%"));
+			}
+			if($data['a_certtype']){
+				$collection->addFieldToFilter('a_certtype', array('like' => "%".trim($data['a_certtype'])."%"));
+			}
+			$collection->setPageSize(20)->setCurPage(1);
+			
+			
+			if(count($collection)>0){
+				foreach($collection as $c){
+					$result['a_name'][] = urlencode($c->getAName());
+					$result['a_state'][] = urlencode($c->getAState());
+					$result['a_certtype'][] = urlencode($c->getACerttype());
+					$result['a_company'][] = urlencode($c->getACompany());
+					$result['a_certsn'][] = urlencode($c->getACertsn());
+					$result['a_stampsn'][] = urlencode($c->getAStampsn());
+					$result['a_expdate'][] = urlencode($c->getAExpdate());
+				}
+				$result['status'] = true;
+				$response = Mage::helper('core')->jsonEncode($result);
+				$this->getResponse()->setBody(urldecode($response));
+				return;
+			}else{
+				$result['status'] = false;
+				$result['message'] = urlencode($this->__('结果为空!'));
+				$response = Mage::helper('core')->jsonEncode($result);
+				$this->getResponse()->setBody(urldecode($response));
+				return;
+			}
+			
+		}catch(Exception $e){
+			$result['status'] = false;
+    		$result['message'] = urlencode($this->__('请重试!'));
+			$response = Mage::helper('core')->jsonEncode($result);
+			$this->getResponse()->setBody(urldecode($response));
+    		return;
+		}
+		return ;
+	}
+	
+	
 	public function ajaxAction(){
 		if(!$this->_validateFormKey()){
 			 return $this->_redirect('*/*/');  
@@ -59,14 +141,16 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 		
 		try{
 			$collection = Mage::getModel("stampcustomer/stampcustomer")->getCollection();
-			if($data['a_state']){
-				$collection->addFieldToFilter('a_state', array('eq' => trim($data['a_state'])));
+		
+	
+			if(($data['a_state']) && ($data['a_state'] !="全部")){
+				$collection->addFieldToFilter('a_state',  array('like' => "%".trim($data['a_state'])."%")); 
 			}
 			if($data['a_certsn']){
-				$collection->addFieldToFilter('a_certsn', array('eq' => trim($data['a_certsn'])));
+				$collection->addFieldToFilter('a_certsn', array('like' => "%".trim($data['a_certsn'])."%"));
 			}
 			if($data['a_stampsn']){
-				$collection->addFieldToFilter('a_stampsn', array('eq' => trim($data['a_stampsn'])));
+				$collection->addFieldToFilter('a_stampsn', array('like' => "%".trim($data['a_stampsn'])."%"));
 			}
 			if($data['a_name']){
 				//$names = Mage::helper('core/string')->splitWords($data['a_name']);
@@ -78,19 +162,19 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 			if($data['a_certtype']){
 				$collection->addFieldToFilter('a_certtype', array('like' => "%".trim($data['a_certtype'])."%"));
 			}
+			$collection->setPageSize(20)->setCurPage(1);
+			
 			
 			if(count($collection)>0){
 				$html = '';
-				$html .= '
-						<h4>注册人员信息</h4>
-						<table>
+				$html .= '<table class="">
 						<tr> 
 							<th>序号</th>
 							<th>姓名</th>
 							<th>注册区域</th>
 							<th>专业类型</th>
 							<th>公司</th>
-							<th>注册证书号</th>
+							<th>注册证书号</th> 
 							<th>印章号</th>
 							<th>有效期至</th>
 						</tr>';
@@ -106,10 +190,12 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 					$html .= '<td class="a_expdate">'.$c->getAExpdate().'</td>';
 					$html .= '</tr>';
 				}
-				$html .= '</table>';
+				$html .= '</table><button type="button" class="sure"">'.$this->__("确定").'</button>'; 
 				$html .='<script type="text/javascript"> 
 				jQuery(function($){
-					$(".info").click(function(){
+					$(".info").click(function(){ 
+						$(".info").css("color","#636363");
+						$(this).css("color","red");
 						var state = $(this).find(".a_state").html();
 						var name = $(this).find(".a_name").html();
 						var certtype = $(this).find(".a_certtype").html();
@@ -128,13 +214,18 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 							var year =date.getFullYear();
 							var month =date.getMonth()+1;
 							var day =date.getDate();
+							var customoptiondate = month+"/"+day+"/"+year;
+							$(".customoption-date").val(customoptiondate);
 							$(".year").val(year);
 							$(".month").val(month);
 							$(".day").val(day);
 						}
-						/* jQuery(".results").empty(); */
-						jQuery(".stampcustomer").hide();
+						/* jQuery(".results").empty(); 
+						jQuery(".stampcustomer").hide();*/
 					})
+					$(".sure").click(function(){
+						$(".stampcustomer").hide();
+					});
 				});
 				</script>';
 				$result['status'] = true;
@@ -158,6 +249,5 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
     		return;
 		}
 		return ;
-			
 	}
 }

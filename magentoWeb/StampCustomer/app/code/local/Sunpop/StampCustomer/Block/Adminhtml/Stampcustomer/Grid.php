@@ -70,7 +70,7 @@ class Sunpop_StampCustomer_Block_Adminhtml_Stampcustomer_Grid extends Mage_Admin
 					$this->addColumn('a_expdate', array(
 						'header'    => Mage::helper('stampcustomer')->__('Expdate'),
 						'index'     => 'a_expdate',
-						'type'      => 'datetime',
+						'type'      => 'date',
 					));
 			$this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV')); 
 			$this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel'));

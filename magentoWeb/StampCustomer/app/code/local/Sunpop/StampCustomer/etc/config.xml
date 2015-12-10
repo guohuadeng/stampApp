@@ -21,7 +21,17 @@
 			  <file>stampcustomer.xml</file>
 			</stampcustomer>
 		  </updates>
-		</layout>
+	</layout>
+	
+	<translate>
+		<modules>
+			<Sunpop_StampCustomer>
+				<files>
+					<default>Sunpop_StampCustomer.csv</default>
+				</files>
+			</Sunpop_StampCustomer>
+		</modules>
+	</translate>
   </frontend>
   <global>
     <helpers>
@@ -82,17 +92,15 @@
 	</admin>
   <adminhtml>
 	<menu>
-	  <stampcustomer module="stampcustomer">
-		<title>StampCustomer</title>
-		<sort_order>100</sort_order>
+	<customer translate="title" module="customer">
 		<children>
 		  <stampcustomer module="stampcustomer">
 		    <title>Manage Stampcustomer</title>
-			<sort_order>0</sort_order>
+			<sort_order>120</sort_order>
 			<action>adminhtml/stampcustomer/index</action>
 		  </stampcustomer>
 		</children>
-	  </stampcustomer>
+	</customer>
 	</menu>
 	<acl>
 	  <resources>
@@ -101,16 +109,14 @@
 		</all>
 		<admin>
 		  <children>
-			<stampcustomer translate="title" module="stampcustomer">
-			  <title>StampCustomer</title>
-			  <sort_order>1000</sort_order>
+			<customer translate="title" module="customer">
 			  <children>
-		  <stampcustomer translate="title">
-			<title>Manage Stampcustomer</title>
-			<sort_order>0</sort_order>
-		  </stampcustomer>
-			  </children>
-			</stampcustomer>
+			  <stampcustomer translate="title">
+				<title>Manage Stampcustomer</title>
+				<sort_order>0</sort_order>
+			  </stampcustomer>
+			</children>
+			</customer>
 		  </children>
 		</admin>
 	  </resources>

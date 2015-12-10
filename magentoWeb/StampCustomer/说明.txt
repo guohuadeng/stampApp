@@ -2,6 +2,13 @@
 2.修改了app\design\frontend\default\default\template\catalog\product\view\options\wrapper.phtml
 app\design\frontend\default\default\template\catalog\product\view\options\type\text.phtml
 
+
 3.后台管理处 a_name a_state a_certsn a_certtype a_company a_stampsn都可以进行排序，默认id排序。
 
 4.产品custom option 是 姓名 注册区域 注册证书 专业类型 单位名称 印章号 有效期至
+
+5.app\design\frontend\default\default目录下的layout和template目录，放到当前使用模板对应目录。
+
+6."有效期至" 这一块前端重写了app\design\frontend\default\default\template\catalog\product\view\options\type\date.phtml
+  默认隐藏，添加个日历
+ 
