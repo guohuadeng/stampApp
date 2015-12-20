@@ -1,0 +1,2 @@
+1. 在后台system->configuration->加入WISHLIST  设置开启。
+2. 默认sku一样 option一样再次加入wishlist,wishlist中qty加1，重写了Mage_Wishlist_IndexController 控制器，sku一样 option一样qty永远是1.

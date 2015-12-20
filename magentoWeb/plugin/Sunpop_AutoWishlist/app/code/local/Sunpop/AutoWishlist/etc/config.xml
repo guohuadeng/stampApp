@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Sunpop_AutoWishlist>
+      <version>0.1.0</version>
+    </Sunpop_AutoWishlist>
+  </modules>
+  <global>
+    <helpers>
+      <autowishlist>
+        <class>Sunpop_AutoWishlist_Helper</class>
+      </autowishlist>
+    </helpers>
+	<models>
+	  <autowishlist>
+		<class>Sunpop_AutoWishlist_Model</class>
+		<resourceModel>wishlist_mysql4</resourceModel>
+	  </autowishlist>
+	</models>
+    <events>
+	  <sales_order_place_after> <!-- identifier of the event we want to catch -->
+        <observers>
+          <sales_order_place_after_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>autowishlist/observer</class> <!-- observers class alias -->
+            <method>addWishlist</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </sales_order_place_after_handler>
+        </observers>
+      </sales_order_place_after>
+    </events>
+  </global>
+  <frontend> 
+	<routers> 
+		<Sunpop_AutoWishlist>
+			<use>standard</use>
+			<args> 
+				<module>Sunpop_AutoWishlist</module>
+				<frontName>wishlist</frontName>
+			</args>
+		</Sunpop_AutoWishlist>
+	</routers>
+	<translate>
+		<modules>
+			<Sunpop_AutoWishlist>
+				<files>
+					<default>Sunpop_AutoWishlist.csv</default>
+				</files>
+			</Sunpop_AutoWishlist>
+		</modules>
+	</translate>
+  </frontend>
+  
+   <adminhtml>
+	<translate>
+		<modules>
+			<Sunpop_AutoWishlist>
+				<files>
+					<default>Sunpop_AutoWishlist.csv</default>
+				</files>
+			</Sunpop_AutoWishlist>
+		</modules>
+	</translate>
+  </adminhtml>
+</config> 

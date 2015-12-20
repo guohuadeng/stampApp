@@ -1,0 +1,36 @@
+.results table tr th{background-color:#d3ecff;}
+.results table tr,.stampcustomer a,.entry{cursor: pointer;  }
+.results table tr th,.results table tr td{padding:5px;  border-bottom: 1px solid #333;border-right: 1px solid #333;}
+.results table tr .last{border-right:none;}
+.stampcustomer{position: absolute; top: 0px; right: 0px;      z-index: 99;    background-color: #f4f4f4;  padding: 30px 30px 0;display:none;}
+.catalog-product-view .col-main{position: relative;}
+.stampcustomer a.close{position: absolute;  right: 30px;top: 5px;font-size: 3em;}
+.stampcustomer .form-list .form-control{width:70%; float: right;}
+.stampcustomer .form-list  label{width: 28%;line-height: 30px;    float: left;}
+.stampcustomer .results{margin:20px 0 10px;    width: 100%; float: left;}
+.stampcustomer button{float:right;}
+.stampcustomer .results button{margin-top:20px;}
+#customoption-date-trig{    float: right;    margin-top: -20px;    margin-right: 13px;    z-index: 10;   position: relative;}
+.product-options .last img{ display: inline-block;}
+.sure{display:none;}
+.product-options-bottom{display:block;}
+.short-description{padding-top:90px;}
+.product-tabs .tab-content	{padding: 10px 16px}
+
+@media only screen and (min-width: 771px) {
+  .product-options #tab_description_tabbed_contents dt {
+    margin: 10px 0 3px;
+    font-weight: normal;
+    min-width: 70px;
+    width: 30%;
+    line-height: 41px;
+  }
+
+  .product-options #tab_description_tabbed_contents dd {
+    padding: 0 0 10px 0;
+    margin: -42px 0 5px!important;
+    border-bottom: 0px;
+    width: 68%;
+    float: right;
+  }
+}
