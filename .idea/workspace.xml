@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a543bcd7-5eaf-46bd-aa5f-746aa2fe7b48" name="Default" comment="">
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\_doc\数据接口文档 v5.0.doc" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/Helper/Data.php" afterPath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/Helper/Data.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/Model/Observer.php" afterPath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/Model/Observer.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/Model/Product.php" afterPath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/Model/Product.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/etc/modules/Sunpop_Duplicate.xml" afterPath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/etc/modules/Sunpop_Duplicate.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/etc/adminhtml.xml" afterPath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/etc/adminhtml.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/etc/config.xml" afterPath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/etc/config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/etc/system.xml" afterPath="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/etc/system.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/WishlistController.php" afterPath="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/WishlistController.php" />
     </list>
     <ignored path="stampApp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,14 +56,17 @@
       <file leaf-file-name="WishlistController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/WishlistController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.84698796">
-              <caret line="76" column="7" selection-start-line="76" selection-start-column="7" selection-end-line="76" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.57228917">
+              <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -87,6 +80,7 @@
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options/wrapper.phtml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options.phtml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/porto/css/stampcustomer.css" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/WishlistController.php" />
       </list>
     </option>
   </component>
@@ -146,6 +140,38 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -223,7 +249,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1042" extended-state="7" />
+    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -621,10 +647,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa0.109/WishlistController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22891566">
+          <caret line="10" column="3" selection-start-line="0" selection-start-column="0" selection-end-line="323" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/WishlistController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84698796">
-          <caret line="76" column="7" selection-start-line="76" selection-start-column="7" selection-end-line="76" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.57228917">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
           <folding />
         </state>
       </provider>

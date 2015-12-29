@@ -1,3 +1,5 @@
+~*.doc
+~*.docx
 s.*
 .idea
 # Windows image file caches
