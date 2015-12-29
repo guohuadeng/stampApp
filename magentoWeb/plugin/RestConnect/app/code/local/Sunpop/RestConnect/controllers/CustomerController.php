@@ -232,4 +232,321 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		return $this;
 	}
 
+	public function infoAction(){
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+            echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'not_exists' 
+			));
+			return ;
+        }
+
+        if (!is_null($attributes) && !is_array($attributes)) {
+            $attributes = array($attributes);
+        }
+
+        $result = array();
+		$resource = new Mage_Customer_Model_Api_Resource;
+        foreach ($resource->_mapAttributes as $attributeAlias=>$attributeCode) {
+            $result[$attributeAlias] = $customer->getData($attributeCode);
+        }
+
+        foreach ($resource->getAllowedAttributes($customer, $attributes) as $attributeCode=>$attribute) {
+            $result[$attributeCode] = $customer->getData($attributeCode);
+        }
+
+        echo json_encode ( $result );
+	} 
+	
+	public function updateAction(){
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+           echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'not_exists' 
+			));
+			return ;
+        }
+		$customerData = $this->getRequest ()->getParams();
+		$resource = new Mage_Customer_Model_Api_Resource;
+		foreach ($resource->getAllowedAttributes($customer) as $attributeCode=>$attribute) {
+            if (isset($customerData[$attributeCode])) {
+                $customer->setData($attributeCode, $customerData[$attributeCode]);
+            }
+        }
+
+        $customer->save();
+         echo json_encode ( array (
+					'status' => true,
+					'message' => 'Save successfully' 
+			));
+			return ;
+	}
+	
+	public function addressListAction(){
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+			echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'customer_not_exists' 
+			));
+			return ;
+        }
+
+        $result = array();
+		$resource = new Mage_Customer_Model_Api_Resource;
+        foreach ($customer->getAddresses() as $address) {
+            $data = $address->toArray();
+            $row  = array();
+
+            foreach ($resource->_mapAttributes as $attributeAlias => $attributeCode) {
+                $row[$attributeAlias] = isset($data[$attributeCode]) ? $data[$attributeCode] : null;
+            }
+
+            foreach ($resource->getAllowedAttributes($address) as $attributeCode => $attribute) {
+                if (isset($data[$attributeCode])) {
+                    $row[$attributeCode] = $data[$attributeCode];
+                }
+            }
+
+            $row['is_default_billing'] = $customer->getDefaultBilling() == $address->getId();
+            $row['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();
+			//$result['id']=$address->getId();
+            $result[] = $row;
+
+        }
+
+        echo json_encode($result);
+		return ;
+	}
+	
+	public function addressCreateAction(){
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+			echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'customer_not_exists' 
+			));
+			return ;
+        }
+		$addressData = $this->getRequest ()->getParams();
+		$resource = new Mage_Customer_Model_Api_Resource;
+		$address = Mage::getModel('customer/address');
+
+        foreach ($resource->getAllowedAttributes($address) as $attributeCode=>$attribute) {
+            if (isset($addressData[$attributeCode])) {
+                $address->setData($attributeCode, $addressData[$attributeCode]);
+            }
+        }
+
+        if (isset($addressData['is_default_billing'])) {
+            $address->setIsDefaultBilling($addressData['is_default_billing']);
+        }
+
+        if (isset($addressData['is_default_shipping'])) {
+            $address->setIsDefaultShipping($addressData['is_default_shipping']);
+        }
+
+        $address->setCustomerId($customer->getId());
+
+        $valid = $address->validate();
+
+        if (is_array($valid)) {
+			echo json_encode ( array (
+					'code' => '0x0001',
+					'message' =>  implode("\n", $valid) 
+			));
+			return ;
+        }
+
+        try {
+            $address->save();
+        } catch (Mage_Core_Exception $e) {
+			echo json_encode ( array (
+					'code' => '0x0001',
+					'message' =>  $e->getMessage() 
+			));
+			return ;
+        }
+		
+		echo json_encode ( array (
+					'status' => true,
+					'message' => 'Update successfully' 
+			));
+			return ;
+	}
+	
+	public function addressInfoAction(){
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+			echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'customer_not_exists' 
+			));
+			return ;
+        }
+		$addressid = ( int ) $this->getRequest ()->getParam('address_id');
+		$resource = new Mage_Customer_Model_Api_Resource;
+		
+		if($addressid){
+			$address = Mage::getModel('customer/address')
+				->load($addressid);
+			
+			if (!$address->getId()) {
+				echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'address_not_exists' 
+				));
+				return ;
+			}
+			if($address->getParentId() != $customer->getId()){
+				echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'Addresses are not current customers' 
+				));
+				return ;
+			}
+			$result = array();
+
+			foreach ($resource->_mapAttributes as $attributeAlias => $attributeCode) {
+				$result[$attributeAlias] = $address->getData($attributeCode);
+			}
+
+			foreach ($resource->getAllowedAttributes($address) as $attributeCode => $attribute) {
+				$result[$attributeCode] = $address->getData($attributeCode);
+			}
+
+
+			if ($customer = $address->getCustomer()) {
+				$result['is_default_billing']  = $customer->getDefaultBilling() == $address->getId();
+				$result['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();
+			}
+			echo json_encode($result);
+			return;
+		}else{
+			echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'address_id_not_exists' 
+			));
+			return ;
+		}
+	}
+	
+	public function addressUpdateAction(){
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+			echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'customer_not_exists' 
+			));
+			return ;
+        }
+		$addressid = ( int ) $this->getRequest ()->getParam('address_id');
+		$resource = new Mage_Customer_Model_Api_Resource;
+		if($addressid){
+			$address = Mage::getModel('customer/address')
+				->load($addressid);
+			
+			if (!$address->getId()) {
+				echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'address_not_exists' 
+				));
+				return ;
+			}
+			if($address->getParentId() != $customer->getId()){
+				echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'Addresses are not current customers' 
+				));
+				return ;
+			}
+			$addressData = $this->getRequest ()->getParams();
+			foreach ($resource->getAllowedAttributes($address) as $attributeCode=>$attribute) {
+            if (isset($addressData[$attributeCode])) {
+					$address->setData($attributeCode, $addressData[$attributeCode]);
+				}
+			}
+
+			if (isset($addressData['is_default_billing'])) {
+				$address->setIsDefaultBilling($addressData['is_default_billing']);
+			}
+
+			if (isset($addressData['is_default_shipping'])) {
+				$address->setIsDefaultShipping($addressData['is_default_shipping']);
+			}
+
+			$valid = $address->validate();
+			if (is_array($valid)) {
+				$resource->_fault('data_invalid', implode("\n", $valid));
+			}
+
+			try {
+				$address->save();
+				echo json_encode ( array (
+					'status' => true,
+					'message' => 'address update successfully' 
+				));
+				return ;
+			} catch (Mage_Core_Exception $e) {
+				$resource->_fault('data_invalid', $e->getMessage());
+			}
+		}else{
+			echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'address_id_not_exists' 
+			));
+			return ;
+		}
+	}
+	
+	public function addressDeleteAction(){
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+			echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'customer_not_exists' 
+			));
+			return ;
+        }
+		$addressid = ( int ) $this->getRequest ()->getParam('address_id');
+		$resource = new Mage_Customer_Model_Api_Resource;
+		if($addressid){
+			$address = Mage::getModel('customer/address')
+				->load($addressid);
+			
+			if (!$address->getId()) {
+				echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'address_not_exists' 
+				));
+				return ;
+			}
+			if($address->getParentId() != $customer->getId()){
+				echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'Addresses are not current customers' 
+				));
+				return ;
+			}
+			
+			try {
+				$address->delete();
+				echo json_encode ( array (
+					'status' => true,
+					'message' => 'address delete successfully' 
+				));
+				return ;
+			} catch (Mage_Core_Exception $e) {
+				$resource->_fault('data_invalid', $e->getMessage());
+			}
+		}else{
+			echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'address_id_not_exists' 
+			));
+			return ;
+		}
+	}
 } 

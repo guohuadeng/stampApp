@@ -10,6 +10,16 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Action {
+	 const MODE_CUSTOMER = Mage_Checkout_Model_Type_Onepage::METHOD_CUSTOMER;
+     const MODE_REGISTER = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
+     const MODE_GUEST    = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
+	 protected $_attributesMap = array(
+        'global' => array(),
+    );
+	protected $_ignoredAttributeCodes = array(
+        'global'    =>  array('entity_id', 'attribute_set_id', 'entity_type_id')
+    );
+	
 	public function getaddurlAction() {
 		$productid = $this->getRequest ()->getParam ( 'productid' );
 		$product = Mage::getModel ( "catalog/product" )->load ( $productid );
@@ -412,5 +422,619 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			return parent::addAction ();
 		}
 	}
+	
+	public function customerSetAction(){
+		$quote = Mage::getModel('checkout/cart')->getQuote();
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		$quote_customer = array('customer_id' => 'entity_id');
+		$customerData = $this->getRequest ()->getParams();
+        if (!isset($customerData['mode'])) {
+			echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'customer_mode_is_unknown' 
+			));
+        }
 
+        switch($customerData['mode']) {
+        case self::MODE_CUSTOMER:
+            /** @var $customer Mage_Customer_Model_Customer */
+            $customer->setMode(self::MODE_CUSTOMER);
+            break;
+
+        case self::MODE_REGISTER:
+        case self::MODE_GUEST:
+            /** @var $customer Mage_Customer_Model_Customer */
+            $customer = Mage::getModel('customer/customer')
+                ->setData($customerData);
+
+            if ($customer->getMode() == self::MODE_GUEST) {
+                $password = $customer->generatePassword();
+
+                $customer
+                    ->setPassword($password)
+                    ->setPasswordConfirmation($password);
+            }
+
+            $isCustomerValid = $customer->validate();
+            if ($isCustomerValid !== true && is_array($isCustomerValid)) {
+                
+				echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'customer_mode_is_unknown' 
+				));
+            }
+            break;
+        }
+
+        try {
+            $quote
+                ->setCustomer($customer)
+                ->setCheckoutMethod($customer->getMode())
+                ->setPasswordHash($customer->encryptPassword($customer->getPassword()))
+                ->save();
+				echo json_encode ( array (
+					'status' => true,
+					'message' => 'set successfully' 
+				));
+				return ;
+        } catch (Mage_Core_Exception $e) {
+			echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => 'customer_not_set' 
+				));
+				return ；
+        }
+        return true;
+	}
+	
+	
+	public function customerAddressesAction(){
+		$quote = Mage::getSingleton('checkout/cart')->getQuote();
+		$customerAddressData = $this->getRequest ()->getParams();
+		$customerarray = array();
+		foreach($customerAddressData as $c){
+			$customerarray[] = $c;
+		}
+		//print_r($customerAddressData);
+		
+		
+		if (!is_array($customerAddressData) || !is_array($customerarray[0])) {
+            echo json_encode ( array (
+					'status' => '0x0001',
+					'message' => 'empty' 
+				));
+				return ;
+        }
+
+        $dataAddresses = array();
+		$attributesMap = array('address_id' => 'entity_id');
+        foreach($customerAddressData as $addressItem) {
+            foreach ($attributesMap as $attributeAlias=>$attributeCode) {
+                 if(isset($addressItem[$attributeAlias]))
+                 {
+                     $addressItem[$attributeCode] = $addressItem[$attributeAlias];
+                     unset($addressItem[$attributeAlias]);
+                 }
+            }
+            $dataAddresses[] = $addressItem;
+        }
+		$customerAddressData = $dataAddresses;
+		
+        if (is_null($customerAddressData)) {
+			echo json_encode ( array (
+					'status' => '0x0002',
+					'message' => 'customer_address_data_empty' 
+				));
+				return ;
+        }
+
+        foreach ($customerAddressData as $addressItem) {
+//            switch($addressItem['mode']) {
+//            case self::ADDRESS_BILLING:
+                /** @var $address Mage_Sales_Model_Quote_Address */
+                $address = Mage::getModel("sales/quote_address");
+//                break;
+//            case self::ADDRESS_SHIPPING:
+//                /** @var $address Mage_Sales_Model_Quote_Address */
+//                $address = Mage::getModel("sales/quote_address");
+//                break;
+//            }
+            $addressMode = $addressItem['mode'];
+            unset($addressItem['mode']);
+
+            if (!empty($addressItem['entity_id'])) {
+				$addressid = (int)$addressItem['entity_id'];
+				$addresses = Mage::getModel('customer/address')->load($addressid);
+				if (is_null($addresses->getId())) {
+					echo json_encode ( array (
+					'status' => '0x0003',
+					'message' => 'invalid_address_id' 
+					));
+					return ;
+				}
+
+				$addresses->explodeStreetAddress();
+				if ($addresses->getRegionId()) {
+					$addresses->setRegion($addresses->getRegionId());
+				}
+				$customerAddress = $addresses;
+				
+				
+                if ($customerAddress->getCustomerId() != $quote->getCustomerId()) {
+					echo json_encode ( array (
+						'status' => '0x0004',
+						'message' => 'address_not_belong_customer' 
+					));
+					return ;
+                }
+                $address->importCustomerAddress($customerAddress);
+
+            } else {
+                $address->setData($addressItem);
+            }
+
+            $address->implodeStreetAddress();
+
+            if (($validateRes = $address->validate())!==true) {
+				echo json_encode ( array (
+						'status' => '0x0005',
+						'message' => implode(PHP_EOL, $validateRes) 
+					));
+				return ;
+            }
+
+            switch($addressMode) {
+            case  Mage_Sales_Model_Quote_Address::TYPE_BILLING:
+                $address->setEmail($quote->getCustomer()->getEmail());
+
+                if (!$quote->isVirtual()) {
+                    $usingCase = isset($addressItem['use_for_shipping']) ? (int)$addressItem['use_for_shipping'] : 0;
+                    switch($usingCase) {
+                    case 0:
+                        $shippingAddress = $quote->getShippingAddress();
+                        $shippingAddress->setSameAsBilling(0);
+                        break;
+                    case 1:
+                        $billingAddress = clone $address;
+                        $billingAddress->unsAddressId()->unsAddressType();
+
+                        $shippingAddress = $quote->getShippingAddress();
+                        $shippingMethod = $shippingAddress->getShippingMethod();
+                        $shippingAddress->addData($billingAddress->getData())
+                            ->setSameAsBilling(1)
+                            ->setShippingMethod($shippingMethod)
+                            ->setCollectShippingRates(true);
+                        break;
+                    }
+                }
+                $quote->setBillingAddress($address);
+                break;
+
+            case Mage_Sales_Model_Quote_Address::TYPE_SHIPPING:
+                $address->setCollectShippingRates(true)
+                        ->setSameAsBilling(0);
+                $quote->setShippingAddress($address);
+                break;
+            }
+
+        }
+
+        try {
+            $quote
+                ->collectTotals()
+                ->save();
+				echo json_encode ( array (
+					'status' => true,
+					'message' => "customer Addresses set successfully"
+				));
+				return ;
+        } catch (Exception $e) {
+			echo json_encode ( array (
+					'status' => '0x0005',
+					'message' => $e->getMessage()
+				));
+			return ;
+        }
+
+        return true;
+	}
+	
+	
+	public function paymentMethodAction(){
+		$quote = Mage::getSingleton('checkout/cart')->getQuote();
+		$store = $quote->getStoreId();
+		$paymentDat = $this->getRequest ()->getParams();
+        $paymentDat = $this->_preparePaymentData($paymentDat);
+        if (empty($paymentDat)) {
+			echo json_encode ( array (
+					'status' => '0x0002',
+					'message' => 'payment_method_empty'
+				));
+			return ;
+        }
+		$paymentData = array();
+		foreach($paymentDat as $p){
+			$paymentData =$p;
+		}
+        if ($quote->isVirtual()) {
+            // check if billing address is set
+            if (is_null($quote->getBillingAddress()->getId())) {
+				echo json_encode ( array (
+					'status' => '0x0003',
+					'message' => 'billing_address_is_not_set'
+				));
+				return ;
+            }
+            $quote->getBillingAddress()->setPaymentMethod(
+                isset($paymentData['method']) ? $paymentData['method'] : null
+            );
+        } else {
+            // check if shipping address is set
+            if (is_null($quote->getShippingAddress()->getId())) {
+				echo json_encode ( array (
+					'status' => '0x0004',
+					'message' => 'shipping_address_is_not_set'
+				));
+				return ;
+				
+            }
+            $quote->getShippingAddress()->setPaymentMethod(
+                isset($paymentData['method']) ? $paymentData['method'] : null
+            );
+        }
+
+        if (!$quote->isVirtual() && $quote->getShippingAddress()) {
+            $quote->getShippingAddress()->setCollectShippingRates(true);
+        }
+
+        $total = $quote->getBaseSubtotal();
+        $methods = Mage::helper('payment')->getStoreMethods($store, $quote);
+        foreach ($methods as $method) {
+            if ($method->getCode() == $paymentData['method']) {
+                /** @var $method Mage_Payment_Model_Method_Abstract */
+                if (!($this->_canUsePaymentMethod($method, $quote)
+                    && ($total != 0
+                        || $method->getCode() == 'free'
+                        || ($quote->hasRecurringItems() && $method->canManageRecurringProfiles())))
+                ) {
+					echo json_encode ( array (
+					'status' => '0x0005',
+					'message' => 'method_not_allowed'
+					));
+					return ;
+                }
+            }
+        }
+
+        try {
+			
+            $payment = $quote->getPayment();
+            $payment->importData($paymentData);
+            $quote->setTotalsCollectedFlag(false)
+                ->collectTotals()
+                ->save();
+				echo json_encode ( array (
+					'status' => true,
+					'message' => 'payment method set successfully'
+					));
+					return ;
+        } catch (Mage_Core_Exception $e) {
+			echo json_encode ( array (
+					'status' => '0x0006',
+					'message' => $e->getMessage()
+					));
+					return ;
+			
+        }
+        return true;
+	}
+	
+	protected function _preparePaymentData($data)
+    {
+        if (!(is_array($data) && is_null($data[0]))) {
+            return array();
+        }
+
+        return $data;
+    }
+	
+	public function paymentListAction(){
+		$quote = Mage::getSingleton('checkout/cart')->getQuote();
+		$store = $quote->getStoreId();
+
+        $total = $quote->getBaseSubtotal();
+
+        $methodsResult = array();
+        $methods = Mage::helper('payment')->getStoreMethods($store, $quote);
+
+        foreach ($methods as $method) {
+            /** @var $method Mage_Payment_Model_Method_Abstract */
+            if ($this->_canUsePaymentMethod($method, $quote)) {
+                $isRecurring = $quote->hasRecurringItems() && $method->canManageRecurringProfiles();
+
+                if ($total != 0 || $method->getCode() == 'free' || $isRecurring) {
+                    $methodsResult[] = array(
+                        'code' => $method->getCode(),
+                        'title' => $method->getTitle(),
+                        'cc_types' => $this->_getPaymentMethodAvailableCcTypes($method),
+                    );
+                }
+            }
+        }
+		echo json_encode($methodsResult);
+	}
+	
+	protected function _canUsePaymentMethod($method, $quote)
+    {
+        if (!($method->isGateway() || $method->canUseInternal())) {
+            return false;
+        }
+
+        if (!$method->canUseForCountry($quote->getBillingAddress()->getCountry())) {
+            return false;
+        }
+
+        if (!$method->canUseForCurrency(Mage::app()->getStore($quote->getStoreId())->getBaseCurrencyCode())) {
+            return false;
+        }
+
+        /**
+         * Checking for min/max order total for assigned payment method
+         */
+        $total = $quote->getBaseGrandTotal();
+        $minTotal = $method->getConfigData('min_order_total');
+        $maxTotal = $method->getConfigData('max_order_total');
+
+        if ((!empty($minTotal) && ($total < $minTotal)) || (!empty($maxTotal) && ($total > $maxTotal))) {
+            return false;
+        }
+
+        return true;
+    }
+	
+	 protected function _getPaymentMethodAvailableCcTypes($method)
+    {
+        $ccTypes = Mage::getSingleton('payment/config')->getCcTypes();
+        $methodCcTypes = explode(',', $method->getConfigData('cctypes'));
+        foreach ($ccTypes as $code => $title) {
+            if (!in_array($code, $methodCcTypes)) {
+                unset($ccTypes[$code]);
+            }
+        }
+        if (empty($ccTypes)) {
+            return null;
+        }
+
+        return $ccTypes;
+    }
+	
+	
+	public function shippingListAction(){
+		$quote = Mage::getSingleton('checkout/cart')->getQuote();
+        $quoteShippingAddress = $quote->getShippingAddress();
+        if (is_null($quoteShippingAddress->getId())) {
+			echo json_encode ( array (
+					'status' => '0x0002',
+					'message' => 'shipping_address_is_not_set'
+					));
+					return ;
+        }
+
+        try {
+            $quoteShippingAddress->collectShippingRates()->save();
+            $groupedRates = $quoteShippingAddress->getGroupedAllShippingRates();
+
+            $ratesResult = array();
+            foreach ($groupedRates as $carrierCode => $rates ) {
+                $carrierName = $carrierCode;
+                if (!is_null(Mage::getStoreConfig('carriers/'.$carrierCode.'/title'))) {
+                    $carrierName = Mage::getStoreConfig('carriers/'.$carrierCode.'/title');
+                }
+
+                foreach ($rates as $rate) {
+                    $rateItem = $this->_getAttributes($rate, "quote_shipping_rate");
+                    $rateItem['carrierName'] = $carrierName;
+                    $ratesResult[] = $rateItem;
+                    unset($rateItem);
+                }
+            }
+        } catch (Mage_Core_Exception $e) {
+			echo json_encode ( array (
+					'status' => '0x0003',
+					'message' => $e->getMessage()
+					));
+					return ;
+        }
+		echo json_encode($ratesResult);
+	}
+	
+	protected function _getAttributes($object, $type, array $attributes = null)
+    {
+        $result = array();
+
+        if (!is_object($object)) {
+            return $result;
+        }
+
+        foreach ($object->getData() as $attribute=>$value) {
+            if (is_object($value)) {
+                continue;
+            }
+
+            if ($this->_isAllowedAttribute($attribute, $type, $attributes)) {
+                $result[$attribute] = $value;
+            }
+        }
+
+        foreach ($this->_attributesMap['global'] as $alias=>$attributeCode) {
+            $result[$alias] = $object->getData($attributeCode);
+        }
+
+        if (isset($this->_attributesMap[$type])) {
+            foreach ($this->_attributesMap[$type] as $alias=>$attributeCode) {
+                $result[$alias] = $object->getData($attributeCode);
+            }
+        }
+
+        return $result;
+    }
+	
+	
+	protected function _isAllowedAttribute($attributeCode, $type, array $attributes = null)
+    {
+        if (!empty($attributes)
+            && !(in_array($attributeCode, $attributes))) {
+            return false;
+        }
+
+        if (in_array($attributeCode, $this->_ignoredAttributeCodes['global'])) {
+            return false;
+        }
+
+        if (isset($this->_ignoredAttributeCodes[$type])
+            && in_array($attributeCode, $this->_ignoredAttributeCodes[$type])) {
+            return false;
+        }
+
+        return true;
+    }
+	
+	public function shippingMethodAction(){
+		$quote = Mage::getSingleton('checkout/cart')->getQuote();
+        $quoteShippingAddress = $quote->getShippingAddress();
+        if(is_null($quoteShippingAddress->getId()) ) {
+			echo json_encode ( array (
+					'status' => '0x0002',
+					'message' => 'shipping_address_is_not_set'
+				));
+				return ;
+        }
+		$shippingMethod = $this->getRequest()->getParam ( 'code' );
+        $rate = $quote->getShippingAddress()->collectShippingRates()->getShippingRateByCode($shippingMethod);
+        if (!$rate) {
+			echo json_encode ( array (
+					'status' => '0x0003',
+					'message' => 'shipping_method_is_not_available'
+				));
+				return ;
+        }
+
+        try {
+            $quote->getShippingAddress()->setShippingMethod($shippingMethod);
+            $quote->collectTotals()->save();
+			echo json_encode ( array (
+					'status' => true,
+					'message' => "set shipping method sucessfully"
+				));
+				return ;
+        } catch(Mage_Core_Exception $e) {
+			echo json_encode ( array (
+					'status' => '0x0004',
+					'message' => $e->getMessage()
+				));
+				return ;
+        }
+
+        return true;
+	
+	}
+	
+	public function orderAction(){
+		
+		$requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
+        if (!empty($requiredAgreements)) {
+            $diff = array_diff($agreements, $requiredAgreements);
+            if (!empty($diff)) {$this->_fault('required_agreements_are_not_all');
+				echo json_encode ( array (
+					'status' => '0x0002',
+					'message' => 'required_agreements_are_not_all'
+				));
+				return ;
+            }
+        }
+
+        $quote = Mage::getSingleton('checkout/cart')->getQuote();
+        if ($quote->getIsMultiShipping()) {
+			echo json_encode ( array (
+					'status' => '0x0003',
+					'message' => 'invalid_checkout_type'
+				));
+				return ;
+        }
+        if ($quote->getCheckoutMethod() == Mage_Checkout_Model_Api_Resource_Customer::MODE_GUEST
+                && !Mage::helper('checkout')->isAllowedGuestCheckout($quote, $quote->getStoreId())) {
+			echo json_encode ( array (
+					'status' => '0x0004',
+					'message' => 'guest_checkout_is_not_enabled'
+				));
+				return ;
+			
+        }
+
+        /** @var $customerResource Mage_Checkout_Model_Api_Resource_Customer */
+        $customerResource = Mage::getModel("checkout/api_resource_customer");
+        $isNewCustomer = $customerResource->prepareCustomerForQuote($quote);
+
+        try {
+            $quote->collectTotals();
+            /** @var $service Mage_Sales_Model_Service_Quote */
+            $service = Mage::getModel('sales/service_quote', $quote);
+            $service->submitAll();
+
+            if ($isNewCustomer) {
+                try {
+                    $customerResource->involveNewCustomer($quote);
+                } catch (Exception $e) {
+                    Mage::logException($e);
+                }
+            }
+
+            $order = $service->getOrder();
+            if ($order) {
+                Mage::dispatchEvent('checkout_type_onepage_save_order_after',
+                    array('order' => $order, 'quote' => $quote));
+
+                try {
+                    $order->queueNewOrderEmail();
+					
+                } catch (Exception $e) {
+                    Mage::logException($e);
+                }
+            }
+
+            Mage::dispatchEvent(
+                'checkout_submit_all_after',
+                array('order' => $order, 'quote' => $quote)
+            );
+			echo json_encode ( array (
+					'status' => true,
+					'message' => 'creat order sucessfully'
+				));
+				return ;
+        } catch (Mage_Core_Exception $e) {
+			echo json_encode ( array (
+					'status' => '0x0005',
+					'message' => $e->getMessage()
+				));
+				return ;
+        }
+	}
+	
+	public function licenseAction(){
+        $quote = Mage::getSingleton('checkout/cart')->getQuote();
+        $storeId = $quote->getStoreId();
+
+        $agreements = array();
+        if (Mage::getStoreConfigFlag('checkout/options/enable_agreements')) {
+            $agreementsCollection = Mage::getModel('checkout/agreement')->getCollection()
+                    ->addStoreFilter($storeId)
+                    ->addFieldToFilter('is_active', 1);
+
+            foreach ($agreementsCollection as $_a) {
+                /** @var $_a  Mage_Checkout_Model_Agreement */
+                $agreements[] = $this->_getAttributes($_a, "quote_agreement");
+            }
+        }
+		echo json_encode($agreements);
+	}
 } 
