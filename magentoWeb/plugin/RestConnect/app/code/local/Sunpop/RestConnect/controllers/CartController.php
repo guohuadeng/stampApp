@@ -482,7 +482,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 					'code' => '0x0001',
 					'message' => 'customer_not_set' 
 				));
-				return ；
+				return ;
         }
         return true;
 	}

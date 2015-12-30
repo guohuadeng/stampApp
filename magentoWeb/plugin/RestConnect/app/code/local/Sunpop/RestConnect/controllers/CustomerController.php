@@ -309,14 +309,13 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
                     $row[$attributeCode] = $data[$attributeCode];
                 }
             }
-
+			$row['custome_address_id'] = $address->getId();
             $row['is_default_billing'] = $customer->getDefaultBilling() == $address->getId();
             $row['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();
 			//$result['id']=$address->getId();
             $result[] = $row;
 
         }
-
         echo json_encode($result);
 		return ;
 	}
