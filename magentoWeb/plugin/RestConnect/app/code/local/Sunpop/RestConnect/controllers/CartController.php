@@ -204,6 +204,43 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		}
 		echo json_encode ( array_merge ( $messages, $this->_getCartTotal () ) );
 	}
+	public function cartInfoAction(){
+		$quote = Mage::getSingleton('checkout/cart')->getQuote();
+		 if ($quote->getGiftMessageId() > 0) {
+            $quote->setGiftMessage(
+                Mage::getSingleton('giftmessage/message')->load($quote->getGiftMessageId())->getMessage()
+            );
+        }
+
+        $result = $this->_getAttributes($quote, 'quote');
+        $result['shipping_address'] = $this->_getAttributes($quote->getShippingAddress(), 'quote_address');
+        $result['billing_address'] = $this->_getAttributes($quote->getBillingAddress(), 'quote_address');
+        $result['items'] = array();
+
+        foreach ($quote->getAllItems() as $i => $item) {
+            if ($item->getGiftMessageId() > 0) {
+                $item->setGiftMessage(
+                    Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage()
+                );
+            }
+
+            $result['items'][$i] = $this->_getAttributes($item, 'quote_item');
+			$_customOptions = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct());
+			$cuoptions = array();
+			foreach($_customOptions['options'] as $j => $option){
+					foreach($option as $index=>$p){
+						$cuoptions[$j][$index] = urlencode($p);
+					}
+				}
+            $result['items'][$i]['custom_option'] = $cuoptions;
+			//print_r($_customOptions['options']);
+        }
+
+        $result['payment'] = $this->_getAttributes($quote->getPayment(), 'quote_payment');
+		$result = Mage::helper('core')->jsonEncode($result);
+		$this->getResponse()->setBody(urldecode($result));
+	}
+	
 	protected function _getCartInformation() {
 		$cart = Mage::getSingleton ( 'checkout/cart' );
 		if ($cart->getQuote ()->getItemsCount ()) {

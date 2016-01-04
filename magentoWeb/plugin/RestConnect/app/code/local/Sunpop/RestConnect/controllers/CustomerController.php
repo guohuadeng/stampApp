@@ -247,6 +247,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
         }
 
         $result = array();
+		$result['customer_id'] = $customer->getId();
 		$resource = new Mage_Customer_Model_Api_Resource;
         foreach ($resource->_mapAttributes as $attributeAlias=>$attributeCode) {
             $result[$attributeAlias] = $customer->getData($attributeCode);
@@ -255,7 +256,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
         foreach ($resource->getAllowedAttributes($customer, $attributes) as $attributeCode=>$attribute) {
             $result[$attributeCode] = $customer->getData($attributeCode);
         }
-
+		
         echo json_encode ( $result );
 	} 
 	
@@ -407,7 +408,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 				return ;
 			}
 			$result = array();
-
+			$result['address_id'] = $addressid;
 			foreach ($resource->_mapAttributes as $attributeAlias => $attributeCode) {
 				$result[$attributeAlias] = $address->getData($attributeCode);
 			}
