@@ -24,15 +24,15 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		$customerinfo = array ();
 		if (Mage::getSingleton ( 'customer/session' )->isLoggedIn ()) {
 			$customer = Mage::getSingleton ( 'customer/session' )->getCustomer ();
-			$storeUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); 
-			$avatar = $customer->getMyAvatar (); 
+			$storeUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+			$avatar = $customer->getAvatar ();
 			if (isset($avatar))
-				$avatar = $storeUrl . "customer" . $customer->getMyAvatar ();
+				$avatar = $storeUrl . "customer" . $customer->getAvatar ();
 			$customerinfo = array (
 					'name' => $customer->getName (),
 					'email' => $customer->getEmail (),
 					'avatar' => $avatar,
-					'tel' => $customer->getDefaultMobileNumber () 
+					'tel' => $customer->getDefaultMobileNumber ()
 			);
 			echo json_encode ( $customerinfo );
 		} else
@@ -58,33 +58,33 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 					$message = Mage::helper ( 'customer' )->__ ( 'This account is not confirmed. <a href="%s">Click here</a> to resend confirmation email.', $value );
 					echo json_encode ( array (
 							'code' => $e->getCode (),
-							'message' => $message 
+							'message' => $message
 					) );
 					break;
 				case Mage_Customer_Model_Customer::EXCEPTION_INVALID_EMAIL_OR_PASSWORD :
 					$message = $e->getMessage ();
 					echo json_encode ( array (
 							'code' => $e->getCode (),
-							'message' => $message 
+							'message' => $message
 					) );
 					break;
 				default :
 					$message = $e->getMessage ();
 					echo json_encode ( array (
 							'code' => $e->getCode (),
-							'message' => $message 
+							'message' => $message
 					) );
 			}
 		}
 	}
 	public function registerAction() {
 		$params = Mage::app ()->getRequest ()->getParams ();
-		
+
 		$session = Mage::getSingleton ( 'customer/session' );
 		$session->setEscapeMessages ( true );
-		
+
 		$customer = Mage::registry ( 'current_customer' );
-		
+
 		$errors = array ();
 		if (is_null ( $customer )) {
 			$customer = Mage::getModel ( 'customer/customer' )->setId ( null );
@@ -116,6 +116,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			$customer->setData ( 'email', $params ['email'] );
 			$customer->setData ( 'gender', $params ['gender'] );
 			$customer->setData ( 'default_mobile_number', $params ['default_mobile_number'] );
+			$customer->setData ( 'avatar', $params ['avatar'] );
 			$validationResult = count ( $errors ) == 0;
 			if (true === $validationResult) {
 				$customer->save ();
@@ -125,7 +126,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 					$session->setCustomerAsLoggedIn ( $customer );
 					$customer->sendNewAccountEmail ( 'registered', '', Mage::app ()->getStore ()->getId () );
 				}
-				
+
 				$addressData = $session->getGuestAddress ();
 				if ($addressData && $customer->getId ()) {
 					$address = Mage::getModel ( 'customer/address' );
@@ -134,17 +135,17 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 					$address->save ();
 					$session->unsGuestAddress ();
 				}
-				
+
 				echo json_encode ( array (
 						true,
 						'0x0000',
-						array () 
+						array ()
 				) );
 			} else {
 				echo json_encode ( array (
 						false,
 						'0x1000',
-						$errors 
+						$errors
 				) );
 			}
 		} catch ( Mage_Core_Exception $e ) {
@@ -164,7 +165,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 					'0x1000',
 					array (
 							$message
-					) 
+					)
 			) );
 		} catch ( Exception $e ) {
 			echo json_encode ( array (
@@ -184,7 +185,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
  		if ($this->_user_isexists ( $email )) {
 			$customer = Mage::getModel ( 'customer/customer' )->setWebsiteId ( Mage::app ()->getStore ()->getWebsiteId () )->loadByEmail ( $email );
 			$this->_sendEmailTemplate ( $customer,self::XML_PATH_FORGOT_EMAIL_TEMPLATE, self::XML_PATH_FORGOT_EMAIL_IDENTITY, array (
-					'customer' => $customer 
+					'customer' => $customer
 			), $storeId );
 			echo json_encode ( array (
 					'code' => '0x0000',
@@ -193,7 +194,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		} else
 			echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'No matched email data.' 
+					'message' => 'No matched email data.'
 			) );
 	}
 	public function logoutAction() {
@@ -211,7 +212,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		$result = array (
 				true,
 				'0x0000',
-				$info 
+				$info
 		);
 		return $customer->getId () > 0;
 	}
@@ -222,7 +223,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		$emailInfo = Mage::getModel('core/email_info');
 		$emailInfo->addTo($customer->getEmail(), $customer->getName());
 		$mailer->addEmailInfo($emailInfo);
-	
+
 		// Set all required params and send emails
 		$mailer->setSender(Mage::getStoreConfig($sender, $storeId));
 		$mailer->setStoreId($storeId);
@@ -237,7 +238,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		if (!$customer->getId()) {
             echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'not_exists' 
+					'message' => 'not_exists'
 			));
 			return ;
         }
@@ -256,16 +257,16 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
         foreach ($resource->getAllowedAttributes($customer, $attributes) as $attributeCode=>$attribute) {
             $result[$attributeCode] = $customer->getData($attributeCode);
         }
-		
+
         echo json_encode ( $result );
-	} 
-	
+	}
+
 	public function updateAction(){
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		if (!$customer->getId()) {
            echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'not_exists' 
+					'message' => 'not_exists'
 			));
 			return ;
         }
@@ -280,17 +281,17 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
         $customer->save();
          echo json_encode ( array (
 					'status' => true,
-					'message' => 'Save successfully' 
+					'message' => 'Save successfully'
 			));
 			return ;
 	}
-	
+
 	public function addressListAction(){
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		if (!$customer->getId()) {
 			echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'customer_not_exists' 
+					'message' => 'customer_not_exists'
 			));
 			return ;
         }
@@ -320,13 +321,13 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
         echo json_encode($result);
 		return ;
 	}
-	
+
 	public function addressCreateAction(){
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		if (!$customer->getId()) {
 			echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'customer_not_exists' 
+					'message' => 'customer_not_exists'
 			));
 			return ;
         }
@@ -355,7 +356,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
         if (is_array($valid)) {
 			echo json_encode ( array (
 					'code' => '0x0001',
-					'message' =>  implode("\n", $valid) 
+					'message' =>  implode("\n", $valid)
 			));
 			return ;
         }
@@ -365,45 +366,45 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
 					'code' => '0x0001',
-					'message' =>  $e->getMessage() 
+					'message' =>  $e->getMessage()
 			));
 			return ;
         }
-		
+
 		echo json_encode ( array (
 					'status' => true,
-					'message' => 'Update successfully' 
+					'message' => 'Update successfully'
 			));
 			return ;
 	}
-	
+
 	public function addressInfoAction(){
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		if (!$customer->getId()) {
 			echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'customer_not_exists' 
+					'message' => 'customer_not_exists'
 			));
 			return ;
         }
 		$addressid = ( int ) $this->getRequest ()->getParam('address_id');
 		$resource = new Mage_Customer_Model_Api_Resource;
-		
+
 		if($addressid){
 			$address = Mage::getModel('customer/address')
 				->load($addressid);
-			
+
 			if (!$address->getId()) {
 				echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'address_not_exists' 
+					'message' => 'address_not_exists'
 				));
 				return ;
 			}
 			if($address->getParentId() != $customer->getId()){
 				echo json_encode ( array (
 					'code' => '0x0002',
-					'message' => 'Addresses are not current customers' 
+					'message' => 'Addresses are not current customers'
 				));
 				return ;
 			}
@@ -427,18 +428,18 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		}else{
 			echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'address_id_not_exists' 
+					'message' => 'address_id_not_exists'
 			));
 			return ;
 		}
 	}
-	
+
 	public function addressUpdateAction(){
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		if (!$customer->getId()) {
 			echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'customer_not_exists' 
+					'message' => 'customer_not_exists'
 			));
 			return ;
         }
@@ -447,18 +448,18 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		if($addressid){
 			$address = Mage::getModel('customer/address')
 				->load($addressid);
-			
+
 			if (!$address->getId()) {
 				echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'address_not_exists' 
+					'message' => 'address_not_exists'
 				));
 				return ;
 			}
 			if($address->getParentId() != $customer->getId()){
 				echo json_encode ( array (
 					'code' => '0x0002',
-					'message' => 'Addresses are not current customers' 
+					'message' => 'Addresses are not current customers'
 				));
 				return ;
 			}
@@ -486,7 +487,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 				$address->save();
 				echo json_encode ( array (
 					'status' => true,
-					'message' => 'address update successfully' 
+					'message' => 'address update successfully'
 				));
 				return ;
 			} catch (Mage_Core_Exception $e) {
@@ -495,18 +496,18 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		}else{
 			echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'address_id_not_exists' 
+					'message' => 'address_id_not_exists'
 			));
 			return ;
 		}
 	}
-	
+
 	public function addressDeleteAction(){
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		if (!$customer->getId()) {
 			echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'customer_not_exists' 
+					'message' => 'customer_not_exists'
 			));
 			return ;
         }
@@ -515,27 +516,27 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		if($addressid){
 			$address = Mage::getModel('customer/address')
 				->load($addressid);
-			
+
 			if (!$address->getId()) {
 				echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'address_not_exists' 
+					'message' => 'address_not_exists'
 				));
 				return ;
 			}
 			if($address->getParentId() != $customer->getId()){
 				echo json_encode ( array (
 					'code' => '0x0002',
-					'message' => 'Addresses are not current customers' 
+					'message' => 'Addresses are not current customers'
 				));
 				return ;
 			}
-			
+
 			try {
 				$address->delete();
 				echo json_encode ( array (
 					'status' => true,
-					'message' => 'address delete successfully' 
+					'message' => 'address delete successfully'
 				));
 				return ;
 			} catch (Mage_Core_Exception $e) {
@@ -544,9 +545,9 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		}else{
 			echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'address_id_not_exists' 
+					'message' => 'address_id_not_exists'
 			));
 			return ;
 		}
 	}
-} 
+}
