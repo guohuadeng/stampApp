@@ -47,7 +47,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		$password = Mage::app ()->getRequest ()->getParam ( 'password' );
 		try {
 			if (! $session->login ( $username, $password )) {
-				echo 'wrong username or password.';
+				echo Mage::helper ( 'customer' )->__ ('Invalid login or password.');
 			} else {
 				echo $this->statusAction ();
 			}
@@ -96,7 +96,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			echo json_encode ( array (
 					false,
 					'0x1100',
-					'empty password or email.'
+					Mage::helper ( 'customer' )->__ ('empty password or email.')
 			) );
 			return ;
 		}
@@ -154,7 +154,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 				$message = $this->__ ( 'There is already an account with this email address. If you are sure that it is your email address, <a href="%s">click here</a> to get your password and access your account.', $url );
 				$session->setEscapeMessages ( false );
 			} else {
-				$message = $this->__( $e->getMessage () );
+				$message = Mage::helper ( 'customer' )->__ ( $e->getMessage () );
 				//中文翻译有问题，故手工代码
 				$message = str_replace("Please specify different value for","存在相同的注册信息，请输入一个不同的值", $message);
 				$message = str_replace("attribute. Customer with such value already exists.","。", $message);
@@ -189,12 +189,12 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			), $storeId );
 			echo json_encode ( array (
 					'code' => '0x0000',
-					'message' => 'Request has sent to your Email.'
+					'message' => Mage::helper ( 'customer' )->__ ('Request has sent to your Email.')
 			) );
 		} else
 			echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'No matched email data.'
+					'message' => Mage::helper ( 'customer' )->__ ('No matched email data.')
 			) );
 	}
 	public function logoutAction() {
@@ -238,7 +238,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		if (!$customer->getId()) {
             echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'not_exists'
+					'message' => Mage::helper ( 'customer' )->__ ('not_exists')
 			));
 			return ;
         }
@@ -266,7 +266,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		if (!$customer->getId()) {
            echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'not_exists'
+					'message' => Mage::helper ( 'customer' )->__ ('not_exists')
 			));
 			return ;
         }
@@ -281,9 +281,81 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
         $customer->save();
          echo json_encode ( array (
 					'status' => true,
-					'message' => 'Save successfully'
+					'message' => Mage::helper ( 'customer' )->__ ('Save successfully')
 			));
 			return ;
+	}
+
+	public function chanagePasswordAction(){
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+           echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => Mage::helper ( 'customer' )->__ ('customer_not_login')
+			));
+			return ;
+        }
+
+		$params = $this->getRequest ()->getParams();
+		if(!count($params)){
+			 echo json_encode ( array (
+					'code' => '0x0003',
+					'message' => Mage::helper ( 'customer' )->__ ('The password cannot be empty.')
+			));
+			return ;
+		}
+		if(!$params['oldpassword']){
+			echo json_encode ( array (
+					'code' => '0x0004',
+					'message' => Mage::helper ( 'customer' )->__ ('The password cannot be empty.')
+			));
+			return ;
+		}
+		if(!$params['newpassword']){
+			echo json_encode ( array (
+					'code' => '0x0001',
+					'message' => Mage::helper ( 'customer' )->__ ('The password cannot be empty.')
+			));
+			return ;
+		}
+		$websiteId = $customer->getWebsiteId();
+		$email = $customer->getEmail();
+		$oldpassword = $params['oldpassword'];
+		$newpassword = $params['newpassword'];
+		$validate = 0;
+		try {
+			$login_customer_result = Mage::getModel('customer/customer')->setWebsiteId($websiteId)->authenticate($email, $oldpassword);
+			$validate = 1;
+		}
+		catch(Exception $ex) {
+			$validate = 0;
+		}
+		if($validate == 1) {
+			 try {
+				$customer->setPassword($newpassword);
+				$customer->save();
+				echo json_encode ( array (
+						'code' => '0x0006',
+						'message' => Mage::helper ( 'customer' )->__ ('Your Password has been Changed Successfully')
+				));
+				return ;
+			 }
+			 catch(Exception $ex) {
+				echo json_encode ( array (
+						'code' => '0x0006',
+						'message' => $ex->getMessage()
+				));
+				return ;
+			 }
+		}
+		else {
+			echo json_encode ( array (
+					'code' => '0x0006',
+					'message' => Mage::helper ( 'customer' )->__ ('Invalid current password')
+			));
+			return ;
+		}
+		return ;
 	}
 
 	public function addressListAction(){
@@ -373,7 +445,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 
 		echo json_encode ( array (
 					'status' => true,
-					'message' => 'Update successfully'
+					'message' => Mage::helper ( 'customer' )->__ ('Update successfully')
 			));
 			return ;
 	}
@@ -397,14 +469,14 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			if (!$address->getId()) {
 				echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'address_not_exists'
+					'message' => Mage::helper ( 'customer' )->__ ('address_not_exists')
 				));
 				return ;
 			}
 			if($address->getParentId() != $customer->getId()){
 				echo json_encode ( array (
 					'code' => '0x0002',
-					'message' => 'Addresses are not current customers'
+					'message' => Mage::helper ( 'customer' )->__ ('Addresses are not current customers')
 				));
 				return ;
 			}
@@ -459,7 +531,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			if($address->getParentId() != $customer->getId()){
 				echo json_encode ( array (
 					'code' => '0x0002',
-					'message' => 'Addresses are not current customers'
+					'message' => Mage::helper ( 'customer' )->__ ('Addresses are not current customers')
 				));
 				return ;
 			}
@@ -487,7 +559,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 				$address->save();
 				echo json_encode ( array (
 					'status' => true,
-					'message' => 'address update successfully'
+					'message' => Mage::helper ( 'customer' )->__ ('address update successfully')
 				));
 				return ;
 			} catch (Mage_Core_Exception $e) {
@@ -527,7 +599,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			if($address->getParentId() != $customer->getId()){
 				echo json_encode ( array (
 					'code' => '0x0002',
-					'message' => 'Addresses are not current customers'
+					'message' => Mage::helper ( 'customer' )->__ ('Addresses are not current customers')
 				));
 				return ;
 			}

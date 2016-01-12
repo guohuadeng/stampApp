@@ -35,11 +35,7 @@
     };
 
     var _setWidgetVisibility = $ax.visibility.SetWidgetVisibility = function(elementId, options) {
-        // If limboed, just fire the next action then leave.
-        if(_limboIds[elementId]) {
-            $ax.action.fireAnimationFromQueue(elementId);
-            return;
-        }
+        if(_limboIds[elementId]) return; // do nothing if we set visibility on a limbo id
 
         var parentId = $jobj(elementId).parent().attr('id');
         _setVisibility(parentId, elementId, options);
@@ -221,7 +217,6 @@
             $ax.dynamicPanelManager.updatePanelContentPercentWidth(id);
             $ax.action.fireAnimationFromQueue(id);
             $ax.event.raiseSyntheticEvent(id, "onPanelStateChange");
-            $ax.event.leavingState(oldStateId);
         };
         // Must do state out first, so if we cull by new state, location is correct
         _setVisibility(id, oldStateId, {

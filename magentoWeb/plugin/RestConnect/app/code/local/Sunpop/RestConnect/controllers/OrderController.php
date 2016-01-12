@@ -1,66 +1,111 @@
-<?php 
-	class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Action {
-		
-		protected $_attributesMap = array(
-				'order' => array('order_id' => 'entity_id'),
-				'order_address' => array('address_id' => 'entity_id'),
-				'order_payment' => array('payment_id' => 'entity_id'),
-				'shipment' =>  array('shipment_id' => 'entity_id')
-			);
-		
-		protected $_ignoredAttributeCodes = array(
+<?php
+class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Action {
+
+	protected $_attributesMap = array(
+			'order' => array('order_id' => 'entity_id'),
+			'order_address' => array('address_id' => 'entity_id'),
+			'order_payment' => array('payment_id' => 'entity_id'),
+			'shipment' =>  array('shipment_id' => 'entity_id'),
+			'invoice' => array('invoice_id' => 'entity_id'),
+			'invoice_item' => array('item_id' => 'entity_id'),
+			'invoice_comment' => array('comment_id' => 'entity_id')
+		);
+
+	protected $_ignoredAttributeCodes = array(
         'global'    =>  array('entity_id', 'attribute_set_id', 'entity_type_id')
 		);
-		public function listAction(){
-			 $orders = array();
+	public function listAction(){
 
-        //TODO: add full name logic
-        $billingAliasName = 'billing_o_a';
-        $shippingAliasName = 'shipping_o_a';
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+		   echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'customer_not_login'
+			));
+			return ;
+		}
+		$customer_id = $customer->getId();
 
-        /** @var $orderCollection Mage_Sales_Model_Mysql4_Order_Collection */
-        $orderCollection = Mage::getModel("sales/order")->getCollection();
-        $billingFirstnameField = "$billingAliasName.firstname";
-        $billingLastnameField = "$billingAliasName.lastname";
-        $shippingFirstnameField = "$shippingAliasName.firstname";
-        $shippingLastnameField = "$shippingAliasName.lastname";
-        $orderCollection->addAttributeToSelect('*')
-            ->addAddressFields()
-            ->addExpressionFieldToSelect('billing_firstname', "{{billing_firstname}}",
-                array('billing_firstname' => $billingFirstnameField))
-            ->addExpressionFieldToSelect('billing_lastname', "{{billing_lastname}}",
-                array('billing_lastname' => $billingLastnameField))
-            ->addExpressionFieldToSelect('shipping_firstname', "{{shipping_firstname}}",
-                array('shipping_firstname' => $shippingFirstnameField))
-            ->addExpressionFieldToSelect('shipping_lastname', "{{shipping_lastname}}",
-                array('shipping_lastname' => $shippingLastnameField))
-            ->addExpressionFieldToSelect('billing_name', "CONCAT({{billing_firstname}}, ' ', {{billing_lastname}})",
-                array('billing_firstname' => $billingFirstnameField, 'billing_lastname' => $billingLastnameField))
-            ->addExpressionFieldToSelect('shipping_name', 'CONCAT({{shipping_firstname}}, " ", {{shipping_lastname}})',
-                array('shipping_firstname' => $shippingFirstnameField, 'shipping_lastname' => $shippingLastnameField)
-        );
+		$orders = array();
 
-        /** @var $apiHelper Mage_Api_Helper_Data */
-        $apiHelper = Mage::helper('api');
+		//TODO: add full name logic
+		$billingAliasName = 'billing_o_a';
+		$shippingAliasName = 'shipping_o_a';
+
+		/** @var $orderCollection Mage_Sales_Model_Mysql4_Order_Collection */
+		$orderCollection = Mage::getModel("sales/order")->getCollection();
+		$billingFirstnameField = "$billingAliasName.firstname";
+		$billingLastnameField = "$billingAliasName.lastname";
+		$shippingFirstnameField = "$shippingAliasName.firstname";
+		$shippingLastnameField = "$shippingAliasName.lastname";
+		$orderCollection->addAttributeToSelect('*')
+			->addAddressFields()
+			->addExpressionFieldToSelect('billing_firstname', "{{billing_firstname}}",
+				array('billing_firstname' => $billingFirstnameField))
+			->addExpressionFieldToSelect('billing_lastname', "{{billing_lastname}}",
+				array('billing_lastname' => $billingLastnameField))
+			->addExpressionFieldToSelect('shipping_firstname', "{{shipping_firstname}}",
+				array('shipping_firstname' => $shippingFirstnameField))
+			->addExpressionFieldToSelect('shipping_lastname', "{{shipping_lastname}}",
+				array('shipping_lastname' => $shippingLastnameField))
+			->addExpressionFieldToSelect('billing_name', "CONCAT({{billing_firstname}}, ' ', {{billing_lastname}})",
+				array('billing_firstname' => $billingFirstnameField, 'billing_lastname' => $billingLastnameField))
+			->addExpressionFieldToSelect('shipping_name', 'CONCAT({{shipping_firstname}}, " ", {{shipping_lastname}})',
+				array('shipping_firstname' => $shippingFirstnameField, 'shipping_lastname' => $shippingLastnameField)
+		);
+
+		/** @var $apiHelper Mage_Api_Helper_Data */
+		$apiHelper = Mage::helper('api');
 		$filters = $this->getRequest()->getParams();
-        $filters = $apiHelper->parseFilters($filters, $_attributesMap['order']);
-        try {
-            foreach ($filters as $field => $value) {
-                $orderCollection->addFieldToFilter($field, $value);
-            }
-        } catch (Mage_Core_Exception $e) {
+		$filters = $apiHelper->parseFilters($filters, $_attributesMap['order']);
+		try {
+			foreach ($filters as $field => $value) {
+				$orderCollection->addFieldToFilter($field, $value);
+			}
+			$orderCollection->addFieldToFilter('customer_id',$customer_id);
+		} catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
 					'status' => '0x0002',
 					'message' => $e->getMessage()
 				));
 				return ;
-        }
-        foreach ($orderCollection as $order) {
-            $orders[] = $this->_getAttributes($order, 'order');
-        }
+		}
+		foreach ($orderCollection as $order) {
+
+			$data = $this->_getAttributes($order, 'order');
+			$shipment = $order->getShipmentsCollection()->getFirstItem();
+			$data['shipment_increment_id'] = $shipmentIncrementId = $shipment->getIncrementId();
+			$data['invoice_increment_id'] = null;
+			if ($order->hasInvoices()) {
+				$invIncrementIDs = array();
+				foreach ($order->getInvoiceCollection() as $inv) {
+					$data['invoice_increment_id'] = $inv->getIncrementId();
+				}
+			}
+			$productname = array();
+			foreach ($order->getAllItems() as $i=>$item){
+				$productid = $item->getProduct()->getId();
+				$_product = Mage::getModel('catalog/product')->load($productid);
+				//print_r($_product->getData());exit;
+				$productname[$i]['name']= $item->getName();
+				$productname[$i]['price']= $item->getPrice();
+
+				if(($_product->getImage() == 'no_selection') || (!$_product->getImage())){
+					$productname[$i]['image_url']= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/base/default/images/catalog/product/placeholder/image.jpg';
+				  $productname[$i]['image_thumbnail_url']=  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/base/default/images/catalog/product/placeholder/image.jpg';
+				}else{
+					$productname[$i]['image_url']= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $_product->getImage();
+					$productname[$i]['image_thumbnail_url'] = Mage::getModel ( 'catalog/product_media_config' )->getMediaUrl( $_product->getThumbnail() );
+				}
+			}
+			$data['products'] = $productname;
+			$orders[] = $data;
+
+
+		}
 		echo json_encode($orders);
 	}
-	
+
 	protected function _getAttributes($object, $type, array $attributes = null)
     {
         $result = array();
@@ -89,7 +134,7 @@
 
         return $result;
     }
-	
+
 	protected function _isAllowedAttribute($attributeCode, $type, array $attributes = null)
     {
         if (!empty($attributes)
@@ -108,11 +153,31 @@
 
         return true;
     }
-	
+
 	public function infoAction(){
+
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+		   echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'customer_not_login'
+			));
+			return ;
+		}
+		$customer_id = $customer->getId();
+
 		$increment_id = $this->getRequest()->getParam('increment_id');
 		$order = $this->_initOrder($increment_id);
-		
+		$order_customer_id = $order->getCustomerId();
+		if($customer_id!=$order_customer_id){
+			echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'Order increment_id Error'
+			));
+			return ;
+		}
+
+
 		if ($order->getGiftMessageId() > 0) {
             $order->setGiftMessage(
                 Mage::getSingleton('giftmessage/message')->load($order->getGiftMessageId())->getMessage()
@@ -142,9 +207,18 @@
         foreach ($order->getAllStatusHistory() as $history) {
             $result['status_history'][] = $this->_getAttributes($history, 'order_status_history');
         }
+		$shipment = $order->getShipmentsCollection()->getFirstItem();
+		$result['shipment_increment_id'] = $shipmentIncrementId = $shipment->getIncrementId();
+		$result['invoice_increment_id'] = '';
+		if ($order->hasInvoices()) {
+			$invIncrementIDs = array();
+			foreach ($order->getInvoiceCollection() as $inv) {
+				$result['invoice_increment_id'] = $inv->getIncrementId();
+			}
+		}
 		echo json_encode($result);
 	}
-	
+
 	protected function _initOrder($orderIncrementId)
     {
         $order = Mage::getModel('sales/order');
@@ -156,20 +230,20 @@
         if (!$order->getId()) {
 			echo json_encode ( array (
 					'code' => '0x0002',
-					'message' => 'not_exists' 
+					'message' => 'not_exists'
 			));
 			return ;
         }
 
         return $order;
     }
-	
+
 	public function addCommentAction(){
 		$increment_id = $this->getRequest()->getParam('increment_id');
 		$status = $this->getRequest()->getParam('status');
 		$comment = $this->getRequest()->getParam('comment');
 		$order = $this->_initOrder($increment_id);
-		
+
 		$historyItem = $order->addStatusHistoryComment($comment, $status);
         $historyItem->setIsCustomerNotified($notify)->save();
 
@@ -201,14 +275,21 @@
 			return ;
         }
 	}
-	
+
 	public function shipmentListAction(){
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+		   echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'customer_not_login'
+			));
+			return ;
+		}
+		$customer_id = $customer->getId();
 		$shipments = array();
         //TODO: add full name logic
         $shipmentCollection = Mage::getResourceModel('sales/order_shipment_collection')
-            ->addAttributeToSelect('increment_id')
-            ->addAttributeToSelect('created_at')
-            ->addAttributeToSelect('total_qty')
+            ->addAttributeToSelect('*')
             ->joinAttribute('shipping_firstname', 'order_address/firstname', 'shipping_address_id', null, 'left')
             ->joinAttribute('shipping_lastname', 'order_address/lastname', 'shipping_address_id', null, 'left')
             ->joinAttribute('order_increment_id', 'order/increment_id', 'order_id', null, 'left')
@@ -221,6 +302,7 @@
             foreach ($filters as $field => $value) {
                 $shipmentCollection->addFieldToFilter($field, $value);
             }
+			$shipmentCollection->addFieldToFilter('customer_id',$customer_id);
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
 					'code' => '0x0002',
@@ -229,15 +311,52 @@
 			return ;
         }
         foreach ($shipmentCollection as $shipment) {
-            $shipments[] = $this->_getAttributes($shipment, 'shipment');
+			$ship = $this->_getAttributes($shipment, 'shipment');
+			$order = $shipment->getOrder();
+			$ship['order_increment_id'] = $order->getIncrementId();
+
+			$productname = array();
+			foreach ($order->getAllItems() as $i=>$item){
+				$productid = $item->getProduct()->getId();
+				$_product = Mage::getModel('catalog/product')->load($productid);
+				//print_r($_product->getData());exit;
+				$productname[$i]['name']= $item->getName();
+				$productname[$i]['price']= $item->getPrice();
+
+				if(($_product->getImage() == 'no_selection') || (!$_product->getImage())){
+					$productname[$i]['image_url']= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/base/default/images/catalog/product/placeholder/image.jpg';
+				  $productname[$i]['image_thumbnail_url']=  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/base/default/images/catalog/product/placeholder/image.jpg';
+				}else{
+					$productname[$i]['image_url']= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $_product->getImage();
+					$productname[$i]['image_thumbnail_url'] = Mage::getModel ( 'catalog/product_media_config' )->getMediaUrl( $_product->getThumbnail() );
+				}
+			}
+			$ship['products'] = $productname;
+
+            $shipments[] = $ship;
         }
 		echo json_encode($shipments);
 	}
 	public function shipmentInfoAction(){
-		
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+		   echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'customer_not_login'
+			));
+			return ;
+		}
+		$customer_id = $customer->getId();
 		$shipmentIncrementId = $this->getRequest()->getParam("shipment_increment_id");
 		$shipment = Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
-
+		$shipment_customer_id = $shipment->getCustomerId();
+		if($shipment_customer_id!=$customer_id){
+			echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'shipment increment_id Error'
+			));
+			return ;
+		}
         /* @var $shipment Mage_Sales_Model_Order_Shipment */
 
         if (!$shipment->getId()) {
@@ -249,7 +368,8 @@
         }
 
         $result = $this->_getAttributes($shipment, 'shipment');
-
+		$order = $shipment->getOrder();
+		$result['order_increment_id'] = $order->getIncrementId();
         $result['items'] = array();
         foreach ($shipment->getAllItems() as $item) {
             $result['items'][] = $this->_getAttributes($item, 'shipment_item');
@@ -264,7 +384,129 @@
         foreach ($shipment->getCommentsCollection() as $comment) {
             $result['comments'][] = $this->_getAttributes($comment, 'shipment_comment');
         }
+		//print_r($result);
+		echo json_encode($result);
 		//echo json_encode($result);
+	}
+	/*
+	* filters param string increment_id ,string created_at ,string order_currency_code ,string order_id,string state(Order state),string grand_total(Grand total amount invoiced) ,string invoice_id
+	*
+	*
+	*/
+
+	public function invoiceListAction(){
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+		   echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'customer_not_login'
+			));
+			return ;
+		}
+		$customer_id = $customer->getId();
+
+		$invoices = array();
+        /** @var $invoiceCollection Mage_Sales_Model_Mysql4_Order_Invoice_Collection */
+        $invoiceCollection = Mage::getResourceModel('sales/order_invoice_collection');
+        $invoiceCollection->addAttributeToSelect('entity_id')
+            ->addAttributeToSelect('*');
+		$filters = $this->getRequest()->getParams();
+        /** @var $apiHelper Mage_Api_Helper_Data */
+        $apiHelper = Mage::helper('api');
+        try {
+            $filters = $apiHelper->parseFilters($filters, $this->_attributesMap['invoice']);
+            foreach ($filters as $field => $value) {
+                $invoiceCollection->addFieldToFilter($field, $value);
+            }
+        } catch (Mage_Core_Exception $e) {
+			echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => $e->getMessage()
+			));
+			return ;
+        }
+        foreach ($invoiceCollection as $invoice) {
+			$invoi = $this->_getAttributes($invoice, 'invoice');
+			$invoi['order_increment_id'] = $invoice->getOrderIncrementId();
+			$orderid = $invoice->getOrderId();
+			$order = Mage::getModel('sales/order')->load($orderid);
+			if($order->getCustomerId() == $customer_id){
+				$productname = array();
+				foreach ($order->getAllItems() as $i=>$item){
+					$productid = $item->getProduct()->getId();
+					$_product = Mage::getModel('catalog/product')->load($productid);
+					//print_r($_product->getData());exit;
+					$productname[$i]['name']= $item->getName();
+					$productname[$i]['price']= $item->getPrice();
+
+
+				if(($_product->getImage() == 'no_selection') || (!$_product->getImage())){
+					$productname[$i]['image_url']= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/base/default/images/catalog/product/placeholder/image.jpg';
+				  $productname[$i]['image_thumbnail_url']=  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/base/default/images/catalog/product/placeholder/image.jpg';
+				}else{
+					$productname[$i]['image_url']= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $_product->getImage();
+					$productname[$i]['image_thumbnail_url'] = Mage::getModel ( 'catalog/product_media_config' )->getMediaUrl( $_product->getThumbnail() );
+				}
+				}
+				$invoi['products'] = $productname;
+				$invoices[] = $invoi;
+			}
+        }
+		echo json_encode($invoices);
+       // return $invoices;
+	}
+	/*
+	* @param int invoice_increment_id
+	*/
+	public function invoiceInfoAction(){
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if (!$customer->getId()) {
+		   echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'customer_not_login'
+			));
+			return ;
+		}
+		$customer_id = $customer->getId();
+
+
+		$invoiceIncrementId = $this->getRequest()->getParam("invoice_increment_id");
+		$invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
+
+		$orderid = $invoice->getOrderId();
+		$order = Mage::getModel('sales/order')->load($orderid);
+		$invoice_customer_id = $order->getCustomerId();
+		if($invoice_customer_id!=$customer_id){
+			echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'invoice increment_id Error'
+			));
+			return ;
+		}
+
+
+        /* @var Mage_Sales_Model_Order_Invoice $invoice */
+
+        if (!$invoice->getId()) {
+			echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'not_exists'
+			));
+			return ;
+        }
+
+        $result = $this->_getAttributes($invoice, 'invoice');
+        $result['order_increment_id'] = $invoice->getOrderIncrementId();
+
+        $result['items'] = array();
+        foreach ($invoice->getAllItems() as $item) {
+            $result['items'][] = $this->_getAttributes($item, 'invoice_item');
+        }
+
+        $result['comments'] = array();
+        foreach ($invoice->getCommentsCollection() as $comment) {
+            $result['comments'][] = $this->_getAttributes($comment, 'invoice_comment');
+        }
 		echo json_encode($result);
 	}
 }

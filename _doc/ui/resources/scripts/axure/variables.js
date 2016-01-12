@@ -6,7 +6,13 @@ $axure.internal(function($ax) {
     $ax.globalVariableProvider = _globalVariableProvider;
 
     var setVariableValue = function(variable, value, suppressBroadcast) {
-        if(!(value instanceof Object)) value = value.toString();
+        if(!(value instanceof Object)) {
+            value = value.toString();
+            //truncate values to prevent overflows.
+            if(value.length > 300) {
+                value = value.substring(0, 300);
+            }
+        }
 
         variable = variable.toLowerCase();
         _globalVariableValues[variable] = value;
@@ -42,7 +48,7 @@ $axure.internal(function($ax) {
         switch(variable) {
             case "pagename": return $ax.pageData.page.name;
 
-            case "now": return eventInfo.now;
+            case "now": return new Date();
             case "gendate": return $ax.pageData.generationDate;
 
             case "dragx": return $ax.drag.GetDragX();
@@ -52,7 +58,6 @@ $axure.internal(function($ax) {
             case "dragtime": return $ax.drag.GetDragTime();
 
             case "math": return Math;
-            case "date": return Date;
 
             case "window": return eventInfo && eventInfo.window;
             case "this": return eventInfo && eventInfo.thiswidget;
@@ -99,7 +104,7 @@ $axure.internal(function($ax) {
             }
 
             if(!csum && query.length > 250) {
-                window.alert('Axure Warning: The variable values were too long to pass to this page.\n\nIf you are using IE, using Chrome or Firefox will support more data.');
+                window.alert('Prototype Warning: The variable values were too long to pass to this page.\nIf you are using IE, using Firefox will support more data.');
             }
         }
     };
@@ -115,7 +120,7 @@ $axure.internal(function($ax) {
                 toAdd += key + '=' + encodeURIComponent(val);
             }
         }
-        return toAdd.length > 0 ? baseUrl + ($axure.shouldSendVarsToServer() ? '?' : '#') + toAdd + "&CSUM=1" : baseUrl;
+        return toAdd.length > 0 ? baseUrl + '#' + toAdd + "&CSUM=1" : baseUrl;
     };
     _globalVariableProvider.getLinkUrl = getLinkUrl;
 

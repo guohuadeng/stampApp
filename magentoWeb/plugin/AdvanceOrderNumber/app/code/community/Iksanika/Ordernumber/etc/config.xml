@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Iksanika_Ordernumber>
+            <version>1.0.0</version>
+        </Iksanika_Ordernumber>
+    </modules>
+    
+    <adminhtml>
+        <!--
+        <events>
+            <adminhtml_block_html_before>
+                <observers>
+                    <ordernumber>
+                        <type>singleton</type>
+                        <class>ordernumber/observer</class>
+                        <method>processBlockHtmlBefore</method>
+                    </ordernumber>
+                </observers>
+            </adminhtml_block_html_before>
+        </events> 
+        -->
+            
+        <translate>
+            <modules>
+                <Iksanika_Ordernumber>
+                    <files>
+                        <default>Iksanika_Ordernumber.csv</default>
+                    </files>
+                </Iksanika_Ordernumber>
+            </modules>
+        </translate>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <ordernumber translate="title" module="ordernumber">
+                                            <title>Order Number</title>
+                                        </ordernumber>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                     </children>
+                </admin> 
+            </resources>
+        </acl>
+    </adminhtml>
+        
+    <global>
+        
+        <models>
+            <ordernumber>
+                <class>Iksanika_Ordernumber_Model</class>
+            </ordernumber>
+            <eav>
+                <rewrite>
+                    <entity_type>Iksanika_Ordernumber_Model_Resource_Eav_Entity_Type</entity_type>
+                </rewrite>
+            </eav>
+        </models>
+
+        <helpers>
+            <ordernumber>
+                <class>Iksanika_Ordernumber_Helper</class>
+            </ordernumber>
+        </helpers>
+        
+        <events>
+            <sales_order_invoice_save_before>
+                <observers>
+                    <sales_order_invoice_save_before>
+                        <type>singleton</type>
+                        <class>ordernumber/observer</class>
+                        <method>processDocumentSaveBefore</method>
+                    </sales_order_invoice_save_before>
+                </observers>
+            </sales_order_invoice_save_before>
+            <sales_order_shipment_save_before>
+                <observers>
+                    <sales_order_shipment_save_before>
+                        <type>singleton</type>
+                        <class>ordernumber/observer</class>
+                        <method>processDocumentSaveBefore</method>
+                    </sales_order_shipment_save_before>
+                </observers>
+            </sales_order_shipment_save_before>
+            <sales_order_creditmemo_save_before>
+                <observers>
+                    <sales_order_creditmemo_save_before>
+                        <type>singleton</type>
+                        <class>ordernumber/observer</class>
+                        <method>processDocumentSaveBefore</method>
+                    </sales_order_creditmemo_save_before>
+                </observers>
+            </sales_order_creditmemo_save_before>
+        </events>
+    </global>
+     
+    <default>
+        <ordernumber>
+            <general>
+                <enabled>0</enabled>
+            </general>
+            
+            <order>
+                <format>ORDER-{yy}-{mm}-{counter}</format>
+                <start>1</start> 
+                <padding>8</padding> 
+                <increment>1</increment> 
+                <reset>0</reset> 
+                <website_based>0</website_based> 
+                <store_based>0</store_based> 
+            </order>
+        
+            <invoice>
+                <same>1</same>
+                <prefix>INVOICE-</prefix>
+                
+                <format>INVOICE-{yy}-{mm}-{counter}</format>
+                <start>1</start> 
+                <padding>8</padding> 
+                <increment>1</increment> 
+                <reset>0</reset> 
+                <website_based>0</website_based>
+                <store_based>0</store_based>
+            </invoice>
+            
+            <shipment>
+                <same>31</same>
+                <prefix>SHIPMENT-</prefix>
+                
+                <format>SHIPMENT-{yy}-{mm}-{counter}</format>
+                <start>1</start>
+                <padding>8</padding>
+                <increment>1</increment>
+                <reset>0</reset>
+                <website_based>0</website_based>
+                <store_based>0</store_based>
+            </shipment>
+            
+            <creditmemo>
+                <same>1</same>
+                <prefix>MEMO-</prefix>
+                
+                <format>MEMO-{yy}-{mm}-{counter}</format>
+                <start>1</start>
+                <padding>8</padding>
+                <increment>1</increment>
+                <reset>0</reset>
+                <website_based>0</website_based>
+                <store_based>0</store_based>
+            </creditmemo>
+        </ordernumber>  
+    </default> 
+</config>

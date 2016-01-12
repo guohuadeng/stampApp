@@ -63,14 +63,4 @@
 
         $ax.event.raiseSyntheticEvent(id, "onMove");
     };
-
-    _move.nopMove = function(id) {
-        var moveInfo = new Object();
-        moveInfo.x = 0;
-        moveInfo.y = 0;
-        moveInfo.options = {};
-        moveInfo.options.easing = 'none';
-        moveInfo.options.duration = 0;
-        widgetMoveInfo[id] = moveInfo;
-    };
 });

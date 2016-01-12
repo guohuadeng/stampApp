@@ -41,10 +41,6 @@ $axure.internal(function($ax) {
         return month[monthNum];
     };
 
-    funcs.getMonth = function() {
-        return this.getMonth() + 1;
-    };
-
     funcs.addYears = function(years) {
         var retVal = new Date(this.valueOf());
         retVal.setFullYear(this.getFullYear() + Number(years));
@@ -95,8 +91,7 @@ $axure.internal(function($ax) {
 
     //need angle bracket syntax because var is a reserved word
     _stoHandlers['var'] = function(sto, scope, eventInfo) {
-        // Can't us 'A || B' here, because the first value can be false, true, or empty string and still be valid.
-        var retVal = scope.hasOwnProperty(sto.name) ? scope[sto.name]  : $ax.globalVariableProvider.getVariableValue(sto.name, eventInfo);
+        var retVal = scope[sto.name] || $ax.globalVariableProvider.getVariableValue(sto.name, eventInfo);
         // Handle desired type here?
         if((sto.desiredType == 'int' || sto.desiredType == 'float')) {
             var num = new Number(retVal);
@@ -125,13 +120,11 @@ $axure.internal(function($ax) {
     _stoHandlers.fCall = function(sto, scope, eventInfo) {
         //TODO: [mas] handle required type
         var thisObj = _evaluateSTO(sto.thisSTO, scope, eventInfo);
-        if(sto.thisSTO.desiredType == 'string' && sto.thisSTO.computedType != 'string') thisObj = thisObj.toString();
-        
         var args = [];
         for(var i = 0; i < sto.arguments.length; i++) {
             args[i] = _evaluateSTO(sto.arguments[i], scope, eventInfo);
         }
-        var fn = (funcs.hasOwnProperty(sto.func) && funcs[sto.func]) || thisObj[sto.func];
+        var fn = thisObj[sto.func] || funcs[sto.func];
         return fn.apply(thisObj, args);
     };
 
@@ -146,9 +139,7 @@ $axure.internal(function($ax) {
     _binOps['+'] = function(left, right) {
         if(left instanceof Date) return addDayToDate(left, right);
         if(right instanceof Date) return addDayToDate(right, left);
-
-        var num = Number(left) + Number(right);
-        return isNaN(num) ? (String(left) + String(right)) : num;
+        return Number(left) + Number(right);
     };
     _binOps['-'] = function(left, right) {
         if(left instanceof Date) return addDayToDate(left, -right);
@@ -204,7 +195,7 @@ $axure.internal(function($ax) {
     var castSto = function(val, sto) {
         var type = sto.computedType || sto.desiredType;
         if(type == 'string') val = String(val);
-        else if(type == 'date' && !(val instanceof Date)) val = new Date(val);
+        else if(type == 'date') val = new Date(val);
         else if(type == 'int' || type == 'float') val = Number(val);
         else if(type == 'bool') val = Boolean(val);
 

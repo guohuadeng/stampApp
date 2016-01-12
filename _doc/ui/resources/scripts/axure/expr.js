@@ -13,17 +13,6 @@ $axure.internal(function($ax) {
     };
 
     var isEqual = function(left, right) {
-        if(left instanceof Date && right instanceof Date) {
-            if(left.getMilliseconds() != right.getMilliseconds()) return false;
-            if(left.getSeconds() != right.getSeconds()) return false;
-            if(left.getMinutes() != right.getMinutes()) return false;
-            if(left.getHours() != right.getHours()) return false;
-            if(left.getDate() != right.getDate()) return false;
-            if(left.getMonth() != right.getMonth()) return false;
-            if(left.getYear() != right.getYear()) return false;
-            return true;
-        }
-
         if(left instanceof Object && right instanceof Object) {
             var prop;
             // Go through all of lefts properties and compare them to rights.
@@ -78,8 +67,8 @@ $axure.internal(function($ax) {
     _exprHandlers.pathLiteral = function(expr, eventInfo) {
         if(expr.isThis) return [eventInfo.srcElement];
         if(expr.isFocused && window.lastFocusedControl) {
-            $ax('#' + window.lastFocusedControl).focus();
-            return [window.lastFocusedControl];
+            window.lastFocusedControl.focus();
+            return [window.lastFocusedControl.getAttribute('id')];
         }
         if(expr.isTarget) return [eventInfo.targetElement];
 
@@ -93,7 +82,7 @@ $axure.internal(function($ax) {
         for(var i = 0; i < elementIds.length; i++) {
             elementIdsWithSuffix[i] = $ax.repeater.applySuffixToElementId(elementIds[i], suffix);
         }
-        return String($jobj(elementIdsWithSuffix).data('label'));
+        return $jobj(elementIdsWithSuffix).data('label');
     };
 
     _exprHandlers.fcall = function(expr, eventInfo) {
@@ -106,22 +95,11 @@ $axure.internal(function($ax) {
             var fcallArg = '';
             if(targets.length) {
                 for(var j = 0; j < targets.length; j++) {
-                    if(exprArg == null) {
-                        fcallArgs[j][i] = null;
-                        continue;
-                    }
                     eventInfo.targetElement = targets[j];
-                    fcallArg = _evaluateExpr(exprArg, eventInfo);
-                    if(typeof (fcallArg) == 'undefined') return '';
-                    fcallArgs[j][i] = fcallArg;
+                    fcallArgs[j][i] = _evaluateExpr(exprArg, eventInfo);
                 }
             } else {
-                if(exprArg == null) {
-                    fcallArgs[i] = null;
-                    continue;
-                }
                 fcallArg = _evaluateExpr(exprArg, eventInfo);
-                if(typeof (fcallArg) == 'undefined') return '';
                 fcallArgs[i] = fcallArg;
             }
 
@@ -242,7 +220,7 @@ $axure.internal(function($ax) {
             var inputId = $ax.repeater.applySuffixToElementId(elementId, '_input');
 
             var obj = $jobj(inputId);
-            if(obj.val() == value || (value == '' && $ax.placeholderManager.isActive(elementId))) return;
+            if(obj.val() == value) return;
             obj.val(value);
             $ax.placeholderManager.updatePlaceholder(elementId, !value);
             if($ax.event.HasTextChanged($ax.getObjectFromElementId(elementId))) $ax.event.TryFireTextChanged(elementId);
@@ -251,10 +229,8 @@ $axure.internal(function($ax) {
 
     _exprFunctions.SetFocusedWidgetText = function(elementId, value) {
         if(window.lastFocusedControl) {
-            var elementId = window.lastFocusedControl;
-            var type = $obj(elementId).type;
-            if(type == 'textBox' || type == 'textArea') _exprFunctions.SetWidgetFormText([elementId], value);
-            else _exprFunctions.SetWidgetRichText([elementId], value, true);
+            window.lastFocusedControl.focus();
+            window.lastFocusedControl.value = value;
         }
     };
 
@@ -276,32 +252,32 @@ $axure.internal(function($ax) {
             // If calling this on button shape, get the id of the rich text panel inside instead
             var type = $obj(id).type;
             if(type != 'richTextPanel' && type != 'hyperlink') {
-                id = $jobj(id).find('.text')[0].id;
+                id = $jobj(id).children('.text')[0].id;
             }
 
             var element = window.document.getElementById(id);
             $ax.visibility.SetVisible(element, true);
 
-            $ax.style.transformTextWithVerticalAlignment(id, function() {
-                var spans = $jobj(id).find('span');
-                if(plain) {
-                    // Wrap in span and p, style them accordingly.
-                    var span = $('<span></span>');
-                    if(spans.length > 0) {
-                        span.attr('style', $(spans[0]).attr('style'));
-                        span.attr('id', $(spans[0]).attr('id'));
-                    }
-                    span.html(value);
-                    var p = $('<p></p>');
-                    var ps = $jobj(id).find('p');
-                    if(ps.length > 0) {
-                        p.attr('style', $(ps[0]).attr('style'));
-                        p.attr('id', $(ps[0]).attr('id'));
-                    }
-                    p.append(span);
-                    value = $('<div></div>').append(p).html();
+            var spans = $jobj(id).find('span');
+            if(plain) {
+                // Wrap in span and p, style them accordingly.
+                var span = $('<span></span>');
+                if(spans.length > 0) {
+                    span.attr('style', $(spans[0]).attr('style'));
+                    span.attr('id', $(spans[0]).attr('id'));
                 }
+                span.html(value);
+                var p = $('<p></p>');
+                var ps = $jobj(id).find('p');
+                if(ps.length > 0) {
+                    p.attr('style', $(ps[0]).attr('style'));
+                    p.attr('id', $(ps[0]).attr('id'));
+                }
+                p.append(span);
+                value = $('<div></div>').append(p).html();
+            }
 
+            $ax.style.transformTextWithVerticalAlignment(id, function() {
                 element.innerHTML = value;
             });
 
@@ -333,14 +309,13 @@ $axure.internal(function($ax) {
     };
 
     _exprFunctions.GetWidgetText = function(ids) {
-        if($ax.placeholderManager.isActive(ids[0])) return '';
         var input = $ax.INPUT(ids[0]);
         return $ax('#' + ($jobj(input).length ? input : ids[0])).text();
     };
 
     _exprFunctions.GetFocusedWidgetText = function() {
         if(window.lastFocusedControl) {
-            return $ax('#' + window.lastFocusedControl).text();
+            return window.lastFocusedControl.value;
         } else {
             return "";
         }
@@ -349,18 +324,17 @@ $axure.internal(function($ax) {
     _exprFunctions.GetWidgetValueLength = function(ids) {
         var id = ids[0];
         if(!id) return undefined;
-        if($ax.placeholderManager.isActive(id)) return 0;
+
         var obj = $jobj($ax.INPUT(id));
         if(!obj.length) obj = $jobj(id);
-        var val = obj[0].value || _exprFunctions.GetWidgetText([id]);
-        return val.length;
+        return obj[0].value.length;
     };
 
     _exprFunctions.GetPanelState = function(ids) {
         var id = ids[0];
         if(!id) return undefined;
         var stateId = $ax.visibility.GetPanelState(id);
-        return stateId && String($jobj(stateId).data('label'));
+        return stateId && $jobj(stateId).data('label');
     };
 
     _exprFunctions.GetWidgetVisibility = function(ids) {
@@ -425,20 +399,6 @@ $axure.internal(function($ax) {
     _exprFunctions.GetWidgetRectangles = function(elementId, eventInfo) {
         var rects = new Object();
         var jObj = $jobj(elementId);
-        var invalid = jObj.length == 0;
-        var parent = jObj;
-        // Or are in valid if no obj can be found, or if it is not visible.
-        while(parent.length != 0 && !parent.is('body')) {
-            if(parent.css('display') == 'none') {
-                invalid = true;
-                break;
-            }
-            parent = parent.parent();
-        }
-        if(invalid) {
-            rects.lastRect = rects.currentRect = new $ax.drag.Rectangle(-1, -1, -1, -1);
-            return rects;
-        }
         rects.lastRect = new $ax.drag.Rectangle(
                 $ax.legacy.getAbsoluteLeft(jObj),
                 $ax.legacy.getAbsoluteTop(jObj),
@@ -482,7 +442,7 @@ $axure.internal(function($ax) {
 
     _exprFunctions.ToString = function(value) {
         if(value.isWidget) {
-            return value.text;
+            return value.Text;
         }
         return String(value);
     };

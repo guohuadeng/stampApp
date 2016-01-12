@@ -64,7 +64,6 @@
   height:50px;
   font-family:'Arial Negreta', 'Arial';
   font-weight:700;
-  font-style:normal;
   font-size:14px;
   color:#009DDA;
 }
@@ -98,7 +97,6 @@
   height:50px;
   font-family:'Arial Negreta', 'Arial';
   font-weight:700;
-  font-style:normal;
   font-size:14px;
   color:#009DDA;
 }
@@ -132,7 +130,6 @@
   height:50px;
   font-family:'Arial Negreta', 'Arial';
   font-weight:700;
-  font-style:normal;
   font-size:14px;
   color:#009DDA;
 }
@@ -166,7 +163,6 @@
   height:50px;
   font-family:'Arial Negreta', 'Arial';
   font-weight:700;
-  font-style:normal;
   font-size:14px;
   color:#009DDA;
 }
@@ -508,13 +504,17 @@
   top:0px;
   width:200px;
   height:25px;
-  font-family:'Arial Normal', 'Arial';
-  font-weight:400;
-  font-style:normal;
-  font-size:13px;
-  text-decoration:none;
-  color:#000000;
+  background-image:;
   text-align:left;
+  font-family:'Arial';
+  font-size:13px;
+  color:#000000;
+  font-weight:normal;
+  font-style:normal;
+  text-decoration:none;
+}
+#u42_input {
+  font-family:'Applied Font';
 }
 #u43 {
   position:absolute;
@@ -529,13 +529,17 @@
   top:0px;
   width:200px;
   height:25px;
-  font-family:'Arial Normal', 'Arial';
-  font-weight:400;
-  font-style:normal;
-  font-size:13px;
-  text-decoration:none;
-  color:#000000;
+  background-image:;
   text-align:left;
+  font-family:'Arial';
+  font-size:13px;
+  color:#000000;
+  font-weight:normal;
+  font-style:normal;
+  text-decoration:none;
+}
+#u43_input {
+  font-family:'Applied Font';
 }
 #u44 {
   position:absolute;
@@ -550,13 +554,17 @@
   top:0px;
   width:200px;
   height:25px;
-  font-family:'Arial Normal', 'Arial';
-  font-weight:400;
-  font-style:normal;
-  font-size:13px;
-  text-decoration:none;
-  color:#000000;
+  background-image:;
   text-align:left;
+  font-family:'Arial';
+  font-size:13px;
+  color:#000000;
+  font-weight:normal;
+  font-style:normal;
+  text-decoration:none;
+}
+#u44_input {
+  font-family:'Applied Font';
 }
 #u45 {
   position:absolute;
@@ -571,13 +579,17 @@
   top:0px;
   width:200px;
   height:25px;
-  font-family:'Arial Normal', 'Arial';
-  font-weight:400;
-  font-style:normal;
-  font-size:13px;
-  text-decoration:none;
-  color:#000000;
+  background-image:;
   text-align:left;
+  font-family:'Arial';
+  font-size:13px;
+  color:#000000;
+  font-weight:normal;
+  font-style:normal;
+  text-decoration:none;
+}
+#u45_input {
+  font-family:'Applied Font';
 }
 #u46 {
   position:absolute;
@@ -587,7 +599,6 @@
   height:40px;
   font-family:'Arial Negreta', 'Arial';
   font-weight:700;
-  font-style:normal;
   font-size:18px;
 }
 #u46_img {
@@ -616,7 +627,6 @@
   height:50px;
   font-family:'Arial Negreta', 'Arial';
   font-weight:700;
-  font-style:normal;
   font-size:24px;
 }
 #u48_img {

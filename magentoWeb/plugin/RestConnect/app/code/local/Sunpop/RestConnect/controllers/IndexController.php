@@ -11,7 +11,6 @@
  */
 class Sunpop_RestConnect_IndexController extends Mage_Core_Controller_Front_Action {
 	public function indexAction() {
-		Mage::app ()->cleanCache ();
 		$cmd = ($this->getRequest ()->getParam ( 'cmd' )) ? ($this->getRequest ()->getParam ( 'cmd' )) : 'daily_sale';
 		switch ($cmd) {
 			case 'menu' : // OK
@@ -46,8 +45,8 @@ class Sunpop_RestConnect_IndexController extends Mage_Core_Controller_Front_Acti
 				$categoryid = $this->getRequest ()->getParam ( 'categoryid' );
 				$page = ($this->getRequest ()->getParam ( 'page' )) ? ($this->getRequest ()->getParam ( 'page' )) : 1;
 				$limit = ($this->getRequest ()->getParam ( 'limit' )) ? ($this->getRequest ()->getParam ( 'limit' )) : 5;
-				$order = ($this->getRequest ()->getParam ( 'order' )) ? ($this->getRequest ()->getParam ( 'order' )) : 'entity_id';
-				$dir = ($this->getRequest ()->getParam ( 'dir' )) ? ($this->getRequest ()->getParam ( 'dir' )) : 'desc';
+				$order = ($this->getRequest ()->getParam ( 'order' )) ? ($this->getRequest ()->getParam ( 'order' )) : 'position';
+				$dir = ($this->getRequest ()->getParam ( 'dir' )) ? ($this->getRequest ()->getParam ( 'dir' )) : 'ASC';
 				// ----------------------------------取某个分类下的产品-BEGIN------------------------------//
 				$category = Mage::getModel ( 'catalog/category' )->load ( $categoryid );
 				$model = Mage::getModel ( 'catalog/product' ); // getting product model
@@ -60,7 +59,7 @@ class Sunpop_RestConnect_IndexController extends Mage_Core_Controller_Front_Acti
 				if($this->getRequest ()->getParam ( 'max' )){
 					$collection=$collection->addAttributeToFilter ( 'special_price', array ('lt' => $this->getRequest ()->getParam ( 'max' ) ) );
 				}
-				$collection=$collection->addAttributeToSort ( $order, $dir )/* ->setPage ( $page, $limit ) */;
+				$collection=$collection->addAttributeToSort ( $order, $dir );
 				$pages = $collection->setPageSize ( $limit )->getLastPageNumber ();
 				// $count=$collection->getSize();
 				if ($page <= $pages) {

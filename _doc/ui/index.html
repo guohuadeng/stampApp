@@ -2,8 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <title>Untitled Document</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link type="text/css" href="resources/css/reset.css" rel="Stylesheet" />
     <link type="text/css" href="resources/css/default.css" rel="Stylesheet" />
 
@@ -63,7 +62,6 @@
             _settings.isAxshare = configuration.isAxshare;
             _settings.loadFeedbackPlugin = configuration.loadFeedbackPlugin;
             _settings.startCollapsed = HashString("c") == "1";
-            if(HashString("c") == "2") closePlayer();
 
             $axure.player.settings = _settings;
 
@@ -100,7 +98,7 @@
                 $(window).resize();
                 resizeContent();
                 //wait for ie to get to a good state and resize
-                if(IE && BROWSER_VERSION == "6.0") setTimeout(function() { $('#outerContainer').trigger('resize'); }, 30);
+                if($.browser.msie && $.browser.version == "6.0") setTimeout(function() { $('#outerContainer').trigger('resize'); }, 30);
 
                 if($axure.player.settings.startCollapsed) {
                     collapse();
@@ -131,8 +129,7 @@
             $('#rightPanel').height(newHeight);
             $('#mainFrame').height(newHeight);
 
-            if($('#leftPanel').is(':visible')) $('#rightPanel').width($(window).width() - $('#leftPanel').width() - $('.vsplitbar').width());
-            else $('#rightPanel').width($(window).width());
+            $('#rightPanel').width($(window).width() - $('#leftPanel').width() - $('.vsplitbar').width());
         }
 
         function closePlayer() {
@@ -149,13 +146,8 @@
 
             //We use replace so that every hash change doesn't get appended to the history stack.
             //We use replaceState in browsers that support it, else replace the location
-            if(typeof window.history.replaceState != 'undefined') {
-                try {
-                    //Chrome 45 (Version 45.0.2454.85 m) started throwing an error here when generated locally (this only happens with sitemap open) which broke all interactions.
-                    //try catch breaks the url adjusting nicely when the sitemap is open, but all interactions and forward and back buttons work.
-                    //Uncaught SecurityError: Failed to execute 'replaceState' on 'History': A history state object with URL 'file:///C:/Users/Ian/Documents/Axure/HTML/Untitled/start.html#p=home' cannot be created in a document with origin 'null'.
-                    window.history.replaceState(null, null, currentLocWithoutHash + newHash);
-                } catch(ex) {}
+            if (typeof window.history.replaceState != 'undefined') {
+                window.history.replaceState(null, null, currentLocWithoutHash + newHash);
             } else {
                 window.location.replace(currentLocWithoutHash + newHash);
             }
@@ -345,7 +337,7 @@
             </div>
         </div>
         <div id="rightPanel">
-            <iframe id="mainFrame" name="mainFrame" width="100%" height="100%" src="" frameborder="0" style="display: block;"></iframe>
+            <iframe id="mainFrame" width="100%" height="100%" src="" frameborder="0" style="display: block;"></iframe>
         </div>
 
     </div>

@@ -16,7 +16,8 @@
 .product-options-bottom{display:block;}
 .short-description{padding-top:90px;}
 .product-tabs .tab-content	{padding: 10px 16px}
-
+.data-table .add-to-cart-alt  {width: 100px;}
+#wishlist-table textarea  {display: none;}
 @media only screen and (min-width: 771px) {
   .product-options #tab_description_tabbed_contents dt {
     margin: 10px 0 3px;

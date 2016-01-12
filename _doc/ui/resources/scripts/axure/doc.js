@@ -52,7 +52,6 @@
         var repeaterIdToScriptIds = {};
         var repeaterIdToItemIds = {};
         var scriptIdToPath = {};
-        var _scriptIds = [];
         var elementIdToText = {};
         var radioGroupToSelectedElementId = {};
         _initializePageData = function() {
@@ -84,7 +83,6 @@
                 diagramObject.scriptIds[diagramObject.scriptIds.length] = scriptId;
 
                 scriptIdToObject[scriptId] = diagramObject;
-                _scriptIds[_scriptIds.length] = scriptId;
             }
 
             // Now map scriptIds to repeaters
@@ -139,7 +137,6 @@
             var current = $ax.pageData.objectPaths;
             for(var i = 0; i < path.length; i++) {
                 current = current[path[i]];
-                if(!current) return current;
             }
             return current && current.scriptId;
         };
@@ -186,16 +183,10 @@
 
         var _getElementsIdFromEventAndScriptId = function(eventInfo, scriptId) {
             var itemId = eventInfo && $ax.repeater.getItemIdFromElementId(eventInfo.srcElement);
-            var target = false;
-            // Try to get itemId from target if you can't get it from source.
-            if(!itemId) {
-                itemId = eventInfo && eventInfo.targetElement && $ax.repeater.getItemIdFromElementId(eventInfo.targetElement);
-                if(itemId) target = true;
-            }
 
             var parentRepeater = $ax.getParentRepeaterFromScriptId(scriptId);
             if(parentRepeater && scriptId != parentRepeater) {
-                if(itemId && (!eventInfo || parentRepeater == $ax.getParentRepeaterFromScriptId($ax.repeater.getScriptIdFromElementId(target ? eventInfo.targetElement : eventInfo.srcElement)))) {
+                if(itemId && (!eventInfo || parentRepeater == $ax.getParentRepeaterFromScriptId($ax.repeater.getScriptIdFromElementId(eventInfo.srcElement)))) {
                     return [$ax.repeater.createElementId(scriptId, itemId)];
                 }
                 var elementIds = [];
@@ -221,7 +212,6 @@
         var _getEventInfoFromEvent = function(event, skipShowDescriptions, elementId) {
             var eventInfo = {};
             eventInfo.srcElement = elementId;
-            eventInfo.now = new Date();
 
             if(event != null) {
                 //elementId can be empty string, so can't simple use "or" assignment here.
@@ -230,7 +220,6 @@
 
                 // When getting locations in mobile, need to extract the touch object to get the mouse location attributes
                 var mouseEvent = (event.originalEvent && event.originalEvent.changedTouches && event.originalEvent.changedTouches[0]) || event.originalEvent;
-                if(mouseEvent && !mouseEvent.type) mouseEvent.type = event.type;
 
                 if(skipShowDescriptions) eventInfo.skipShowDescriptions = true;
 
@@ -274,11 +263,13 @@
 
             elementId = _getParentElement(elementId);
 
-            var index = $ax.repeater.getItemIdFromElementId(elementId);
-            if(!index) return { valid: false };
+            var itemId = $ax.repeater.getItemIdFromElementId(elementId);
+            if(!itemId) return { valid: false };
+
 
             var item = { valid: true };
 
+            var index = $ax.repeater.getItemIdFromElementId(elementId);
             var scriptId = $ax.repeater.getScriptIdFromElementId(elementId);
             var repeaterId = $ax.getParentRepeaterFromScriptId(scriptId);
             item.repeater = _getWidgetInfo(repeaterId);
@@ -336,12 +327,12 @@
             }
 
             // repeater only props
-            if(obj.type == 'repeater') {
-                widget.visibleitemcount = repeaterIdToItemIds[scriptId] ? repeaterIdToItemIds[scriptId].length : $ax.repeater.getVisibleDataCount(scriptId);
-                widget.itemcount = $ax.repeater.getFilteredDataCount(scriptId);
-                widget.datacount = $ax.repeater.getDataCount(scriptId);
-                widget.pagecount = $ax.repeater.getPageCount(scriptId);
-                widget.pageindex = $ax.repeater.getPageIndex(scriptId);
+            if(obj.type == 'repeater' && repeaterIdToItemIds[elementId]) {
+                widget.visibleitemcount = repeaterIdToItemIds[elementId].length;
+                widget.itemcount = $ax.repeater.getFilteredDataCount(elementId);
+                widget.datacount = $ax.repeater.getDataCount(elementId);
+                widget.pagecount = $ax.repeater.getPageCount(elementId);
+                widget.pageindex = $ax.repeater.getPageIndex(elementId);
             }
 
             widget.left = widget.x;
@@ -377,19 +368,20 @@
 
         $ax.getAllElementIds = function() {
             var elementIds = [];
-            for(var i = 0; i < _scriptIds.length; i++) {
-                var scriptId = _scriptIds[i];
+            for(var scriptId in scriptIdToObject) {
                 var repeaterId = scriptIdToRepeaterId[scriptId];
                 if(repeaterId && repeaterId != scriptId) {
                     var itemIds = repeaterIdToItemIds[repeaterId] || [];
-                    for(var j = 0; j < itemIds.length; j++) elementIds[elementIds.length] = $ax.repeater.createElementId(scriptId, itemIds[j]);
+                    for(var i = 0; i < itemIds.length; i++) elementIds[elementIds.length] = $ax.repeater.createElementId(scriptId, itemIds[i]);
                 } else elementIds[elementIds.length] = scriptId;
             }
             return elementIds;
         };
 
         $ax.getAllScriptIds = function() {
-            return _scriptIds;
+            var scriptIds = [];
+            for(var scriptId in scriptIdToObject) scriptIds.push(scriptId);
+            return scriptIds;
         };
 
         $ax.getObjectFromElementId = function(elementId) {
@@ -512,9 +504,7 @@
                 } else if(to.target == "parentFrame") {
                     targetLocation = parent.location;
                 } else if(to.target == "frame") {
-                    //                    targetLocation = to.frame.contentWindow.location;
-                    $(to.frame).attr('src', targetUrl || 'about:blank');
-                    return;
+                    targetLocation = to.frame.contentWindow.location;
                 }
 
                 if(!_needsReload(targetLocation, to.url)) {

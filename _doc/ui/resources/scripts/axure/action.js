@@ -30,19 +30,17 @@
         if(func) func();
     };
 
-    var _refreshing = [];
-    _action.refreshStart = function(repeaterId) { _refreshing.push(repeaterId); };
-    _action.refreshEnd = function() { _refreshing.pop(); };
+    var _refreshing;
+    _action.refreshStart = function(repeaterId) { _refreshing = repeaterId; };
+    _action.refreshEnd = function() { _refreshing = undefined; };
 
-    // TODO: [ben] Consider moving this to repeater.js
-    var _repeatersToRefresh = _action.repeatersToRefresh = [];
+    var _repeatersToRefeash = _action.repeatersToRefresh = [];
     var _ignoreAction = function(repeaterId) {
-        for(var i = 0; i < _refreshing.length; i++) if(_refreshing[i] == repeaterId) return true;
-        return false;
+        return _refreshing == repeaterId;
     };
 
     var _addRefresh = function(repeaterId) {
-        if(_repeatersToRefresh.indexOf(repeaterId) == -1) _repeatersToRefresh.push(repeaterId);
+        if(_repeatersToRefeash.indexOf(repeaterId) == -1) _repeatersToRefeash.push(repeaterId);
     };
 
     var _dispatchAction = $ax.action.dispatchAction = function(eventInfo, actions, currentIndex) {
@@ -57,7 +55,6 @@
         var action = actions[index];
         var infoCopy = $ax.eventCopy(eventInfo);
         window.setTimeout(function() {
-            infoCopy.now = new Date();
             _dispatchAction(infoCopy, actions, index + 1);
         }, action.waitTime);
     };
@@ -90,7 +87,6 @@
         eventInfo.link = true;
 
         if(action.linkType != 'frame') {
-            var includeVars = _includeVars(action.target, eventInfo);
             if(action.target.targetType == "reloadPage") {
                 $ax.reload(action.target.includeVariables);
             } else if(action.target.targetType == "backUrl") {
@@ -107,14 +103,14 @@
                     $ax.navigate({
                         url: url,
                         target: action.linkType,
-                        includeVariables: includeVars,
+                        includeVariables: action.target.includeVariables,
                         popupOptions: action.popup
                     });
                 } else {
                     $ax.navigate({
                         url: url,
                         target: action.linkType,
-                        includeVariables: includeVars
+                        includeVariables: action.target.includeVariables
                     });
                 }
             }
@@ -124,32 +120,17 @@
         _dispatchAction(eventInfo, actions, index + 1);
     };
 
-    var _includeVars = function(target, eventInfo) {
-        if(target.includeVariables) return true;
-        // If it is a url literal, that is a string literal, that has only 1 sto, that is an item that is a page, include vars.
-        if(target.urlLiteral) {
-            var literal = target.urlLiteral;
-            var sto = literal.stos[0];
-            if(literal.exprType == 'stringLiteral' && literal.value.indexOf('[[') == 0 && literal.value.indexOf(']]' == literal.value.length - 2) && literal.stos.length == 1 && sto.sto == 'item' && eventInfo.item) {
-                var data = $ax.repeater.getData(eventInfo.item.repeater.elementId, eventInfo.item.index, sto.name, 'data');
-                if(data && data.type == 'page') return true;
-            }
-        }
-        return false;
-    };
-
     var linkFrame = function(eventInfo, action) {
         for(var i = 0; i < action.framesToTargets.length; i++) {
             var framePath = action.framesToTargets[i].framePath;
             var target = action.framesToTargets[i].target;
-            var includeVars = _includeVars(target, eventInfo);
 
             var url = target.url;
             if(!url && target.urlLiteral) {
                 url = $ax.expr.evaluateExpr(target.urlLiteral, eventInfo, true);
             }
 
-            $ax('#' + $ax.INPUT($ax.getElementIdsFromPath(framePath, eventInfo)[0])).openLink(url, includeVars);
+            $ax('#' + $ax.getElementIdsFromPath(framePath, eventInfo)[0]).openLink(url, target.includeVariables);
         }
     };
 
@@ -174,25 +155,22 @@
                             eventInfo.targetElement = elementId;
                             var stateName = $ax.expr.evaluateExpr(stateInfo.stateValue, eventInfo);
                             eventInfo.targetElement = oldTarget;
-
-                            // Try for state name first
-                            var states = $ax.getObjectFromElementId(elementId).diagrams;
-                            var stateNameFound = false;
-                            for(var k = 0; k < states.length; k++) {
-                                if(states[k].label == stateName) {
-                                    stateNumber = k + 1;
-                                    stateNameFound = true;
+                            stateNumber = Number(stateName);
+                            var panelCount = $('#' + elementId).children().length;
+                            // If not number, or too low or high, try to get it as a name rather than id
+                            if(isNaN(stateNumber) || stateNumber <= 0 || stateNumber > panelCount) {
+                                var states = $ax.getObjectFromElementId(elementId).diagrams;
+                                var stateNameFound = false;
+                                for(var k = 0; k < states.length; k++) {
+                                    if(states[k].label == stateName) {
+                                        stateNumber = k + 1;
+                                        stateNameFound = true;
+                                    }
                                 }
-                            }
-
-                            // Now check for index
-                            if(!stateNameFound) {
-                                stateNumber = Number(stateName);
-                                var panelCount = $('#' + elementId).children().length;
-
-                                // Make sure number is not NaN, is in range, and is a whole number.
-                                // Wasn't a state name or number, so return
-                                if(isNaN(stateNumber) || stateNumber <= 0 || stateNumber > panelCount || Math.round(stateNumber) != stateNumber) return $ax.action.fireAnimationFromQueue(elementId);
+                                // Wasn't a state number, or a state name, so return
+                                if(!stateNameFound) {
+                                    return $ax.action.fireAnimationFromQueue(elementId);
+                                }
                             }
                         } else if(stateInfo.setStateType == 'next' || stateInfo.setStateType == 'previous') {
                             var info = $ax.deepCopy(stateInfo);
@@ -330,7 +308,8 @@
                             var widgetMoveInfo = $ax.move.GetWidgetMoveInfo();
                             var srcElementId = $ax.getElementIdsFromEventAndScriptId(eventInfo, eventInfo.srcElement)[0];
                             var delta = widgetMoveInfo[srcElementId];
-                            $ax('#' + elementId).moveBy(delta.x, delta.y, delta.options);
+                            if(delta) $ax('#' + elementId).moveBy(delta.x, delta.y, delta.options);
+                            else _fireAnimationFromQueue(elementId);
                         }
                     });
                 })(elementId, moveInfo);
@@ -413,7 +392,7 @@
                         // This does the resize animation. Moving is handled elsewhere.
                         if(easing == 'none') {
                             query.animate(css, 0);
-                            query.children().animate(stateCss, 0);
+                            query.children().animate(css, 0);
                             onComplete();
                         } else {
                             query.children().animate(stateCss, duration, easing);
@@ -476,12 +455,6 @@
         }
 
         _dispatchAction(eventInfo, actions, index + 1);
-    };
-
-    _action.repeaterInfoNames = { addItemsToDataSet: 'dataSetsToAddTo', deleteItemsFromDataSet: 'dataSetItemsToRemove', updateItemsInDataSet: 'dataSetsToUpdate',
-        addFilterToRepeater: 'repeatersToAddFilter', removeFilterFromRepeater: 'repeatersToRemoveFilter',
-        addSortToRepeater: 'repeaterToAddSort', removeSortFromRepeater: 'repeaterToRemoveSort',
-        setRepeaterToPage: 'repeatersToSetPage', setItemsPerRepeaterPage: 'repeatersToSetItemCount'
     };
 
     _actionHandlers.addItemsToDataSet = function(eventInfo, actions, index) {
@@ -647,25 +620,13 @@
     };
 
     _actionHandlers.refreshRepeater = function(eventInfo, actions, index) {
-        // We use this as a psudo action now.
-        var action = actions[index];
-        for(var i = 0; i < action.repeatersToRefresh.length; i++) {
-            _tryRefreshRepeater($ax.getElementIdsFromPath(action.repeatersToRefresh[i], eventInfo)[i], eventInfo);
-        }
+        // This should not be doing anything right now. We refresh automatically
+        //        var action = actions[index];
+        //        for(var i = 0; i < action.repeatersToRefresh.length; i++) {
+        //            $ax.repeater.refreshRepeater(action.repeatersToRefresh[i], eventInfo);
+        //        }
 
         _dispatchAction(eventInfo, actions, index + 1);
-    };
-
-    var _tryRefreshRepeater = function(id, eventInfo) {
-        var idIndex = _repeatersToRefresh.indexOf(id);
-        if(idIndex == -1) return;
-
-        $ax.splice(_repeatersToRefresh, idIndex, 1);
-        $ax.repeater.refreshRepeater(id, eventInfo);
-    };
-
-    _action.tryRefreshRepeaters = function(ids, eventInfo) {
-        for(var i = 0; i < ids.length; i++) _tryRefreshRepeater(ids[i], eventInfo);
     };
 
     _actionHandlers.scrollToWidget = function(eventInfo, actions, index) {
@@ -753,9 +714,7 @@
         var action = actions[index];
         if(action.objectPaths.length > 0) {
             var elementIds = $ax.getElementIdsFromPath(action.objectPaths[0], eventInfo);
-            if(elementIds.length > 0) {
-                $ax('#' + elementIds[0]).focus();
-            }
+            if(elementIds.length > 0) $ax('#' + elementIds[0]).focus();
         }
 
         _dispatchAction(eventInfo, actions, index + 1);
@@ -775,7 +734,7 @@
     _actionHandlers.other = function(eventInfo, actions, index) {
         var action = actions[index];
         $ax.navigate({
-            url: $axure.utils.getOtherPath() + "#other=" + encodeURI(action.otherDescription),
+            url: $axure.utils.getOtherPath() + "#other=" + encodeURI(action.description),
             target: "popup",
             includeVariables: false,
             popupOptions: action.popup

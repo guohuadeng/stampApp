@@ -36,10 +36,9 @@ $axure.internal(function($ax) {
     };
     _repeaterManager.load = _loadRepeaters;
 
-    var _loaded = {};
     var _initRepeaters = function() {
         $ax(function(obj, repeaterId) {
-            return obj.type == 'repeater' && !_loaded[repeaterId];
+            return obj.type == 'repeater' && !repeaterToActiveDataSet[repeaterId];
         }).each(function(obj, repeaterId) {
             _refreshRepeater(repeaterId);
         });
@@ -50,46 +49,14 @@ $axure.internal(function($ax) {
     var _setRepeaterDataSet = function(repeaterId, dataSetId) {
         //TODO: No idea about how global data sets will be handled...
         repeaterToCurrentDataSet[repeaterId] = repeaterToLocalDataSet[dataSetId];
-        repeaterToActiveDataSet[repeaterId] = repeaterToCurrentDataSet[repeaterId];
         repeaterToFilters[repeaterId] = [];
         repeaterToSorts[repeaterId] = [];
 
-
-        // Not using this currently
-        //        if(repeatersHaveNewDataSet.indexOf(repeaterId) == -1) repeatersHaveNewDataSet[repeatersHaveNewDataSet.length] = repeaterId;
+        if(repeatersHaveNewDataSet.indexOf(repeaterId) == -1) repeatersHaveNewDataSet[repeatersHaveNewDataSet.length] = repeaterId;
     };
     _repeaterManager.setDataSet = _setRepeaterDataSet;
 
     var _refreshRepeater = function(repeaterId, eventInfo) {
-        // Don't show if you have a parent rdos thats limboed.
-        var rdoPath = $ax.getPathFromScriptId(repeaterId);
-        var view = $ax.adaptive.currentViewId;
-        var chain = $ax.adaptive.getAdaptiveIdChain(view);
-        var testView = view;
-        // Check each parent rdo through appropriate views to see if you are limboed
-        while (rdoPath.length > 0) {
-            var testingChain = testView;
-            var rdoObj = $obj($ax.getScriptIdFromPath(rdoPath));
-            var style = testView ? rdoObj.adaptiveStyles && rdoObj.adaptiveStyles[testView] : rdoObj.style;
-            if(style && typeof (style.limbo) != 'undefined') {
-                if(style.limbo) {
-                    removeItems(repeaterId);
-                    return;
-                }
-                // Otherwise this chain is good, move up rdo again
-                testingChain = false;
-            }
-
-            if(testingChain) {
-                var viewIndex = chain.indexOf(testView);
-                testView = viewIndex == 0 ? '' : chain[viewIndex - 1];
-            } else {
-                $ax.splice(rdoPath, rdoPath.length - 1, 1);
-                testView = view;
-            }
-        }
-
-        _loaded[repeaterId] = true;
         $ax.action.refreshStart(repeaterId);
         $ax.style.ClearCacheForRepeater(repeaterId);
 
@@ -106,6 +73,13 @@ $axure.internal(function($ax) {
             eventInfo = $ax.eventCopy(eventInfo);
         }
 
+        // Clear edit items if there this is a new data set that is being referenced
+        var repeaterIndex = repeatersHaveNewDataSet.indexOf(repeaterId);
+        if(repeaterIndex != -1) {
+            repeaterToEditItems[repeaterId] = [];
+            $ax.splice(repeatersHaveNewDataSet, repeaterIndex, 1);
+        }
+
         var obj = $ax.getObjectFromScriptId(repeaterId);
 
         var html = $('#' + repeaterId + '_script').html();
@@ -117,6 +91,7 @@ $axure.internal(function($ax) {
 
         var div = $('<div></div>');
         div.html(html);
+
 
         var top = 0;
         var left = 0;
@@ -130,8 +105,8 @@ $axure.internal(function($ax) {
         var xOffset = offset.width + _getAdaptiveProp(propMap, 'horizontalSpacing', viewId);
         var yOffset = offset.height + _getAdaptiveProp(propMap, 'verticalSpacing', viewId);
         div.css({
-            width: offset.width,
-            height: offset.height
+            width: xOffset,
+            height: yOffset
         });
 
         var background = _getAdaptiveProp(propMap, 'backColor', viewId);
@@ -146,9 +121,23 @@ $axure.internal(function($ax) {
         var shown = $ax.visibility.IsIdVisible(repeaterId);
         if(shown) document.getElementById(repeaterId).style.visibility = 'hidden';
 
-        var bounds = _getVisibleDataBounds(repeaterToPageInfo[repeaterId], orderedIds.length);
-        var start = bounds[0];
-        var end = bounds[1];
+        var start = 0;
+        var end = orderedIds.length;
+        var pageInfo = repeaterToPageInfo[repeaterId];
+        if(!pageInfo.noLimit) {
+            end = pageInfo.itemsPerPage * pageInfo.currPage;
+            start = end - pageInfo.itemsPerPage;
+
+            // If past the end, move to last page
+            if(start >= orderedIds.length) {
+                pageInfo.currPage = Math.floor(orderedIds.length - 1) + 1;
+                if(pageInfo.currPage <= 0) pageInfo.currPage = 1;
+
+                end = pageInfo.itemsPerPage * pageInfo.currPage;
+                start = end - pageInfo.itemsPerPage;
+            }
+            end = Math.min(end, orderedIds.length);
+        }
         var useAlt = false;
 
         var resized = $ax.getItemIdsForRepeater(repeaterId).length != (end - start);
@@ -157,18 +146,17 @@ $axure.internal(function($ax) {
         removeItems(repeaterId);
 
         var i = 0;
-        var ids = [];
         for(var pos = start; pos < end; pos++) {
             var itemId = orderedIds[pos];
 
             var itemElementId = _createElementId(repeaterId, itemId);
             $ax.addItemIdToRepeater(itemId, repeaterId);
 
-            ids.push(itemElementId);
+            var ids = [itemElementId];
             var processId = function(full, prop, id, suffix) {
                 var elementId = _createElementId('u' + id, itemId);
                 //If there is a suffix (ex. _img), then don't push the id.
-                if(!suffix) ids.push(elementId);
+                if(!suffix) ids[ids.length] = elementId;
                 return prop + '="' + elementId + '"';
             };
 
@@ -186,6 +174,24 @@ $axure.internal(function($ax) {
             });
             $('#' + repeaterId).append(copy);
 
+            var query = $ax(function(diagramObject, elementId) {
+                return _getItemIdFromElementId(elementId) == itemId && $ax.getParentRepeaterFromScriptId(_getScriptIdFromElementId(elementId)) == repeaterId;
+            });
+            if(viewId) $ax.adaptive.applyView(viewId, query);
+            else {
+                var limbo = {};
+                var hidden = {};
+                query.each(function(diagramObject, elementId) {
+                    // sigh, javascript. we need the === here because undefined means not overriden
+                    if(diagramObject.style.visible === false) hidden[elementId] = true;
+                    //todo: **mas** check if the limboed widgets are hidden by default by the generator
+                    if(diagramObject.style.limbo) limbo[elementId] = true;
+                });
+                $ax.visibility.addLimboAndHiddenIds(limbo, hidden, query);
+                $ax.dynamicPanelManager.updatePercentPanelCache(query);
+            }
+            $ax.annotation.InitializeAnnotations(query);
+
             i++;
             if(wrap != -1 && i % wrap == 0) {
                 if(vertical) {
@@ -197,49 +203,27 @@ $axure.internal(function($ax) {
                 }
             } else if(vertical) top += yOffset;
             else left += xOffset;
-        }
 
-        var query = $ax(function(diagramObject, elementId) {
-            // All objects with the repeater as their parent, except the repeater itself.
-            var scriptId = _getScriptIdFromElementId(elementId);
-            return $ax.getParentRepeaterFromScriptId(scriptId) == repeaterId && scriptId != repeaterId;
-        });
-        if(viewId) $ax.adaptive.applyView(viewId, query);
-        else {
-            var limbo = {};
-            var hidden = {};
-            query.each(function(diagramObject, elementId) {
-                // sigh, javascript. we need the === here because undefined means not overriden
-                if(diagramObject.style.visible === false) hidden[elementId] = true;
-                //todo: **mas** check if the limboed widgets are hidden by default by the generator
-                if(diagramObject.style.limbo) limbo[elementId] = true;
-            });
-            $ax.visibility.addLimboAndHiddenIds(limbo, hidden, query);
-            $ax.dynamicPanelManager.updatePercentPanelCache(query);
-        }
-        $ax.annotation.InitializeAnnotations(query);
-
-        for(var index = 0; index < ids.length; index++) {
-            var id = ids[index];
-            var childObj = $obj(id);
-            var childJobj = $jobj(id);
-            var childItemId = _getItemIdFromElementId(id);
-            if(obj.repeaterPropMap.isolateRadio && childObj.type == 'radioButton') {
-                var input = $jobj(_applySuffixToElementId(id, '_input'));
-                input.attr('name', _createElementId(input.attr('name'), childItemId));
-                if($ax.ieColorManager) $ax.ieColorManager.applyBackground($ax('#' + id));
+            for(var index = 0; index < ids.length; index++) {
+                var id = ids[index];
+                var childObj = $obj(id);
+                var childJobj = $jobj(id);
+                var childItemId = _getItemIdFromElementId(id);
+                if(obj.repeaterPropMap.isolateRadio && childObj.type == 'radioButton') {
+                    var input = $jobj(_applySuffixToElementId(id, '_input'));
+                    input.attr('name', _createElementId(input.attr('name'), childItemId));
+                }
+                if(obj.repeaterPropMap.isolateSelection && childJobj.attr('selectiongroup')) {
+                    childJobj.attr('selectiongroup', _createElementId(childJobj.attr('selectiongroup'), childItemId));
+                }
+                $ax.initializeObjectEvents($ax('#' + id));
+                $ax.dynamicPanelManager.initFitPanels($ax('#' + id));
+                $ax.style.initializeObjectTextAlignment($ax('#' + id));
             }
-            if(obj.repeaterPropMap.isolateSelection && childJobj.attr('selectiongroup')) {
-                childJobj.attr('selectiongroup', _createElementId(childJobj.attr('selectiongroup'), childItemId));
-            }
-            $ax.initializeObjectEvents($ax('#' + id));
-            $ax.dynamicPanelManager.initFitPanels($ax('#' + id));
-            $ax.style.initializeObjectTextAlignment($ax('#' + id));
-            $ax.applyHighlight($ax('#' + id), true);
-        }
 
-        //$ax.event.raiseSyntheticEvent(itemElementId, 'onLoad', true);
-        //$ax.loadDynamicPanelsAndMasters(obj.objects, path, itemId);
+            //$ax.event.raiseSyntheticEvent(itemElementId, 'onLoad', true);
+            //$ax.loadDynamicPanelsAndMasters(obj.objects, path, itemId);
+        }
 
         // Now load
         for(pos = start; pos < end; pos++) {
@@ -289,10 +273,6 @@ $axure.internal(function($ax) {
         });
     };
 
-    _repeaterManager.refreshRepeaters = function(ids, eventInfo) {
-        for(var i = 0; i < ids.length; i++) _refreshRepeater(ids[i], eventInfo);
-    };
-
     var _initPageInfo = function(obj, elementId) {
         var pageInfo = {};
         var map = obj.repeaterPropMap;
@@ -310,10 +290,6 @@ $axure.internal(function($ax) {
     var _applyColorCss = function(json, div) {
         var args = json.r + ', ' + json.g + ', ' + json.b;
         var background = json.a == 0 ? '' : json.a == 1 ? 'rgb(' + args + ')' : 'rgba(' + args + ', ' + json.a + ')';
-        if($ax.ieColorManager && json.a != 0 && json.a != 1) {
-            var ieColor = $ax.ieColorManager.getColorFromArgb(json.a * 255, json.r, json.g, json.b, true);
-            if(ieColor) background = ieColor;
-        }
         div.css('background-color', background);
         return div;
     };
@@ -362,32 +338,6 @@ $axure.internal(function($ax) {
         obj.islast = index == end - start;
         obj.iseven = index % 2 == 0;
         obj.isodd = index % 2 == 1;
-    };
-
-    var _getVisibleDataBounds = function(pageInfo, count) {
-        var retval = [0, count];
-        if(!pageInfo.noLimit) {
-            var end = pageInfo.itemsPerPage * pageInfo.currPage;
-            var start = end - pageInfo.itemsPerPage;
-
-            // If past the end, move to last page
-            if(start >= count) {
-                pageInfo.currPage = Math.floor((count - 1) / pageInfo.itemsPerPage) + 1;
-                if(pageInfo.currPage <= 0) pageInfo.currPage = 1;
-
-                end = pageInfo.itemsPerPage * pageInfo.currPage;
-                start = end - pageInfo.itemsPerPage;
-            }
-            end = Math.min(end, count);
-            retval[0] = start;
-            retval[1] = end;
-        }
-        return retval;
-    };
-
-    _repeaterManager.getVisibleDataCount = function(repeaterId) {
-        var bounds = _getVisibleDataBounds(repeaterToPageInfo[repeaterId], repeaterToActiveDataSet[repeaterId].length);
-        return bounds[1] - bounds[0];
     };
 
     _repeaterManager.getDataCount = function(repeaterId) {
@@ -461,7 +411,7 @@ $axure.internal(function($ax) {
 
                     //If tied, go to tie breaker
                     if(text1 == text2) {
-                        if(compare) return compare(row1, row2);
+                        if(compare) return compare(row1.index, row2.index);
                         // Actually a tie.
                         return 0;
                     }
@@ -554,7 +504,6 @@ $axure.internal(function($ax) {
                     eventInfo.targetElement = _createElementId(repeaterId, i);
                     eventInfo.srcElement = filters[j].thisId;
                     eventInfo.thiswidget = $ax.getWidgetInfo(eventInfo.srcElement);
-
                     if($ax.expr.evaluateExpr(filters[j].filter, eventInfo) != 'true') continue outer;
                 }
                 dataFiltered[dataFiltered.length] = data[i - 1];
@@ -640,7 +589,7 @@ $axure.internal(function($ax) {
 
         var dataSet = repeaterToActiveDataSet[repeaterId];
         if(!dataSet) dataSet = repeaterToCurrentDataSet[repeaterId];
-        var lastPage = Math.max(1, Math.ceil(dataSet.length / pageInfo.itemsPerPage));
+        var lastPage = Math.ceil(dataSet.length / pageInfo.itemsPerPage);
 
         if(type == 'Value') {
             var val = Number($ax.expr.evaluateExpr(value, eventInfo));
@@ -705,7 +654,6 @@ $axure.internal(function($ax) {
     _repeaterManager.getData = _getDataFromDataSet;
 
     _repeaterManager.hasData = function(id, propName) {
-        if(!_getItemIdFromElementId(id)) return false;
         var repeaterId = $ax.getParentRepeaterFromScriptId(_getScriptIdFromElementId(id));
         return Boolean(repeaterToCurrentDataSet[repeaterId] && repeaterToCurrentDataSet[repeaterId].props.indexOf(propName) != -1);
     };
@@ -741,14 +689,13 @@ $axure.internal(function($ax) {
         else if(type == 'marked') items = repeaterToEditItems[repeaterId];
         else {
             // This should be rule
-            var visibleData = repeaterToCurrentDataSet[repeaterId];
+            var visibleData = repeaterToActiveDataSet[repeaterId];
             var items = [];
             var oldTarget = eventInfo.targetElement;
             for(var i = 0; i < visibleData.length; i++) {
-                var index = i + 1;
-                eventInfo.targetElement = _createElementId(repeaterId, index);
+                eventInfo.targetElement = _createElementId(repeaterId, visibleData[i].index);
                 if($ax.expr.evaluateExpr(rule, eventInfo).toLowerCase() != 'true') continue;
-                items.push(index);
+                items.push(visibleData[i].index);
             }
             eventInfo.targetElement = oldTarget;
         }
@@ -773,14 +720,13 @@ $axure.internal(function($ax) {
         else if(type == 'marked') items = repeaterToEditItems[repeaterId];
         else {
             // This should be rule
-            var currData = repeaterToCurrentDataSet[repeaterId];
+            var visibleData = repeaterToActiveDataSet[repeaterId];
             var items = [];
             var oldTarget = eventInfo.targetElement;
-            for(var i = 0; i < currData.length; i++) {
-                var index = i + 1;
-                eventInfo.targetElement = _createElementId(repeaterId, index);
+            for(var i = 0; i < visibleData.length; i++) {
+                eventInfo.targetElement = _createElementId(repeaterId, visibleData[i].index);
                 if($ax.expr.evaluateExpr(rule, eventInfo).toLowerCase() != 'true') continue;
-                items.push(index);
+                items.push(visibleData[i].index);
             }
             eventInfo.targetElement = oldTarget;
         }
@@ -788,13 +734,12 @@ $axure.internal(function($ax) {
         eventInfo.data = true;
         for(var prop in propMap) {
             if(!propMap.hasOwnProperty(prop)) continue;
+            var data = propMap[prop];
             for(var i = 0; i < items.length; i++) {
-                var data = propMap[prop];
                 var item = items[i];
                 if(data.type == 'literal') {
                     eventInfo.targetElement = _createElementId(repeaterId, item);
                     data = $ax.expr.evaluateExpr(data.literal, eventInfo);
-                    if(typeof (data) == 'object' && data.isWidget) data = data.text;
                     if(typeof (data) == 'string') data = { type: 'text', text: data };
                 }
                 dataSet[item - 1][prop] = data;
@@ -834,13 +779,12 @@ $axure.internal(function($ax) {
 
     _repeaterManager.isEditItem = function(repeaterId, itemId) {
         var items = repeaterToEditItems[repeaterId];
-        return items.indexOf(Number(itemId)) != -1;
+        return items.indexOf(itemId) != -1;
     };
 
     var _createElementId = function(scriptId, itemId) {
         if(!itemId) return scriptId;
-        var i = scriptId.indexOf('_');
-        var sections = i > -1 ? [scriptId.substring(0, i), scriptId.substring(i + 1)] : [scriptId];
+        var sections = scriptId.split(/_(.+)?/);
         var retval = sections[0] + '-' + itemId;
         return sections.length > 1 ? retval + '_' + sections[1] : retval;
     };
@@ -935,7 +879,11 @@ $axure.internal(function($ax) {
     var _fitParentPanel = function(widgetId) {
         // Find parent panel if there is one.
         var parentPanelInfo = getParentPanel(widgetId);
-        if(!parentPanelInfo) return;
+        if(!parentPanelInfo) {
+            // Get size for the body and html, and set the their height
+            _updateFitPanel();
+            return;
+        }
 
         var parentId = parentPanelInfo.parent;
         if(_updateFitPanel(parentId, parentPanelInfo.state)) _fitParentPanel(parentId);
@@ -946,6 +894,7 @@ $axure.internal(function($ax) {
         _dynamicPanelManager.initFitPanels($ax('*'));
 
         $axure.resize(_handleResize);
+        _handleResize();
     };
 
     _dynamicPanelManager.initFitPanels = function(query) {
@@ -969,8 +918,15 @@ $axure.internal(function($ax) {
     };
 
     var percentPanelToLeftCache = [];
+    var _lastWindowHeight = 0;
     var percentPanelsInitialized = false;
     var _handleResize = function() {
+        var newHeight = $(window).height();
+        if(newHeight != _lastWindowHeight) {
+            _updateBodyHeight();
+            _lastWindowHeight = newHeight;
+        }
+
         if(percentPanelsInitialized) {
             for(var key in percentPanelToLeftCache) {
                 //could optimize to only update non-contained panels
@@ -1025,7 +981,7 @@ $axure.internal(function($ax) {
     var _updatePercentPanelToLeftCache = function(obj, elementId, overwrite) {
         var wasUpdated = false;
         var jObj = $jobj(elementId);
-        if(percentPanelToLeftCache[elementId] == undefined || overwrite) {
+        if(!percentPanelToLeftCache[elementId] || overwrite) {
             if(obj.fixedHorizontal == 'center') percentPanelToLeftCache[elementId] = Number(jObj.css('margin-left').replace("px", ""));
             else if(obj.fixedHorizontal == 'right') percentPanelToLeftCache[elementId] = jObj.width() + Number(jObj.css('right').replace("px", ""));
             else percentPanelToLeftCache[elementId] = Number(jObj.css('left').replace("px", ""));
@@ -1115,6 +1071,9 @@ $axure.internal(function($ax) {
                 _updateFitPanel(panelId, j, true);
             }
         }
+
+        // Make sure the page itself updates its size
+        _updateFitPanel();
     };
 
     _dynamicPanelManager.setFitToContentCss = function(elementId, fitToContent, oldWidth, oldHeight) {
@@ -1182,15 +1141,21 @@ $axure.internal(function($ax) {
         return $jobj(id);
     };
 
-    var _getClamp = function(id) {
-        var obj = $obj(id);
-        if(!obj) return _getPanelJobj(id);
-        if(obj.type == 'dynamicPanel') return _getShownState(id);
-        return $jobj(id);
+    var _updateBodyHeight = function() {
+        // Get size for the body and html, and set the their height
+        var winHeight = $(window).height();
+        var contentHeight = getContainerSize().height;
+        var height = winHeight >= contentHeight ? '100%' : contentHeight + 'px';
+        $('body').css('height', height);
+        $('html').css('height', height);
     };
 
     var _updateFitPanel = function(panelId, stateIndex, initializingView) {
-        if(!panelId) return false;
+        // If no panelId, then we are trying to update the body.
+        if(!panelId) {
+            _updateBodyHeight();
+            return false;
+        }
 
         // Only fit if fitToContent is true
         if(!$ax.dynamicPanelManager.isIdFitToContent(panelId)) return false;
@@ -1228,9 +1193,9 @@ $axure.internal(function($ax) {
 
         return true;
     };
+    _dynamicPanelManager.updateFitPanel = _updateFitPanel;
 
-    // widgetId is the one that crawls up masters until it finds a parent panel, targetId is the original widgetId (not the crawling master)
-    var getParentPanel = function(widgetId, path, targetId) {
+    var getParentPanel = function(widgetId, path) {
         path = path || $ax.getPathFromScriptId($ax.repeater.getScriptIdFromElementId(widgetId));
 
         var obj = $obj(widgetId);
@@ -1243,7 +1208,7 @@ $axure.internal(function($ax) {
             for(var i = 0; i < parentObj.diagrams.length; i++) {
                 var stateId = $ax.repeater.applySuffixToElementId(parentId, '_state' + i);
                 var stateQuery = $jobj(stateId);
-                if(stateQuery.find('#' + (targetId || widgetId)).length != 0) {
+                if(stateQuery.find('#' + widgetId).length != 0) {
                     retVal.state = i;
                     break;
                 }
@@ -1257,7 +1222,7 @@ $axure.internal(function($ax) {
         var parentMaster = $ax.getScriptIdFromPath(path);
         parentMaster = $ax.repeater.getElementId(parentMaster, widgetId);
 
-        return getParentPanel(parentMaster, path, targetId || widgetId);
+        return getParentPanel(parentMaster, path);
     };
 
     // TODO: May be a better location for this. Used currently for rdo and panel state containers
@@ -1269,21 +1234,11 @@ $axure.internal(function($ax) {
         for(var i = 0; i < children.length; i++) {
             var child = $(children[i]);
             var childId = child.attr('id');
+            if(!childId || $ax.visibility.limboIds[childId] || !$ax.visibility.IsIdVisible(childId)) continue;
 
             var childObj = $obj(childId);
-            if(!childObj) {
-                // On the body there are some children that should be ignored, as they are not objects.
-                if(!child.hasClass('basiclink') || child.get(0).tagName.toLowerCase() != 'a') continue;
-
-                // Otherwise it should be a basic link
-                var linkChildren = child.children();
-                if(!linkChildren.length) continue;
-                child = $(linkChildren[0]);
-                childId = child.attr('id');
-                childObj = $obj(childId);
-            }
-
-            if(!childId || $ax.visibility.limboIds[childId] || !$ax.visibility.IsIdVisible(childId)) continue;
+            // On the body there are some children that should be ignored, as they are not objects.
+            if(!childObj) continue;
 
             // Ignore fixed
             if(childObj.type == 'dynamicPanel' && childObj.fixedHorizontal) continue;
@@ -1420,15 +1375,14 @@ $axure.internal(function($ax) {
             obj = $ax.getObjectFromElementId(parent);
         }
 
-        var clampLoc = _getPanelJobj(id);
-        var clampDim = _getClamp(id);
+        var jobj = _getPanelJobj(id);
 
         // If below, a horizantal clamp, otherwise a vertical clamp
         var clampProp = vert ? 'left' : 'top';
         var clampOffset = vert ? 'width' : 'height';
         if(!clamp) {
-            clamp = [Number(clampLoc.css(clampProp).replace('px', ''))];
-            clamp[1] = clamp[0] + clampDim[clampOffset]();
+            clamp = [Number(jobj.css(clampProp).replace('px', ''))];
+            clamp[1] = clamp[0] + jobj[clampOffset]();
         }
 
         // If clamps, threshold, or delta is not a number, can't compress.
@@ -1439,10 +1393,6 @@ $axure.internal(function($ax) {
         var children = $(parent ? '#' + parent : '#base').children();
         for(var i = 0; i < children.length; i++) {
             var child = $(children[i]);
-
-            // Check for basic links
-            if(child[0] && child[0].tagName == 'A' && child.hasClass('basiclink')) child = child.children();
-
             var childId = child.attr('id');
             // Don't move self, and check id to make sure it is a widget.
             if(childId == id || !childId || childId[0] != 'u') continue;
@@ -1460,13 +1410,12 @@ $axure.internal(function($ax) {
             if(isNaN(marker) || isNaN(childClamp[0]) || isNaN(childClamp[1]) ||
                marker < threshold || childClamp[1] <= clamp[0] || childClamp[0] >= clamp[1]) continue;
 
-            //marker += delta;
+            marker += delta;
 
-            //var props = {};
-            //props[markerProp] = marker;
-            $ax('#' + childId).moveBy(vert ? 0 : delta, vert ? delta : 0, easing == 'none' ? {} : { duration: duration, easing: easing });
-            //if(easing == 'none') child.css(props);
-            //else child.animate(props, duration, easing);
+            var props = {};
+            props[markerProp] = marker;
+            if(easing == 'none') child.css(props);
+            else child.animate(props, duration, easing);
         }
     };
 
@@ -1508,11 +1457,6 @@ $axure.internal(function($ax) {
             for(var i = 0; i < children.length; i++) {
                 var elementId = children[i].id;
                 var obj = $obj(elementId);
-                if(obj == null) {
-                    elementId = elementId.split('_')[0];
-                    obj = $obj(elementId);
-                }
-                if(obj == null) continue;
                 if(obj.type == 'dynamicPanel' && !obj.propagate) continue;
 
                 if(hover) $ax.style.SetWidgetHover(elementId, value);
