@@ -1,125 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a543bcd7-5eaf-46bd-aa5f-746aa2fe7b48" name="Default" comment="update rest add cart,order.  update api doc">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AdvanceOrderNumber/Iksanika_Ordernumber-1.0.1.tgz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/BlogController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/CatalogController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AdvanceOrderNumber/app/code/community/Iksanika/Ordernumber/Helper/Data.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AdvanceOrderNumber/app/locale/en_US/Iksanika_Ordernumber.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AdvanceOrderNumber/app/locale/zh_CN/Iksanika_Ordernumber.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AdvanceOrderNumber/app/etc/modules/Iksanika_Ordernumber.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AdvanceOrderNumber/app/code/community/Iksanika/Ordernumber/Model/Observer.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AdvanceOrderNumber/app/code/community/Iksanika/Ordernumber/Model/System/Config/Source/Reset.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AdvanceOrderNumber/app/code/community/Iksanika/Ordernumber/Model/Resource/Eav/Entity/Type.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AdvanceOrderNumber/app/code/community/Iksanika/Ordernumber/etc/config.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AdvanceOrderNumber/app/code/community/Iksanika/Ordernumber/etc/system.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/ui.rp" afterPath="$PROJECT_DIR$/_doc/ui/ui.rp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/CustomerController.php" afterPath="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/CustomerController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/IndexController.php" afterPath="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/IndexController.php" />
+    <list default="true" id="a543bcd7-5eaf-46bd-aa5f-746aa2fe7b48" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/OrderController.php" afterPath="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/OrderController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/etc/modules/Sunpop_StampCustomer.xml" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/etc/modules/Sunpop_StampCustomer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/action.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/action.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/adaptive.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/adaptive.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/annotation.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/annotation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/axQuery.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/axQuery.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/axQuery.std.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/axQuery.std.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/player/axplayer.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/player/axplayer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/css/axure_rp_page.css" afterPath="$PROJECT_DIR$/_doc/ui/resources/css/axure_rp_page.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axutils.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axutils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/个人中心/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/个人中心/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/保存了1个印章/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/保存了1个印章/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/保存了2个私章/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/保存了2个私章/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___一级注册建筑师/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___一级注册建筑师/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___一级注册建造师/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___一级注册建造师/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___企业类/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___企业类/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___普通私章/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___普通私章/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___注册监理工程师/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___注册监理工程师/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___签字章/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___签字章/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章预览/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/印章预览/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/客户留言答疑/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/客户留言答疑/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/快速注册资料检索/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/快速注册资料检索/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/我的印章___重复购买/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/我的印章___重复购买/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/执业印章app/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/执业印章app/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/支付/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/支付/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/注册/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/注册/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/登录/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/登录/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/编辑列表中某一印章/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/编辑列表中某一印章/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/设置收货地址/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/设置收货地址/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/购物车/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/购物车/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/输入物流与发票信息/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/输入物流与发票信息/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/选择印章种类___章壳/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/选择印章种类___章壳/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/首页-选择印章类型-采购/data.js" afterPath="$PROJECT_DIR$/_doc/ui/files/首页-选择印章类型-采购/data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/doc.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/doc.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/data/document.js" afterPath="$PROJECT_DIR$/_doc/ui/data/document.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/drag.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/drag.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/events.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/events.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/expr.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/expr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/ie.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/ie.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/index.html" afterPath="$PROJECT_DIR$/_doc/ui/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/init.temp.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/init.temp.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/legacy.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/legacy.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/messagecenter.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/messagecenter.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/model.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/model.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/move.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/move.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/repeater.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/repeater.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/plugins/sitemap/sitemap.js" afterPath="$PROJECT_DIR$/_doc/ui/plugins/sitemap/sitemap.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/player/splitter.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/player/splitter.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/porto/css/stampcustomer.css" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/porto/css/stampcustomer.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/start.html" afterPath="$PROJECT_DIR$/_doc/ui/start.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/sto.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/sto.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/style.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/style.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/data/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/data/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/个人中心/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/个人中心/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/保存了1个印章/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/保存了1个印章/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/保存了2个私章/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/保存了2个私章/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___一级注册建筑师/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___一级注册建筑师/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___一级注册建造师/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___一级注册建造师/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___企业类/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___企业类/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___普通私章/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___普通私章/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___注册监理工程师/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___注册监理工程师/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___签字章/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/印章信息输入___签字章/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/印章预览/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/印章预览/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/客户留言答疑/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/客户留言答疑/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/快速注册资料检索/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/快速注册资料检索/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/我的印章___重复购买/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/我的印章___重复购买/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/支付/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/支付/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/注册/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/注册/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/登录/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/登录/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/编辑列表中某一印章/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/编辑列表中某一印章/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/设置收货地址/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/设置收货地址/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/购物车/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/购物车/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/输入物流与发票信息/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/输入物流与发票信息/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/选择印章种类___章壳/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/选择印章种类___章壳/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/files/首页-选择印章类型-采购/styles.css" afterPath="$PROJECT_DIR$/_doc/ui/files/首页-选择印章类型-采购/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/utils.temp.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/utils.temp.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/variables.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/variables.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/viewer.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/viewer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/visibility.js" afterPath="$PROJECT_DIR$/_doc/ui/resources/scripts/axure/visibility.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/个人中心.html" afterPath="$PROJECT_DIR$/_doc/ui/个人中心.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/保存了1个印章.html" afterPath="$PROJECT_DIR$/_doc/ui/保存了1个印章.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/保存了2个私章.html" afterPath="$PROJECT_DIR$/_doc/ui/保存了2个私章.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/印章信息输入___一级注册建筑师.html" afterPath="$PROJECT_DIR$/_doc/ui/印章信息输入___一级注册建筑师.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/印章信息输入___一级注册建造师.html" afterPath="$PROJECT_DIR$/_doc/ui/印章信息输入___一级注册建造师.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/印章信息输入___企业类.html" afterPath="$PROJECT_DIR$/_doc/ui/印章信息输入___企业类.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/印章信息输入___普通私章.html" afterPath="$PROJECT_DIR$/_doc/ui/印章信息输入___普通私章.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/印章信息输入___注册监理工程师.html" afterPath="$PROJECT_DIR$/_doc/ui/印章信息输入___注册监理工程师.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/印章信息输入___签字章.html" afterPath="$PROJECT_DIR$/_doc/ui/印章信息输入___签字章.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/印章预览.html" afterPath="$PROJECT_DIR$/_doc/ui/印章预览.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/客户留言答疑.html" afterPath="$PROJECT_DIR$/_doc/ui/客户留言答疑.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/快速注册资料检索.html" afterPath="$PROJECT_DIR$/_doc/ui/快速注册资料检索.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/我的印章___重复购买.html" afterPath="$PROJECT_DIR$/_doc/ui/我的印章___重复购买.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/执业印章app.html" afterPath="$PROJECT_DIR$/_doc/ui/执业印章app.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/支付.html" afterPath="$PROJECT_DIR$/_doc/ui/支付.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/注册.html" afterPath="$PROJECT_DIR$/_doc/ui/注册.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/登录.html" afterPath="$PROJECT_DIR$/_doc/ui/登录.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/编辑列表中某一印章.html" afterPath="$PROJECT_DIR$/_doc/ui/编辑列表中某一印章.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/设置收货地址.html" afterPath="$PROJECT_DIR$/_doc/ui/设置收货地址.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/购物车.html" afterPath="$PROJECT_DIR$/_doc/ui/购物车.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/输入物流与发票信息.html" afterPath="$PROJECT_DIR$/_doc/ui/输入物流与发票信息.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/选择印章种类___章壳.html" afterPath="$PROJECT_DIR$/_doc/ui/选择印章种类___章壳.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_doc/ui/首页-选择印章类型-采购.html" afterPath="$PROJECT_DIR$/_doc/ui/首页-选择印章类型-采购.html" />
     </list>
     <ignored path="stampApp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -163,7 +47,7 @@
       <file leaf-file-name="ProductsController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/ProductsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.594595">
+            <state vertical-scroll-proportion="0.0">
               <caret line="76" column="39" selection-start-line="76" selection-start-column="39" selection-end-line="78" selection-end-column="57" />
               <folding />
             </state>
@@ -254,7 +138,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -435,6 +318,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -499,11 +383,10 @@
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24113856" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32062298" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3254565" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18897638" sideWeight="0.5085929" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18897638" sideWeight="0.4914071" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.010123734" sideWeight="0.49785176" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -513,6 +396,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18897638" sideWeight="0.4914071" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36495537" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -559,7 +443,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update rest add cart,order.  update api doc" />
-    <option name="LAST_COMMIT_MESSAGE" value="update rest add cart,order.  update api doc" />
+    <MESSAGE value="update ui，接口增加。增加一个插件订单号管理但有bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="update ui，接口增加。增加一个插件订单号管理但有bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -900,7 +785,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -914,7 +798,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/ProductsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.594595">
+        <state vertical-scroll-proportion="0.0">
           <caret line="76" column="39" selection-start-line="76" selection-start-column="39" selection-end-line="78" selection-end-column="57" />
           <folding />
         </state>

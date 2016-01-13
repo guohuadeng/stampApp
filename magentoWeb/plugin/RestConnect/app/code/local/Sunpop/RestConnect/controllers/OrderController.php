@@ -63,6 +63,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 				$orderCollection->addFieldToFilter($field, $value);
 			}
 			$orderCollection->addFieldToFilter('customer_id',$customer_id);
+			$orderCollection->setOrder('created_at','desc');
 		} catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
 					'status' => '0x0002',
@@ -92,18 +93,28 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 
 				if(($_product->getImage() == 'no_selection') || (!$_product->getImage())){
 					$productname[$i]['image_url']= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/base/default/images/catalog/product/placeholder/image.jpg';
-				  $productname[$i]['image_thumbnail_url']=  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/base/default/images/catalog/product/placeholder/image.jpg';
+				    $productname[$i]['image_thumbnail_url']=  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/base/default/images/catalog/product/placeholder/image.jpg';
 				}else{
 					$productname[$i]['image_url']= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $_product->getImage();
 					$productname[$i]['image_thumbnail_url'] = Mage::getModel ( 'catalog/product_media_config' )->getMediaUrl( $_product->getThumbnail() );
 				}
+				$optionsall = $item->getProductOptions();
+				$options = $optionsall['options'];
+				$newoptions = array();
+				foreach($options as $j=>$option){
+					foreach($option as $index=>$p){
+						$newoptions[$j][$index] = urlencode($p);
+					}
+				}
+				$productname[$i]['options'] = $newoptions;
 			}
 			$data['products'] = $productname;
 			$orders[] = $data;
 
 
 		}
-		echo json_encode($orders);
+		$result = Mage::helper('core')->jsonEncode($orders);
+		$this->getResponse()->setBody(urldecode($result));
 	}
 
 	protected function _getAttributes($object, $type, array $attributes = null)
@@ -303,6 +314,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
                 $shipmentCollection->addFieldToFilter($field, $value);
             }
 			$shipmentCollection->addFieldToFilter('customer_id',$customer_id);
+			$shipmentCollection->setOrder('created_at','desc');
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
 					'code' => '0x0002',
@@ -335,6 +347,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 
             $shipments[] = $ship;
         }
+		//print_r($shipments);
 		echo json_encode($shipments);
 	}
 	public function shipmentInfoAction(){
@@ -418,6 +431,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
             foreach ($filters as $field => $value) {
                 $invoiceCollection->addFieldToFilter($field, $value);
             }
+			$invoiceCollection->setOrder('created_at','desc');
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
 					'code' => '0x0002',
@@ -453,7 +467,6 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			}
         }
 		echo json_encode($invoices);
-       // return $invoices;
 	}
 	/*
 	* @param int invoice_increment_id
@@ -507,6 +520,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
         foreach ($invoice->getCommentsCollection() as $comment) {
             $result['comments'][] = $this->_getAttributes($comment, 'invoice_comment');
         }
+		print_r($result);
 		echo json_encode($result);
 	}
 }
