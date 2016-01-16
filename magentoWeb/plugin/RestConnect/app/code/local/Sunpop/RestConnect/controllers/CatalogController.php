@@ -103,6 +103,46 @@ class Sunpop_RestConnect_CatalogController extends Mage_Core_Controller_Front_Ac
     // -------------------------------首页 特卖商品 END------------------------------//
 	}
 
+	public function productListComingAction() {
+    // ------------------------------首页 即将促销商品 BEGIN-------------------------------------//
+    $page = ($this->getRequest ()->getParam ( 'page' )) ? ($this->getRequest ()->getParam ( 'page' )) : 1;
+    $limit = ($this->getRequest ()->getParam ( 'limit' )) ? ($this->getRequest ()->getParam ( 'limit' )) : 5;
+    $order = ($this->getRequest ()->getParam ( 'order' )) ? ($this->getRequest ()->getParam ( 'order' )) : 'entity_id';
+    $dir = ($this->getRequest ()->getParam ( 'dir' )) ? ($this->getRequest ()->getParam ( 'dir' )) : 'desc';
+    // $todayDate = Mage::app ()->getLocale ()->date ()->toString ( Varien_Date::DATETIME_INTERNAL_FORMAT );
+    $tomorrow = mktime ( 0, 0, 0, date ( 'm' ), date ( 'd' ) + 1, date ( 'y' ) );
+    $dateTomorrow = date ( 'm/d/y', $tomorrow );
+    $tdatomorrow = mktime ( 0, 0, 0, date ( 'm' ), date ( 'd' ) + 3, date ( 'y' ) );
+    $tdaTomorrow = date ( 'm/d/y', $tdatomorrow );
+    $_productCollection = Mage::getModel ( 'catalog/product' )->getCollection ();
+    $_productCollection->addAttributeToSelect ( '*' )->addAttributeToFilter ( 'visibility', array (
+        'neq' => 1
+    ) )->addAttributeToFilter ( 'status', 1 )->addAttributeToFilter ( 'special_price', array (
+        'neq' => 0
+    ) )->addAttributeToFilter ( 'special_from_date', array (
+        'date' => true,
+        'to' => $dateTomorrow
+    ) )->addAttributeToFilter ( array (
+        array (
+            'attribute' => 'special_to_date',
+            'date' => true,
+            'from' => $tdaTomorrow
+        ),
+        array (
+            'attribute' => 'special_to_date',
+            'null' => 1
+        )
+    ) )->addAttributeToSort ( $order, $dir )/* ->setPage ( $page, $limit ) */;
+    $pages = $_productCollection->setPageSize ( $limit )->getLastPageNumber ();
+    // $count=$collection->getSize();
+    if ($page <= $pages) {
+      $_productCollection->setPage ( $page, $limit );
+      $products = $_productCollection->getItems ();
+      $productlist = $this->getProductlist ( $products );
+    }
+    echo json_encode ( $productlist );
+	}
+
 	public function productListNewAction() {
 		// ------------------------------最新商品 BEGIN-------------------------------------//
     $order = ($this->getRequest ()->getParam ( 'order' )) ? ($this->getRequest ()->getParam ( 'order' )) : 'entity_id';

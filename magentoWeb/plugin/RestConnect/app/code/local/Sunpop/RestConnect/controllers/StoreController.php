@@ -23,7 +23,7 @@ class Sunpop_RestConnect_StoreController extends Mage_Core_Controller_Front_Acti
 				$basicinfo [$sk]['webside'][$key]['root_category_id']=$group->getRootCategoryId ();
 				$stores = $group->getStores ();
 				foreach ( $stores as $oo =>$_store ) {
-					$storelang= Mage::getStoreConfig('general/locale/code', $_store->getStoreId ());	
+					$storelang= Mage::getStoreConfig('general/locale/code', $_store->getStoreId ());
 					$basicinfo [$sk]['webside'][$key]['view'][$oo] = array (
 							'name' => $_store->getName (),
 							'store_id' => $_store->getStoreId (),
@@ -35,7 +35,7 @@ class Sunpop_RestConnect_StoreController extends Mage_Core_Controller_Front_Acti
 					);
 				}
 			}
-			
+
 		}
 		echo json_encode($basicinfo);
 		// public function getStoresStructure($isAll = false, $storeIds = array(), $groupIds = array(), $websiteIds = array())
@@ -44,12 +44,12 @@ class Sunpop_RestConnect_StoreController extends Mage_Core_Controller_Front_Acti
 	}
 	public function storeInfoAction(){
 		$website_id = Mage::app()->getStore()->getWebsiteId();
-		$store_id = Mage::app()->getStore()->getStoreId();		
+		$store_id = Mage::app()->getStore()->getStoreId();
 		$website_name = Mage::app ()->getWebsite($website_id) -> getName();
 		$group_id = Mage::app()->getStore()->getGroupId();
 		$group_name = Mage::app ()->getGroup($group_id) -> getName();
-		$storelang= Mage::getStoreConfig('general/locale/code', $store_id);		
-		
+		$storelang= Mage::getStoreConfig('general/locale/code', $store_id);
+
 		echo json_encode(array(
 				'store_id'=>$store_id,
 				'store_code'=>Mage::app()->getStore()->getCode(),
@@ -61,10 +61,13 @@ class Sunpop_RestConnect_StoreController extends Mage_Core_Controller_Front_Acti
 				'sort_order' => Mage::app()->getStore()->getSortOrder(),
 				'is_active'=>Mage::app()->getStore()->getIsActive(),
 				'root_category_id' => Mage::app()->getStore()->getRootCategoryId(),
-				//'url'=>Mage::app()->getStore()->getHomeUrl()
 				'url'=> Mage::helper('core/url')->getHomeUrl(),
-				'storelang'=> $storelang	
-		));		
+				'media_url'=> Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA),
+				'store_url'=> Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB),
+				'skin_url'=> Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN),
+				'js_url'=> Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS),
+				'storelang'=> $storelang
+		));
 	}
-	
+
 }
