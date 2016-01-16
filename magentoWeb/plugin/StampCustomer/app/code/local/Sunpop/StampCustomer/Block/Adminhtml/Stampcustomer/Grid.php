@@ -27,7 +27,7 @@ class Sunpop_StampCustomer_Block_Adminhtml_Stampcustomer_Grid extends Mage_Admin
 			    "type" => "number",
 				"index" => "a_id",
 				));
-                
+
 				$this->addColumn("a_state", array(
 				"header" => Mage::helper("stampcustomer")->__("State"),
 				"index" => "a_state",
@@ -48,6 +48,11 @@ class Sunpop_StampCustomer_Block_Adminhtml_Stampcustomer_Grid extends Mage_Admin
 				$this->addColumn("a_certtype", array(
 				"header" => Mage::helper("stampcustomer")->__("Certtype"),
 				"index" => "a_certtype",
+				'sortable'  => true,
+				));
+				$this->addColumn("a_certspec", array(
+				"header" => Mage::helper("stampcustomer")->__("Certspec"),
+				"index" => "a_certspec",
 				'sortable'  => true,
 				));
 				$this->addColumn("a_certsn", array(
@@ -72,22 +77,22 @@ class Sunpop_StampCustomer_Block_Adminhtml_Stampcustomer_Grid extends Mage_Admin
 						'index'     => 'a_expdate',
 						'type'      => 'date',
 					));
-			$this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV')); 
+			$this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
 			$this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel'));
 
 				return parent::_prepareColumns();
 		}
-		
-		
-		
-		
+
+
+
+
 		public function getRowUrl($row)
 		{
 			   return $this->getUrl("*/*/edit", array("id" => $row->getId()));
 		}
 
 
-		
+
 		protected function _prepareMassaction()
 		{
 			$this->setMassactionIdField('a_id');
@@ -98,7 +103,7 @@ class Sunpop_StampCustomer_Block_Adminhtml_Stampcustomer_Grid extends Mage_Admin
 					 'url'  => $this->getUrl('adminhtml/stampcustomer/massRemove'),
 					 'confirm' => Mage::helper('stampcustomer')->__('Are you sure?')
 				));
-				
+
 			$statuses = Mage::helper('stampcustomer')->getOptionArray();
 			array_unshift($statuses, array('label'=>'', 'value'=>''));
 			$this->getMassactionBlock()->addItem('update_status', array(
@@ -116,6 +121,6 @@ class Sunpop_StampCustomer_Block_Adminhtml_Stampcustomer_Grid extends Mage_Admin
 			));
 			return $this;
 		}
-			
+
 
 }

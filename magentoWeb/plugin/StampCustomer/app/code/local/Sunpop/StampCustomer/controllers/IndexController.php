@@ -74,6 +74,9 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 			if($data['a_certtype']){
 				$collection->addFieldToFilter('a_certtype', array('like' => "%".trim($data['a_certtype'])."%"));
 			}
+			if($data['a_certspec']){
+				$collection->addFieldToFilter('a_certspec', array('like' => "%".trim($data['a_certspec'])."%"));
+			}
 			$collection->addFieldToFilter('status', array('eq' => 1));
 			//$collection->setPageSize(20)->setCurPage(1);
 
@@ -84,6 +87,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 					$result['a_name'] = urlencode($c->getAName());
 					$result['a_state'] = urlencode($c->getAState());
 					$result['a_certtype'] = urlencode($c->getACerttype());
+					$result['a_certspec'] = urlencode($c->getACerttspec());
 					$result['a_company'] = urlencode($c->getACompany());
 					$result['a_certsn'] = urlencode($c->getACertsn());
 					$result['a_stampsn'] = urlencode($c->getAStampsn());
@@ -166,6 +170,9 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 			}
 			if($data['a_certtype']){
 				$collection->addFieldToFilter('a_certtype', array('like' => "%".trim($data['a_certtype'])."%"));
+			}
+			if($data['a_certspec']){
+				$collection->addFieldToFilter('a_certspec', array('like' => "%".trim($data['a_certspec'])."%"));
 			}
 			$collection->addFieldToFilter('status', array('eq' => 1));
 			$collection->setPageSize(20)->setCurPage(1);

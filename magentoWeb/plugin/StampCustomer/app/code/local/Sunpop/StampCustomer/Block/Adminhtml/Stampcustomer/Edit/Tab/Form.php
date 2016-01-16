@@ -8,45 +8,51 @@ class Sunpop_StampCustomer_Block_Adminhtml_Stampcustomer_Edit_Tab_Form extends M
 				$this->setForm($form);
 				$fieldset = $form->addFieldset("stampcustomer_form", array("legend"=>Mage::helper("stampcustomer")->__("Item information")));
 
-				
+
 						$fieldset->addField("a_state", "select", array(
 						"label" => Mage::helper("stampcustomer")->__("State"),
 						"name" => "a_state",
-						'required'  => true, 
+						'required'  => true,
 						'value'     => Mage::registry("stampcustomer_data")->getAState(),
 						'values'    => Mage::helper("stampcustomer")->getState(),
 						));
-					
+
 						$fieldset->addField("a_name", "text", array(
 						"label" => Mage::helper("stampcustomer")->__("Name"),
 						"name" => "a_name",
 						'required'  => true,
 						));
-					
+
 						$fieldset->addField("a_company", "text", array(
 						"label" => Mage::helper("stampcustomer")->__("Company"),
 						"name" => "a_company",
 						'required'  => true,
 						));
-					
+
 						$fieldset->addField("a_certtype", "text", array(
 						"label" => Mage::helper("stampcustomer")->__("Certtype"),
 						"name" => "a_certtype",
 						'required'  => true,
 						));
-					
+
+						$fieldset->addField("a_certspec", "text", array(
+						"label" => Mage::helper("stampcustomer")->__("Certspec"),
+						"name" => "a_certspec",
+						'required'  => false,
+						));
+
 						$fieldset->addField("a_certsn", "text", array(
 						"label" => Mage::helper("stampcustomer")->__("Certsn"),
 						"name" => "a_certsn",
 						'required'  => true,
 						));
-					
+
 						$fieldset->addField("a_stampsn", "text", array(
 						"label" => Mage::helper("stampcustomer")->__("Stampsn"),
 						"name" => "a_stampsn",
 						'required'  => true,
 						));
-					
+
 						$dateFormatIso = Mage::app()->getLocale()->getDateFormatWithLongYear(
 							Mage_Core_Model_Locale::FORMAT_TYPE_FULL
 						);
@@ -71,7 +77,7 @@ class Sunpop_StampCustomer_Block_Adminhtml_Stampcustomer_Edit_Tab_Form extends M
 				{
 					$form->setValues(Mage::getSingleton("adminhtml/session")->getStampcustomerData());
 					Mage::getSingleton("adminhtml/session")->setStampcustomerData(null);
-				} 
+				}
 				elseif(Mage::registry("stampcustomer_data")) {
 				    $form->setValues(Mage::registry("stampcustomer_data")->getData());
 				}
