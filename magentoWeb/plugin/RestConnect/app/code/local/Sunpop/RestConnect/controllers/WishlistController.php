@@ -140,6 +140,7 @@ class Sunpop_RestConnect_WishlistController extends Mage_Core_Controller_Front_A
 			if ($product->getId ()) {
 				$name = $product->getName();
 				$items [] = array (
+						'item_id' => $item->getId(),
 						'name' => urlencode($name),
 						'entity_id' => $product->getId (),
 						'regular_price_with_tax' => number_format ( Mage::helper ( 'directory' )->currencyConvert ( $product->getPrice (), $baseCurrency, $currentCurrency ), 2, '.', '' ),
