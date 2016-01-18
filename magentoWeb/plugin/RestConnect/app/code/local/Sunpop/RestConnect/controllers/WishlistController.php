@@ -146,6 +146,9 @@ class Sunpop_RestConnect_WishlistController extends Mage_Core_Controller_Front_A
 						'final_price_with_tax' => number_format ( Mage::helper ( 'directory' )->currencyConvert ( $product->getSpecialPrice (), $baseCurrency, $currentCurrency ), 2, '.', '' ),
 						'sku' => $product->getSku () ,
 						'symbol' => Mage::app ()->getLocale ()->currency ( Mage::app ()->getStore ()->getCurrentCurrencyCode () )->getSymbol (),
+            'image_url' => $product->getImageUrl (),
+            'image_thumbnail_url' => Mage::getModel ( 'catalog/product_media_config' )->getMediaUrl( $product->getThumbnail() ),
+            'image_small_url' => Mage::getModel ( 'catalog/product_media_config' )->getMediaUrl( $product->getSmallImage() ),
 						'option' => $cuoptions
 				);
 			}
