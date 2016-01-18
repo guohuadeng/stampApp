@@ -53,18 +53,18 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			->addExpressionFieldToSelect('shipping_name', 'CONCAT({{shipping_firstname}}, " ", {{shipping_lastname}})',
 				array('shipping_firstname' => $shippingFirstnameField, 'shipping_lastname' => $shippingLastnameField)
 		);
-		
+
 		/** @var $apiHelper Mage_Api_Helper_Data */
-		//$apiHelper = Mage::helper('api');
-		//$filters = $this->getRequest()->getParams();
-		//$filters = $apiHelper->parseFilters($filters, $_attributesMap['order']);
+		$apiHelper = Mage::helper('api');
+		$filters = $this->getRequest()->getParams();
+		$filters = $apiHelper->parseFilters($filters, $_attributesMap['order']);
 		try {
-			//foreach ($filters as $field => $value) {
-				//$orderCollection->addFieldToFilter($field, $value);
-			//}
+			foreach ($filters as $field => $value) {
+				$orderCollection->addFieldToFilter($field, $value);
+			}
 			$orderCollection->addFieldToFilter('customer_id',$customer_id);
 			$orderCollection->setOrder('created_at','desc');
-			
+
 			$page = $this->getRequest ()->getParam ( 'page' ) ? $this->getRequest ()->getParam ( 'page' ) : 1;
 			$limit = $this->getRequest ()->getParam ( 'limit' ) ? $this->getRequest ()->getParam ( 'limit' ) : 10;
 			$orderCollection->setPageSize($limit)->setCurPage($page);
@@ -211,7 +211,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
                     Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage()
                 );
             }
-			
+
 			$productinfos = $this->_getAttributes($item, 'order_item');
 			$product_options = $productinfos['product_options'];
 			$product_optionsarray = unserialize($product_options);
@@ -225,7 +225,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			$productinfos['product_options'] = $newoptions;
             $result['items'][] = $productinfos;
         }
-		
+
         $result['payment'] = $this->_getAttributes($order->getPayment(), 'order_payment');
 
         $result['status_history'] = array();
@@ -242,7 +242,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 				$result['invoice_increment_id'] = $inv->getIncrementId();
 			}
 		}
-		
+
 		$result = Mage::helper('core')->jsonEncode($result);
 		$this->getResponse()->setBody(urldecode($result));
 		//echo json_encode($result);
