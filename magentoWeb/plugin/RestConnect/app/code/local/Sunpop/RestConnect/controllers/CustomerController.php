@@ -459,7 +459,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			));
 			return ;
         }
-		$addressid = ( int ) $this->getRequest ()->getParam('address_id');
+		$addressid = ( int ) $this->getRequest ()->getParam('addressid');
 		$resource = new Mage_Customer_Model_Api_Resource;
 
 		if($addressid){
@@ -481,7 +481,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 				return ;
 			}
 			$result = array();
-			$result['address_id'] = $addressid;
+			$result['customer_address_id'] = $addressid;
 			foreach ($resource->_mapAttributes as $attributeAlias => $attributeCode) {
 				$result[$attributeAlias] = $address->getData($attributeCode);
 			}
@@ -515,7 +515,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			));
 			return ;
         }
-		$addressid = ( int ) $this->getRequest ()->getParam('address_id');
+		$addressid = ( int ) $this->getRequest ()->getParam('addressid');
 		$resource = new Mage_Customer_Model_Api_Resource;
 		if($addressid){
 			$address = Mage::getModel('customer/address')
@@ -583,7 +583,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			));
 			return ;
         }
-		$addressid = ( int ) $this->getRequest ()->getParam('address_id');
+		$addressid = ( int ) $this->getRequest ()->getParam('addressid');
 		$resource = new Mage_Customer_Model_Api_Resource;
 		if($addressid){
 			$address = Mage::getModel('customer/address')
