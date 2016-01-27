@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `stampcustomerlist` (
   `a_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_estonian_ci NOT NULL COMMENT '姓名',
   `a_company` varchar(100) NOT NULL COMMENT '公司',
   `a_certtype` varchar(30) NOT NULL COMMENT '专业类型',
-  `a_certsn` varchar(30) NOT NULL COMMENT '注册证书号',
+  `a_certsn` varchar(30) NOT NULL COMMENT '注册号',
   `a_stampsn` varchar(30) NOT NULL COMMENT '印章号',
   `status` tinyint(1) NOT NULL,
   `a_expdate` date NOT NULL COMMENT '有效期至',

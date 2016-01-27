@@ -30,12 +30,12 @@
 <dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
     <div class="input-box">
     <?php if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_FIELD): ?>
-		<?php  
+		<?php
 			$title = $this->escapeHtml($_option->getTitle());
 			$customoption = array(
 				'姓名'=>'a_name',
 				'注册区域'=>'a_state',
-				'注册证书'=>'a_certsn',
+				'注册号'=>'a_certsn',
 				'专业类型'=>'a_certtype',
 				'单位名称'=>'a_company',
 				'印章号'=>'a_stampsn',
