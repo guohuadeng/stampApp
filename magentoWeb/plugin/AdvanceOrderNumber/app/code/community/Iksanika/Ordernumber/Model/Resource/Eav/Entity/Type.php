@@ -70,12 +70,15 @@ class Iksanika_Ordernumber_Model_Resource_Eav_Entity_Type
         
         if($currentValue->getValue() > 0)
         {
-            if($config['counter'])
+//            if($config['counter'])
+            if($config['reset_counter'])
             {
                 $currentValue->setValue($startValue);
                 
+//                $configStack = Mage::getModel('core/config');
                 $configStack = Mage::getModel('core/config');
-                $configStack->saveConfig('ordernumber/order/counter', 0);
+//                $configStack->saveConfig('ordernumber/order/counter', 0);
+                $configStack->saveConfig('ordernumber/order/reset_counter', 0);
                 $configStack->cleanCache();
             }else
             if ($config['reset'])
@@ -104,8 +107,6 @@ class Iksanika_Ordernumber_Model_Resource_Eav_Entity_Type
         }
         
         
-        
-        
         $patterns = array(
             'store_id'  =>  $storeId,
             'yy'        =>  date('y'),
@@ -122,7 +123,6 @@ class Iksanika_Ordernumber_Model_Resource_Eav_Entity_Type
         {
             $incrementId = str_replace('{'.$pattern.'}', $val, $incrementId);
         }
-        
         return $incrementId;
     }
 }
