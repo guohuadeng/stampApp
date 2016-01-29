@@ -1,0 +1,50 @@
+<?php
+/**
+ * Productattachments extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   FME
+ * @package    Productattachments
+ * @author     Rafay Tahir <rafay.tahir@unitedsol.net>
+ * @copyright  Copyright 2010 � free-magentoextensions.com All right reserved
+ */
+?>
+<?php
+//Get Current product ID
+$_product = $this->getProduct();
+$pid = $this->getProduct()->getId();
+$_helper = Mage::helper('productattachments');
+
+
+if (!$_helper->isEnabledProductPageAttachments()) {
+    return;
+}
+// we need to make sure that the attachment for the block exists!
+if (!$this->getProductRelatedAttachments('other')->count()) {
+	return; 
+}
+
+$categoriesCollection = $_helper->getAllCategories(); //echo '<pre>';print_r($categoriesCollection->getData());exit;
+//Get Javascript folder base path
+$jspath = Mage::getBaseUrl('js');
+$_customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); //echo '<pre>';print_r($_customerGroupId); echo '</pre>';
+
+$blockTitle = $_helper->getProductPageAttachmentHeading();
+?> 
+
+<?php if ($categoriesCollection->getSize() != 0): ?>
+    <?php
+        $this->getChild('attachments')
+                ->setBlockMainTitle($blockTitle)
+                ->setCategoriesCollection($categoriesCollection)
+                ->setBlockPos('other');
+                //->setData('block_title', $blockTitle);
+        echo $this->getChildHtml('attachments'); 
+    ?>
+<?php endif; ?>

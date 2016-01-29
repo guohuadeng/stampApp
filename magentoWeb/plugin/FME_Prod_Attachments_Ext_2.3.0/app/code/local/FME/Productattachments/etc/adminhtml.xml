@@ -5,10 +5,6 @@
         <fme>
             <title>FME Extensions</title>
             <sort_order>71</sort_order>
-            <children>
-                <productattachments module="productattachments">
-                    <title>Attachments</title>
-                    <sort_order>71</sort_order>               
                     <children>
                         <items module="productattachments">
                             <title>Manage Attachments</title>
@@ -26,8 +22,6 @@
                             <action>adminhtml/system_config/edit/section/productattachments</action>
                         </config>
                     </children>
-                </productattachments>
-            </children>
         </fme>
     </menu>
     <acl>
@@ -43,7 +37,7 @@
                         <children>
                             <productattachments module="productattachments">
                                 <title>Attachments</title>
-                                <sort_order>71</sort_order>               
+                                <sort_order>71</sort_order>
                                 <children>
                                     <items module="productattachments">
                                         <title>Manage Attachments</title>
@@ -80,7 +74,7 @@
             </admin>
         </resources>
     </acl>
-		
+
     <layout>
         <updates>
             <productattachments>

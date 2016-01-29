@@ -1,0 +1,45 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 16, 2014, 12:29:57 PM
+    Author     : root
+*/
+
+@media (min-width: 200px) and (max-width: 400px) { 
+    
+    .attachment_sections_box ul { text-align: center; }
+    
+   .attachment_sections_box ul li { float: none; display:inline-table;  width: 96%; }
+   
+   .attachment_sections_box ul li.last {  margin-right: 5px; }
+    
+}
+
+@media (min-width: 400px) and (max-width: 600px) { 
+    
+   .attachment_sections_box ul { text-align: center; }
+    
+   .attachment_sections_box ul li { float: none; display:inline-table;  width: 45%; }
+   
+   .attachment_sections_box ul li.last {  margin-right: 5px; }
+    
+}
+
+@media (min-width: 600px) and (max-width: 1000px) { 
+    
+   .attachment_sections_box ul { text-align: center; }
+    
+   .attachment_sections_box ul li { float: none; display:inline-table;  width: 30%; }
+   
+   .attachment_sections_box ul li.last {  margin-right: 5px; }
+    
+}
+
+@media (min-width: 1000px) and (max-width: 1060px) { 
+ 
+    .attachment_sections_box ul li { float: left; width: 32%; margin:5px; }
+    
+}

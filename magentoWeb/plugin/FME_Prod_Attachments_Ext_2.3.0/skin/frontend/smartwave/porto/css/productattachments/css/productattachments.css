@@ -1,0 +1,23 @@
+.pa_category {
+
+	margin: 10px;
+	padding: 2px;
+	width:auto;
+}
+.pa_attachments {
+	margin: 10px;
+	padding: 2px;
+	width:auto;
+}
+.pa_attachments ul {
+
+	list-style:none;
+}
+.pa_attachments ul li{
+
+	width:auto;
+}
+.pa_attachments ul li a img{
+
+	display: inline;
+}

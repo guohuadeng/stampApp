@@ -1,0 +1,81 @@
+
+#productattachments-wrapper { width:100%; margin:0 auto; }
+
+/*Main Style*/
+
+.attachment_sections_box { width:100%; }
+
+.attachment_sections_box .headbar { width:100%; background:#dedede; border:#bfbfbf 1px solid; padding:8px; text-align:center; margin-bottom:10px; }
+
+.attachment_sections_box .headbar p { font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size:24px; font-weight:bold; color:#7d1107; }
+
+.attachment_sections_box ul { list-style: none;}
+
+.attachment_sections_box ul li { float: left; width: 32.5%; margin:5px; }
+
+.attachment_sections_box ul li.last {  margin-right: 0px; }
+
+.attachment_sections_box .box { width:auto; min-height:110px; background:#FFF; border:#d9d9d9 1px solid; padding:5px; -webkit-box-shadow: 0 0 3px #d9d9d9;
+        box-shadow: 0 0 3px #d9d9d9; }
+		
+.attachment_sections_box .box .name { background:#fafafa; border:#e9e9e9 1px solid; padding:5px; }
+
+.attachment_sections_box .box .name p { font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#d91f3e; line-height:22px; }
+
+.attachment_sections_box .box .name p a { font-size:14px; color:#d91f3e; font-weight:bold; }
+
+.attachment_sections_box .box .name p a:hover { color:#d91f3e; text-decoration:underline; }
+
+.attachment_sections_box .box ul { list-style:none; margin-top:5px; margin-left:5px; } 
+
+.attachment_sections_box .box ul li { width: auto; clear:both; background:url(../images/li-list-icon.png) no-repeat left top 5px; line-height:24px; }
+
+.attachment_sections_box .box ul li a { font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#d91f3e; padding-left:18px; line-height:19px; }
+
+.attachment_sections_box .box ul li a:hover { color:#333; }
+
+.clear { clear:both; }
+
+/*Detail Page*/
+
+.attachment_sections_detail { width:100%; }
+
+.attachment_sections_detail .headbar { background:#dedede; border:#bfbfbf 1px solid; padding:8px; text-align:center; margin-bottom:10px; }
+
+.attachment_sections_detail .headbar p { font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size:24px; font-weight:bold; color:#7d1107; }
+
+.attachment_sections_detail .product { width:100%; }
+
+.attachment_sections_detail .product .name { background:#fafafa; border:#e9e9e9 1px solid; padding:5px; margin-bottom:10px; padding-left:12px; padding-right:12px; }
+
+.attachment_sections_detail .product .name p { font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size:18px; font-weight:normal; color:#5a5a5a; }
+
+.attachment_sections_detail .product .name p img { float:right; }
+
+.attachment_sections_detail .product img { max-width:100%; height:auto; }
+
+.attachment_sections_detail .attachment_categories { background:#fafafa; border:#e9e9e9 1px solid; padding:5px; margin-top:10px; }
+
+.attachment_sections_detail .attachment_categories ul { list-style:none; margin-top:5px; margin-left:5px; } 
+
+.attachment_sections_detail .attachment_categories ul li { clear:both; background:url(../images/li-list-icon.png) no-repeat left top 5px; line-height:24px; }
+
+.attachment_sections_detail .attachment_categories ul li p { color:#5a5a5a; }
+
+.attachment_sections_detail .attachment_categories ul li p a { font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#d91f3e; padding-left:18px; line-height:19px; }
+
+.attachment_sections_detail .attachment_categories ul li p a:hover { color:#333; }
+
+
+.attachment_sections_detail .pa_attachments { background:#fafafa; border:#e9e9e9 1px solid; padding:5px; margin-top:10px; }
+.attachment_sections_detail .pa_attachments ul { list-style:none; margin-top:5px; margin-left:5px; } 
+
+.attachment_sections_detail .pa_attachments ul li { clear:both; line-height:24px; }
+.attachment_sections_detail .pa_attachments ul li a img {display:inline;}
+
+
+.attachment_sections_detail .pa_attachments ul li p { color:#5a5a5a; }
+
+.attachment_sections_detail .pa_attachments ul li p a { font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#d91f3e; padding-left:18px; line-height:19px; }
+
+.attachment_sections_detail .pa_attachments ul li p a:hover { color:#333; }

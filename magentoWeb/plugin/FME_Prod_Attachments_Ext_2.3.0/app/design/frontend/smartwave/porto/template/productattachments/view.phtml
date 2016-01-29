@@ -1,0 +1,62 @@
+<?php
+$_helper = Mage::helper('productattachments');
+$data = $this->view();
+$subCategories = array();
+$attachments = array();
+$_media = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+
+if(count($data->getData()) > 0) {
+	$collection = $_helper->getSubCategories($data->getCategoryId());
+	if ($collection->count() > 0) {
+		$subCategories = $collection;
+	}
+	
+	if ($_helper->getProductAttachments($data->getCategoryId())->count() > 0) {
+		$attachments = $_helper->getProductAttachments($data->getCategoryId());
+	}
+} 
+?>
+<div id="productattachments-wrapper">
+    <div class="attachment_sections_detail">
+    <div class="headbar">
+       <p><?php echo $_helper->__('Downloads'); ?></p>
+     </div>
+      <div class="product">
+      <div class="name">
+        <p><?php echo trim($data->getCategoryName())?><a href="<?php echo $_SERVER['HTTP_REFERER']?>"><img src="<?php echo $this->getSkinUrl('css/productattachments/images/back.png'); ?>" alt="" /></a></p>
+      </div>
+      <?php if ($data->getCategoryImage() != ''): ?>
+		<img src="<?php echo $_helper->resizeImage($data->getCategoryImage(), 400); ?>" alt="<?php echo $data->getCategoryName()?>" />
+	  <?php endif; ?>
+      </div>
+      <?php if (!empty($subCategories)): ?>
+		  <div class="attachment_categories">
+			<ul>
+				<?php foreach ($subCategories as $i): ?>
+					<li><p><a href="<?php echo Mage::getUrl('*/*/view',array('u' => $i->getCategoryUrlKey()))?>"><?php echo $i->getCategoryName(); ?></a> <?php echo $_helper->__('(%s)', $this->countAttachments($i->getCategoryId())); ?></p></li>
+				<?php endforeach; ?>
+			</ul>
+		  </div>
+	  <?php endif; ?>
+	  
+	  <?php if (!empty($attachments)): ?>
+		
+		  <div class="attachment_categories">
+			<div class="product">
+				<div class="name">
+					<p><?php echo $_helper->__('Attachments:')?></p>
+				</div>
+				
+			</div>
+			
+			<ul>
+				<?php foreach ($attachments as $j): ?>
+					<li><p><a href="<?php echo Mage::getUrl('*/*/attachments', array('v' => $j->getId()))?>"><?php echo $j->getTitle(); ?></a></p></li>
+				<?php endforeach; ?>
+			</ul>
+		  </div>
+
+      <?php endif; ?>
+      
+    </div>
+ </div>
