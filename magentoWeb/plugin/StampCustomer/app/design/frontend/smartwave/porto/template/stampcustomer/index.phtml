@@ -1,5 +1,6 @@
 <div class="stampcustomer">
-	<a class="close">×</a>
+	<?php $product = Mage::registry('current_product');?>
+	<h1> <?php echo $product->getName(); ?><a class="close">×</a></h1>
 	<form action="<?php echo $this->getUrl('stampcustomer/index/ajax'); ?>" method="post" id="ajaxstampcustomer_form">
 		<?php echo $this->getBlockHtml('formkey'); ?>
 		<div class="fieldset">
@@ -24,11 +25,6 @@
 				<li>
 					<label for="a_company"><?php echo $this->__("公司"); ?></label>
 					<input type="text" class="form-control" name="a_company" id="a_company" />
-				</li>
-				<li>
-					<label for="a_certtype"><?php echo $this->__("专业类型"); ?></label>
-					<?php $product = Mage::registry('current_product');?>
-					<input type="text" class="form-control required-entry" name="a_certtype" id="a_certtype" value="<?php echo $product->getName(); ?>" />
 				</li>
 				<li>
 					<label for="a_certsn"><?php echo $this->__("注册号"); ?></label>

@@ -37,4 +37,15 @@
     </events>
   </global>
 
-</config> 
+  <adminhtml>
+    <translate>
+      <modules>
+        <duplicate>
+          <files>
+            <default>Sunpop_Duplicate.csv</default>
+          </files>
+        </duplicate>
+      </modules>
+    </translate>
+  </adminhtml>
+</config>

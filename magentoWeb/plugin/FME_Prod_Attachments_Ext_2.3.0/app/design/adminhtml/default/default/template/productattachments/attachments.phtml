@@ -1,0 +1,66 @@
+<?php 
+	
+	 //echo '<pre>';print_r($_productAttachmentsCollection->getData());echo '</pre>';
+ ?>
+ <!--
+ <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('productattachments/easyui.css')?>">
+ <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS).'productattachments/easyui.js'?>"></script>
+<script type="text/javascript">
+	jQuery.noConflict();
+</script>
+
+ <ul id="tt" class="easyui-tree" url="data/tree_data.json" checkbox="true">
+	</ul>-->
+	
+	
+	
+	<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->getTabLabel()?></h4>
+    </div>
+    <fieldset id="grop_fields">
+    
+		<label for="block_name_product"><?php echo Mage::helper('productattachments')->__('Block Name:')?></label>
+		<input type="text" name="block_name_product[<?php echo $this->getProduct()->getId()?>]" value="<?php echo $this->getBlockTitle()?>"  class="input-text"/>
+		
+    </fieldset>
+    
+    <fieldset id="grop_fields">
+		
+        <ul>
+		<?php foreach ($this->getProductcatsCollection() as $category): ?>
+			
+			<li>
+				<?php if ($this->getProductAttachmentsCollection($category->getCategoryId())->count() > 0): ?>
+					<b><?php echo $category->getCategoryName()?></b>
+					<ul>
+					<?php foreach ($this->getProductAttachmentsCollection($category->getCategoryId()) as $attachment): ?>
+					
+					
+						<?php 
+							$record = $this->getProductAttachments(); //echo '<pre>';print_r($record);exit; //get record from productattachments_products table
+							$selected = '';
+							$product = $this->getProduct();
+							if (in_array($attachment->getId(), $record)) {
+								
+								$selected = 'checked="checked"';
+							}
+						?>
+						
+						<li>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" <?php echo $selected; ?> name="attachment_id[]" value="<?php echo $attachment->getId()?>"/> <?php echo $attachment->getTitle() ?></li>
+					<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
+			</li>
+
+		<?php endforeach; ?>
+		</ul> 
+    </fieldset>
+</div>
+	
+	
+	
+	
+	
+

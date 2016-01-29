@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+		<reference name="footer_links">
+            <action method="addLink" translate="label title" module="productattachments" ifconfig="productattachments/general/enable_footer_link">
+                <label helper ="productattachments/linkTitleHeader"/>
+                <url helper ="productattachments/clientUrl"/>
+                <title helper ="productattachments/linkTitleHeader"/>
+                <prepare/>
+                <urlParams/>
+                <position>1</position>
+            </action>
+        </reference>
+        
+        
+    </default>
+   
+    <catalog_product_view>
+        <reference name ="head">
+            <action method="addJs">
+                <script>productattachments/jquery-1.6.1.min.js</script>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/productattachments/css/prettyPhoto.css</name>
+            </action> 
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/productattachments/css/productattachments.css</name>
+            </action> 
+			
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/productattachments/responsive.css</name>
+            </action> 
+              <!--      
+            <action method="addJs">
+                <script>productattachments/jquery.prettyPhoto.js</script>
+            </action>
+			-->
+            <!--action method="addCss"><stylesheet>css/productattachments/prettyPhoto.css</stylesheet></action-->
+        </reference>
+        <reference name="content">
+            <reference name="product.info">
+                <block module="productattachments" type="productattachments/productattachments" name="product.info.productattachments" as="other" template="productattachments/productattachments.phtml">
+                    <block name="attachments" type="productattachments/productattachments" template="productattachments/items/attachments.phtml"/>
+                </block>
+            </reference>
+        </reference>
+    </catalog_product_view>
+	
+    <catalog_product_view>
+		
+        <reference name="content">
+            <reference name="product.info">
+                <reference name="product.info.additional">
+                    <block module="productattachments" type="productattachments/productattachments" name="product.info.productattachments_additional" as="productattachments_additional" template="productattachments/productattachments_additionalblock.phtml">
+                        <block name="attachments" as="attachments" type="productattachments/productattachments" template="productattachments/items/attachments.phtml"/>
+                    </block>
+                </reference>
+            </reference>
+        </reference>
+    </catalog_product_view>
+	
+	
+    <cms_page translate="label">
+        <reference name ="head">
+            <action method="addJs">
+                <script>productattachments/jquery-1.6.1.min.js</script>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/productattachments/css/prettyPhoto.css</name>
+            </action> 
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/productattachments/css/productattachments.css</name>
+            </action> 
+			<!--      
+            <action method="addJs">
+                <script>productattachments/jquery.prettyPhoto.js</script>
+            </action>
+			-->
+            <!--action method="addCss"><stylesheet>css/productattachments/prettyPhoto.css</stylesheet></action-->
+        </reference>
+        <reference name="content">
+            <reference name="cms.wrapper">
+                <block type="productattachments/cmspagesattachments" name="cms.info.attachments" as="cms_page_attachments" >
+                </block>
+            </reference>
+        </reference>
+    </cms_page>
+	
+    <productattachments_index_list>
+        <reference name ="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/productattachments/css/liststyle.css</name>
+            </action> 
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/productattachments/responsive.css</name>
+            </action> 
+            
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template helper="productattachments/getLayout"/>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="productattachments/listAttachments" name="list.attachments" template="productattachments/list.phtml">
+            </block>
+        </reference>
+    </productattachments_index_list>   
+     
+    <productattachments_index_view>
+        <reference name ="head">
+			
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/productattachments/css/liststyle.css</name>
+            </action> 
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/productattachments/responsive.css</name>
+            </action> 
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template helper="productattachments/getLayout"/>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="productattachments/listAttachments" name="list.view.attachments" template="productattachments/view.phtml">
+            </block>
+        </reference>
+    </productattachments_index_view>  
+    
+    <productattachments_index_attachments>
+		
+        <reference name ="head">
+			<action method="addJs">
+                <script>productattachments/jquery-1.6.1.min.js</script>
+            </action>
+			<action method="addItem">
+                <type>skin_css</type>
+                <name>css/productattachments/css/prettyPhoto.css</name>
+            </action> 
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/productattachments/css/liststyle.css</name>
+            </action> 
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/productattachments/responsive.css</name>
+            </action> 
+            
+            
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template helper="productattachments/getLayout"/>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="productattachments/listAttachments" name="list.attachments" template="productattachments/listattachments.phtml">
+            </block>
+        </reference>
+    </productattachments_index_attachments>
+    
+</layout> 

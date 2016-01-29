@@ -1,0 +1,89 @@
+<?php
+
+$_helper = Mage::helper('productattachments');
+$item = $this->attachments()->getData(); 
+?>
+<?php if (count($item) > 0): ?>
+	<div id="wrapper">
+		<div class="attachment_sections_detail">
+		<div class="headbar">
+		   <p><?php echo $item['title']; ?></p>
+		 </div>
+		 
+		  <div class="pa_attachments">
+			<ul>
+						 
+				 <?php //if ($item['download_link'] != ''): ?>
+					<?php 
+						if(!Mage::getSingleton('customer/session')->isLoggedIn()) {
+							Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::helper("core/url")->getCurrentUrl());
+						}
+					 ?>
+					 <li>
+						<?php
+							// check if file is attached
+							if ($item['file_size'] > 0) {
+								//check download limit
+								if ($item['limit_downloads'] != "" && $item['limit_downloads'] != 0) {
+									if ($item['downloads'] == $item['limit_downloads']) {
+										echo '<a href="javascript:;" onclick="alert(\'You can not download because this attachment excceds the number of download\');">' . $item['file_icon'] . '&nbsp;<b>' . $item['title'] . '</b></a>  Size: (' . $item['file_size'] . ')';
+									} else {
+										echo '<a href="' . Mage::getUrl('productattachments') . 'index/download?id=' . $item['productattachments_id'] . '">' . $item['file_icon'] . '&nbsp;<b>' . $item['title'] . '</b></a>  Size: (' . $item['file_size'] . ')';
+									}
+								} else {
+									echo '<a href="' . Mage::getUrl('productattachments') . 'index/download?id=' . $item['productattachments_id'] . '">' . $item['file_icon'] . '&nbsp;<b>' . $item['title'] . '</b></a>  Size: (' . $item['file_size'] . ')';
+								}
+								
+								if (Mage::getStoreConfig('productattachments/general/show_counter')) {
+									echo '&nbsp;&nbsp;' .$_helper->__('Downloads: (%d)', $item['downloads'] );
+								}
+							} else {
+								echo '<b>' . $item['title'] . '</b>';
+							} 
+						?>
+						<?php if (Mage::getStoreConfig('productattachments/productattachments/showcontent')): ?>
+							<?php if (isset($item['content']) && $item['content'] != ''): ?>
+								<br /><?php echo $item['content']; ?><br />
+							<?php endif; ?>
+						<?php endif; ?>
+					</li>
+				 <?php //endif; ?>
+				 <?php if ($item['link_url'] != ''): ?>
+					<?php 
+						$linkTitle = 'Go To'; 
+						if ($item['link_title'] != ''){
+							$linkTitle = trim($item['link_title']);
+						}
+					?>
+					<li>
+						<a href="<?php echo $item['link_url']?>" target="bottom">
+							<img src="<?php echo $this->getSkinUrl('css/productattachments/images/link.jpg')?>" width="18"/>
+							<?php echo $_helper->__($linkTitle)?>
+						</a>
+					</li>
+				 <?php endif; ?>	
+				 
+				 <?php if ($item['embed_video'] != ''): ?>
+					<?php $vidTitle = trim($item['video_title']); ?>
+					<li>
+						<a href="<?php echo $item['embed_video']; ?>" rel="prettyPhoto" title="<?php echo $vidTitle?>">
+							<img src="<?php echo $this->getSkinUrl('css/productattachments/images/videoicon.jpeg') ?>"/>&nbsp;<?php echo ($vidTitle != '') ? $vidTitle : ''; ?>
+						</a>
+					</li>
+				 <?php endif; ?>	
+			</ul>
+		  </div>
+		</div>
+		<script type="text/javascript" src="<?php echo Mage::getBaseUrl('js'); ?>/productattachments/jquery.prettyPhoto.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            //var jQuery = jQuery.noConflict();
+
+			jQuery(document).ready(function() {
+				jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+				jQuery("a[rel^='prettyPhoto']").prettyPhoto({animation_speed: 'fast', slideshow: 10000, hideflash: true});
+
+			});
+        </script>
+	</div>
+	
+<?php endif; ?>

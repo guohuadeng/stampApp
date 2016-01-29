@@ -1,0 +1,129 @@
+<?php
+/**
+ * Productattachments extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   FME
+ * @package    Productattachments
+ * @author     Rafay <rafay.tahir@unitedsol.net>
+ * @copyright  Copyright 2014 © fmeextensions.com All right reserved
+ */
+?>
+
+<?php
+//Get Javascript folder base path
+$jspath = Mage::getBaseUrl('js');
+$_helper = Mage::helper('productattachments');
+
+if (!$_helper->isEnabledCmsPageAttachments()) {
+
+    return;
+}
+
+
+$categoriesCollection = $_helper->getAllCategories();
+//$collection = $this->getCmsPageRelatedAttachments(); 
+$blockTitle = $_helper->getCMSPageAttachmentHeading();
+?> 
+
+<?php if ($categoriesCollection->count() > 0) : ?>
+
+    <link rel="stylesheet" href="<?php echo $this->getSkinUrl() . 'css/productattachments/css/productattachments.css' ?>"/>
+    <div class="box-collateral" style="margin-top:25px;">
+        <h2><?php echo $this->__($_helper->getCMSPageAttachmentHeading()) ?></h2> 
+        <div class="pa_category">
+
+            <?php foreach ($categoriesCollection as $category): ?>
+                <?php $hasData = $this->getCmsPageRelatedAttachments($category->getCategoryId()); ?>
+                <?php //check if the category has data in collection ?>
+                <?php if ($hasData->getSize() > 0): ?>
+
+                    <h2><?php echo $this->__($category->getCategoryName()) ?></h2> 
+                    <div class="pa_attachments">
+                        <ul>	
+                            <?php //fetch collection by category id ?>
+                            <?php foreach ($this->getCmsPageRelatedAttachments($category->getCategoryId()) as $item): ?>
+
+                                <?php //if ($item->getDownloadLink() != ''): ?>
+                                    <li>
+                                        <?php
+											// check if file is attached
+											if ($item['file_size'] > 0) {
+												//check download limit
+												if ($item['limit_downloads'] != "" && $item['limit_downloads'] != 0) {
+													if ($item['downloads'] == $item['limit_downloads']) {
+														echo '<a href="javascript:;" onclick="alert(\'You can not download because this attachment excceds the number of download\');">' . $item['file_icon'] . '&nbsp;<b>' . $item['title'] . '</b></a>  Size: (' . $item['file_size'] . ')';
+													} else {
+														echo '<a href="' . Mage::getUrl('productattachments') . 'index/download?id=' . $item['productattachments_id'] . '">' . $item['file_icon'] . '&nbsp;<b>' . $item['title'] . '</b></a>  Size: (' . $item['file_size'] . ')';
+													}
+												} else {
+													echo '<a href="' . Mage::getUrl('productattachments') . 'index/download?id=' . $item['productattachments_id'] . '">' . $item['file_icon'] . '&nbsp;<b>' . $item['title'] . '</b></a>  Size: (' . $item['file_size'] . ')';
+												}
+												
+												if (Mage::getStoreConfig('productattachments/general/show_counter')) {
+													echo '&nbsp;&nbsp;' .$_helper->__('Downloads: (%d)', $item['downloads'] );
+												}
+											} else {
+												echo '<b>' . $item['title'] . '</b>';
+											} 
+										?>
+                                        <?php if (Mage::getStoreConfig('productattachments/productattachments/showcontent')): ?>
+                                            <?php if (isset($item['content']) && $item['content'] != ''): ?>
+												<br /><?php echo $item['content']; ?><br />
+											<?php endif; ?>
+                                        <?php endif; ?>
+                                    </li>
+                                <?php //endif; ?>
+                                    
+                                <?php if ($item->getLinkUrl() != ''): ?>
+                                    <?php
+                                    $linkTitle = 'Go To';
+                                    if ($item->getLinkTitle() != '') {
+                                        $linkTitle = trim($item->getLinkTitle());
+                                    }
+                                    ?>
+                                    <li>
+                                        <a href="<?php echo $item->getLinkUrl() ?>">
+                                            <img src="<?php echo $this->getSkinUrl('css/productattachments/images/link.jpg') ?>" width="18"/>
+                                            <?php echo $_helper->__($linkTitle) ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>	
+
+                                <?php if ($item->getEmbedVideo() != ''): ?>
+
+                                    <?php $vidTitle = trim($item->getVideoTitle()); ?>
+
+                                    <li>
+                                        <a href="<?php echo $item->getEmbedVideo(); ?>" rel="prettyPhoto" title="Vimeo video">
+                                            <img src="<?php echo $this->getSkinUrl('css/productattachments/images/videoicon.jpeg') ?>"/>&nbsp;<?php echo ($vidTitle != '') ? $vidTitle : ''; ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>	
+                                    
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                
+                <?php endif; ?>	
+            <?php endforeach; ?>
+        </div>
+        <script type="text/javascript" src="<?php echo Mage::getBaseUrl('js'); ?>/productattachments/jquery.prettyPhoto.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            jQuery(document).ready(function() {
+
+
+                jQuery("a[rel^='prettyPhoto']").prettyPhoto({animation_speed: 'normal', theme: 'light_square', slideshow: 3000, autoplay_slideshow: true});
+                jQuery("a[rel^='prettyPhoto']").prettyPhoto({animation_speed: 'fast', slideshow: 10000, hideflash: true});
+
+            });
+        </script>
+    </div>
+
+<?php endif; ?>

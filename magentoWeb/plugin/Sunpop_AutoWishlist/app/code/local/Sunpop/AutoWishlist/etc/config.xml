@@ -30,11 +30,11 @@
       </sales_order_place_after>
     </events>
   </global>
-  <frontend> 
-	<routers> 
+  <frontend>
+	<routers>
 		<Sunpop_AutoWishlist>
 			<use>standard</use>
-			<args> 
+			<args>
 				<module>Sunpop_AutoWishlist</module>
 				<frontName>wishlist</frontName>
 			</args>
@@ -50,16 +50,16 @@
 		</modules>
 	</translate>
   </frontend>
-  
-   <adminhtml>
-	<translate>
-		<modules>
-			<Sunpop_AutoWishlist>
-				<files>
-					<default>Sunpop_AutoWishlist.csv</default>
-				</files>
-			</Sunpop_AutoWishlist>
-		</modules>
-	</translate>
+
+  <adminhtml>
+    <translate>
+      <modules>
+        <Sunpop_AutoWishlist>
+          <files>
+            <default>Sunpop_AutoWishlist.csv</default>
+          </files>
+        </Sunpop_AutoWishlist>
+      </modules>
+    </translate>
   </adminhtml>
-</config> 
+</config>

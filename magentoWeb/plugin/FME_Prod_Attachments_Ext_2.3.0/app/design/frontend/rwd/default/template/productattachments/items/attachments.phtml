@@ -1,0 +1,81 @@
+<?php $_helper = Mage::helper('productattachments');?>
+<div class="box-collateral" style="margin-top:25px;">
+        <?php if ($this->getBlockMainTitle()): ?>
+            <h2><?php echo $this->getBlockMainTitle(); ?></h2> 
+        <?php endif; ?> 
+        <div class="pa_category">
+            <?php foreach ($this->getCategoriesCollection() as $category): ?>
+                <?php $hasData = $this->getProductRelatedAttachments($this->getBlockPos(), $category->getCategoryId()); ?>
+                <?php //check if the category has data in collection ?>
+                <?php if ($hasData->getSize() > 0): ?>
+                    <h2><?php echo trim($category->getCategoryName()) ?></h2> 
+                    <div class="pa_attachments">
+                        <ul>	
+                            <?php //fetch collection by category id  ?>
+                            <?php foreach ($this->getProductRelatedAttachments($this->getBlockPos(), $category->getCategoryId()) as $item): ?>
+                                <li>
+                                    <?php
+										// check if file is attached
+										if ($item['file_size'] > 0) {
+											//check download limit
+											if ($item['limit_downloads'] != "" && $item['limit_downloads'] != 0) {
+												if ($item['downloads'] == $item['limit_downloads']) {
+													echo '<a href="javascript:;" onclick="alert(\'You can not download because this attachment excceds the number of download\');">' . $item['file_icon'] . '&nbsp;<b>' . $item['title'] . '</b></a>  Size: (' . $item['file_size'] . ')';
+												} else {
+													echo '<a href="' . Mage::getUrl('productattachments') . 'index/download?id=' . $item['productattachments_id'] . '">' . $item['file_icon'] . '&nbsp;<b>' . $item['title'] . '</b></a>  Size: (' . $item['file_size'] . ')';
+												}
+											} else {
+												echo '<a href="' . Mage::getUrl('productattachments') . 'index/download?id=' . $item['productattachments_id'] . '">' . $item['file_icon'] . '&nbsp;<b>' . $item['title'] . '</b></a>  Size: (' . $item['file_size'] . ')';
+											}
+											
+											if (Mage::getStoreConfig('productattachments/general/show_counter')) {
+												echo '&nbsp;&nbsp;' .$_helper->__('Downloads: (%d)', $item['downloads'] );
+											}
+										} else {
+											echo '<b>' . $item['title'] . '</b>';
+										}
+                                    ?>
+                                    
+                                    <?php if (Mage::getStoreConfig('productattachments/productattachments/showcontent')): ?>
+                                        <?php if (isset($item['content']) && $item['content'] != ''): ?>
+											<br /><?php echo $item['content']; ?><br />
+										<?php endif; ?>
+                                    <?php endif; ?>
+                                </li>
+                                <?php if ($item->getLinkUrl() != ''): ?>
+                                    <?php
+                                        $linkTitle = 'Go To';
+                                        if ($item->getLinkTitle() != '') {
+                                            $linkTitle = trim($item->getLinkTitle());
+                                        }
+                                    ?>
+                                    <li>
+                                        <a href="<?php echo $item->getLinkUrl() ?>">
+                                            <img src="<?php echo $this->getSkinUrl('css/productattachments/images/link.jpg') ?>" width="18"/>&nbsp;<?php echo $_helper->__($linkTitle) ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>	
+                                <?php if ($item->getEmbedVideo() != ''): ?>
+                                    <?php $vidTitle = trim($item->getVideoTitle()); ?>
+                                    <li>
+                                        <a href="<?php echo $item->getEmbedVideo(); ?>" rel="prettyPhoto" title="<?php echo $vidTitle?>">
+                                            <img src="<?php echo $this->getSkinUrl('css/productattachments/images/videoicon.jpeg') ?>"/>&nbsp;<?php echo ($vidTitle != '') ? $vidTitle : ''; ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>	
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>	
+            <?php endforeach; ?>
+        </div>
+        <script type="text/javascript" src="<?php echo Mage::getBaseUrl('js'); ?>/productattachments/jquery.prettyPhoto.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            //var jQuery = jQuery.noConflict();
+			jQuery(document).ready(function() {
+				jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+				jQuery("a[rel^='prettyPhoto']").prettyPhoto({animation_speed: 'fast', slideshow: 10000, hideflash: true});
+
+			});
+        </script>
+    </div>

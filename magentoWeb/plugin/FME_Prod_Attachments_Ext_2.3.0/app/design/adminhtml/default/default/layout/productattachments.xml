@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_productattachments_index>
+        <reference name="content">
+            <block type="productattachments/adminhtml_productattachments" name="productattachments" />
+        </reference>
+    </adminhtml_productattachments_index>
+	
+	<adminhtml_productattachments_productcats_index>
+        <reference name="content">
+            <block type="productattachments/adminhtml_productcats" name="productattachments" />
+        </reference>
+    </adminhtml_productattachments_productcats_index>
+	
+	 <adminhtml_productattachments_products>
+        <block type="core/text_list" name="root">
+            <block type="productattachments/adminhtml_productattachments_edit_tab_products" name="productattachments.edit.tab.products"/>
+            <block type="adminhtml/widget_grid_serializer" name="related_grid_serializer">
+                <reference name="related_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>productattachments.edit.tab.products</grid_block_name>
+                        <data_callback>_getSelectedProducts</data_callback>
+                        <hidden_input_name>links[related]</hidden_input_name>
+                        <reload_param_name>products_related</reload_param_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_productattachments_products>
+	
+	<adminhtml_productcats_categorygrid>
+        <block type="core/text_list" name="root">
+            <block type="productattachments/adminhtml_productattachments_edit_tab_productcats" name="news.edit.tab.category"/>
+        </block>
+    </adminhtml_productcats_categorygrid>
+
+    <adminhtml_productattachments_productsgrid>
+        <block type="core/text_list" name="root">
+            <block type="productattachments/adminhtml_productattachments_edit_tab_products" name="productattachments.edit.tab.products"/>
+        </block>
+    </adminhtml_productattachments_productsgrid>
+	
+	<!--<productattachments_catalog_product_attachments>
+        <block type="core/text_list" name="root">
+            <block type="productattachments/catalog_product_edit_tab_attachments" name="catalog.product.edit.tab.attachments"/>
+            <block type="adminhtml/widget_grid_serializer" name="attachments_grid_serializer">
+                <reference name="attachments_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>catalog.product.edit.tab.attachments</grid_block_name>
+                        <data_callback>_getSelectedAttachments</data_callback>
+                        <hidden_input_name>links[related_attachments]</hidden_input_name>
+                        <reload_param_name>products_related_attachments</reload_param_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </productattachments_catalog_product_attachments>-->
+	
+	<productattachments_catalog_product_attachmentsgrid>
+        <block type="core/text_list" name="root">
+            <block type="productattachments/catalog_product_edit_tab_attachments" name="catalog.product.edit.tab.attachments"/>
+        </block>
+    </productattachments_catalog_product_attachmentsgrid>
+	
+	
+    <adminhtml_catalog_product_edit>
+		<!--reference name="head">		    
+            <action method="addCss">
+                <stylesheet>productattachments/easyui.css</stylesheet>
+            </action>
+            
+            <action method="addItem"><type>js</type><name>productattachments/jquery-1.6.1.min.js</name></action>
+            <action method="addItem"><type>js</type><name>productattachments/easyui.js</name></action>
+            
+        </reference -->
+        <!--reference name="product_tabs">
+            <action method="addTab">
+                <name>attachments</name>
+                <block>productattachments/adminhtml_catalog_product_tab_attachments</block>
+            </action>
+        </reference-->
+    </adminhtml_catalog_product_edit>
+    
+</layout>

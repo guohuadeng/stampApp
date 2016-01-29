@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <productattachments translate="label" module="productattachments">
+            <label>Product Attachments</label>
+            <tab>catalog</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>124</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>        
+				<general module="productattachments">
+					<label>Product Attachments Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<enable_footer_link translate="label">
+                            <label>Enable Footer Link (Quick Links)</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_footer_link>
+                        
+						<show_counter translate="label">
+                            <label>Show Downloads Counter</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_counter>
+						<login_before_download translate="label">
+                            <label>Login Before Download?</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>(User must be login before downloading this file)</comment>
+                        </login_before_download>
+                        <list_layout>
+							<label>List page layout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>productattachments/system_layouts</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </list_layout>
+					</fields>
+				</general>
+				<productattachments module="productattachments">
+					<label>Product Detail Page Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>16</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<enabled translate="label">
+                            <label>Enable Product Attachments!</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+						<product_attachment_heading translate="label">
+                        	<label>Product Attachments Heading</label>
+                        	<frontend_type>text</frontend_type>
+                        	<sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>(Product Detail page Attachments Heading)</comment>
+                        </product_attachment_heading>
+						<showcontent translate="label">
+                            <label>Show Content with Attachments ?</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </showcontent>
+					</fields>
+				</productattachments>
+				<cmspagesattachments>
+					<label>CMS Page Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>17</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<enabled translate="label">
+                            <label>Enable CMS Attachments!</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+						<cms_page_attachment_heading translate="label">
+                        	<label>CMS Page Attachments Heading</label>
+                        	<frontend_type>text</frontend_type>
+                        	<sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>(CMS page Attachments Heading)</comment>
+                        </cms_page_attachment_heading>	
+						<showcontent translate="label">
+                            <label>Show Content with Attachments ?</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </showcontent>
+					</fields>
+				</cmspagesattachments>
+				
+            </groups>
+        </productattachments>
+    </sections>
+</config>

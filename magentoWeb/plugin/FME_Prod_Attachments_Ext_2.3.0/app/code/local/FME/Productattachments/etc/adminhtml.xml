@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+    <menu>
+        <fme>
+            <title>FME Extensions</title>
+            <sort_order>71</sort_order>
+            <children>
+                <productattachments module="productattachments">
+                    <title>Attachments</title>
+                    <sort_order>71</sort_order>               
+                    <children>
+                        <items module="productattachments">
+                            <title>Manage Attachments</title>
+                            <sort_order>1</sort_order>
+                            <action>adminhtml/productattachments</action>
+                        </items>
+                        <productcats module="productattachments">
+                            <title>Manage Categories</title>
+                            <sort_order>0</sort_order>
+                            <action>adminhtml/productattachments_productcats</action>
+                        </productcats>
+                        <config translate="title">
+                            <title>Configuration</title>
+                            <sort_order>2</sort_order>
+                            <action>adminhtml/system_config/edit/section/productattachments</action>
+                        </config>
+                    </children>
+                </productattachments>
+            </children>
+        </fme>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <fme>
+                        <title>FME Extensions</title>
+                        <sort_order>71</sort_order>
+                        <children>
+                            <productattachments module="productattachments">
+                                <title>Attachments</title>
+                                <sort_order>71</sort_order>               
+                                <children>
+                                    <items module="productattachments">
+                                        <title>Manage Attachments</title>
+                                        <sort_order>1</sort_order>
+                                        <action>productattachmentsadmin/adminhtml_productattachments</action>
+                                    </items>
+                                    <productcats module="productattachments">
+                                        <title>Manage Categories</title>
+                                        <sort_order>0</sort_order>
+                                        <action>productattachmentsadmin/adminhtml_productcats</action>
+                                    </productcats>
+                                    <config translate="title">
+                                        <title>Configuration</title>
+                                        <sort_order>2</sort_order>
+                                        <action>adminhtml/system_config/edit/section/productattachments</action>
+                                    </config>
+                                </children>
+                            </productattachments>
+                        </children>
+                    </fme>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <productattachments translate="title" module="productattachments">
+                                        <title>Product Attachments</title>
+                                        <sort_order>140</sort_order>
+                                    </productattachments>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+		
+    <layout>
+        <updates>
+            <productattachments>
+                <file>productattachments.xml</file>
+            </productattachments>
+        </updates>
+    </layout>
+
+    <global>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <catalog_product_edit_tabs>FME_Productattachments_Block_Catalog_Product_Edit_Tabs</catalog_product_edit_tabs>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+    </global>
+</config>
