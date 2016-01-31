@@ -10,14 +10,12 @@
 	width:auto;
 }
 .pa_attachments ul {
-
 	list-style:none;
 }
 .pa_attachments ul li{
-
+  padding-bottom: 10px;
 	width:auto;
 }
 .pa_attachments ul li a img{
-
 	display: inline;
 }
