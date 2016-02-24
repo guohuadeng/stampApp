@@ -19,7 +19,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 	protected $_ignoredAttributeCodes = array(
         'global'    =>  array('entity_id', 'attribute_set_id', 'entity_type_id')
     );
-	
+
 	public function getaddurlAction() {
 		$productid = $this->getRequest ()->getParam ( 'productid' );
 		$product = Mage::getModel ( "catalog/product" )->load ( $productid );
@@ -31,21 +31,21 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		$summarycount = $cart->getSummaryCount ();
 		echo "{'summarycount':'" . $summarycount . "'}";
 	}
-	
-	public function getQtyAction() {			
+
+	public function getQtyAction() {
 			$items_qty = floor(Mage::getModel('checkout/cart')->getQuote()->getItemsQty());
 			$result = '{"items_qty": "'  . $items_qty  . '"}';
 
 			echo $result;
 		}
-		
+
 	public function addAction() {
 		try {
 			$product_id = $this->getRequest ()->getParam ( 'product' );
 			$params = $this->getRequest ()->getParams ();
 			if (isset ( $params ['qty'] )) {
 				$filter = new Zend_Filter_LocalizedToNormalized ( array (
-						'locale' => Mage::app ()->getLocale ()->getLocaleCode () 
+						'locale' => Mage::app ()->getLocale ()->getLocaleCode ()
 				) );
 				$params ['qty'] = $filter->filter ( $params ['qty'] );
 			} else if ($product_id == '') {
@@ -55,7 +55,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			$request = Mage::app ()->getRequest ();
 			$product = Mage::getModel ( 'catalog/product' )->load ( $product_id );
 			$session = Mage::getSingleton ( 'core/session', array (
-					'name' => 'frontend' 
+					'name' => 'frontend'
 			) );
 			$cart = Mage::helper ( 'checkout/cart' )->getCart ();
 			// $cart->addProduct ( $product, $qty );
@@ -69,8 +69,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			echo $result;
 		} catch ( Exception $e ) {
 			$result = '{"result":"error"';
-			$result .= ', "message": "' . str_replace("\"","||",$e->getMessage ()) . '"}';
-			echo $result;			
+			$result .= ', "message": "' . str_replace("\"","||",$this->__ ($e->getMessage ())) . '"}';
+			echo $result;
 		}
 	}
 	public function getCartInfoAction() {
@@ -94,7 +94,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			echo json_encode ( array (
 					false,
 					'0x5002',
-					'Param cart_item_id is empty.' 
+					'Param cart_item_id is empty.'
 			) );
 		}
 	}
@@ -114,7 +114,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 				} else {
 					echo json_encode ( array (
 							'code' => '0x0001',
-							'message' => 'a wrong cart_item_id was given.' 
+							'message' => 'a wrong cart_item_id was given.'
 					) );
 					return false;
 				}
@@ -151,7 +151,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		if (! $cart->getItemsCount ()) {
 			echo json_encode ( array (
 					'code' => '0X0001',
-					'message' => "You can't use coupon code with an empty shopping cart" 
+					'message' => "You can't use coupon code with an empty shopping cart"
 			) );
 			return false;
 		}
@@ -162,44 +162,44 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		if (! strlen ( $couponCode ) && ! strlen ( $oldCouponCode )) {
 			echo json_encode ( array (
 					'code' => '0X0002',
-					'message' => "Emptyed." 
+					'message' => "Emptyed."
 			) );
 			return false;
 		}
 		try {
 			$codeLength = strlen ( $couponCode );
 			$isCodeLengthValid = $codeLength && $codeLength <= Mage_Checkout_Helper_Cart::COUPON_CODE_MAX_LENGTH;
-			
+
 			$cart->getQuote ()->getShippingAddress ()->setCollectShippingRates ( true );
 			$cart->getQuote ()->setCouponCode ( $isCodeLengthValid ? $couponCode : '' )->collectTotals ()->save ();
-			
+
 			if ($codeLength) {
 				if ($isCodeLengthValid && $couponCode == $cart->getQuote ()->getCouponCode ()) {
 					$messages = array (
 							'code' => '0x0000',
-							'message' => $this->__ ( 'Coupon code "%s" was applied.', Mage::helper ( 'core' )->escapeHtml ( $couponCode ) ) 
+							'message' => $this->__ ( 'Coupon code "%s" was applied.', Mage::helper ( 'core' )->escapeHtml ( $couponCode ) )
 					);
 				} else {
 					$messages = array (
 							'code' => '0x0001',
-							'message' => $this->__ ( 'Coupon code "%s" is not valid.', Mage::helper ( 'core' )->escapeHtml ( $couponCode ) ) 
+							'message' => $this->__ ( 'Coupon code "%s" is not valid.', Mage::helper ( 'core' )->escapeHtml ( $couponCode ) )
 					);
 				}
 			} else {
 				$messages = array (
 						'code' => '0x0002',
-						'message' => $this->__ ( 'Coupon code was canceled.' ) 
+						'message' => $this->__ ( 'Coupon code was canceled.' )
 				);
 			}
 		} catch ( Mage_Core_Exception $e ) {
 			$messages = array (
 					'code' => '0x0003',
-					'message' => $e->getMessage () 
+					'message' => $e->getMessage ()
 			);
 		} catch ( Exception $e ) {
 			$messages = array (
 					'code' => '0x0004',
-					'message' => $this->__ ( 'Cannot apply the coupon code.' ) 
+					'message' => $this->__ ( 'Cannot apply the coupon code.' )
 			);
 		}
 		echo json_encode ( array_merge ( $messages, $this->_getCartTotal () ) );
@@ -240,7 +240,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		$result = Mage::helper('core')->jsonEncode($result);
 		$this->getResponse()->setBody(urldecode($result));
 	}
-	
+
 	protected function _getCartInformation() {
 		$cart = Mage::getSingleton ( 'checkout/cart' );
 		if ($cart->getQuote ()->getItemsCount ()) {
@@ -255,7 +255,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		$cartInfo ['cart_items_count'] = Mage::helper ( 'checkout/cart' )->getSummaryCount ();
 		$cartInfo ['payment_methods'] = $this->_getPaymentInfo ();
 		$cartInfo ['allow_guest_checkout'] = Mage::helper ( 'checkout' )->isAllowedGuestCheckout ( $cart->getQuote () );
-		
+
 		return $cartInfo;
 	}
 	protected function _getCartTotal() {
@@ -265,7 +265,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		$oldCouponCode = $cart->getQuote ()->getCouponCode ();
 		$oCoupon = Mage::getModel ( 'salesrule/coupon' )->load ( $oldCouponCode, 'code' );
 		$oRule = Mage::getModel ( 'salesrule/rule' )->load ( $oCoupon->getRuleId () );
-		
+
 		$subtotal = round ( $totals ["subtotal"]->getValue () ); // Subtotal value
 		$grandtotal = round ( $totals ["grand_total"]->getValue () ); // Grandtotal value
 		if (isset ( $totals ['discount'] )) { // $totals['discount']->getValue()) {
@@ -284,7 +284,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 				'discount' => $discount,
 				'tax' => $tax,
 				'coupon_code' => $oldCouponCode,
-				'coupon_rule' => $oRule->getData () 
+				'coupon_rule' => $oRule->getData ()
 		);
 	}
 	protected function _getMessage() {
@@ -297,7 +297,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			$warning = Mage::getStoreConfig ( 'sales/minimum_order/description' );
 			$this->errors [] = $warning;
 		}
-		
+
 		if (($messages = $cart->getQuote ()->getErrors ())) {
 			foreach ( $messages as $message ) {
 				if ($message) {
@@ -306,7 +306,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 				}
 			}
 		}
-		
+
 		return $this->errors;
 	}
 	private function _getPaymentInfo() {
@@ -315,11 +315,11 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		foreach ( $methods as $method ) {
 			if ($method->getCode () == 'paypal_express') {
 				return array (
-						'paypalec' 
+						'paypalec'
 				);
 			}
 		}
-		
+
 		return array ();
 	}
 	protected function _getCartItems() {
@@ -345,32 +345,32 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 				if (Mage::helper ( 'weee' )->typeOfDisplay ( $item, array (
 						0,
 						1,
-						4 
+						4
 				), 'sales' ) && $item->getWeeeTaxAppliedAmount ()) {
 					$exclPrice = $item->getCalculationPrice () + $item->getWeeeTaxAppliedAmount () + $item->getWeeeTaxDisposition ();
 				} else {
 					$exclPrice = $item->getCalculationPrice ();
 				}
 			}
-			
+
 			if ($displayCartPriceInclTax || $displayCartBothPrices) {
 				$_incl = Mage::helper ( 'checkout' )->getPriceInclTax ( $item );
 				if (Mage::helper ( 'weee' )->typeOfDisplay ( $item, array (
 						0,
 						1,
-						4 
+						4
 				), 'sales' ) && $item->getWeeeTaxAppliedAmount ()) {
 					$inclPrice = $_incl + $item->getWeeeTaxAppliedAmount ();
 				} else {
 					$inclPrice = $_incl - $item->getWeeeTaxDisposition ();
 				}
 			}
-			
+
 			$cartItemArr ['item_price'] = max ( $exclPrice, $inclPrice ); // only display one
-			
+
 			array_push ( $cartItemsArr, $cartItemArr );
 		}
-		
+
 		return $cartItemsArr;
 	}
 	protected function _getCustomOptions($item) {
@@ -401,7 +401,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			try {
 				if (isset ( $params ['qty'] )) {
 					$filter = new Zend_Filter_LocalizedToNormalized ( array (
-							'locale' => Mage::app ()->getLocale ()->getLocaleCode () 
+							'locale' => Mage::app ()->getLocale ()->getLocaleCode ()
 					) );
 					$params ['qty'] = $filter->filter ( $params ['qty'] );
 				}
@@ -427,7 +427,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 				Mage::dispatchEvent ( 'checkout_cart_add_product_complete', array (
 						'product' => $product,
 						'request' => $this->getRequest (),
-						'response' => $this->getResponse () 
+						'response' => $this->getResponse ()
 				) );
 				if (! $session->getNoCartRedirect ( true )) {
 					if (! $cart->getQuote ()->getHasError ()) {
@@ -459,7 +459,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			return parent::addAction ();
 		}
 	}
-	
+
 	public function customerSetAction(){
 		$quote = Mage::getModel('checkout/cart')->getQuote();
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
@@ -468,7 +468,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         if (!isset($customerData['mode'])) {
 			echo json_encode ( array (
 					'code' => '0x0002',
-					'message' => 'customer_mode_is_unknown' 
+					'message' => 'customer_mode_is_unknown'
 			));
         }
 
@@ -494,10 +494,10 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
             $isCustomerValid = $customer->validate();
             if ($isCustomerValid !== true && is_array($isCustomerValid)) {
-                
+
 				echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'customer_mode_is_unknown' 
+					'message' => 'customer_mode_is_unknown'
 				));
             }
             break;
@@ -511,20 +511,20 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
                 ->save();
 				echo json_encode ( array (
 					'status' => true,
-					'message' => 'set successfully' 
+					'message' => 'set successfully'
 				));
 				return ;
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
 					'code' => '0x0001',
-					'message' => 'customer_not_set' 
+					'message' => 'customer_not_set'
 				));
 				return ;
         }
         return true;
 	}
-	
-	
+
+
 	public function customerAddressesAction(){
 		$quote = Mage::getSingleton('checkout/cart')->getQuote();
 		$customerAddressData = $this->getRequest ()->getParams();
@@ -533,12 +533,12 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			$customerarray[] = $c;
 		}
 		//print_r($customerAddressData);
-		
-		
+
+
 		if (!is_array($customerAddressData) || !is_array($customerarray[0])) {
             echo json_encode ( array (
 					'status' => '0x0001',
-					'message' => 'empty' 
+					'message' => 'empty'
 				));
 				return ;
         }
@@ -556,11 +556,11 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             $dataAddresses[] = $addressItem;
         }
 		$customerAddressData = $dataAddresses;
-		
+
         if (is_null($customerAddressData)) {
 			echo json_encode ( array (
 					'status' => '0x0002',
-					'message' => 'customer_address_data_empty' 
+					'message' => 'customer_address_data_empty'
 				));
 				return ;
         }
@@ -585,7 +585,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 				if (is_null($addresses->getId())) {
 					echo json_encode ( array (
 					'status' => '0x0003',
-					'message' => 'invalid_address_id' 
+					'message' => 'invalid_address_id'
 					));
 					return ;
 				}
@@ -595,12 +595,12 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 					$addresses->setRegion($addresses->getRegionId());
 				}
 				$customerAddress = $addresses;
-				
-				
+
+
                 if ($customerAddress->getCustomerId() != $quote->getCustomerId()) {
 					echo json_encode ( array (
 						'status' => '0x0004',
-						'message' => 'address_not_belong_customer' 
+						'message' => 'address_not_belong_customer'
 					));
 					return ;
                 }
@@ -615,7 +615,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             if (($validateRes = $address->validate())!==true) {
 				echo json_encode ( array (
 						'status' => '0x0005',
-						'message' => implode(PHP_EOL, $validateRes) 
+						'message' => implode(PHP_EOL, $validateRes)
 					));
 				return ;
             }
@@ -675,8 +675,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
         return true;
 	}
-	
-	
+
+
 	public function paymentMethodAction(){
 		$quote = Mage::getSingleton('checkout/cart')->getQuote();
 		$store = $quote->getStoreId();
@@ -713,7 +713,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 					'message' => 'shipping_address_is_not_set'
 				));
 				return ;
-				
+
             }
             $quote->getShippingAddress()->setPaymentMethod(
                 isset($paymentData['method']) ? $paymentData['method'] : null
@@ -744,7 +744,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         }
 
         try {
-			
+
             $payment = $quote->getPayment();
             $payment->importData($paymentData);
             $quote->setTotalsCollectedFlag(false)
@@ -761,11 +761,11 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 					'message' => $e->getMessage()
 					));
 					return ;
-			
+
         }
         return true;
 	}
-	
+
 	protected function _preparePaymentData($data)
     {
         if (!(is_array($data) && is_null($data[0]))) {
@@ -774,7 +774,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
         return $data;
     }
-	
+
 	public function paymentListAction(){
 		$quote = Mage::getSingleton('checkout/cart')->getQuote();
 		$store = $quote->getStoreId();
@@ -800,7 +800,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         }
 		echo json_encode($methodsResult);
 	}
-	
+
 	protected function _canUsePaymentMethod($method, $quote)
     {
         if (!($method->isGateway() || $method->canUseInternal())) {
@@ -828,7 +828,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
         return true;
     }
-	
+
 	 protected function _getPaymentMethodAvailableCcTypes($method)
     {
         $ccTypes = Mage::getSingleton('payment/config')->getCcTypes();
@@ -844,8 +844,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
         return $ccTypes;
     }
-	
-	
+
+
 	public function shippingListAction(){
 		$quote = Mage::getSingleton('checkout/cart')->getQuote();
         $quoteShippingAddress = $quote->getShippingAddress();
@@ -884,7 +884,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         }
 		echo json_encode($ratesResult);
 	}
-	
+
 	protected function _getAttributes($object, $type, array $attributes = null)
     {
         $result = array();
@@ -915,8 +915,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
         return $result;
     }
-	
-	
+
+
 	protected function _isAllowedAttribute($attributeCode, $type, array $attributes = null)
     {
         if (!empty($attributes)
@@ -935,7 +935,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
         return true;
     }
-	
+
 	public function shippingMethodAction(){
 		$quote = Mage::getSingleton('checkout/cart')->getQuote();
         $quoteShippingAddress = $quote->getShippingAddress();
@@ -973,11 +973,11 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         }
 
         return true;
-	
+
 	}
-	
+
 	public function orderAction(){
-		
+
 		$requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
         if (!empty($requiredAgreements)) {
             $diff = array_diff($agreements, $requiredAgreements);
@@ -1005,7 +1005,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 					'message' => 'guest_checkout_is_not_enabled'
 				));
 				return ;
-			
+
         }
 
         /** @var $customerResource Mage_Checkout_Model_Api_Resource_Customer */
@@ -1033,7 +1033,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
                 try {
                     $order->queueNewOrderEmail();
-					
+
                 } catch (Exception $e) {
                     Mage::logException($e);
                 }
@@ -1056,7 +1056,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 				return ;
         }
 	}
-	
+
 	public function licenseAction(){
         $quote = Mage::getSingleton('checkout/cart')->getQuote();
         $storeId = $quote->getStoreId();
@@ -1074,4 +1074,4 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         }
 		echo json_encode($agreements);
 	}
-} 
+}

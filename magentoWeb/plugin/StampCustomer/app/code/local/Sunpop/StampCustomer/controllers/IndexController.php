@@ -186,6 +186,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 							<th>姓名</th>
 							<th>注册区域</th>
 							<th>公司</th>
+							<th>注册专业</th>
 							<th>注册号</th>
 							<th>印章号</th>
 							<th>有效期至</th>
@@ -196,6 +197,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 					$html .= '<td class="a_name">'.$c->getAName().'</td>';
 					$html .= '<td class="a_state">'.$c->getAState().'</td>';
 					$html .= '<td class="a_company">'.$c->getACompany().'</td>';
+					$html .= '<td class="a_certspec">'.$c->getACertspec().'</td>';
 					$html .= '<td class="a_certsn">'.$c->getACertsn().'</td>';
 					$html .= '<td class="a_stampsn">'.$c->getAStampsn().'</td>';
 					$html .= '<td class="a_expdate">'.$c->getAExpdate().'</td>';
@@ -211,6 +213,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 						var name = $(this).find(".a_name").html();
 						var certtype = $(this).find(".a_certtype").html();
 						var company = $(this).find(".a_company").html();
+						var certspec = $(this).find(".a_certspec").html();
 						var certsn = $(this).find(".a_certsn").html();
 						var stampsn = $(this).find(".a_stampsn").html();
 						var expdate = $(this).find(".a_expdate").html();
@@ -218,6 +221,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 						$(".a_name").val(name);
 						$(".a_certtype").val(certtype);
 						$(".a_company").val(company);
+						$(".a_certspec").val(certspec);
 						$(".a_certsn").val(certsn);
 						$(".a_stampsn").val(stampsn);
 						if(expdate){

@@ -21,6 +21,7 @@
 				<li>
 					<label for="a_name"><?php echo $this->__("姓名"); ?></label>
 					<input type="text" class="form-control" name="a_name" id="a_name" />
+			<input type="hidden" name="a_certtype" id="a_certtype" value=<?php echo $product->getName(); ?> />
 				</li>
 				<li>
 					<label for="a_company"><?php echo $this->__("公司"); ?></label>
@@ -45,6 +46,16 @@
 
 	</div>
 </div>
+<div class="yinke1 hidden">
+  <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('yinke1')->toHtml() ?>
+</div>
+<div class="yinke2 hidden">
+  <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('yinke2')->toHtml() ?>
+</div>
+<div class="yinke3 hidden">
+  <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('yinke3')->toHtml() ?>
+</div>
+
 <script type="text/javascript">
 	//<!{CDATA[
 		var AjaxStampcustomer  = new VarienForm('ajaxstampcustomer_form');
@@ -81,6 +92,9 @@
             }
         }.bind(AjaxStampcustomer);
 		jQuery(function($){
+			$(".yinke ul  li:eq(0)").append($(".yinke1").html() );
+			$(".yinke ul  li:eq(1)").append($(".yinke2").html() );
+			$(".yinke ul  li:eq(2)").append($(".yinke3").html() );
 			$(".entry").click(function(){
 				$(".stampcustomer").toggle();
 
