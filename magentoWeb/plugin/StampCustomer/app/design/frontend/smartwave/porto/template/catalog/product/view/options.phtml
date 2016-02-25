@@ -166,7 +166,13 @@
     <div class="product-tabs">
         <ul>
           <li id="tab_description_tabbed" class="first active"><a href="javascript:void(0)">1. 输入印章信息</a></li>
-          <li id="tab_review_tabbed" class="active"><a href="javascript:void(0)">2. 选择印壳类型</a></li>
+
+        <?php foreach($_options as $_option): ?>
+          <?php  if ($_option->getTitle()=="印壳类型"): ?>
+            <li id="tab_review_tabbed" class="active"><a href="javascript:void(0)">2. 选择印壳类型</a></li>
+          <?php break; endif;  ?>
+        <?php endforeach; ?>
+
         </ul>
         <div class="tab-content" id="tab_description_tabbed_contents">
           <dl>
@@ -175,15 +181,18 @@
                   <a class="col-xs-5 col-md-4 btn btn-lg gonext btn-success pull-right hidden"><?php echo $this->__("下一步");?></a>
                 </div>
           <?php foreach($_options as $_option): ?>
-              <?php if ($_option->getType()!=="radio") {echo $this->getOptionHtml($_option);} ?>
+              <?php if ($_option->getTitle()!=="印壳类型") {echo $this->getOptionHtml($_option);} ?>
           <?php endforeach; ?>
           </dl>
         </div>
-        <div class="tab-content" id="tab_review_tabbed_contents">
-          <?php foreach($_options as $_option): ?>
-              <?php  if ($_option->getType()=="radio") {echo $this->getOptionHtml($_option);} ?>
-          <?php endforeach; ?>
-        </div>
+
+        <?php foreach($_options as $_option): ?>
+          <?php  if ($_option->getTitle()=="印壳类型"): ?>
+            <div class="tab-content" id="tab_review_tabbed_contents">
+                  <?php {echo $this->getOptionHtml($_option);} ?>
+            </div>
+          <?php break; endif; ?>
+        <?php endforeach; ?>
 
         <script type="text/javascript">
         //<![CDATA[
