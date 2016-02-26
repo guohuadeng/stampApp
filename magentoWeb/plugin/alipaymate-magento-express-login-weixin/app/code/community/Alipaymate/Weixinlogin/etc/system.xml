@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <customer>
+            <groups>
+                <weixinlogin translate="label" module="weixinlogin">
+                    <label>Weixin Express Login (by Alipaymate.com)</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>180</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+
+                        <app_id translate="label,comment">
+                            <label>App ID</label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </app_id>
+
+
+                        <app_secret translate="label,comment">
+                            <label>App Secret</label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </app_secret>
+
+                        <app_id2 translate="label,comment">
+                            <label>App ID (公众号)</label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </app_id2>
+
+
+                        <app_secret2 translate="label,comment">
+                            <label>App Secret (公众号)</label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </app_secret2>
+
+                    </fields>
+                </weixinlogin>
+            </groups>
+        </customer>
+    </sections>
+</config>

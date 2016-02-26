@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Alipaymate_Weixinlogin>
+      <active>true</active>
+      <codePool>community</codePool>
+    </Alipaymate_Weixinlogin>
+  </modules>
+</config>

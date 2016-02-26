@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Alipaymate_Weixinlogin>
+            <version>2.0</version>
+        </Alipaymate_Weixinlogin>
+    </modules>
+    <global>
+        <models>
+            <weixinlogin>
+                <class>Alipaymate_Weixinlogin_Model</class>
+                <resourceModel>weixinlogin_resource</resourceModel>
+            </weixinlogin>
+
+            <weixinlogin_resource>
+                <class>Alipaymate_Weixinlogin_Model_Resource</class>
+                <deprecatedNode>weixinlogin_mysql4</deprecatedNode>
+                <entities>
+                    <identifiers>
+                        <table>social_login_weixin</table>
+                    </identifiers>
+                </entities>
+            </weixinlogin_resource>
+        </models>
+
+        <resources>
+            <weixinlogin_setup>
+                <setup>
+                    <module>Alipaymate_Weixinlogin</module>
+                </setup>
+            </weixinlogin_setup>
+        </resources>
+
+        <blocks>
+            <weixinlogin>
+                <class>Alipaymate_Weixinlogin_Block</class>
+            </weixinlogin>
+        </blocks>
+
+        <helpers>
+            <weixinlogin>
+                <class>Alipaymate_Weixinlogin_Helper</class>
+            </weixinlogin>
+        </helpers>
+    </global>
+
+    <frontend>
+        <routers>
+            <weixinlogin>
+                <use>standard</use>
+                <args>
+                    <module>Alipaymate_Weixinlogin</module>
+                    <frontName>weixinlogin</frontName>
+                </args>
+            </weixinlogin>
+        </routers>
+        <translate>
+            <modules>
+                <Alipaymate_Weixinlogin>
+                    <files>
+                        <default>Alipaymate_Weixinlogin.csv</default>
+                    </files>
+                </Alipaymate_Weixinlogin>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <weixinlogin>
+                    <file>weixinlogin.xml</file>
+                </weixinlogin>
+            </updates>
+        </layout>
+    </frontend>
+
+   <adminhtml>
+        <translate>
+            <modules>
+                <Alipaymate_Weixinlogin>
+                    <files>
+                        <default>Alipaymate_Weixinlogin.csv</default>
+                    </files>
+                </Alipaymate_Weixinlogin>
+            </modules>
+        </translate>
+    </adminhtml>
+</config>
