@@ -27,7 +27,7 @@
     line-height: 41px;
   }
 
-  .product-options #tab_description_tabbed_contents dd {
+  .product-options .stamp-input  {
     padding: 0 0 10px 0;
     margin: -42px 0 5px!important;
     border-bottom: 0px;
