@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<config>
+	<menu>
+		<system>
+			<children>
+				<magegiant_extension translate="title">
+					<title>MageGiant Extensions</title>
+					<sort_order>0</sort_order>
+                    <action>magegiantcore/adminhtml_magegiant</action>
+					<children>
+						<!--<extension_key translate="title">-->
+							<!--<title>Key Management</title>-->
+							<!--<sort_order>1</sort_order>-->
+							<!--<action>adminhtml/system_config/edit/section/magegiantcoresecure</action>-->
+						<!--</extension_key>							-->
+						<!--<extension_feedback translate="title">-->
+							<!--<title>Support</title>-->
+							<!--<sort_order>2</sort_order>-->
+							<!--<action>magegiantcore/adminhtml_support/index/</action>-->
+						<!--</extension_feedback>								-->
+					</children>
+				</magegiant_extension>		
+			</children>
+		</system>
+	</menu>
+	<acl>
+		<resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+			<admin>
+				<children>
+					<!--<system>-->
+						<!--<children>-->
+							<!--<config>-->
+								<!--<children>-->
+									<!--<magegiantcoresecure translate="title">-->
+										<!--<title>Magegiant Extensions</title>-->
+										<!--<sort_order>1</sort_order>-->
+									<!--</magegiantcoresecure>-->
+									<!--<magegiant_extension_feedback translate="title">-->
+										<!--<title>License</title>-->
+										<!--<sort_order>2</sort_order>-->
+									<!--</magegiant_extension_feedback>										-->
+									<!--<magegiantcore translate="title">-->
+										<!--<title>Notification</title>-->
+										<!--<sort_order>50</sort_order>-->
+									<!--</magegiantcore>-->
+								<!--</children>-->
+							<!--</config>-->
+							<!--<magegiant_extension translate="title">-->
+								<!--<title>Magegiant Extensions</title>-->
+								<!--<sort_order>10</sort_order>-->
+								<!--<children>-->
+									<!--<extension_key translate="title">-->
+										<!--<title>License Keys</title>-->
+										<!--<sort_order>1</sort_order>-->
+										<!--<action>adminhtml/system_config/edit/section/magegiantcoresecure</action>-->
+									<!--</extension_key>								-->
+									<!--<extension_feedback translate="title">-->
+										<!--<title>Support</title>-->
+										<!--<sort_order>10</sort_order>-->
+										<!--<action>adminhtml/system_config/edit/section/licensemanager</action>-->
+									<!--</extension_feedback>								-->
+								<!--</children>-->
+							<!--</magegiant_extension>								-->
+						<!--</children>											-->
+					<!--</system>-->
+				</children>
+			</admin>
+		</resources>
+	</acl>		
+</config>

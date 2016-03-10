@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Smartwave_Filterproducts>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Smartwave_Filterproducts>
+    </modules>
+</config> 

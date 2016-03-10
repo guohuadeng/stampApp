@@ -1,0 +1,95 @@
+<?php
+/*
+ * Copyright (C) 2012 Clearspring Technologies, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
+<?php 
+
+	/**General Options*/
+	$plugin_enabled = $this->getPluginEnabledStatus();
+	
+	$pubid = $this->getPubId();
+	if(!$pubid)
+		$pubid = "xa-525fbbd6215b4f1a";
+		
+	$theme = $this->getTheme();
+	
+	/**Follow*/	
+	$follow_services = $this->getFollow();
+	
+	/**Share*/
+	$share_enabled = $this->getShareEnabled();
+	$share_position = $this->getShareButtonPosition();
+	$share_count = $this->getShareButtonCount();
+	
+	/**What's Next*/
+	$whatsnext_enabled = $this->getWhatsNextEnabled();
+	
+	/**Recomended Content*/
+	$recomended_enabled = $this->getRecomendedEnabled();
+	$recomended_header = $this->getRecomendedHeader();
+
+	/**Custom Code*/
+	$custom_code_enabled = $this->getCustomCodeEnabled();
+	$custom_code_content = $this->getCustomCode();
+		
+	if($plugin_enabled !=0 ){
+		$atslScript = "<!-- AddThis Smart Layers BEGIN -->" . PHP_EOL;
+	    $atslScript .= "<script type='text/javascript' src='https://s7.addthis.com/js/300/addthis_widget.js#pubid=".urlencode($pubid)."'></script>". PHP_EOL;
+		
+		$atslScript .= "<script type='text/javascript'>". PHP_EOL;
+		$atslScript .= "\tvar addthis_product='mag-sp-2.1.0';". PHP_EOL;				
+		if($custom_code_enabled == 1 && $custom_code_content != ""){
+			$atslScript .= $custom_code_content;
+		} else {
+			$atslScript .= "\taddthis.layers({". PHP_EOL;
+			$atslScript .= "\t\t'theme' : '".$theme."'". PHP_EOL;
+			if($share_enabled != 0){
+				$atslScript .= "\t\t,'share' : {\n\t\t\t'position' : '".$share_position."',\n\t\t\t'numPreferredServices' : ".$share_count."\n\t\t}". PHP_EOL;
+			}
+		    if(strlen(implode($follow_services)) != 0) {    	
+		    	
+				$atslScript .= "\t\t,'follow' : {";
+				$atslScript .= "\n\t\t\t'services' : [";
+				
+				foreach($follow_services as $services => $service) {				
+					
+					if($follow_services[$services] != "" && $follow_services[$services] != "YOUR-PROFILE-ID") {
+						if($services == "linkedin_comp")
+							$atslScript .= "\n\t\t\t\t{'service': 'linkedin', 'id': '".$follow_services[$services]."', 'usertype':'company'},";
+						else
+							$atslScript .= "\n\t\t\t\t{'service': '".$services."', 'id': '".$follow_services[$services]."'},";
+					}	
+				}
+				$atslScript .= "\n\t\t\t]";
+				$atslScript .= "\n\t\t}". PHP_EOL;
+	    	}    	
+			if($whatsnext_enabled != 0) {   
+				$atslScript .= "\t\t,'whatsnext' : {}". PHP_EOL;
+			}
+		
+			if($recomended_enabled != 0) {
+				$atslScript .= "\t\t,'recommended' : {\n\t\t\t'title': '".$recomended_header."'\n\t\t}". PHP_EOL;
+			}
+			$atslScript .= "\t});". PHP_EOL;
+		}
+	    $atslScript .= "</script>". PHP_EOL;
+	    $atslScript .= "<!-- AddThis Smart Layers ENDS -->" . PHP_EOL;
+	    $atslScript .= "<style>.at-share-close-control .at4-arrow {float: right !important;}</style>" . PHP_EOL;	 	    
+
+	    echo $atslScript;
+	    		
+	}//if plugin is enabled	
+?>

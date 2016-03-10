@@ -1,0 +1,281 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <add_this translate="label" module="sharingtool">
+            <label>AddThis</label>
+            <sort_order>100</sort_order>
+        </add_this>
+    </tabs>
+    <sections>
+        <sharing_tool translate="label" module="sharingtool">
+            <label>Sharing Tool</label>
+            <tab>add_this</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>30</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label" module="sharingtool">
+                    <label>General</label>
+                    <sort_order>800</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>                     
+                    </fields>
+                </general>                
+                <button_style translate="label" module="sharingtool">
+				    <label>Button Style</label>
+                    <sort_order>900</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+				    <fields>
+                        <button_set translate="label">
+                            <frontend_type>radios</frontend_type>                            
+                            <source_model>sharingtool/source_buttons</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                             <comment><![CDATA[<script type="text/javascript">
+                             document.observe("dom:loaded", function() {
+	                             if(!$('sharing_tool_button_style_button_setstyle_9').checked){
+	                             	$('row_sharing_tool_button_style_custom_button_url').hide();   
+	                             }
+	                             if(!$('sharing_tool_button_style_button_setstyle_10').checked){
+	                             	$('row_sharing_tool_button_style_custom_button_code').hide();   
+	                             }                                                                                  
+	                             for(i=0;i<10;i++){                         
+		                             $$('[id^="sharing_tool_button_style_button_setstyle_"]')[i].observe('click', function() {
+			                             if(this.id == "sharing_tool_button_style_button_setstyle_9"){
+			                            	$('row_sharing_tool_button_style_custom_button_url').show();
+			                             }                             
+			                             else {
+			                            	$('row_sharing_tool_button_style_custom_button_url').hide();
+			                             }
+			                             if(this.id == "sharing_tool_button_style_button_setstyle_10"){
+			                            	$('row_sharing_tool_button_style_custom_button_code').show();
+			                             }                             
+			                             else {
+			                            	$('row_sharing_tool_button_style_custom_button_code').hide();
+			                             }	                             
+		                             });
+	                             }
+                             });</script>]]></comment>                                             							
+                        </button_set>                        
+                         <custom_button_url translate="label">
+                            <label>Custom Button Image URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>ex : http://www.example.com/button_name.jpg</comment>                            
+                        </custom_button_url>
+                        <custom_button_code translate="label">
+                            <label>Custom Code</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                                                       
+                        </custom_button_code>                       
+					</fields>	
+				</button_style>				
+				<custom_share translate="label" module="sharingtool">
+                    <label>Custom URL and Title (Optional)</label>
+                    <sort_order>1100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <custom_url translate="label">
+                            <label>URL to Share</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </custom_url>
+                        <custom_title translate="label">
+                            <label>Page Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </custom_title>
+                        <custom_description translate="label">
+                            <label>Description</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </custom_description>                         
+                    </fields>
+                </custom_share>                
+                 <api translate="label" module="sharingtool">
+				    <label>API Configuration Options (Optional)</label>
+                    <sort_order>1200</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+				    <fields>
+                         <services_exclude translate="label">
+                            <label>Exclude Services</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Services to exclude from all menus. For example, setting this to 'facebook,myspace' would hide Facebook and MySpace on all menus.</comment>                            
+                        </services_exclude>
+                        <services_compact translate="label">
+                            <label>Services in Compact Menu</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Only display these services in the compact menu. Leave blank to display a default list.</comment>                            
+                        </services_compact>
+                        <services_expanded translate="label">
+                            <label>Services in Expanded Menu</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Services to use in the expanded menu. Useful if very few services are desired.</comment>                            
+                        </services_expanded>
+                        <ui_click translate="label">
+                            <label>Compact Menu Hover</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>sharingtool/source_menuhover</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                                                      
+                        </ui_click>
+                       <ui_delay translate="label">
+                            <label>Delay</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Delay, in milliseconds, before compact menu appears when mousing over a regular button.</comment>                                                       
+                        </ui_delay>
+                        <ui_hover_direction translate="label">
+                            <label>Compact Menu Direction</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>sharingtool/source_uihover</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Normally the compact menu shown in the direction of the browser that has the most space.</comment>                                                                                
+                        </ui_hover_direction>
+                        <ui_open_windows translate="label">
+                            <label>New Window</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>If yes, all shares will open in a new pop-up window instead of a new tab or regular browser window.</comment>                                                                                
+					    </ui_open_windows>
+					    <ui_language translate="label">
+                            <label>Menu Language</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>sharingtool/source_languages</source_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Force the menu to use a particular language.</comment>                                                                                
+                        </ui_language>
+                       <data_track_clickback translate="label">
+                            <label>Track Clickbacks</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Track how many people come back to your content by appending a variable to your URLs upon sharing. Highly recommended.</comment>                                                       
+                       </data_track_clickback>
+                       <address_bar_share translate="label">
+                            <label>Address Bar Sharing</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>210</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                           <comment>Measures how often users share your site by copying the page URL from their address bar.</comment>
+                       </address_bar_share>
+                       <data_ga_tracker translate="label">
+                            <label>Google Analytics Web Property ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>220</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>If set, AddThis will send tracking events to Google.</comment>                                                       
+                        </data_ga_tracker>
+					</fields>	
+				</api>				
+				<custom_service translate="label" module="sharingtool">
+                    <label>Specify Your Own AddThis Sharing Service (Optional)</label>
+                    <sort_order>1300</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <services_custom_name translate="label">
+                            <label>Custom Service Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Specify your own AddThis bookmarking service.</comment>                            
+                        </services_custom_name>
+                        <services_custom_url translate="label">
+                            <label>Custom Service URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                                                      
+                        </services_custom_url>
+                        <services_custom_icon translate="label">
+                            <label>Custom Service Icon URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                                                      
+                        </services_custom_icon>                       
+                    </fields>
+                </custom_service>
+            </groups>
+        </sharing_tool>
+    </sections>
+</config>

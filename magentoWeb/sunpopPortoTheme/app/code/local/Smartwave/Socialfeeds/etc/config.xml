@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Smartwave_Socialfeeds>
+            <version>1.0.0</version>
+        </Smartwave_Socialfeeds>
+    </modules>
+    <global>
+        <helpers>
+            <socialfeeds>
+                <class>Smartwave_Socialfeeds_Helper</class>
+            </socialfeeds>
+        </helpers>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <socialfeeds module="Smartwave_Socialfeeds">
+                    <file>smartwave_socialfeeds.xml</file>
+                </socialfeeds>
+            </updates>
+        </layout>
+    </frontend>
+    <default>
+        <socialfeeds>
+            <facebook>
+                <enabled>1</enabled>
+                <name>promokit.eu</name>
+                <show_counts>6</show_counts>
+            </facebook>
+            <twitter>
+                <enabled>1</enabled>
+                <widgetkey>362597660089274368</widgetkey>
+                <screen_name>eternalfriend38</screen_name>
+                <show_counts>2</show_counts>
+            </twitter>
+            <flickr>
+                <smartwave_flickrphotos_enabled>1</smartwave_flickrphotos_enabled>
+                <smartwave_flickrphotos_apikey>dd14978e9347319cdc672f3336cfdf9f</smartwave_flickrphotos_apikey>
+                <smartwave_flickrphotos_photosetid>72157636619779965</smartwave_flickrphotos_photosetid>
+                <smartwave_flickrphotos_count>6</smartwave_flickrphotos_count>
+            </flickr>
+        </socialfeeds>
+        
+    </default>
+</config>

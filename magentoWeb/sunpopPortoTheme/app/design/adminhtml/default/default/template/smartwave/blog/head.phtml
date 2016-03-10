@@ -1,0 +1,16 @@
+<? if (Mage::getStoreConfig('blog/blog/userte')): ?>
+    <script src="<?php echo $this->getSkinUrl('') ?>blog/js/tiny_mce/tiny_mce.js"></script>
+    <script src="<?php echo $this->getSkinUrl('') ?>blog/js/init_rte.js"></script>
+
+    <script type="text/javascript">
+        // Init rte
+        Smartwave_BlogIntId = setInterval(
+        function(){
+            if(typeof tinyMCE != 'undefined' && $('anchor-content')){
+                initRTE();
+                clearInterval(Smartwave_BlogIntId);
+            }
+        }
+        ,500)
+    </script>
+<? endif; ?>

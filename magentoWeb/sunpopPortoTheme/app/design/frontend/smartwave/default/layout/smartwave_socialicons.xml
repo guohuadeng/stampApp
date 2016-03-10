@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+        <reference name="footer">
+            <block type="core/template" name="socialicons" after="-" template="socialicons/socialicons.phtml" />
+        </reference>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>socialicons/css/styles.css</name>
+            </action>
+        </reference>
+    </default>
+</layout>

@@ -1,0 +1,25 @@
+<?php $_id = 'id_' . md5(microtime()) ?>
+
+<input type="hidden" name="<?php echo $this->getInputElementName() ?>" id="<?php echo $_id ?>" value=""/>
+<div id="product_name_contain" style="display:none"></div>
+<?php $_gridJsObject = $this->getGridBlock()->getJsObjectName() ?>
+<script type="text/javascript">
+
+var dailydeal = new Dailydeal('<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/dailydealadmin_dailydeal/changeproduct')?>')
+
+function magegiantObjectRowClick(grid, event) {
+	var trElement = Event.findElement(event, 'tr');
+	var isInput = Event.element(event).tagName == 'INPUT';
+	if (trElement) {
+		var checkbox = Element.getElementsBySelector(trElement, 'input');
+		if (checkbox[0]) {
+			$('<?php echo $_id ?>').value = checkbox[0].value;
+			checkbox[0].checked = true;
+			dailydeal.changeProduct(checkbox[0].value);
+		}
+	}
+}
+
+<?php echo $_gridJsObject ?>.rowClickCallback = magegiantObjectRowClick;
+
+</script>

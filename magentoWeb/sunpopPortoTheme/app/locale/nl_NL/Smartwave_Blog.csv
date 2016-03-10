@@ -1,0 +1,193 @@
+Action,Actie
+Add Category,Voeg categorie toe
+Add Comment,Voeg reactie toe
+Add Post,Voeg blogbericht toe
+Advanced Options,Geavanceerde instellingen
+Advanced Post Options,Geavanceerde blogberichtinstellingen
+"If enabled, all comments appear immediately without admin approval.","Alle reacties zullen direct getoond worden zonder goedkeuring door een admin."
+"An error occured. Please try again","Er trad een fout op. Probeer a.u.b. opnieuw"
+Approve,Goedkeuren
+Approved,Goedgekeurd
+"Are you sure?","Weet u het zeker?"
+Auto Approve Comments,Automatisch goedkeuren reacties
+Blog,Blog
+Blog,Blog
+Blog Comment Manager,Beheer blogreacties
+Blog Manager,Beheer blog
+Blog Post Manager,Beheer blogreacties
+Blog Post Options,Blogberichtinstellingen
+Blog Settings,Bloginstellingen
+Blog Title,Blogtitel
+By,door
+Categories,Categorieën
+Category,Categorie
+Category Comment Manager,Categorie reactiebeheer
+Category does not exist,Categorie bestaat niet
+Category Information,Categoriegegevens
+Category Manager,Categoriebeheer
+Change status,Wijzig status
+click here,klik hier
+Comment,Reactie
+Comment Information,Reactiegegevens
+Comment Manager,Reactiebeheer
+Comments are Closed for this post,Reacties zijn gesloten voor dit blogbericht
+Comments are not enabled.,Reacties zijn niet ingeschakeld
+Comments,Reacties
+Comments,Reacties
+Comments per Page,Reacties per pagina
+Comment Submitted,Reactie verzonden
+Comment was approved,Reactie is goedgekeurd
+Comment was successfully deleted,Reactie is succesvol verwijderd
+Comment was successfully saved,Reactie is succesvol opgeslagen
+Comment was unapproved,Reactie is afgekeurd
+Content,Inhoud
+Created at,Aangemaakt op
+Created,Aangemaakt
+Created on,Aangemaakt op
+CSV,CSV
+Date Format,Datumformaat
+Delete Category,Verwijder categorie
+Delete Comment,Verwijder reactie
+Delete,Verwijder
+Delete Post,Verwijder blogbericht
+Description,Omschrijving
+Disabled,Uitgeschakeld
+Duplicate Post,Dubbel blogbericht
+"Edit Category  '%s'","Bewerk categorie  '%s'"
+"Edit Comment By '%s'","Bewerk reactie van '%s'"
+Edit,Bewerk
+"Edit Post '%s'","Bewerk blogbericht '%s'"
+"Must NOT contain any slashes. ""news"" makes the blog accessible from domain.com/news. Leave blank for default value.","Bijv. ""nieuws"" zal de blog beschikbaar maken onder domein.nl/nieuws. Mag geen slashes bevatten. Laat leeg voor standaardinstelling"
+Email Address,E-mailadres
+Email,E-mail
+Email Sender,E-mailverzender
+Email Template,E-mailtemplate
+Enable Blog RSS Feed,Schakel Blog RSS Feed in
+Enable Categories Menu,Schakel categoriemenu in
+Enable Comments,Schakel reacties in
+Enable Comments,Schakel reacties in
+Enabled,Ingeschakeld
+Enable,Ingeschakeld
+Enable Footer Link,Schakel voettekstlink in
+Enable Left Menu,Schakel linkermenu in
+Enable ReCAPTCHA,Schakel ReCAPTCHA in
+Enable Right Menu,Schakel rechtermenu in
+Enable Top Link,Schakel toplink in
+Error during generation sitemap,Fout ontstaan tijdens het genereren van de sitemap
+Frequency,Frequentie
+Full,Volledig
+Google Sitemap,Google Sitemap
+"Go to <a href=""http://www.google.com/recaptcha/whyrecaptcha"">http://www.google.com/recaptcha/whyrecaptcha</a> to get keys","Ga naar <a href=""http://www.google.com/recaptcha/whyrecaptcha"">http://www.google.com/recaptcha/whyrecaptcha</a> om de keys te verkrijgen"
+Hidden,Verborgen
+Home,Home
+Identifier,Alias
+ID,ID
+"If enabled, additional ""Short Content Field"" is taken instead of truncated main post.","Indien ingeschakeld zal een ingevuld ""korte inhoudsveld"" worden gebruikt in plaats van een afgebroken hoofdblogbericht."
+Keywords,Sleutelwoorden
+Latest Posts,Recente blogberichten
+Logged in Auto Approve Comments,Auomatisch goedkeuren van reacties door ingelogde gebruikers
+Login Required to Comment,Het is verplicht om in te loggen om te kunnen reageren
+Long,Lang
+Medium,Middelgroot
+Menus and Links,Menu's en Links
+Meta Data,Metadata
+Meta Description,Metaomschrijving
+Meta Keywords,Metasleutelwoorden
+Name,Naam
+Newer Posts,Nieuwere blogberichten
+No,Nee
+"No Posts in this Category.","Geen blogberichten in deze categorie."
+"Number of characters in a post to be displayed before it is truncated and the Read More link is added. 0 for unlimited.","Het aantal karakters in een blogbericht om te tonen voordat het wordt afgebroken en de lees meer link wordt getoond. Gebruik 0 voor onbeperkt."
+"Number of post to display in the RSS feed.","Aantal blogberichten te tonen in de RSS feed."
+Older Posts,Oudere blogberichten
+Only comments added by logged in users will be approved automatically,Alleen reacties die gemaakt zijn door gebruikers die zijn ingelogd zullen automatisch worden goedgekeurd.
+Page Layout,Paginalayout
+Parse CMS Tags in Post Contents,Verwerk CMS tags in blogberichtinhoud
+Please select categories,Selecteer a.u.b. categorieën
+Please select comment(s),Selecteer a.u.b. reactie(s)
+Please select post(s),Selecteer a.u.b. blogbericht(en)
+Position,Positie
+Post does not exist,Blogbericht bestaat niet
+Posted in,Geplaatst in
+posted on,geplaatst op
+Posted,Geplaatst
+Poster,Auteur
+"Post Identifier already exist.","Blogbericht alias bestaat al."
+"Post Identifier cannot consist only of numbers.","Blogbericht alias kan niet uit alleen maar getallen bestaan."
+Post information,Plaatsingsinformatie
+Post Information,Plaatsingsinformatie
+Post,Blogbericht
+Posts,Blogbericht
+Posts per Page,Blogbericht per pagina
+Post was successfully deleted,Blogbericht is succesvol verwijderd
+Post was successfully saved,Blogbericht is succesvol opgeslagen
+pos was successfully deleted,positie was succesvol verwijderd
+Price,Prijs
+Priority,Prioriteit
+Read More,Lees meer
+ReCAPTCHA Private Key,ReCAPTCHA Private Key
+ReCAPTCHA Public Key,ReCAPTCHA Public Key
+ReCAPTCHA,ReCAPTCHA
+Recent Posts,Recente blogbericht
+Recent Posts,Recente blogbericht
+Related post,Gerelateerd blogbericht
+"Relative to current skin directory, e.g. images/rsslogo.jpg","Relatief ten opzichte van de huidige skin directory bijv. images/rsslogo.jpg"
+"* Required Fields","* Verplichte velden"
+Return to,Terug naar
+Route to Blog,Route naar Blog
+RSS Feed Image,RSS Feed Afbeelding
+RSS Feed,RSS Feed
+RSS Posts to Show,RSS blogberichten om te tonen
+Save And Continue Edit,Sla op en verder gaan met bewerken
+Save Category,Sla categorie op
+Save Comment,Sla reactie op
+Save Post,Sla blogbericht op
+Send Emails to,Stuur e-mails naar
+Short Content,Korte inhoud
+Short,Kort
+Show Bookmarks in Lists,Toon favorieten in lijsten
+Show Bookmarks in Posts,Toon favorieten in blogbericht
+Show Breadcrumbs,Show Breadcrumbs
+SKU,SKU
+Sort Order,Sorteervolgorde
+Status,Status
+Store View,Winkelweergave
+Submit Comment,Verstuur reactie
+Summary Character Count,Aantal karakters samenvatting
+"Tagged with %s""""","Tagged met %s"""""
+tags,tags
+Tags,Tags
+Tags to Display,Tags om weer te geven
+The number of recent post to be displayed in the menu. 0 to disable.,Het aantal recente blogberichten om weer te geven in het menu. Gebruik 0 om uit te schakelen.
+The number of tags to display in tag cloud. 0 disables tag cloud,Het aantal recente blogberichten om weer te geven in een tag cloud. Gebruik 0 om de tag cloud uit te schakelen
+The number of posts displayed per page. Set 0 to disable pagination.,Het aantal weer te geven blogberichten per pagina. Gebruik 0 om de paginering uit te schakelen.
+Title,Titel
+Total of %d comment(s) were successfully approved,In totaal werden %d reactie(s) succesvol goedgekeurd
+Total of %d comment(s) were successfully unapproved,In totaal werden %d reactie(s) succesvol afgekeurd
+Total of %d record(s) were successfully updated,In totaal werden %d record(s) succesvol bijgewerkt
+Unable to find category to save,Niet in staat om categorie op te slaan
+Unable to find comment to save,Niet in staat om reactie op te slaan
+Unable to find post to save,Niet in staat om blogberichten te vinden die opgeslagen moeten worden
+Unapproved,Afgekeurd
+Unapprove,Afkeuren
+Updated at,Bijgewerkt op
+Use Categories ID in Posts URLs,Gebruik categorie id in URL's van blogberichten
+User,Gebruiker
+Use Short Content Field,Gebruik korte inhoudsveld
+Use comma as separator,Gebruiks komma als scheidingsteken
+Valid values range from 0.0 to 1.0,Geldige waarden liggen tussen 0.0 en 1.0
+View,Weergave
+XML,XML
+"Yes, all pages","Ja, alle pagina's"
+"Yes, only blog page","Ja, alleen blogpagina"
+You must be logged in to comment.,Je moet ingelogd zijn om te reageren.
+You must be logged in to post a comment.,Je moet ingelogd zijn om een reactie te plaatsen.
+Your comment has been submitted and is awaiting approval.,Je reactie is verzonden en wacht op goedkeuring.
+Your comment has been submitted.,Je reactie is verzonden.
+"Your Recaptcha solution was incorrect, please try again","Je Recaptcha oplossing was niet juist, probeer alsjeblieft opnieuw"
+e.g. domain.com/blog/identifier,bijv: domain.com/blog/alias
+Hidden pages won't be shown in blog but still can be accessed directly,Verborgen pagina's worden niet getoon din de blog maar kunnen nog wel direct worden benaderd
+Disabling will close the post to new comments,Uitschakelen zal de blogbericht sluiten voor nieuwe reacties
+The requested page could not be found,De opgevraagde pagina kon niet worden gevonden
+Leave blank to use current user name,Laat leeg om de huidige gebruikersnaam te gebruiken
+"Please use only letters (a-z or A-Z), numbers (0-9) or symbols '-' and '_' in this field","Gebruik a.u.b. alleen letters (a-z or A-Z), cijfers (0-9) of tekens '-' en '_' in dit veld"

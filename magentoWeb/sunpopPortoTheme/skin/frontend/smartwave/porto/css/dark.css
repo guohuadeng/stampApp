@@ -1,0 +1,56 @@
+html, body.dark, body.dark .page, div.filter-title .content, h2.filter-title .content, .header-container, .header .form-search, .header-container.type9, .header-container.type9 .top-links-container, .header-container.type10 .header-wrapper, .product-view .box-up-sell >h2 span
+{background-color:#1d2127}
+
+
+.homepage-bar, .main-nav .menu-wrapper, .top-links-container, .fixed-header .menu >li.menu-static-width .nav-sublist-dropdown, .main-nav .menu >li.menu-static-width .nav-sublist-dropdown, .fixed-header .menu >li.menu-full-width .nav-sublist-dropdown, .main-nav .menu >li.menu-full-width .nav-sublist-dropdown, .fixed-header ul.menu >li .nav-sublist-dropdown, .main-nav ul.menu >li .nav-sublist-dropdown, .topCartContent, #success-message-container, .compare-popup, .side-custom-menu h2, .menu.side-menu>li .nav-sublist-dropdown, .header-container.type6.sticky-header .header-wrapper, .fixed-header .menu >li.menu-item .nav-sublist-dropdown .container ul .menu-item-has-children .nav-sublist, .main-nav .menu >li.menu-item .nav-sublist-dropdown .container ul .menu-item-has-children .nav-sublist, .header-container.type9.sticky-header .header-wrapper, .one-product .filter-products .products, .one-product h4.filter-title, .header-container.type10 .dropdown-menu .menu-container>.menu.side-menu, .block-layered-nav dt:before, .block-category-nav .block-title:before, .sorter .view-mode i, .pager li >a, .pager li >span, .qty-changer >a, .product-tabs .tab-content, .product-tabs>ul li.active, .prev-next-products .product-nav .product-pop, .cart .cart-table-wrap, .data-table tbody tr, .form-wrap, #form-validate, #login-form, .box .box-content, .dark .opc-wrapper-opc #opc-review-block, .fancybox-skin
+{background-color:#282d36}
+
+.featured-box
+{background:#282d36}
+
+.cart .crosssell button.button > span
+{border-color:#282d36}
+
+.header-container .selectbox .dropdown ul
+{background-color:#282d36 !important}
+
+.product-image-area, .recent-posts .item .post-image, .selectbox li:hover, .home-side-menu h2.side-menu-title, .block-layered-nav dt, .block-layered-nav .currently .block-subtitle, .block-category-nav .block-title, .header-container.type4.sticky-header .header-wrapper, .product-swatches-container .has-swatches a.active, .product-view .product-img-box li.etalage_thumb, .product-view .product-img-box li.etalage_small_thumbs li, .product-tabs>ul li, .block.block-related .product .product-image, .option-detail .item-options, .cart .crosssell button.button > span, .data-table .table_qty_inc, .data-table .table_qty_dec, .data-table button.button > span, .box .box-title, .data-table thead th, .manufacturer-index-view .block-layered-nav .block-title, .postBanner, .block.block-blog-recent ul li div.post-image, .block.block-blog-tags ul li a
+{background-color:#384045}
+
+.header .form-search, .header .form-search #cat, .homepage-bar, .main-nav .menu-wrapper, .top-links-container, .homepage-bar .col-md-4, .header-container .top-links-container span.split, .header-container .links li, .header-container .header .custom-block span.split, .product-image-area, .recent-posts .item .post-image, .mini-cart .mini-products-list li, .selectbox .dropdown, .side-custom-menu, .side-custom-menu h2, .side-custom-menu ul li, .block.block-subscribe.home-sidebar-block button.button span, .block.block-subscribe.home-sidebar-block .input-box input.input-text, .home-side-menu, .menu.side-menu>li>a, .home-side-menu h2.side-menu-title, .block-category-nav, .block-layered-nav dt, .block-layered-nav .currently .block-subtitle, .block-category-nav .block-title, .block-layered-nav dd, .block-category-nav .block-content, .home-side-menu-type2>.side-block, .home-side-menu-type2>.side-block ul.menu>li, .home-side-menu-type2>.side-block ul.menu ul>li, .featured-box-2 h3, .pager li >a, .pager li >span, .sorter .view-mode i, .block-layered-nav #narrow-by-list ol.swatches li .layered-navigation-swatch, .product-view .product-shop .short-description, .add-to-box, .product-view .product-info, .add-to-cart .qty, .qty-changer >a, .product-options-bottom, .product-options, .product-swatches-container .has-swatches a, .ajaxcart-index-options .product-view .product-name, .product-view .product-img-box li.etalage_thumb, .product-view .product-img-box li.etalage_small_thumbs li, .product-tabs .tab-content, .product-tabs>ul li, .block.block-related .product .product-image, .cart .crosssell .product-image, .cart .cart-table-wrap, .data-table tbody tr, .data-table tbody th, .data-table tbody td, .data-table thead tr, .data-table button.button > span, .block-account ul li, .block.block-blog-categories .blog-category, .box .box-title, .box .box-content, input.input-text, select, textarea, .dark .discount-form input.input-text, .dark .opc-wrapper-opc h3, .dark .discount-block h3.open-block + .collapse-block, .dark .signature-block h3.open-block + .collapse-block, .dark .comment-block h3.open-block + .collapse-block, .dark .giftcard h3.open-block + .collapse-block, .dark .gift-messages h3.open-block + p.control, .dark .opc-wrapper-opc #opc-review-block h3.review-title, .dark .opc-review-actions, .data-table thead tr, .data-table td.last, .data-table th.last, .data-table tfoot td, .data-table tfoot tr.first td, .data-table tfoot, #my-reviews-table tbody, .ratings-table, .form-list .input-range input.input-text, .featured-box, .featured-box .block-flickr-photos a.flickr-image, .product-view #product-customer-reviews li, #newsletter_popup button.button, .manufacturer-index-view .block-layered-nav .block-title, .postBanner, .block.block-blog-recent ul li div.post-image, .postWrapper, .post-share
+{border-color:#384045}
+
+.fixed-header .menu > li.menu-full-width .nav-sublist-dropdown a, .main-nav .menu > li.menu-full-width .nav-sublist-dropdown a, .fixed-header .menu > li.menu-static-width .nav-sublist-dropdown a, .main-nav .menu > li.menu-static-width .nav-sublist-dropdown a, .fixed-header .menu >li.menu-item .nav-sublist-dropdown a, .main-nav .menu >li.menu-item .nav-sublist-dropdown a, .data-table button.button > span
+{color:#999}
+
+.fixed-header .menu >li.menu-item-has-children .nav-sublist-dropdown .container ul >li:hover >a, .main-nav .menu >li.menu-item-has-children .nav-sublist-dropdown .container ul >li:hover >a, .header-container.type10 .header-wrapper
+{background-color:#333a44}
+
+.data-table .table_qty_inc, .data-table .table_qty_dec, .data-table input.qty, .dark .opc-wrapper-opc .opc-data-table thead th, .dark .opc-wrapper-opc .opc-data-table tbody td, .dark .opc-wrapper-opc .opc-data-table tfoot td
+{border-color:#333a44}
+
+div.filter-title, h2.filter-title, .fixed-header .menu >li.menu-full-width .nav-sublist-dropdown .container ul >li >a.level1, .main-nav .menu >li.menu-full-width .nav-sublist-dropdown .container ul >li >a.level1, .fixed-header .menu >li.menu-static-width .nav-sublist-dropdown .container ul >li >a.level1, .main-nav .menu >li.menu-static-width .nav-sublist-dropdown .container ul >li >a.level1, .side-custom-menu h2, .side-custom-menu ul li, .block.block-subscribe.home-sidebar-block .block-title strong, .block.block-subscribe.home-sidebar-block button.button span, .home-side-menu h2.side-menu-title, .menu.side-menu>li.menu-full-width .nav-sublist-dropdown .container ul>li>a.level1, .menu.side-menu>li.menu-static-width .nav-sublist-dropdown .container ul>li>a.level1, .block-layered-nav dt, .block-layered-nav .currently .block-subtitle, .block-category-nav .block-title, .filterproducts-tab .filter-title ul li a, .header-container.sticky-header.type9 .main-nav ul.menu>li>a, .one-product h4.filter-title, .home-side-menu-type2>h2, .featured-box-2 h3, h2.sidebar-title, .ajaxcart-index-options .product-view .product-name h1, .product-view .product-name h1, .product-view .box-up-sell >h2, .box-account .box-head h2, .dark .opc-wrapper-opc #opc-review-block h3.review-title, .dark .opc-wrapper-opc .opc-data-table thead th, .label, .availability-only span, .availability-only a, h2.word-rotator-title, .manufacturer-index-view .block-layered-nav .block-title
+{color:#fff}
+
+.regular-price .price, .price-box .price, .menu.side-menu a, .menu.side-menu a:hover, .block-category-nav .category-list a, .box .box-title h3, .box .box-title h4, .block .block-title, .order-info, .table-caption
+{color:#eee}
+
+.dark .opc-wrapper-opc h3, .dark .opc-review-actions h5, .product-review h3
+{color:#999}
+.dark .opc-wrapper-opc label, .dark .opc-wrapper-opc .shipping-block dl, .dark .opc-wrapper-opc .shipping-block dt
+{color:#777}
+
+div.filter-title, h2.filter-title{background-image:url(../images/slider-bar-dark.png)}
+a.addtocart{background-color:transparent;color:#ddd;border-color:#777}
+
+input.input-text, select, textarea, .block.block-subscribe.home-sidebar-block button.button span, .block.block-subscribe.home-sidebar-block .input-box input.input-text, .block.block-subscribe.home-sidebar-block, .home-side-menu, .block-layered-nav dd, .block-category-nav .block-content, .form-list input.input-text, .dark .opc-wrapper-opc input.input-text:focus, .dark .opc-wrapper-opc select:focus, .dark .opc-wrapper-opc textarea:focus
+{background-color:transparent}
+
+.block.block-subscribe.home-sidebar-block, .form-wrap, #form-validate, #login-form
+{border-left-color: #384045;border-right-color: #384045;border-bottom-color: #384045}
+
+.menu.side-menu li.menu-item-has-children .nav-sublist li>a
+{border:0}
+
+.product-tabs .tab-content
+{box-shadow:0 1px 2px #384045}

@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <default translate="label" module="page">
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>filterproducts/css/style.css</name>
+            </action>
+        </reference>
+    </default>
+	
+    <filterproducts_index_bestsellers>
+        <reference name="content">
+            <block type="filterproducts/bestsellers_list" name="bestsellers_list" template="catalog/product/list.phtml" >
+				<block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                	<block type="page/html_pager" name="product_list_toolbar_pager" />
+                </block>
+                <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+            </block>
+        </reference>
+    </filterproducts_index_bestsellers>
+	
+	<filterproducts_index_featured>
+        <reference name="content">
+			<block type="filterproducts/featured_list" name="featured_list" template="catalog/product/list.phtml" >
+				<block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                	<block type="page/html_pager" name="product_list_toolbar_pager" />
+                </block>
+                <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+            </block>
+		</reference>
+    </filterproducts_index_featured>
+	
+	<filterproducts_index_mostviewed>
+        <reference name="content">
+			<block type="filterproducts/mostviewed_list" name="mostviewed_list" template="catalog/product/list.phtml" >
+				<block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                	<block type="page/html_pager" name="product_list_toolbar_pager" />
+                </block>
+                <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+            </block>
+		</reference>
+    </filterproducts_index_mostviewed>
+	
+	<filterproducts_index_newproduct>
+        <reference name="content">
+			<block type="filterproducts/newproduct_list" name="newproduct_list" template="catalog/product/list.phtml" >
+				<block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                	<block type="page/html_pager" name="product_list_toolbar_pager" />
+                </block>
+                <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+            </block>
+		</reference>
+    </filterproducts_index_newproduct>
+    
+    <filterproducts_index_latest>
+        <reference name="content">
+            <block type="filterproducts/latest_list" name="latest_list" template="catalog/product/list.phtml" >
+                <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                    <block type="page/html_pager" name="product_list_toolbar_pager" />
+                </block>
+                <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+            </block>
+        </reference>
+    </filterproducts_index_latest>
+	
+    <filterproducts_index_sale>
+        <reference name="content">
+            <block type="filterproducts/sale_list" name="sale_list" template="catalog/product/list.phtml" >
+                <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                    <block type="page/html_pager" name="product_list_toolbar_pager" />
+                </block>
+                <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+            </block>
+        </reference>
+    </filterproducts_index_sale>
+    
+	<filterproducts_index_allproduct>
+		<reference name="content">
+        	<block type="filterproducts/allproducts_list" name="product_all_list" template="catalog/product/list.phtml">
+            	<block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                	<block type="page/html_pager" name="product_list_toolbar_pager"/>
+                </block>
+                <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+            </block>
+        </reference>
+    </filterproducts_index_allproduct>
+	
+	<filterproducts_index_promotional>
+		<reference name="content">
+        	<block type="filterproducts/promotional_list" name="promotional_list" template="catalog/product/list.phtml">
+            	<block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                	<block type="page/html_pager" name="product_list_toolbar_pager"/>
+                </block>
+                <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+            </block>
+        </reference>
+    </filterproducts_index_promotional>
+
+	<filterproducts_index_recentlyordered>
+		<reference name="content">
+        	<block type="filterproducts/lastordered_list" name="lastordered_list" template="catalog/product/list.phtml">
+            	<block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                	<block type="page/html_pager" name="product_list_toolbar_pager"/>
+                </block>
+                <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+            </block>
+        </reference>
+    </filterproducts_index_recentlyordered>
+</layout> 

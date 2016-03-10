@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <block type="megamenu/toggle"></block>
+        <reference name="header">
+            <block type="core/template" name="sticky.nav" template="smartwave/megamenu/html/stickymenu.phtml" />
+            <block type="core/template" name="mobile.nav" template="smartwave/megamenu/html/mobilemenu.phtml" />
+        </reference>
+    </default>    
+</layout>

@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <socialfeeds translate="label comment" module="socialfeeds">
+            <tab>swextensions</tab>
+            <label>Social Feeds</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>90</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <facebook translate="label comment" module="socialfeeds">
+                    <label>Facebook Feeds</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                          <label>Enabled</label>
+                          <frontend_type>select</frontend_type>
+                          <source_model>adminhtml/system_config_source_yesno</source_model>
+                          <sort_order>1</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>1</show_in_store>
+                        </enabled>
+                        <name translate="label">
+                            <label>Facebook Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </name>
+                        <show_counts translate="label">
+                            <label>Showing Counts</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_counts>
+                    </fields>
+                </facebook>
+                <twitter translate="label comment" module="socialfeeds">
+                    <label>Twitter Feed</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                          <label>Enabled</label>
+                          <frontend_type>select</frontend_type>
+                          <source_model>adminhtml/system_config_source_yesno</source_model>
+                          <sort_order>1</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>1</show_in_store>
+                        </enabled>
+                        <widgetkey translate="label">
+                            <label>Twitter Widget Id</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </widgetkey>
+                        <screen_name translate="label">
+                            <label>Screen Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </screen_name>
+                        <show_counts translate="label">
+                            <label>Showing Counts</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_counts>
+                    </fields>
+                </twitter>
+                <flickr translate="label">
+                    <label>Flickr Photos</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>35</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <smartwave_flickrphotos_enabled translate="label">
+                            <label>Enable Flickr Photos</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </smartwave_flickrphotos_enabled>
+                        <smartwave_flickrphotos_apikey translate="label">
+                            <label>API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Go to <a href="http://www.flickr.com/services/api/key.gne" target="_blank">http://www.flickr.com/services/api/key.gne</a> to get API Key]]></comment>
+                        </smartwave_flickrphotos_apikey>
+                        <smartwave_flickrphotos_photosetid translate="label">
+                            <label>Photo set ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </smartwave_flickrphotos_photosetid>
+                        <smartwave_flickrphotos_count translate="label">
+                            <label>Show Photo Counts</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </smartwave_flickrphotos_count>
+                    </fields>
+                </flickr>
+            </groups>
+        </socialfeeds>
+    </sections>
+</config>

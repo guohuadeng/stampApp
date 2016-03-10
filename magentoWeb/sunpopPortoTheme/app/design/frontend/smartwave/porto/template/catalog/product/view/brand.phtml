@@ -1,0 +1,24 @@
+<?php
+$store = Mage::app()->getStore();
+$code  = $store->getCode();
+?>
+<?php if (Mage::helper('core')->isModuleEnabled("Zeon_Manufacturer") && Mage::getStoreConfig('zeon_manufacturer/general/is_enabled', $code)): ?>
+
+<?php $_product = Mage::getModel('catalog/product')->load(Mage::registry('current_product')->getId()); ?>
+
+<?php 
+	$_attrCode = Mage::getStoreConfig('zeon_manufacturer/frontend/manufacturers_attribute_code', $code);
+	$_attrValue = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_product->getId(), $_attrCode, $store);
+	$_manufacturerCollection = Mage::getResourceModel('zeon_manufacturer/manufacturer_collection')
+					->distinct(true)
+					->addStoreFilter(Mage::app()->getStore()->getId())
+					->addFieldToFilter('status', Zeon_Manufacturer_Model_Status::STATUS_ENABLED)
+					->addFieldToFilter('manufacturer', $_attrValue)
+					->addOrder('sort_order', 'asc'); 
+	foreach ($_manufacturerCollection as $_manufacturer): ?>
+	<div class="block block-manufacturer">
+		<a href="<?php echo $this->getUrl('manufacturers' . '/' . $_manufacturer->getIdentifier()) ?>" title="<?php echo $_manufacturer->getManufacturer() ?>"><img src = "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'manufacturer' . '/' . $_manufacturer->getManufacturerLogo() ?>" title="<?php echo $_manufacturer->getManufacturer() ?>" /></a>
+		<hr>
+	</div>
+	<?php endforeach; ?>  
+<?php endif; ?>

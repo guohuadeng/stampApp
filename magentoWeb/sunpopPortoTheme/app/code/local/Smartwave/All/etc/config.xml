@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category	Smartwave
+ * @package		Smartwave_Smartwave
+ * @author		SW-THEMES
+ * @copyright	Copyright 2014 Smartwave
+ */
+-->
+<config>
+    <modules>
+        <Smartwave_All>
+            <version>1.0.0</version>
+        </Smartwave_All>
+    </modules>    	
+    <global>
+        <blocks>
+            <all>
+                <class>Smartwave_All_Block</class>
+            </all>
+        </blocks>
+        <helpers>
+            <all>
+                <class>Smartwave_All_Helper</class>
+            </all>
+        </helpers>
+        <models>
+			<core>
+                <rewrite>
+                    <layout>Smartwave_All_Model_Core_Layout</layout>
+                </rewrite>
+            </core>
+            <all>
+                <class>Smartwave_All_Model</class>
+            </all>
+        </models>
+		<resources>
+            <all_setup>
+                <setup>
+                    <module>Smartwave_All</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </all_setup>
+            <all_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </all_write>
+            <all_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </all_read>
+        </resources>
+    </global>
+</config>

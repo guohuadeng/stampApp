@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+	<config>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<ajax_catalog translate="title" module="ajaxcatalog">
+											<title>Ajax Catalog</title>
+											<sort_order>0</sort_order>
+										</ajax_catalog>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</config>

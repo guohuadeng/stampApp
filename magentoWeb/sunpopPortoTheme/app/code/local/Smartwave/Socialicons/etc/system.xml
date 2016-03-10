@@ -1,0 +1,572 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <socialicons translate="label comment" module="socialicons">
+            <tab>swextensions</tab>
+            <label>Social Icons</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>80</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label comment" module="socialicons">
+                    <label>General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled>
+                            <label>Enable Module</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+
+                        <title>
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+                    </fields>
+                </general>
+                <options translate="label comment" module="socialicons">
+                    <label>Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <icon_image>
+                            <label>Social Icon Image Set</label>
+                            <frontend_type>radios</frontend_type>                            
+                            <source_model>socialicons/source_iconimages</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon_image>
+                        
+                        <icon_hoverimage>
+                            <label>Social Icon Hover Image Set</label>
+                            <frontend_type>radios</frontend_type>                            
+                            <source_model>socialicons/source_iconhoverimages</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon_hoverimage>
+                        
+                        <icon_width>
+                            <label>Icon Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon_width>
+                        
+                        <icon_height>
+                            <label>Icon Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon_height>
+                        
+                        <icon1_visible>
+                            <label>Icon 1</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon1_visible>
+                        <icon1_url>
+                            <label>Icon 1 URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon1_visible>1</icon1_visible>
+                            </depends>
+                        </icon1_url>
+                        <icon1_image_position>
+                            <label>Icon 1 Image Position</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon1_visible>1</icon1_visible>
+                            </depends>
+                        </icon1_image_position>
+                        
+                        <icon1_title>
+                            <label>Icon 1 Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon1_visible>1</icon1_visible>
+                            </depends>
+                        </icon1_title>
+                        
+                        <icon1_class>
+                            <label>Icon 1 Class</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon1_visible>1</icon1_visible>
+                            </depends>
+                        </icon1_class>
+                        
+                        <icon2_visible>
+                            <label>Icon 2</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon2_visible>
+                        <icon2_url>
+                            <label>Icon 2 URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon2_visible>1</icon2_visible>
+                            </depends>
+                        </icon2_url>
+                        <icon2_image_position>
+                            <label>Icon 2 Image Position</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon2_visible>1</icon2_visible>
+                            </depends>
+                        </icon2_image_position>
+                        <icon2_title>
+                            <label>Icon 2 Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon2_visible>1</icon2_visible>
+                            </depends>
+                        </icon2_title>
+                        <icon2_class>
+                            <label>Icon 2 Class</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon2_visible>1</icon2_visible>
+                            </depends>
+                        </icon2_class>
+                        <icon3_visible>
+                            <label>Icon 3</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon3_visible>
+                        <icon3_url>
+                            <label>Icon 3 URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon3_visible>1</icon3_visible>
+                            </depends>
+                        </icon3_url>
+                        <icon3_image_position>
+                            <label>Icon 3 Image Position</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon3_visible>1</icon3_visible>
+                            </depends>
+                        </icon3_image_position>
+                        <icon3_title>
+                            <label>Icon 3 Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>33</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon3_visible>1</icon3_visible>
+                            </depends>
+                        </icon3_title>
+                        <icon3_class>
+                            <label>Icon 3 Class</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>34</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon3_visible>1</icon3_visible>
+                            </depends>
+                        </icon3_class>
+                        <icon4_visible>
+                            <label>Icon 4</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon4_visible>
+                        <icon4_url>
+                            <label>Icon 4 URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>41</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon4_visible>1</icon4_visible>
+                            </depends>
+                        </icon4_url>
+                        <icon4_image_position>
+                            <label>Icon 4 Image Position</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>42</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon4_visible>1</icon4_visible>
+                            </depends>
+                        </icon4_image_position>
+                        <icon4_title>
+                            <label>Icon 4 Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>43</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon4_visible>1</icon4_visible>
+                            </depends>
+                        </icon4_title>
+                        <icon4_class>
+                            <label>Icon 4 Class</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>44</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon4_visible>1</icon4_visible>
+                            </depends>
+                        </icon4_class>
+                        <icon5_visible>
+                            <label>Icon 5</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon5_visible>
+                        <icon5_url>
+                            <label>Icon 5 URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>51</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon5_visible>1</icon5_visible>
+                            </depends>
+                        </icon5_url>
+                        <icon5_image_position>
+                            <label>Icon 5 Image Position</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>52</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon5_visible>1</icon5_visible>
+                            </depends>
+                        </icon5_image_position>
+                        <icon5_title>
+                            <label>Icon 5 Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>53</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon5_visible>1</icon5_visible>
+                            </depends>
+                        </icon5_title>
+                        <icon5_class>
+                            <label>Icon 5 Class</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>54</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon5_visible>1</icon5_visible>
+                            </depends>
+                        </icon5_class>
+                        <icon6_visible>
+                            <label>Icon 6</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon6_visible>
+                        <icon6_url>
+                            <label>Icon 6 URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>61</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon6_visible>1</icon6_visible>
+                            </depends>
+                        </icon6_url>
+                        <icon6_image_position>
+                            <label>Icon 6 Image Position</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>62</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon6_visible>1</icon6_visible>
+                            </depends>
+                        </icon6_image_position>
+                        <icon6_title>
+                            <label>Icon 6 Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>63</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon6_visible>1</icon6_visible>
+                            </depends>
+                        </icon6_title>
+                        <icon6_class>
+                            <label>Icon 6 Class</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>64</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon6_visible>1</icon6_visible>
+                            </depends>
+                        </icon6_class>
+                        <icon7_visible>
+                            <label>Icon 7</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon7_visible>
+                        <icon7_url>
+                            <label>Icon 7 URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>71</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon7_visible>1</icon7_visible>
+                            </depends>
+                        </icon7_url>
+                        <icon7_image_position>
+                            <label>Icon 7 Image Position</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>72</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon7_visible>1</icon7_visible>
+                            </depends>
+                        </icon7_image_position>
+                        <icon7_title>
+                            <label>Icon 7 Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>73</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon7_visible>1</icon7_visible>
+                            </depends>
+                        </icon7_title>
+                        <icon7_class>
+                            <label>Icon 7 Class</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>74</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon7_visible>1</icon7_visible>
+                            </depends>
+                        </icon7_class>
+                        <icon8_visible>
+                            <label>Icon 8</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon8_visible>
+                        <icon8_url>
+                            <label>Icon 8 URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>81</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon8_visible>1</icon8_visible>
+                            </depends>
+                        </icon8_url>
+                        <icon8_image_position>
+                            <label>Icon 8 Image Position</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>82</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon8_visible>1</icon8_visible>
+                            </depends>
+                        </icon8_image_position>
+                        <icon8_title>
+                            <label>Icon 8 Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>83</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon8_visible>1</icon8_visible>
+                            </depends>
+                        </icon8_title>
+                        <icon8_class>
+                            <label>Icon 8 Class</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>84</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon8_visible>1</icon8_visible>
+                            </depends>
+                        </icon8_class>
+                        <icon9_visible>
+                            <label>Icon 9</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon9_visible>
+                        <icon9_url>
+                            <label>Icon 9 URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>91</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon9_visible>1</icon9_visible>
+                            </depends>
+                        </icon9_url>
+                        <icon9_image_position>
+                            <label>Icon 9 Image Position</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>92</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon9_visible>1</icon9_visible>
+                            </depends>
+                        </icon9_image_position>
+                        <icon9_title>
+                            <label>Icon 9 Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>93</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon9_visible>1</icon9_visible>
+                            </depends>
+                        </icon9_title>
+                        <icon9_class>
+                            <label>Icon 9 Class</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>94</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <icon9_visible>1</icon9_visible>
+                            </depends>
+                        </icon9_class>
+                    </fields>
+                </options>
+            </groups>
+        </socialicons>
+    </sections>
+</config>

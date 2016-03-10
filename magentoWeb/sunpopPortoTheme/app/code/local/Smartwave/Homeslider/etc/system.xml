@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <homeslider translate="label comment" module="homeslider">
+            <tab>swextensions</tab>
+            <label>Homepage Slider</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label comment" module="homeslider">
+                    <label>General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled>
+                            <label>Enable Slider</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <slider_type>
+                            <label>Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>homeslider/source_slidertypes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </slider_type>
+                        <static_block_id>
+                            <label>Static Block ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </static_block_id>
+                    </fields>
+                </general>
+            </groups>
+        </homeslider>
+    </sections>
+</config>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <homeslider translate="title" module="homeslider">
+                                        <title>Homepage Slider</title>
+                                    </homeslider>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

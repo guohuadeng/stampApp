@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+     <default>
+	     <reference name="head">
+	            <block type="smartlayers/layer" name="addthis_smartlayers">
+	           		<action method="setTemplate"><template>addthis/smartlayers/smartlayers.phtml</template></action> 
+	  			</block>
+		</reference>
+	</default>
+</layout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <porto_design translate="title" module="porto">
+                                        <title>Theme Design</title>
+                                    </porto_design>
+                                    <porto_settings translate="title" module="porto">
+                                        <title>Theme Settings</title>
+                                    </porto_settings>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

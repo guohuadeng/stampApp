@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<layout version="1.0.0">
+
+    <default>
+        <reference name="head">
+            <action method="addCss"><stylesheet>catalogcategorysearch/catalogcategorysearch.css</stylesheet></action>
+        </reference>
+        <reference name="header">
+            <block type="catalogcategorysearch/form" name="top.search" as="topSearch" template="catalogsearch/form.phtml">
+                <block type="catalogcategorysearch/form_contents" name="top.search.content" as="topSearchContent" template="catalogsearch/form/contents.phtml"/>
+            </block>
+        </reference>
+    </default>
+
+</layout>

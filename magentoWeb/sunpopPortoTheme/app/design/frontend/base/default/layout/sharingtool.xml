@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    
+     <catalog_product_view>
+        <reference name="alert.urls">
+            <block type="sharingtool/share" name="addthis_sharetool" after="-" >
+           		<action method="setTemplate"><template>addthis/sharingtool/share.phtml</template></action>
+			</block>
+        </reference>
+        <reference name="product.info">		
+            <block type="sharingtool/share" name="addthis_sharetool">
+           		<action method="setTemplate"><template>addthis/sharingtool/share.phtml</template></action> 
+	   		</block>
+        </reference>
+    </catalog_product_view>
+     
+</layout>

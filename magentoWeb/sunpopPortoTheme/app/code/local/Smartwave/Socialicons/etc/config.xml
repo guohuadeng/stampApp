@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Smartwave_Socialicons>
+            <version>1.0.0</version>
+        </Smartwave_Socialicons>
+    </modules>
+    <global>
+        <helpers>
+            <socialicons>
+                <class>Smartwave_Socialicons_Helper</class>
+            </socialicons>
+        </helpers>
+        <models>
+            <socialicons>
+                <class>Smartwave_Socialicons_Model</class>        
+            </socialicons>
+        </models>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <socialicons module="Smartwave_Socialicons">
+                    <file>smartwave_socialicons.xml</file>
+                </socialicons>
+            </updates>
+        </layout>
+    </frontend>
+    <default>
+        <socialicons>
+            <general>
+                <enabled>1</enabled>
+                <title></title>
+            </general>
+            <options>
+                <icon_image>style_1</icon_image>
+                <icon_hoverimage>style_1</icon_hoverimage>
+                <icon_width>30px</icon_width>
+                <icon_height>30px</icon_height>
+                <icon1_visible>1</icon1_visible>
+                <icon1_url>http://www.example.com/</icon1_url>
+                <icon1_image_position>-60px 0</icon1_image_position>
+                <icon1_title>Facebook</icon1_title>
+                <icon1_class>icon1-class</icon1_class>
+                <icon2_visible>1</icon2_visible>
+                <icon2_url>http://www.example.com/</icon2_url>
+                <icon2_image_position>0 0</icon2_image_position>
+                <icon2_title></icon2_title>
+                <icon2_class>icon2-class</icon2_class>
+                <icon3_visible>1</icon3_visible>
+                <icon3_url>http://www.example.com/</icon3_url>
+                <icon3_image_position>-300px 0</icon3_image_position>
+                <icon3_title></icon3_title>
+                <icon3_class>icon3-class</icon3_class>
+                <icon4_visible>0</icon4_visible>
+                <icon4_url>http://www.example.com/</icon4_url>
+                <icon4_image_position>-90px 0</icon4_image_position>
+                <icon4_title></icon4_title>
+                <icon4_class>icon4-class</icon4_class>
+                <icon5_visible>0</icon5_visible>
+                <icon5_url>http://www.example.com/</icon5_url>
+                <icon5_image_position>-180px 0</icon5_image_position>
+                <icon5_title>Google Plus</icon5_title>
+                <icon5_class>icon5-class</icon5_class>
+                <icon6_visible>0</icon6_visible>
+                <icon6_url>http://www.example.com/</icon6_url>
+                <icon6_image_position>-150px -30px</icon6_image_position>
+                <icon6_title>Skype</icon6_title>
+                <icon6_class>icon6-class</icon6_class>
+                <icon7_visible>0</icon7_visible>
+                <icon7_url>http://www.example.com/</icon7_url>
+                <icon7_image_position>-270px -30px</icon7_image_position>
+                <icon7_title>Wordpress</icon7_title>
+                <icon7_class>icon7-class</icon7_class>
+                <icon8_visible>0</icon8_visible>
+                <icon8_url>http://www.example.com/</icon8_url>
+                <icon8_image_position>-300px -30px</icon8_image_position>
+                <icon8_title>Yahoo</icon8_title>
+                <icon8_class>icon8-class</icon8_class>
+                <icon9_visible>0</icon9_visible>
+                <icon9_url>http://www.example.com/</icon9_url>
+                <icon9_image_position>-330px -30px</icon9_image_position>
+                <icon9_title>Youtube</icon9_title>
+                <icon9_class>icon9-class</icon9_class>
+            </options>
+        </socialicons>
+    </default>
+</config>

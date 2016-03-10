@@ -1,0 +1,10 @@
+<?php $menuHelper = Mage::helper('megamenu'); ?>
+<?php $only_categories = $this->getOnlyCategories(); ?>
+<div class="mobile-nav side-block">
+    <div class="menu-all-pages-container">
+        <ul class="menu">
+            <?php echo $menuHelper->getMobileMenuContent($only_categories); ?>
+        </ul>
+    </div>
+</div>
+<div class="mobile-nav-overlay close-mobile-nav"></div>

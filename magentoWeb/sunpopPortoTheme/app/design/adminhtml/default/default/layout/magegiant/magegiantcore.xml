@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<default>
+ 		<reference name="head">
+			<action method="addJs"><script>tinybox/tinybox.js</script></action>
+			<action method="addCss"><stylesheet>css/tinybox/style.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/magegiant/magegiantcore.css</stylesheet></action>
+		</reference>
+	</default>	
+	<adminhtml_magenotification_feedback_index>
+        <reference name="content">
+            <block type="magegiantcore/adminhtml_feedback" name="extension_feedback" />
+        </reference>
+    </adminhtml_magenotification_feedback_index>
+
+</layout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Smartwave_QuickView>
+            <version>1.0.0</version>
+        </Smartwave_QuickView>
+    </modules>
+
+    <global>
+        <blocks>
+            <quickview>
+                <class>Smartwave_QuickView_Block</class>
+            </quickview>
+        </blocks>
+        <helpers>
+            <quickview>
+                <class>Smartwave_QuickView_Helper</class>
+            </quickview>
+        </helpers>
+
+        <models>
+            <quickview>
+                <class>Smartwave_QuickView_Model</class>
+            </quickview>
+        </models>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <quickview>
+                    <file>smartwave_quickview.xml</file>
+                </quickview>
+            </updates>
+        </layout>
+    </adminhtml>
+    <frontend>
+        <routers>
+            <quickview>
+                <use>standard</use>
+                <args>
+                    <module>Smartwave_QuickView</module>
+                    <frontName>quickview</frontName>
+                </args>
+            </quickview>
+        </routers>
+        <layout>
+            <updates>
+                <quickview>
+                    <file>smartwave_quickview.xml</file>
+                </quickview>
+            </updates>
+        </layout>
+    </frontend>
+
+    <frontend>
+        <events>
+            <controller_action_postdispatch_catalog_product_compare_add>
+                <observers>
+                    <quickview>
+                        <type>singleton</type>
+                        <class>quickview/observer</class>
+                        <method>compareRedirect</method>
+                    </quickview>
+                </observers>
+            </controller_action_postdispatch_catalog_product_compare_add>
+            <controller_action_layout_load_before>
+                <observers>
+                    <quickview_check_referer_url>
+                        <type>singleton</type>
+                        <class>quickview/observer</class>
+                        <method>checkRefererUrl</method>
+                    </quickview_check_referer_url>
+                </observers>
+            </controller_action_layout_load_before>
+        </events>
+    </frontend>
+
+    <default>
+        <quickview>
+            <general>
+                <enableview>1</enableview>                
+                <dialog_width>1000</dialog_width>
+                <dialog_height>730</dialog_height>                                
+            </general>
+        </quickview>
+    </default>
+</config>

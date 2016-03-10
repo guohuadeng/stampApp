@@ -1,0 +1,91 @@
+<script type="text/javascript">
+//<![CDATA[
+//var auctionTimeCounters = new Array();
+var dailydealTimeCounters = new Array();
+var i = 0;
+//]]>
+</script>
+<?php
+$_productCollection = $this->getLoadedProductCollection();
+$_coreHelper        = $this->helper('core');
+$_helper            = $this->helper('catalog/output');
+?>
+
+<div class="wrapper-dailydeal">
+	<div class="container">
+		<div class="row">
+			<div class="dailydeal-title">
+				<h2><?php echo $this->__('Deal OF the day'); ?></h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In congue, justo non cursus adipiscing</p>
+			</div>
+
+
+			<?php if (!$_productCollection->count()): ?>
+				<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+			<?php else: ?>
+				<div class="daily-category-products">
+				<?php // Grid Mode ?>
+
+					<?php $_collectionSize = $_productCollection->count() ?>
+					<?php $_columnCount = 4; ?>
+					<?php $i = 0;
+					foreach ($_productCollection as $_product): ?>
+						<?php $dailydeal = $this->getDealByProduct($_product->getEntityId());
+						?>
+						<?php if (!$dailydeal->getId()) continue; ?>
+						<?php if ($i++ % $_columnCount == 0): ?>
+							<div class="sub-dailydeal">
+						<?php endif ?>
+						<div class="item<?php if (($i - 1) % $_columnCount == 0): ?> first<?php elseif ($i % $_columnCount == 0): ?> last<?php endif; ?>">
+                <?php // Product Image
+				if ($dailydeal->getThumbnailImage()) {
+					$image = Mage::getBaseUrl('media') . $dailydeal->getThumbnailImage();
+				} else {
+					$image = $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(340, 190);
+				}
+				?>
+							<div class="item-daily-top">
+					<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->getImageLabel($_product, 'small_image') ?>" class="product-image">
+						<img src="<?php echo $image; ?>" width="248" height="248" alt="<?php echo $this->getImageLabel($_product, 'small_image') ?>"/>
+					</a>
+
+					<ul class="dailydeal-price">
+							<li class="special-price">
+								<?php
+								echo $_coreHelper->currency($dailydeal->getDealPrice());
+								?>
+							</li>
+							<li class="old-price"><?php echo $_coreHelper->currency($_product->getPrice()) ?></li>
+					</ul>
+				</div>
+			<div class="bottom-home-dailydeal">
+							<ul class="time-left">
+                               <!-- <li><label><?php /*echo $this->__('Time left ')*/ ?></label></li>-->
+								<?php $now_time = Mage::getModel('core/date')->timestamp(time()) ?>
+								<?php
+								$end_time = Mage::getModel('core/date')->timestamp(strtotime($dailydeal->getCloseTime()));
+								?>
+								<div class="timeleft timeleft_<?php echo $_product->getId() ?>"> </div>
+							</ul>
+
+							 <h2 class="product-name dailydeal-sidebar-product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_product->getName() ?>"><?php echo $dailydeal->getTitle() ?></a></h2>
+					</div>
+					<div class="bg-bottom-dailydeal">&nbsp;</div>
+            </div>
+						<script type="text/javascript">
+						//<![CDATA[
+						dailydealTimeCounters[i] = new DailydealTimeCounter('<?php echo $now_time ?>', '<?php echo $end_time ?>', '<?php echo $dailydeal->getId() ?>');
+						dailydealTimeCounters[i].setTimeleft('timeleft_<?php echo $_product->getId() ?>');
+						//]]>
+					</script>
+						<?php if ($i % $_columnCount == 0 || $i == $_collectionSize): ?>
+							</div>
+						<?php endif ?>
+					<?php endforeach; ?>
+					<script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd', 'even', 'first', 'last'])</script>
+			</div>
+			<?php endif; ?>
+
+		</div>
+	</div>
+</div>

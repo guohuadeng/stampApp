@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <add_this translate="label" module="smartlayers">
+            <label>AddThis</label>
+            <sort_order>100</sort_order>
+        </add_this>
+    </tabs>
+    <sections>
+        <smart_layers translate="label" module="smartlayers">
+            <label>Smart Layers</label>
+            <tab>add_this</tab>
+            <sort_order>20</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label" module="smartlayers">
+                    <label>General</label>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <theme translate="label">
+                            <label>Theme</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>smartlayers/source_theme</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </theme>
+                    </fields>
+                </general>
+				<follow>
+					<label>Follow</label>
+					<comment><![CDATA[<small>Get more fans and followers for your social media profiles on Facebook, Twitter, and other popular social networks. Complete your profile URLs below to enable Follow buttons for those services. You must complete at least one URL for the Follow Layer to appear.</small>]]></comment>
+					<sort_order>200</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+                        <facebook translate="label">
+                            <label>facebook.com/</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <!-- <comment><![CDATA[Go to http://facebook.com.  Click your profile icon.  Then copy the string of letters and/or numbers after 'facebook.com/' in the URL.  It will look like: 'https://facebook.com/greg.franko.10']]></comment> -->
+                        </facebook>
+                        <twitter translate="label">
+                            <label>twitter.com/</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <!-- <comment><![CDATA[Go to http://twitter.com.  Click the 'Me' tab.  Then copy the string of letters and/or numbers after 'twitter.com/' in the URL.  It will look like: 'https://twitter.com/GregFranko']]></comment> -->
+                        </twitter>
+                        <linkedin translate="label">
+                            <label>linkedin.com/in/</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </linkedin> 
+                        <linkedin_comp translate="label">
+                            <label>linkedin.com/company/</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </linkedin_comp>
+                        <google translate="label">
+                            <label>plus.google.com/</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </google>
+                        <youtube translate="label">
+                            <label>youtube.com/user/</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </youtube>
+                        <flickr translate="label">
+                            <label>flickr.com/photos/</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </flickr>
+                        <vimeo translate="label">
+                            <label>vimeo.com/</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </vimeo>
+                        <pinterest translate="label">
+                            <label>pinterest.com/</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </pinterest>
+                        <instagram translate="label">
+                            <label>instagram.com/</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </instagram>
+                        <foursquare translate="label">
+                            <label>foursquare.com/</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </foursquare>
+                        <tumblr translate="label">
+                            <label>?.tumblr.com</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tumblr>
+                        <rss translate="label">
+                            <label>RSS feed URL http://</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </rss>   
+					</fields>                
+				</follow>
+				<share>
+					<label>Share</label>
+                    <comment><![CDATA[<small>Increase traffic and engagement with automatically personalized sharing buttons for Facebook, Twitter, Google + and more.</small>]]></comment>
+					<sort_order>300</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>					
+                        <enabled translate="label">
+                            <label>Status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <share_button_position translate="label">
+                            <label>Share Button Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>smartlayers/source_shareposition</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </share_button_position>
+                        <share_button_count translate="label">
+                            <label>Button Count</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>smartlayers/source_sharebuttoncount</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </share_button_count>                        
+					</fields>
+				</share>
+				<whatsnext>
+					<label>What's Next</label>
+                    <comment><![CDATA[<small>When a desktop visitor scrolls down the page, a box will appear and suggest new content, sharing, or following your brand.</small>]]></comment>
+					
+					<sort_order>400</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>					
+                        <enabled translate="label">
+                            <label>Status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>					
+					</fields>
+				</whatsnext>
+				<recommended>
+					<label>Recommended Content</label>
+                    <comment><![CDATA[<small>Boost traffic recirculation by promoting your site's more popular trending content.</small>]]></comment>
+					<sort_order>500</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>					
+                        <enabled translate="label">
+                            <label>Status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <recommended_header translate="label">
+                            <label>Header</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </recommended_header>
+					</fields>
+				</recommended>
+				<custom_code>
+					<label>Custom Code</label>
+                    <comment><![CDATA[<small>IMPORTANT: If you enable Custom Code all of the options above will be ignored.</small>]]></comment>					
+					<sort_order>600</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>					
+                        <enabled translate="label">
+                            <label>Status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <content translate="label">
+                            <label>Custom Code</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Want to customize? Use our <a href="http://support.addthis.com/customer/portal/articles/1200473-smart-layers-api" target="_blank">API</a>]]></comment>                            
+                        </content>
+					</fields>
+				</custom_code>	
+			</groups>
+        </smart_layers>
+    </sections>
+</config>

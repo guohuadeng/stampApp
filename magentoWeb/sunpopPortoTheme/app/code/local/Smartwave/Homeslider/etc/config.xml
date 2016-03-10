@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Smartwave_Homeslider>
+            <version>1.0.0</version>
+        </Smartwave_Homeslider>
+    </modules>
+    <frontend>
+        <layout>
+            <updates>
+                <homeslider module="homeslider">
+                    <file>smartwave_homeslider.xml</file>
+                </homeslider>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <helpers>
+            <homeslider>
+                <class>Smartwave_Homeslider_Helper</class>
+            </homeslider>
+        </helpers>
+        <models>
+            <homeslider>
+                <class>Smartwave_Homeslider_Model</class>        
+            </homeslider>
+        </models>
+    </global>
+    <default>
+        <homeslider>
+            <general>
+                <enabled>1</enabled>
+                <static_block_id>porto_homeslider_1</static_block_id>
+            </general>
+        </homeslider>
+    </default>
+</config>

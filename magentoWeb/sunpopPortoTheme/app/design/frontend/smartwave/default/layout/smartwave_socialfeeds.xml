@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+        <reference name="head">
+            <action method="addJs"><script>smartwave/jquery/jquery-1.11.3.min.js</script></action>
+			<action method="addJs"><script>smartwave/jquery/jquery-migrate-1.2.1.min.js</script></action>
+            <action method="addJs"><script>smartwave/jquery/jquery-noconflict.js</script></action>
+            <action method="addItem"><type>skin_js</type><name>socialfeeds/js/twitterfetcher.js</name><params/></action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>socialfeeds/css/style.css</name>
+            </action>
+        </reference>
+        
+        <reference name="footer">
+            <block type="core/template" name="facebook_fans" template="socialfeeds/facebookfans.phtml"/>
+            <block type="core/template" name="tweets" template="socialfeeds/twitterfeed.phtml" />
+            <block type="core/template" name="flickr" template="socialfeeds/flickrphotos.phtml" />
+        </reference>
+    </default>
+</layout>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <swextensions translate="label">
+            <label>SW Extensions</label>
+            <sort_order>102</sort_order>
+        </swextensions>
+    </tabs>
+</config>

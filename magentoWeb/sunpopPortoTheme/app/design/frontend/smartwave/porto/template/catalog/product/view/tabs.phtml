@@ -1,0 +1,150 @@
+<?php
+    $store = Mage::app()->getStore();
+    $code  = $store->getCode();
+    $helper = Mage::helper("porto");
+    $product_id = Mage::registry("current_product")->getId();
+    $tab_style = Mage::getStoreConfig("porto_settings/product_view/product_tab_style", $code);
+    if(!$tab_style)
+        $tab_style = "horizontal";
+?>
+<?php if($tab_style!="accordion"): ?>
+<div class="product-tabs <?php echo $tab_style; ?>">
+    <ul>
+        <?php $i = 0; ?>
+        <?php foreach ($this->getTabs() as $_index => $_tab): ?>
+            <?php if($this->getChildHtml($_tab['alias'])): ?>
+                <li id="tab_<?php echo $_tab['alias'] ?>" class="<?php echo ($i==0)?' active first':''?>"><a href="#"><?php echo $_tab['title']?></a></li>
+                <?php $i++; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php
+            for($i=1;$i<=5;$i++){
+                $custom_tab = "attribute_tab_".$i;
+                if($helper->isEnabledTab("attribute", $custom_tab, $product_id)){
+        ?>
+                <li id="tab_<?php echo $custom_tab ?>"><a href="#"><?php echo $helper->getTabTitle("attribute", $custom_tab, $product_id)?></a></li>
+        <?php
+                }
+            }
+        ?>
+        <?php
+            for($i=1;$i<=9;$i++){
+                $custom_tab = "static_block_tab_".$i;
+                if($helper->isEnabledTab("static_block", $custom_tab, $product_id)){
+        ?>
+                <li id="tab_<?php echo $custom_tab ?>"><a href="#"><?php echo $helper->getTabTitle("static_block", $custom_tab, $product_id)?></a></li>
+        <?php
+                }
+            }
+        ?>
+                <li id="tab_download_tabbed"><a href="#"><?php echo $this->__('Related Download'); ?></a></li>
+    </ul>
+    <?php if($tab_style=="horizontal"): ?>
+    <div class="clearer"></div>
+    <?php endif; ?>
+    <?php if($tab_style=="vertical"): ?>
+    <div class="product-tab-content">
+    <?php endif; ?>
+    <?php foreach ($this->getTabs() as $_index => $_tab): ?>
+        <?php if($this->getChildHtml($_tab['alias'])): ?>
+            <div class="tab-content" id="tab_<?php echo $_tab['alias'] ?>_contents"><?php echo $this->getChildHtml($_tab['alias']) ?></div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?php
+        for($i=1;$i<=5;$i++){
+            $custom_tab = "attribute_tab_".$i;
+            if($helper->isEnabledTab("attribute", $custom_tab, $product_id)){
+    ?>
+            <div class="tab-content" id="tab_<?php echo $custom_tab ?>_contents"><?php echo $helper->getTabContents("attribute", $custom_tab, $product_id)?></div>
+    <?php
+            }
+        }
+    ?>
+    <?php
+        for($i=1;$i<=9;$i++){
+            $custom_tab = "static_block_tab_".$i;
+            if($helper->isEnabledTab("static_block", $custom_tab, $product_id)){
+    ?>
+            <div class="tab-content" id="tab_<?php echo $custom_tab ?>_contents"><?php echo $helper->getTabContents("static_block", $custom_tab, $product_id)?></div>
+    <?php
+            }
+        }
+    ?>
+            <div class="tab-content" id="tab_download_tabbed_contents">
+            </div>
+    <?php if($tab_style=="vertical"): ?>
+    </div>
+    <?php endif; ?>
+
+    <script type="text/javascript">
+    //<![CDATA[
+    new Varien.Tabs('.product-tabs > ul');
+    //]]>
+    </script>
+    <div class="clearer"></div>
+</div>
+<?php endif; ?>
+<?php if($tab_style=="accordion"): ?>
+<div class="panel-group product-tab-accordion" id="product_tab_accordion">
+<?php $i = 0; ?>
+<?php foreach ($this->getTabs() as $_index => $_tab): ?>
+    <?php if($this->getChildHtml($_tab['alias'])): ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#product_tab_accordion" <?php if($i>0): ?>class="collapsed"<?php endif; ?> href="#tab_<?php echo $_tab['alias'] ?>"><?php echo $_tab['title']?></a>
+            </h4>
+        </div>
+        <div id="tab_<?php echo $_tab['alias'] ?>" class="panel-collapse collapse <?php if($i==0): ?>in<?php endif; ?>">
+            <div class="panel-body">
+                <?php echo $this->getChildHtml($_tab['alias']) ?>
+            </div>
+        </div>
+    </div>
+    <?php $i++; ?>
+    <?php endif; ?>
+<?php endforeach; ?>
+<?php
+    for($i=1;$i<=5;$i++){
+        $custom_tab = "attribute_tab_".$i;
+        if($helper->isEnabledTab("attribute", $custom_tab, $product_id)){
+?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#product_tab_accordion" class="collapsed" href="#tab_<?php echo $custom_tab ?>"><?php echo $helper->getTabTitle("attribute", $custom_tab, $product_id)?></a>
+            </h4>
+        </div>
+        <div id="tab_<?php echo $custom_tab ?>" class="panel-collapse collapse">
+            <div class="panel-body">
+                <?php echo $helper->getTabContents("attribute", $custom_tab, $product_id)?>
+            </div>
+        </div>
+    </div>
+<?php
+        }
+    }
+?>
+<?php
+    for($i=1;$i<=9;$i++){
+        $custom_tab = "static_block_tab_".$i;
+        if($helper->isEnabledTab("static_block", $custom_tab, $product_id)){
+?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#product_tab_accordion" class="collapsed" href="#tab_<?php echo $custom_tab ?>"><?php echo $helper->getTabTitle("static_block", $custom_tab, $product_id)?></a>
+            </h4>
+        </div>
+        <div id="tab_<?php echo $custom_tab ?>" class="panel-collapse collapse">
+            <div class="panel-body">
+                <?php echo $helper->getTabContents("static_block", $custom_tab, $product_id)?>
+            </div>
+        </div>
+    </div>
+<?php
+        }
+    }
+?>
+</div>
+<?php endif; ?>

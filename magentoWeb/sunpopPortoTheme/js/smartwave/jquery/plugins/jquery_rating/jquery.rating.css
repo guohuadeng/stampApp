@@ -1,0 +1,15 @@
+/* jQuery.Rating Plugin CSS - http://www.fyneworks.com/jquery/star-rating/ */
+div.rating-cancel{display:none;}
+div.star-rating{display:inline-block;width:17px;height:15px;text-indent:-999em;cursor:pointer;background:transparent;overflow:hidden}
+div.star-rating.radio { min-height: 0; padding: 0; margin: 0; }
+div.star-rating,div.star-rating a{background:url(star.gif) no-repeat 0 0px}
+div.rating-cancel a,div.star-rating a{display:block;width:16px;height:100%;background-position:0 0px;border:0}
+div.star-rating-on a{background-position:0 -16px!important}
+div.star-rating-hover a{background-position:0 -32px}
+/* Read Only CSS */
+div.star-rating-readonly a{cursor:default !important}
+/* Partial Star CSS */
+div.star-rating{background:transparent!important;overflow:hidden!important}
+span.rating-type {float: left; width: 150px; display: block; font-weight: bold; }
+.rating-block p { clear: both; }
+/* END jQuery.Rating Plugin CSS */

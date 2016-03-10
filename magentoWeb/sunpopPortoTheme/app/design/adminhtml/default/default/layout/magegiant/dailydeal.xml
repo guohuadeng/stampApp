@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addJs">
+                <script>magegiant/dailydeal.js</script>
+            </action>
+        </reference>
+    </default>
+    <adminhtml_dailydealadmin_dailydeal_index>
+        <reference name="content">
+            <block type="dailydeal/adminhtml_dailydeal" name="dailydeal"/>
+        </reference>
+    </adminhtml_dailydealadmin_dailydeal_index>
+    <adminhtml_dailydealadmin_randomdeal_index>
+        <reference name="content">
+            <block type="dailydeal/adminhtml_randomdeal" name="randomdeal"/>
+        </reference>
+    </adminhtml_dailydealadmin_randomdeal_index>
+
+
+    <adminhtml_dailydealadmin_dailydeal_listproduct>
+        <block type="core/text_list" name="root">
+            <block type="dailydeal/adminhtml_dailydeal_edit_tab_listproduct" name="dailydeal.edit.tab.listproduct"/>
+            <block type="dailydeal/adminhtml_dailydeal_serializer" name="related_grid_serializer">
+                <action method="initSerializerBlock">
+                    <grid_block_name>dailydeal.edit.tab.listproduct</grid_block_name>
+                    <hidden_input_name>candidate_product_id</hidden_input_name>
+                </action>
+            </block>
+        </block>
+    </adminhtml_dailydealadmin_dailydeal_listproduct>
+
+    <adminhtml_dailydealadmin_randomdeal_listproduct>
+        <block type="core/text_list" name="root">
+            <block type="dailydeal/adminhtml_randomdeal_edit_tab_listproduct" name="randomdeal.edit.tab.listproduct"/>
+        </block>
+    </adminhtml_dailydealadmin_randomdeal_listproduct>
+
+    <adminhtml_dailydealadmin_dailydeal_listproductgrid>
+        <block type="core/text_list" name="root">
+            <block type="dailydeal/adminhtml_dailydeal_edit_tab_listproduct" name="dailydeal.edit.tab.listproductgrid"/>
+        </block>
+    </adminhtml_dailydealadmin_dailydeal_listproductgrid>
+    <adminhtml_dailydealadmin_randomdeal_listproductgrid>
+        <block type="core/text_list" name="root">
+            <block type="dailydeal/adminhtml_randomdeal_edit_tab_listproduct" name="randomdeal.edit.tab.listproduct"/>
+        </block>
+    </adminhtml_dailydealadmin_randomdeal_listproductgrid>
+
+
+    <adminhtml_dailydealadmin_dailydeal_listordergrid>
+        <block type="core/text_list" name="root">
+            <block type="dailydeal/adminhtml_dailydeal_edit_tab_listorder" name="dailydeal.edit.tab.listorder"/>
+        </block>
+    </adminhtml_dailydealadmin_dailydeal_listordergrid>
+
+    <adminhtml_dailydealadmin_randomdeal_listordergrid>
+        <block type="core/text_list" name="root">
+            <block type="dailydeal/adminhtml_randomdeal_edit_tab_listorder" name="randomdeal.edit.tab.listorder"/>
+        </block>
+    </adminhtml_dailydealadmin_randomdeal_listordergrid>
+</layout>

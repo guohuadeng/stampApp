@@ -1,0 +1,29 @@
+.selectbox { vertical-align: middle; cursor: pointer; margin-top: 0px; z-index: 1; text-transform: uppercase; height: 26px; }
+.selectbox .select { height: 26px; padding: 0 20px 0 10px; border: 1px solid #ccc; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+.selectbox:hover .select { }
+.selectbox .select:active { }
+.selectbox.focused .select { }
+.selectbox .select .text { display: block; width: 100%; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; font-size: 11px; line-height: 24px; }
+.selectbox .select .text img { margin: 7px 6px 0 0; display: inline-block; width: 16px; height: 11px; }
+.selectbox .trigger { position: absolute; top: 0; right: 0; width: 20px; height: 100%; font-size: 11px; }
+.selectbox .trigger i { display: block; margin-top: 6px; }
+.selectbox .dropdown { top: auto; border: 1px solid #ccc; }
+.selectbox .dropdown ul { top: auto; margin: 0; padding: 4px 0; background-color: #fff; box-shadow: 0 0 2px rgba(0,0,0,0.1); -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.1); -moz-box-shadow: 0 0 2px rgba(0,0,0,0.1); text-align: left; }
+.selectbox ul { margin-bottom: 0; }
+.selectbox li { padding: 3px 9px;  display: block; }
+.selectbox li:hover { background-color: #ccc; }
+.selectbox li.disabled { }
+.selectbox li.disabled:hover { }
+.selectbox li a { text-decoration: none; display: block; padding: 0; background-color: transparent; border: 0; border-radius: 0; font-size: 11px; }
+.selectbox li:hover a, .selectbox li a:hover { color: #fff; }
+.selectbox li a img { margin: 0 6px 0 0; display: inline-block; width: 16px; height: 11px; }
+.selectbox.default .select { background: #ececec; cursor: pointer; border: solid #CAC9C9 1px; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; font-size: 10px; padding: 0px 30px 0px 0px; text-transform: uppercase; font-weight: bold; line-height: 1; height: 30px; -webkit-box-shadow: 0px 2px 2px rgba(0,0,0,0.027),inset 0px 1px 0px rgba(255,255,255,0.69),inset 0px -1px 0px rgba(0,0,0,0.0187),inset 0px 16px 15px rgba(255,255,255,0.57); -moz-box-shadow: 0px 2px 2px rgba(0,0,0,0.027),inset 0px 1px 0px rgba(255,255,255,0.69),inset 0px -1px 0px rgba(0,0,0,0.0187),inset 0px 16px 15px rgba(255,255,255,0.57); -o-box-shadow: 0px 2px 2px rgba(0,0,0,0.027),inset 0px 1px 0px rgba(255,255,255,0.69),inset 0px -1px 0px rgba(0,0,0,0.0187),inset 0px 16px 15px rgba(255,255,255,0.57); box-shadow: 0px 2px 2px rgba(0,0,0,0.027),inset 0px 1px 0px rgba(255,255,255,0.69),inset 0px -1px 0px rgba(0,0,0,0.0187),inset 0px 16px 15px rgba(255,255,255,0.57); }
+.selectbox.default .trigger .arrow { border-top-color: #999; margin-left: -4px; margin-top: 2px; }
+.selectbox.default .trigger:before { display: inline-block; width: 0; height: 0; vertical-align: middle; border-top: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 4px solid #ccc; border-left: 4px solid transparent; }
+.selectbox.default:hover .select { -webkit-box-shadow: 0px 2px 2px rgba(0,0,0,0.027),inset 0px 1px 0px rgba(255,255,255,0.69),inset 0px -1px 0px rgba(0,0,0,0.0187),inset 0px 16px 15px rgba(255,255,255,0.75); -moz-box-shadow: 0px 2px 2px rgba(0,0,0,0.027),inset 0px 1px 0px rgba(255,255,255,0.69),inset 0px -1px 0px rgba(0,0,0,0.0187),inset 0px 16px 15px rgba(255,255,255,0.75);
+-o-box-shadow: 0px 2px 2px rgba(0,0,0,0.027),inset 0px 1px 0px rgba(255,255,255,0.69),inset 0px -1px 0px rgba(0,0,0,0.0187),inset 0px 16px 15px rgba(255,255,255,0.75); box-shadow: 0px 2px 2px rgba(0,0,0,0.027),inset 0px 1px 0px rgba(255,255,255,0.69),inset 0px -1px 0px rgba(0,0,0,0.0187),inset 0px 16px 15px rgba(255,255,255,0.75); }
+.selectbox.default .select .text { padding: 0 10px; font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 10px; color: #666; text-shadow: 0 1px 0 rgba(255,255,255,0.59); line-height: 28px;}
+.selectbox.default:hover .select .text { color: #888; text-shadow: 0 1px 0 rgba(255,255,255,0.69); }
+.selectbox.default .trigger { width: 0; height: 0; border: 4px solid transparent; border-bottom-color: #999; margin-right: 9px; margin-top: 5px; }
+.selectbox.default .dropdown ul { margin-top: 1px; margin-bottom: 1px; background: #fafafa; }
+.selectbox.default .dropdown ul:before { display: none; }

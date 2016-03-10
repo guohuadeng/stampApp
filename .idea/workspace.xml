@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a543bcd7-5eaf-46bd-aa5f-746aa2fe7b48" name="Default" comment="">
+    <list default="true" id="a543bcd7-5eaf-46bd-aa5f-746aa2fe7b48" name="Default" comment="将模板增加到项目">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/media/dailydeal/.keep" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/media/wysiwyg/porto/blog/01/01.jpg" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/media/wysiwyg/porto/blog/02/01.jpg" />
@@ -1619,7 +1619,8 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/template/opc/wrapper.phtml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/code/local/Smartwave/Porto/Model/System/Config/Source/Design/Font/Family/x-- Group.php" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/layout/zeon_manufacturer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/code/local/Sunpop/StampCustomer/controllers/IndexController.php" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/code/local/Sunpop/StampCustomer/controllers/IndexController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options.phtml" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options.phtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="stampApp.iws" />
@@ -1635,127 +1636,37 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="D:\PjWeb\stampApp" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="Alipaymate_Alipaylogin.csv" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/locale/en_US/Alipaymate_Alipaylogin.csv">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.1300813">
-                    <caret line="4" column="41" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="135" />
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="stampApp" />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SignatureType.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Source/SignatureType.php">
+      <file leaf-file-name="catalog.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/layout/catalog.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="-109.21212">
+              <caret line="340" column="3" selection-start-line="340" selection-start-column="3" selection-end-line="340" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Core.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Core.php">
+      <file leaf-file-name="options.phtml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.19270073">
+              <caret line="175" column="13" selection-start-line="175" selection-start-column="13" selection-end-line="175" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Feed.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Feed.php">
+      <file leaf-file-name="view.phtml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/template/catalog/product/view.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Payment.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Payment.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="weixinmobile.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/layout/alipaymate/weixinmobile.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="history.phtml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/sales/order/history.phtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="recent.phtml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/sales/order/recent.phtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.27793697">
-              <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="form.phtml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/weixinmobile/form.phtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="6" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="history.phtml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/design/frontend/base/default/template/alipaymate/sales/order/history.phtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="74" column="196" selection-start-line="74" selection-start-column="191" selection-end-line="74" selection-end-column="196" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Alipaymate_Weixin.csv" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/locale/zh_CN/Alipaymate_Weixin.csv">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state vertical-scroll-proportion="-3.4285715">
+              <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -1775,9 +1686,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/StoreController.php" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/mageworx_advanced_product_options_4.16.1/app/locale/zh_CN/MageWorx_Adminhtml.csv" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/mageworx_advanced_product_options_4.16.1/app/locale/en_US/MageWorx_CustomOptions.csv" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/mageworx_advanced_product_options_4.16.1/app/locale/zh_CN/MageWorx_CustomOptions.csv" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/code/local/Sunpop/StampCustomer/controllers/Adminhtml/StampcustomerController.php" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/code/local/Sunpop/StampCustomer/Block/Adminhtml/Stampcustomer/Edit/Tab/Form.php" />
@@ -1809,7 +1717,6 @@
         <option value="$PROJECT_DIR$/magentoWeb/plugin/mageworx_advanced_product_options_4.16.1/app/etc/modules/MageWorx_Adminhtml.xml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/CartController.php" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/stampcustomer/index.phtml" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/code/local/Sunpop/StampCustomer/controllers/IndexController.php" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/base/default/template/customer/form/login.phtml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/porto/template/customer/form/login.phtml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/porto/template/persistent/customer/form/login.phtml" />
@@ -1820,12 +1727,16 @@
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/porto/css/stampcustomer.css" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options/type/date.phtml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options/type/select.phtml" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options.phtml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Block/Redirect.php" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/controllers/ProcessingController.php" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/locale/en_US/Alipaymate_Alipaylogin.csv" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/locale/zh_CN/Alipaymate_Weixinlogin.csv" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/locale/zh_CN/Alipaymate_Weixin.csv" />
+        <option value="$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/template/wishlist/item/column/cart.phtml" />
+        <option value="$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/template/wishlist/item/column/info.phtml" />
+        <option value="$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/locale/zh_CN/Smartwave_Porto.csv" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/code/local/Sunpop/StampCustomer/controllers/IndexController.php" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options.phtml" />
       </list>
     </option>
   </component>
@@ -1870,6 +1781,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1920,10 +1833,208 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sunpopPortoTheme" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sunpopPortoTheme" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="design" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartwave" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="porto" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sunpopPortoTheme" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="design" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartwave" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="porto" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sunpopPortoTheme" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="design" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartwave" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sunpopPortoTheme" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="design" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sunpopPortoTheme" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="design" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2106,27 +2217,33 @@
       <option name="project" value="LOCAL" />
       <updated>1457626986520</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="将模板增加到项目">
+      <created>1457627150667</created>
+      <option name="number" value="00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1457627150667</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18798666" sideWeight="0.5588235" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18798666" sideWeight="0.44117647" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14349277" sideWeight="0.47058824" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24117647" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2737968" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28031147" sideWeight="0.56149733" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27700534" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20244716" sideWeight="0.44278076" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20244716" sideWeight="0.55721927" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19021134" sideWeight="0.43903744" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14349277" sideWeight="0.47058824" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2193,76 +2310,14 @@
     <MESSAGE value="+微信登录插件，增加微信内自动到登录链接的功能" />
     <MESSAGE value="增加资格证后，更细节的印章选项样式处理" />
     <MESSAGE value="wechat pay 插件增加，印章样式变化" />
-    <option name="LAST_COMMIT_MESSAGE" value="wechat pay 插件增加，印章样式变化" />
+    <MESSAGE value="将模板增加到项目" />
+    <option name="LAST_COMMIT_MESSAGE" value="将模板增加到项目" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/code/local/Sunpop/StampCustomer/controllers/IndexController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3983287">
-          <caret line="248" column="7" selection-start-line="248" selection-start-column="7" selection-end-line="248" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/code/local/Sunpop/StampCustomer/controllers/Adminhtml/StampcustomerController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26462397">
-          <caret line="170" column="35" selection-start-line="170" selection-start-column="20" selection-end-line="170" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/CartController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/base/default/template/customer/form/login.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="80" column="35" selection-start-line="80" selection-start-column="35" selection-end-line="80" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/porto/template/customer/form/login.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49860725">
-          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="49" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/porto/template/persistent/checkout/onepage/login.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.4848485">
-          <caret line="106" column="18" selection-start-line="106" selection-start-column="18" selection-end-line="106" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/etc/modules/Alipaymate_Weixinlogin.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/etc/config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Helper/Data.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Helper/Identifiers.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2376,19 +2431,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49322492">
-          <caret line="188" column="13" selection-start-line="188" selection-start-column="13" selection-end-line="188" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/porto/template/persistent/customer/form/login.phtml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2512,25 +2558,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Core.php">
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/weixinmobile/form.phtml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="6" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Feed.php">
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/design/frontend/base/default/template/alipaymate/sales/order/history.phtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.20916906">
+          <caret line="74" column="196" selection-start-line="74" selection-start-column="191" selection-end-line="74" selection-end-column="196" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Payment.php">
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/locale/zh_CN/Alipaymate_Weixin.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.27507162">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/sales/order/recent.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.51862466">
+          <caret line="48" column="17" selection-start-line="48" selection-start-column="17" selection-end-line="48" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/sales/order/history.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.1661892">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -2544,7 +2606,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/sales/order/history.phtml">
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Payment.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.106017195">
+          <caret line="215" column="0" selection-start-line="215" selection-start-column="0" selection-end-line="215" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Feed.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.30659026">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Core.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2552,34 +2630,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/weixinmobile/form.phtml">
+    <entry file="file://$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/template/catalog/category/view.phtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="6" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.061654136">
+          <caret line="27" column="2" selection-start-line="27" selection-start-column="2" selection-end-line="28" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/code/local/Sunpop/StampCustomer/controllers/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29209623">
+          <caret line="228" column="13" selection-start-line="228" selection-start-column="13" selection-end-line="228" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/design/frontend/base/default/template/alipaymate/sales/order/history.phtml">
+    <entry file="file://$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/locale/zh_CN/Smartwave_Porto.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="74" column="196" selection-start-line="74" selection-start-column="191" selection-end-line="74" selection-end-column="196" />
+        <state vertical-scroll-proportion="0.23414634">
+          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/locale/zh_CN/Alipaymate_Weixin.csv">
+    <entry file="file://$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/locale/zh_CN/Smartwave_Blog.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/sales/order/recent.phtml">
+    <entry file="file://$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/locale/en_US/translate.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27793697">
-          <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/template/wishlist/item/column/info.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.89756095">
+          <caret line="37" column="10" selection-start-line="37" selection-start-column="10" selection-end-line="37" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/template/wishlist/item/column/cart.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.66341466">
+          <caret line="50" column="6" selection-start-line="50" selection-start-column="6" selection-end-line="53" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/layout/catalog.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-109.21212">
+          <caret line="340" column="3" selection-start-line="340" selection-start-column="3" selection-end-line="340" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/template/catalog/product/view.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.4285715">
+          <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19270073">
+          <caret line="175" column="13" selection-start-line="175" selection-start-column="13" selection-end-line="175" selection-end-column="13" />
           <folding />
         </state>
       </provider>

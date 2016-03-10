@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+    <catalog_category_view>
+        <reference name="head">
+            <action method="addJs"><script>smartwave/jquery/jquery-1.11.3.min.js</script></action>        
+			<action method="addJs"><script>smartwave/jquery/jquery-migrate-1.2.1.min.js</script></action>
+            <action method="addJs"><script>smartwave/jquery/jquery-noconflict.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="ajaxcatalog/ajax" name="ajaxcatalog" template="smartwave/ajaxcatalog/ajax.phtml"/>            
+        </reference>
+    </catalog_category_view>
+    <catalogsearch_result_index>
+        <reference name="head">
+            <action method="addJs"><script>smartwave/jquery/jquery-1.11.3.min.js</script></action>        
+			<action method="addJs"><script>smartwave/jquery/jquery-migrate-1.2.1.min.js</script></action>
+            <action method="addJs"><script>smartwave/jquery/jquery-noconflict.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="ajaxcatalog/ajax" name="ajaxcatalog" template="smartwave/ajaxcatalog/ajax.phtml"/>
+        </reference>
+    </catalogsearch_result_index>
+    <catalogsearch_advanced_index>
+        <reference name="head">
+            <action method="addJs"><script>smartwave/jquery/jquery-1.11.3.min.js</script></action>        
+			<action method="addJs"><script>smartwave/jquery/jquery-migrate-1.2.1.min.js</script></action>
+            <action method="addJs"><script>smartwave/jquery/jquery-noconflict.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="ajaxcatalog/ajax" name="ajaxcatalog" template="smartwave/ajaxcatalog/ajax.phtml"/>
+        </reference>
+    </catalogsearch_advanced_index>
+</layout>

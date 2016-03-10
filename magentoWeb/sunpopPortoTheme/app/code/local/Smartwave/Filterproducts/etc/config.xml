@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Smartwave_Filterproducts>
+            <version>0.1.0</version>
+        </Smartwave_Filterproducts>
+    </modules>
+    <frontend>
+        <routers>
+            <filterproducts>
+                <use>standard</use>
+                <args>
+                    <module>Smartwave_Filterproducts</module>
+                    <frontName>filterproducts</frontName>
+                </args>
+            </filterproducts>
+        </routers>
+        <layout>
+            <updates>
+                <filterproducts>
+                    <file>smartwave_filterproducts.xml</file>
+                </filterproducts>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+	   <acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<filterproducts translate="title" module="filterproducts">
+											<title>Filterproducts Configuration</title>
+										</filterproducts>
+									</children>
+								</config>
+							</children>
+						</system>
+						<Smartwave_Filterproducts>
+							<title>Filterproducts Module</title>
+							<sort_order>10</sort_order>
+						</Smartwave_Filterproducts>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<filterproducts>
+					<file>filterproducts.xml</file>
+				</filterproducts>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <filterproducts>
+                <class>Smartwave_Filterproducts_Model</class>
+                <resourceModel>filterproducts_mysql4</resourceModel>
+            </filterproducts>
+            <filterproducts_mysql4>
+                <class>Smartwave_Filterproducts_Model_Mysql4</class>
+                <entities>
+                    <filterproducts>
+                        <table>filterproduts</table>
+                    </filterproducts>
+                </entities>
+            </filterproducts_mysql4>
+        </models>
+        <resources>
+            <filterproducts_setup>
+                <setup>
+                    <module>Smartwave_Filterproducts</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </filterproducts_setup>
+            <filterproducts_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </filterproducts_write>
+            <filterproducts_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </filterproducts_read>
+        </resources>
+        <blocks>
+            <filterproducts>
+                <class>Smartwave_Filterproducts_Block</class>
+            </filterproducts>
+        </blocks>
+        <helpers>
+            <filterproducts>
+                <class>Smartwave_Filterproducts_Helper</class>
+            </filterproducts>
+        </helpers>
+    </global>
+	<default>
+		<filterproducts>
+			<config1>
+				<active>0</active>
+				<title>Bestseller Products</title>
+			</config1>
+			<config2>
+				<active>0</active>
+				<title>Fetured Products</title>
+			</config2>
+			<config3>
+				<active>0</active>
+				<title>Most Viewed Products</title>
+			</config3>
+			<config4>
+				<active>0</active>
+				<title>New Products</title>
+				<type>Recently Added</type>
+			</config4>
+			
+            <config6>
+                <active>0</active>
+                <title>Latest Products</title>
+            </config6>
+			<config7>
+                <active>0</active>
+                <title>Sale Products</title>
+            </config7>
+		</filterproducts>
+	</default>
+</config>

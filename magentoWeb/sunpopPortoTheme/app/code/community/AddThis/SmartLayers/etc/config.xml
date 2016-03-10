@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+   <modules>
+       <AddThis_SmartLayers>
+           <version>2.3.0</version>
+       </AddThis_SmartLayers>
+   </modules>
+   <global>
+        <helpers>
+            <smartlayers>
+                <class>AddThis_SmartLayers_Helper</class>
+            </smartlayers>
+        </helpers>
+         <blocks>
+            <smartlayers>
+                <class>AddThis_SmartLayers_Block</class>        
+            </smartlayers>
+         </blocks>       
+        <models>
+            <smartlayers>
+                <class>AddThis_SmartLayers_Model</class>        
+            </smartlayers>
+         </models>
+        <resources>
+		<smartlayers_setup>
+                <setup>
+                    <module>AddThis_SmartLayers</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </smartlayers_setup>
+            <smartlayers_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </smartlayers_write>
+            <smartlayers_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </smartlayers_read>
+        </resources>
+    </global>
+    <default>
+        <smart_layers>
+            <general>
+                <enabled>1</enabled>
+            </general>
+            <follow>
+	            <facebook>YOUR-PROFILE-ID</facebook>
+	            <twitter>YOUR-PROFILE-ID</twitter>
+            </follow>
+            <share>
+            	<enabled>1</enabled>
+            	<share_button_count>5</share_button_count>
+            </share>
+            <whatsnext>
+            	<enabled>1</enabled>
+            </whatsnext>
+            <recommended>
+            	<enabled>1</enabled>
+            	<recommended_header>Recommended for you:</recommended_header>
+            </recommended>
+            <custom_code>
+            	<enabled>0</enabled>
+            	<content>addthis.layers({
+    'theme' : 'transparent',
+    'share' : {
+      'position' : 'left',
+      'numPreferredServices' : 5
+    },  
+    'whatsnext' : {},  
+    'recommended' : {} 
+});</content>
+            </custom_code>            
+        </smart_layers>
+    </default>
+    <frontend>
+        <layout>
+            <updates>
+                <smartlayers>
+                    <file>smartlayers.xml</file>
+                </smartlayers>
+            </updates>
+        </layout>
+   </frontend>
+   <adminhtml>
+        <acl>
+            <resources>
+		        <all>
+		            <title>Allow Everything</title>
+		        </all>             
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <smart_layers translate="title" module="smartlayers">
+                                            <title>AddThis</title>
+                                            <sort_order>52</sort_order>
+                                        </smart_layers>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl> 
+    </adminhtml>
+</config>

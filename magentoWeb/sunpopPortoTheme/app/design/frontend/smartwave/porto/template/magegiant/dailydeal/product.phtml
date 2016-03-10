@@ -1,0 +1,44 @@
+<script type="text/javascript">
+//<![CDATA[
+var dailydealTimeCounters = new Array();
+var i = 0;
+//]]>
+</script>
+<?php
+$_coreHelper = $this->helper('core');
+$_product    = $this->getProduct();
+
+$deal = $this->getDealByProduct($_product->getId());
+
+if ($deal->getQuantity() - $deal->getSold() > 0) {
+	?>
+	<?php $itemLeft = $deal->getQuantity() - $deal->getSold(); ?>
+
+							<ul class="save-sold">
+                                <li class="bg-saleoff">
+										<span>
+											<?php echo $deal->getSave() . '%';?>
+										</span>
+										<span class="dailydeal-item-left">
+											<?php echo  $this->__('Off'); ?>.
+											<?php echo $this->__('Hurry, there are only %s item(s) left!',$itemLeft) ?>
+										</span>
+
+								</li>
+                            </ul>
+	<ul>
+		<?php $now = Mage::getModel('core/date')->timestamp(time()) ?>
+		<?php $endTime = Mage::getModel('core/date')->timestamp(strtotime($deal->getCloseTime())); ?>
+		<div class="bottom-product-dailydeal bottom-home-dailydeal">
+                        <ul class="time-left">
+							<li class="timeleft timeleft_<?php echo $_product->getId() ?>"> </li>
+						</ul>
+    	 </div>
+    </ul>
+	<script type="text/javascript">
+		//<![CDATA[
+		dailydealTimeCounters[i] = new DailydealTimeCounter('<?php echo $now ?>', '<?php echo $endTime ?>', '<?php echo $deal->getId() ?>');
+		dailydealTimeCounters[i].setTimeleft('timeleft_<?php echo $_product->getId() ?>');
+		//]]>
+		</script>
+<?php } ?>

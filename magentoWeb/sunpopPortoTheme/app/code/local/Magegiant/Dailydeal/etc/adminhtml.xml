@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <dailydeal module="dailydeal" translate="title">
+            <title>Daily deal</title>
+            <sort_order>71</sort_order>
+            <children>
+                <newdeal module="dailydeal" translate="title">
+                    <title>Add a Deal</title>
+                    <sort_order>0</sort_order>
+                    <action>adminhtml/dailydealadmin_dailydeal/new</action>
+                </newdeal>
+                <dailydeal module="dailydeal" translate="title">
+                    <title>Manage Deals</title>
+                    <sort_order>2</sort_order>
+                    <action>adminhtml/dailydealadmin_dailydeal/index</action>
+                </dailydeal>
+                <settings module="dailydeal" translate="title">
+                    <title>Settings</title>
+                    <sort_order>1000</sort_order>
+                    <action>adminhtml/system_config/edit/section/dailydeal</action>
+                </settings>
+            </children>
+        </dailydeal>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <dailydeal module="dailydeal" translate="title">
+                                        <title>Daily deal</title>
+                                        <sort_order>71</sort_order>
+                                    </dailydeal>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <dailydeal module="dailydeal" translate="title">
+                        <title>Daily deal</title>
+                        <sort_order>71</sort_order>
+                        <children>
+                            <newdeal module="dailydeal" translate="title">
+                                <title>Add a Deal</title>
+                                <sort_order>0</sort_order>
+                                <action>adminhtml/dailydealadmin_dailydeal/new</action>
+                            </newdeal>
+                            <dailydeal module="dailydeal" translate="title">
+                                <title>Manage Deals</title>
+                                <sort_order>2</sort_order>
+                                <action>adminhtml/dailydealadmin_dailydeal</action>
+                            </dailydeal>
+                            <settings module="dailydeal" translate="title">
+                                <title>Settings</title>
+                                <sort_order>1000</sort_order>
+                                <action>adminhtml/system_config/edit/section/dailydeal</action>
+                            </settings>
+                        </children>
+                    </dailydeal>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

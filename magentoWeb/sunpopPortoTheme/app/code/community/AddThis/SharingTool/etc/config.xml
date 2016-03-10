@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+   <modules>
+       <AddThis_SharingTool>
+           <version>2.3.0</version>
+       </AddThis_SharingTool>
+   </modules>
+   <global>
+        <helpers>
+            <sharingtool>
+                <class>AddThis_SharingTool_Helper</class>
+            </sharingtool>
+        </helpers>
+         <blocks>
+            <sharingtool>
+                <class>AddThis_SharingTool_Block</class>        
+            </sharingtool>
+         </blocks>       
+        <models>
+            <sharingtool>
+                <class>AddThis_SharingTool_Model</class>        
+            </sharingtool>
+         </models>
+        <resources>
+            <sharingtool_setup>
+                <setup>
+                    <module>AddThis_SharingTool</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </sharingtool_setup>
+            <sharingtool_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </sharingtool_write>
+            <sharingtool_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </sharingtool_read>
+        </resources>
+    </global>
+    <default>
+        <sharing_tool>
+            <general>
+                <enabled>1</enabled>
+            </general>
+            <button_style>
+                <button_set>style_3</button_set>
+                <custom_button_code>&lt;div class=&quot;addthis_toolbox addthis_default_style &quot;&gt;
+	&lt;a class=&quot;addthis_button_facebook&quot;&gt;&lt;/a&gt;
+	&lt;a class=&quot;addthis_button_twitter&quot;&gt;&lt;/a&gt;
+	&lt;a class=&quot;addthis_button_pinterest_pinit&quot;&gt;&lt;/a&gt;
+	&lt;a class=&quot;addthis_counter addthis_pill_style&quot;&gt;&lt;/a&gt;
+&lt;/div&gt;</custom_button_code>                
+            </button_style>
+            <compact>
+                <advanced>0</advanced>                
+            </compact>
+            <api>
+            	<ui_click>1</ui_click>
+            	<ui_hover_direction>0</ui_hover_direction>
+            	<ui_open_windows>0</ui_open_windows>
+            	<ui_language>auto</ui_language>
+            	<ui_use_css>1</ui_use_css>
+            	<data_track_clickback>1</data_track_clickback>
+            	<address_bar_share>0</address_bar_share>
+            </api>
+        </sharing_tool>
+    </default>
+    <frontend>
+        <layout>
+            <updates>
+                <sharingtool>
+                    <file>sharingtool.xml</file>
+                </sharingtool>
+            </updates>
+        </layout>
+         <events>
+	         <core_block_abstract_to_html_after>
+	             <observers>
+	                 <sharingtool>
+	                         <type>singleton</type>
+	                         <class>sharingtool/observer</class>
+	                         <method>addButtonsHtml</method>
+	                 </sharingtool>
+	             </observers>
+	         </core_block_abstract_to_html_after>
+         </events>
+   </frontend>
+   <adminhtml>
+        <acl>
+            <resources>
+		        <all>
+		            <title>Allow Everything</title>
+		        </all>            
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <sharing_tool translate="title" module="sharingtool">
+                                            <title>AddThis</title>
+                                            <sort_order>52</sort_order>
+                                        </sharing_tool>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl> 
+    </adminhtml>
+</config>

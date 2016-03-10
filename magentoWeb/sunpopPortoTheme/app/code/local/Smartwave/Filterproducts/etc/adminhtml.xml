@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+    <adminhtml>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<system>
+      					<children>
+      						<config>
+      							<children>
+      								<filterproducts translate="title" module="filterproducts">
+      									<title>Filterproducts Configuration</title>
+      								</filterproducts>
+      							</children>
+      						</config>
+      					</children>
+      				</system>
+						<Smartwave_Filterproducts>
+							<title>Filterproducts Module</title>
+							<sort_order>10</sort_order>
+						</Smartwave_Filterproducts>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</adminhtml>

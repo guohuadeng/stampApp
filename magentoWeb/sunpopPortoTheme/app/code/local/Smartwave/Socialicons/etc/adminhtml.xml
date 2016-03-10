@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <socialicons translate="title" module="socialicons">
+                                        <title>Social Icons</title>
+                                    </socialicons>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

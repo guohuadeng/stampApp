@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category    Smartwave
+ * @package        Smartwave_Megamenu
+ * @author        Eternal Friend
+ * @copyright    Copyright 2014 Eternal
+ */
+ -->
+<config>
+    <modules>
+        <Smartwave_Megamenu>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Smartwave_Megamenu>
+    </modules>
+</config> 

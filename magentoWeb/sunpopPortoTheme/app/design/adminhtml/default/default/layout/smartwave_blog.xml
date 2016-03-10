@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_smartwaveblog_manage_blog_index>
+        <update handle="editor" />
+        <reference name="content">
+            <block type="blog/manage_blog" name="blog" />
+        </reference>
+    </adminhtml_smartwaveblog_manage_blog_index>
+    <adminhtml_smartwaveblog_manage_blog_edit>
+        <update handle="editor" />
+    </adminhtml_smartwaveblog_manage_blog_edit>
+    <adminhtml_smartwaveblog_manage_blog_new>
+        <update handle="editor" />
+    </adminhtml_smartwaveblog_manage_blog_new>
+    <adminhtml_smartwaveblog_manage_comment_index>
+        <reference name="content">
+            <block type="blog/manage_comment" name="comment" />
+        </reference>
+    </adminhtml_smartwaveblog_manage_comment_index>
+    <adminhtml_smartwaveblog_manage_cat_index>
+        <reference name="content">
+            <block type="adminhtml/store_switcher" name="store_switcher" before="-" />
+            <block type="blog/manage_cat" name="cat" />
+        </reference>
+    </adminhtml_smartwaveblog_manage_cat_index>
+    
+</layout>

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <add_this translate="label" module="pluginsgeneral">
+            <label>AddThis</label>
+            <sort_order>100</sort_order>
+        </add_this>
+    </tabs>
+    <sections>
+        <plugins_general translate="label" module="pluginsgeneral">
+            <label>General</label>
+            <tab>add_this</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label" module="pluginsgeneral">
+                    <label>General</label>
+            		<comment><![CDATA[<label id="at-messages"></label>
+					<script>
+					Event.observe(window, "load", function(){
+						window.checkProUser = function (arg) {
+							if (JSON.stringify(arg) == '{}'){
+								document.getElementById('at-messages').innerHTML = "AddThis Pro now available - start your trial at <a href='http://www.addthis.com' target='_blank' >www.addthis.com</a> and get premium widgets, personalized content recommendations, advanced customization options and priority support.";
+							}else{
+								document.getElementById('at-messages').innerHTML = "Since You are an AddThis Pro user, your SmartLayers configuration options will be overwritten by those in your AddThis Pro <a href='https://www.addthis.com/dashboard#gallery' target='_blank'>Tool Gallery</a>.";
+							}
+						};
+						var AtProConfig = function () { 
+						  var at_json = document.createElement('script');
+						  var at_pub = document.getElementById('plugins_general_general_pubid').value;
+						  at_pub = (at_pub!="")? at_pub:"Your-Profile-ID";
+						  at_json.src = decodeURIComponent('http://q.addthis.com/feeds/1.0/config.json?pubid='+at_pub+'%26callback=window.checkProUser');
+						  document.body.appendChild(at_json);
+						}
+						AtProConfig();
+						document.getElementById('plugins_general_general_pubid').onblur = AtProConfig;
+					});
+					</script>
+					]]></comment>                    
+                    <sort_order>800</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <pubid translate="label">
+                            <label>Profile ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<a href="http://support.addthis.com/customer/portal/articles/381263-addthis-client-api" target="_blank">More info</a>]]></comment>
+                        </pubid>                       
+                    </fields>
+                </general>
+            </groups>
+        </plugins_general>
+    </sections>
+</config>

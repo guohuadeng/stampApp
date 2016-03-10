@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category	Smartwave
+ * @package		Smartwave_Smartwave
+ * @author		SW-THEMES
+ * @copyright	Copyright 2014 Smartwave
+ */
+-->
+<config>
+    <modules>
+        <Smartwave_Fullajax>
+            <version>1.0.0</version>
+        </Smartwave_Fullajax>
+    </modules>
+    <frontend>
+        <layout>
+            <updates>
+                <fullajax>
+                    <file>smartwave_fullajax.xml</file>
+                </fullajax>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <helpers>
+            <all>
+                <class>Smartwave_Fullajax_Helper</class>
+            </all>
+        </helpers>
+		<resources>
+            <all_setup>
+                <setup>
+                    <module>Smartwave_Fullajax</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </all_setup>
+            <all_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </all_write>
+            <all_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </all_read>
+        </resources>
+    </global>
+    <default>
+        <fullajax>
+            <general>
+                <enabled>0</enabled>
+                <except>a.fancybox,a.quickview-icon,.toolbar a,.block-layered-nav a,a.fancy-images</except>
+                <except_form>search_mini_form</except_form>
+            </general>
+        </fullajax>
+    </default>
+</config>

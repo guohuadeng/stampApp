@@ -1,0 +1,9 @@
+<?php
+    $store = Mage::app()->getStore();
+    $code  = $store->getCode();
+    $show_notice = Mage::getStoreConfig('porto_settings/general/show_notice', $code);
+    $notice_static_block = Mage::getStoreConfig('porto_settings/general/notice_static_block', $code);
+    if($show_notice && $notice_static_block) {
+        echo $this->getLayout()->createBlock("cms/block")->setBlockId($notice_static_block)->toHtml();
+    }
+?>

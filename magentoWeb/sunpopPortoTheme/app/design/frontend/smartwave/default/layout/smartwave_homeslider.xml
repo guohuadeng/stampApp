@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <cms_index_index>
+        <reference name="top.container">
+            <remove name="page.header"/>
+            <block type="core/template" name="home_slider" template="homeslider/home_slider.phtml"/>
+        </reference>
+    </cms_index_index>
+</layout>

@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category	Smartwave
+ * @package		Smartwave_UltraMegamenu
+ * @author		Eternal Friend
+ * @copyright	Copyright 2014 Smartwave
+ */
+-->
+<config>
+    <modules>
+        <Smartwave_Megamenu>
+            <version>1.1.2</version>
+        </Smartwave_Megamenu>
+    </modules>
+    <frontend>
+        <routers>
+            <megamenu>
+                <use>standard</use>
+                <args>
+                    <frontName>megamenu</frontName>
+                    <module>Smartwave_Megamenu</module>
+                </args>
+            </megamenu>
+        </routers>
+        <layout>
+            <updates>
+                <megamenu module="megamenu">
+                    <file>smartwave_megamenu.xml</file>
+                </megamenu>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <blocks>
+            <catalog>
+                <rewrite>
+                    <navigation>Smartwave_Megamenu_Block_Navigation</navigation>
+                    <!-- v1.4-1.6 -->
+                </rewrite>
+            </catalog>
+            <page>
+                <rewrite>
+                    <html_topmenu>Smartwave_Megamenu_Block_Topmenu</html_topmenu>
+                    <!-- v1.7 -->
+                </rewrite>
+            </page>
+            <megamenu>
+                <class>Smartwave_Megamenu_Block</class>
+            </megamenu>
+        </blocks>
+        <helpers>
+            <megamenu>
+                <class>Smartwave_Megamenu_Helper</class>
+            </megamenu>
+        </helpers>
+        <models>
+            <megamenu>
+                <class>Smartwave_Megamenu_Model</class>				
+            </megamenu>			
+        </models>
+        
+		<resources>
+			<megamenu_setup>
+				<setup>
+					<module>Smartwave_Megamenu</module>		
+					<class>Smartwave_Megamenu_Model_Resource_Eav_Mysql4_Setup</class>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</megamenu_setup>
+			<megamenu_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</megamenu_write>
+			<megamenu_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</megamenu_read>
+		</resources>      
+    </global>
+    <default>
+        <megamenu>
+            <general>
+                <enable>1</enable>
+                <wide_style>wide</wide_style>
+                <staticwidth>500px</staticwidth>
+                <display_empty_categories>1</display_empty_categories>
+                <show_home_link>1</show_home_link>
+                <show_home_icon>0</show_home_icon>
+                <home_icon>icon_home.png</home_icon>
+                <non_breaking_space>0</non_breaking_space>
+            </general>
+            <custom>
+                <custom_links>porto_custom_menu</custom_links>
+                <custom_mobile_links>porto_custom_menu_mobile</custom_mobile_links>
+            </custom>
+            <category_labels>
+                <label1>New</label1>
+                <label2>Hot!</label2>
+            </category_labels>
+        </megamenu>
+    </default>    
+</config>
+
+
+
+
+
+

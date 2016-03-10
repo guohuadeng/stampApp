@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+   <modules>
+       <AddThis_PluginsGeneral>
+           <version>2.3.0</version>
+       </AddThis_PluginsGeneral>
+   </modules>
+   <global>
+        <helpers>
+            <pluginsgeneral>
+                <class>AddThis_PluginsGeneral_Helper</class>
+            </pluginsgeneral>
+        </helpers>        
+        <resources>
+            <pluginsgeneral_setup>
+                <setup>
+                    <module>AddThis_PluginsGeneral</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </pluginsgeneral_setup>
+            <pluginsgeneral_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </pluginsgeneral_write>
+            <pluginsgeneral_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </pluginsgeneral_read>
+        </resources>
+    </global>
+   <adminhtml>
+        <acl>
+            <resources>
+		        <all>
+		            <title>Allow Everything</title>
+		        </all>            
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <plugins_general translate="title" module="pluginsgeneral">
+                                            <title>AddThis</title>
+                                            <sort_order>52</sort_order>
+                                        </plugins_general>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl> 
+    </adminhtml>
+</config>

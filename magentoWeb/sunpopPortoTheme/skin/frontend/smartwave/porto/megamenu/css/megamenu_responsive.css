@@ -1,0 +1,17 @@
+@media (max-width: 979px)  {
+    .fixed-header .menu-icon {
+        float: left;
+        position: relative;
+        top: 11px;
+        left: 10px;
+    }
+    .fixed-header .menu{
+        display: none;
+    }
+}
+
+@media (min-width: 992px) {
+	.mobile-nav-shown .mobile-nav, .mobile-nav-shown .home-side-menu .mobile-nav {
+	  display: none;
+	}
+}

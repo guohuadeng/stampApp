@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addJs"><script>smartwave/jquery/jquery-1.11.3.min.js</script></action>
+			<action method="addJs"><script>smartwave/jquery/jquery-migrate-1.2.1.min.js</script></action>
+            <action method="addJs"><script>smartwave/jquery/jquery-noconflict.js</script></action>
+            <action method="addJs" ifconfig="fullajax/general/enabled"><script>smartwave/jquery/jquery.form.min.js</script></action>
+            <action method="addJs" ifconfig="fullajax/general/enabled"><script>smartwave/jquery/jquery.ajax.js</script></action>
+            <block type="core/template" name="fullajax_js">
+                <action method="setTemplate" ifconfig="fullajax/general/enabled"><template>fullajax/js.phtml</template></action>
+            </block>
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/template" name="fullajax_loader">
+                <action method="setTemplate" ifconfig="fullajax/general/enabled"><template>fullajax/loader.phtml</template></action>
+            </block>
+        </reference>
+    </default>
+</layout>

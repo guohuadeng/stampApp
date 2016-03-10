@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Magegiant_Dailydeal>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Magegiant_Dailydeal>
+    </modules>
+</config>
