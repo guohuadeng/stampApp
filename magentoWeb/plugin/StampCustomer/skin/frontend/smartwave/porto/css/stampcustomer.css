@@ -18,6 +18,7 @@
 .product-tabs .tab-content	{padding: 10px 16px}
 .data-table .add-to-cart-alt  {width: 100px;}
 #wishlist-table textarea  {display: none;}
+.calendar {z-index: 10;}
 @media only screen and (min-width: 771px) {
   .product-options #tab_description_tabbed_contents dt {
     margin: 10px 0 3px;
@@ -27,7 +28,7 @@
     line-height: 41px;
   }
 
-  .product-options .stamp-input  {
+  .product-options .stamp-input {
     padding: 0 0 10px 0;
     margin: -42px 0 5px!important;
     border-bottom: 0px;

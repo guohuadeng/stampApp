@@ -8,7 +8,7 @@ class Alipaymate_Weixinlogin_ProcessingController extends Mage_Core_Controller_F
     }
 
     /**
-     * Redirect to weixin
+     * Redirect to Wechat
      */
     public function redirectAction()
     {
@@ -47,7 +47,7 @@ class Alipaymate_Weixinlogin_ProcessingController extends Mage_Core_Controller_F
             $info = $weixin->getUserInfo();
 
             if (! isset($info['unionid'])) {
-            	Mage::throwException($_helper->__('Sorry, Weixin login failed!'));
+            	Mage::throwException($_helper->__('Sorry, Wechat login failed!'));
             }
 
             /*
@@ -61,7 +61,7 @@ class Alipaymate_Weixinlogin_ProcessingController extends Mage_Core_Controller_F
 
             $identifierHelper = Mage::helper('weixinlogin/identifiers');
             $customer = $identifierHelper->getCustomer($info['unionid']);
-            
+
             if (!$customer || ! $customer->getId()) {
                 $customer = $identifierHelper->saveIdentifier($info);
             }

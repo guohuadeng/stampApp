@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Alipaymate_Weixin>
+            <version>6.0</version>
+        </Alipaymate_Weixin>
+    </modules>
+    <global>
+        <models>
+            <weixin>
+                <class>Alipaymate_Weixin_Model</class>
+                <resourceModel>weixin_resource</resourceModel>
+            </weixin>
+
+            <weixin_resource>
+                <class>Alipaymate_Weixin_Model_Resource</class>
+                <deprecatedNode>weixin_mysql4</deprecatedNode>
+            </weixin_resource>
+        </models>
+
+        <blocks>
+            <weixin>
+                <class>Alipaymate_Weixin_Block</class>
+            </weixin>
+        </blocks>
+
+        <helpers>
+            <weixin>
+                <class>Alipaymate_Weixin_Helper</class>
+            </weixin>
+        </helpers>
+    </global>
+
+    <frontend>
+        <secure_url>
+            <weixin_processing>/weixin/processing</weixin_processing>
+        </secure_url>
+        <routers>
+            <weixin>
+                <use>standard</use>
+                <args>
+                    <module>Alipaymate_Weixin</module>
+                    <frontName>weixin</frontName>
+                </args>
+            </weixin>
+        </routers>
+        <translate>
+            <modules>
+                <Alipaymate_Weixin>
+                    <files>
+                        <default>Alipaymate_Weixin.csv</default>
+                    </files>
+                </Alipaymate_Weixin>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <weixin>
+                    <file>alipaymate/weixin.xml</file>
+                </weixin>
+            </updates>
+        </layout>
+    </frontend>
+
+
+   <adminhtml>
+        <translate>
+            <modules>
+                <Alipaymate_Weixin>
+                    <files>
+                        <default>Alipaymate_Weixin.csv</default>
+                    </files>
+                </Alipaymate_Weixin>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <default>
+        <payment>
+            <weixin>
+                  <model>weixin/payment</model>
+                  <title> 微信支付 </title>
+                  <show_logo>1</show_logo>
+                  <enable_repay>1</enable_repay>
+                  <order_status_payment_accepted>processing</order_status_payment_accepted>
+                  <debug>1</debug>
+                  <allowspecific>0</allowspecific>
+                  <license>0a10ccf87518288311ef946f809e31ef3ce18225</license>
+            </weixin>
+        </payment>
+    </default>
+</config>

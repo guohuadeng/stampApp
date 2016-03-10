@@ -12,8 +12,8 @@ class Alipaymate_Weixinlogin_Block_Redirect extends Mage_Core_Block_Abstract
 
         $action        = $weixin->getWeixinUrl();
         $requestHtml   = $weixin->createRequestHtml();
-        $redirectText  = $this->__('You will be redirected to the Weixin website in a few seconds ...');
-        $redirectTitle = $this->__('Redirect to Weixin');
+        $redirectText  = $this->__('You will be redirected to the Wechat website in a few seconds ...');
+        $redirectTitle = $this->__('Redirect to Wechat');
 
         $html = <<<EOT
 <!DOCTYPE html>
