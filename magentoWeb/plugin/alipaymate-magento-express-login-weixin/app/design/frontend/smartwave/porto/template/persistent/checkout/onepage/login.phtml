@@ -98,13 +98,11 @@
             <p class="required"><?php echo $this->__('* Required Fields') ?></p>
             <a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>" class="f-left"><?php echo $this->__('Forgot your password?') ?></a>
             <button type="submit" class="button" onclick="onepageLogin(this)"><span><span><?php echo $this->__('Login') ?></span></span></button>
+            <?php if ($weixin = Mage::getModel('weixinlogin/login')) { ?>
+                <button title="<?php echo $this->quoteEscape(Mage::helper('weixinlogin')->__('Wechat Login')) ?>" class="btn btn-success" style="height:38px;" onclick="window.location='<?php echo $weixin->getRedirectURL() ?>'"><span><span><?php echo $this->quoteEscape(Mage::helper('weixinlogin')->__('Wechat Login')) ?></span></span></button>
+            <?php } ?>
         </div>
 
-        <?php if ($weixin = Mage::getModel('weixinlogin/login')) { ?>
-        <div class="buttons-set">
-            <a style="padding: 7px 15px; min-width: 140px;" title="<?php echo $this->quoteEscape(Mage::helper('weixinlogin')->__('Wechat Login')) ?>" class="button" href="<?php echo $weixin->getRedirectURL() ?>"><span><span><?php echo $this->quoteEscape(Mage::helper('weixinlogin')->__('Wechat Login')) ?></span></span></a>
-        </div>
-        <?php } ?>
 
         <script type="text/javascript">
           //如果是微信浏览器，就直接登录

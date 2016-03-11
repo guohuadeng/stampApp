@@ -177,8 +177,8 @@
         <div class="tab-content" id="tab_description_tabbed_contents">
           <dl>
                 <div class="row" style="margin:0;">
-                  <a class="col-xs-5 col-md-4 btn btn-lg entry btn-primary pull-left"><?php echo $this->__("快速录入");?></a>
-                  <a class="col-xs-5 col-md-4 btn btn-lg gonext btn-success pull-right hidden"><?php echo $this->__("下一步");?></a>
+                  <a class="col-xs-5 col-md-4 btn btn-lg gonext btn-success pull-right" id="nextstep"><?php echo $this->__("下一步");?></a>
+                  <a class="col-xs-5 col-md-4 btn btn-lg entry btn-primary pull-right"><?php echo $this->__("快速录入");?></a>
                 </div>
           <?php foreach($_options as $_option): ?>
               <?php if ($_option->getTitle()!=="印壳类型") {echo $this->getOptionHtml($_option);} ?>

@@ -6,7 +6,7 @@
     <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form">
         <?php echo $this->getBlockHtml('formkey'); ?>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="new-users form-wrap">
                     <div class="content">
                         <h2><?php echo $this->__('New Customers') ?></h2>
@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="registered-users form-wrap">
                     <div class="content">
                         <h2><?php echo $this->__('Registered Customers') ?></h2>
@@ -39,32 +39,32 @@
                             <?php echo $this->getChildHtml('persistent.remember.me'); ?>
                         </ul>
                         <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
-                        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
                     </div>
                     <div class="buttons-set">
                         <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="f-left"><?php echo $this->__('Forgot Your Password?') ?></a>
                         <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
                     </div>
-
-                    <?php if ($weixin = Mage::getModel('weixinlogin/login')) { ?>
-                    <div class="buttons-set">
-                        <a style="padding: 7px 15px; min-width: 140px;" title="<?php echo $this->quoteEscape(Mage::helper('weixinlogin')->__('Wechat Login')) ?>" class="button" href="<?php echo $weixin->getRedirectURL() ?>"><span><span><?php echo $this->quoteEscape(Mage::helper('weixinlogin')->__('Wechat Login')) ?></span></span></a>
-                    </div>
-                    <script type="text/javascript">
-                      //如果是微信浏览器，就直接登录
-                      function isWeiXin(){
-                         var ua = window.navigator.userAgent.toLowerCase();
-                         if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-                           return true;
-                          } else {
-                              return false;
-                          }
-                      }
-                      if (isWeiXin()) window.location = "<?php echo $weixin->getRedirectURL() ?>";
-                    </script>
-                    <?php } ?>
                 </div>
             </div>
+            <?php if ($weixin = Mage::getModel('weixinlogin/login')) { ?>
+              <div class="col-sm-4 wechat-users">
+                  <div class="content">
+                      <iframe  height="550" id="wechat-login" name="wechat-login" frameborder="0" scrolling="no" src="<?php echo $weixin->getRedirectURL() ?>"></iframe>
+                  </div>
+              </div>
+              <script type="text/javascript">
+                //如果是微信浏览器，就直接登录
+                function isWeiXin(){
+                   var ua = window.navigator.userAgent.toLowerCase();
+                   if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                     return true;
+                    } else {
+                        return false;
+                    }
+                }
+                if (isWeiXin()) window.location = "<?php echo $weixin->getRedirectURL() ?>";
+              </script>
+            <?php } ?>
         </div>
         <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
             <input name="context" type="hidden" value="checkout" />

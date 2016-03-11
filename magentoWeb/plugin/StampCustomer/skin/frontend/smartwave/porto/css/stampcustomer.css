@@ -19,6 +19,12 @@
 .data-table .add-to-cart-alt  {width: 100px;}
 #wishlist-table textarea  {display: none;}
 .calendar {z-index: 10;}
+.product-view .product-img-box  {margin-bottom: 10px!important;}
+.yinke ul.options-list label {font-size:20px;color:#0088cc;}
+.yinke ul.options-list input.radio  {margin-top:10px;}
+.yinke .row {margin:0;}
+.yinke img {width:100%;height:auto;}
+.yinke ul.options-list li {}
 @media only screen and (min-width: 771px) {
   .product-options #tab_description_tabbed_contents dt {
     margin: 10px 0 3px;
@@ -35,4 +41,5 @@
     width: 68%;
     float: right;
   }
+  .item-options dt,.item-options dd {display: inline-block!important;}
 }

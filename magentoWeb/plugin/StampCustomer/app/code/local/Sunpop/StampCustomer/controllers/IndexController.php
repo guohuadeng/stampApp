@@ -227,8 +227,8 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 						if(expdate){
 							$(".product-date").val(expdate);
 						}
-						/* jQuery(".results").empty();
-						jQuery(".stampcustomer").hide();*/
+						//jQuery(".results").empty();
+						jQuery(".stampcustomer").hide();
 					})
 					$(".sure").click(function(){
 						$(".stampcustomer").hide();

@@ -102,6 +102,13 @@
 			$(".stampcustomer .close").click(function(){
 				$(".stampcustomer").hide();
 			})
+			$("#nextstep").click(function(){
+				$("#tab_description_tabbed").removeClass("active");
+				$("#tab_review_tabbed").addClass("active");
+				$("#tab_description_tabbed_contents").toggle();
+				$("#tab_review_tabbed_contents").toggle();
+				console.log("lll");
+			})
 		})
 	//]}>
 	</script>
