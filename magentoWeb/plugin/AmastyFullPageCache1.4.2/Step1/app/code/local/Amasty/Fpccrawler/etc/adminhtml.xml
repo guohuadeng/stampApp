@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Fpccrawler
+ */
+-->
+<config>
+
+    <menu>
+        <report>
+            <children>
+                <amfpccrawler translate="title" module="amfpccrawler">
+                    <title>Amasty FPC Crawler</title>
+                    <sort_order>55</sort_order>
+                    <children>
+                        <amfpccrawler_stats translate="title" module="amfpccrawler">
+                            <title>Visual Stats</title>
+                            <action>amfpccrawler/adminhtml_stats</action>
+                            <sort_order>10</sort_order>
+                        </amfpccrawler_stats>
+                        <amfpccrawler_queue translate="title" module="amfpccrawler">
+                            <title>Queue</title>
+                            <action>amfpccrawler/adminhtml_queue</action>
+                            <sort_order>30</sort_order>
+                        </amfpccrawler_queue>
+                        <amfpccrawler_log translate="title" module="amfpccrawler">
+                            <title>Log</title>
+                            <action>amfpccrawler/adminhtml_log</action>
+                            <sort_order>20</sort_order>
+                        </amfpccrawler_log>
+                    </children>
+                </amfpccrawler>
+            </children>
+        </report>
+    </menu>
+
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <report>
+                        <children>
+                            <amfpccrawler>
+                                <title>Amasty FPC Crawler</title>
+                                <children>
+                                    <amfpccrawler_stats>
+                                        <title>Visual Status</title>
+                                    </amfpccrawler_stats>
+                                    <amfpccrawler_queue>
+                                        <title>Queue</title>
+                                    </amfpccrawler_queue>
+                                    <amfpccrawler_log>
+                                        <title>Log</title>
+                                    </amfpccrawler_log>
+                                </children>
+                            </amfpccrawler>
+                        </children>
+                    </report>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <amfpccrawler>
+                                        <title>Amasty FPC Crawler</title>
+                                    </amfpccrawler>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

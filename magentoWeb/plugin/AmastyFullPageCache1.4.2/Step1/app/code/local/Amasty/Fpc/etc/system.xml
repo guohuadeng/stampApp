@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Fpc
+ */
+-->
+<config>
+    <sections>
+        <amfpc translate="label" module="amfpc">
+            <label>Full Page Cache</label>
+            <tab>amasty</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>62116</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <page_lifetime translate="label comment">
+                            <label>Page Cache Lifetime</label>
+                            <comment>Hours</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </page_lifetime>
+                        <dynamic_blocks translate="label comment">
+                            <label>Enable Dynamic Blocks</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </dynamic_blocks>
+                        <block_lifetime translate="label comment">
+                            <label>Block Cache Lifetime</label>
+                            <comment>Hours</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <depends>
+                                <dynamic_blocks>1</dynamic_blocks>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_lifetime>
+                        <no_groups translate="label comment">
+                            <label>Single Customer Group</label>
+                            <comment>Don't separate a cache for different customer groups</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </no_groups>
+                    </fields>
+                </general>
+                <pages translate="label">
+                    <label>Pages</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <all translate="label comment">
+                            <label>Cache All Pages</label>
+                            <comment>When this option is enabled, please make sure that all pages with private information are added to 'Ignore List' field and are not cached. E.g. redirect pages of payment gateways, pages with payment forms, account information, etc.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </all>
+                        <ignore_list translate="label comment">
+                            <label>Ignore List</label>
+                            <comment>Prevent Caching of These Pages</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ignore_list>
+                        <ignored_params translate="label comment">
+                            <label>GET Params To Bypass Cache</label>
+                            <comment>Pages with URLs containing specified GET params will not be cached.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </ignored_params>
+                        <disregard_params translate="label comment">
+                            <label>GET Params To Ignore</label>
+                            <comment>URLs with specified parameters will be cached as same pages compared to URLs with no these parameters to avoid duplication.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </disregard_params>
+                    </fields>
+                </pages>
+                <product translate="label">
+                    <label>Product</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <flush_on_purchase translate="label comment">
+                            <label>Flush Product Page Cache After Each Purchase</label>
+                            <comment>Might be useful when you show current stock level.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>amfpc/config_source_flushOnPurchase</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </flush_on_purchase>
+                    </fields>
+                </product>
+                <category translate="label">
+                    <label>Category</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <flush_all translate="label comment">
+                            <label>Flush Entire Page Cache After Each Category Update</label>
+                            <comment>May be useful to keep you navigation menu up to date.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </flush_all>
+                    </fields>
+                </category>
+                <mobile translate="label">
+                    <label>Mobile Design</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <agents translate="label comment">
+                            <label>User Agents</label>
+                            <comment>Regular expression</comment>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </agents>
+                    </fields>
+                </mobile>
+                <compression translate="label">
+                    <label>Cache Storage Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>60</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <entities translate="label comment">
+                            <label>Enable GZIP</label>
+                            <comment>Increases CPU load, but can lower required storage size.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>amfpc/config_source_compression</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </entities>
+                        <level translate="label comment">
+                            <label>Compression Level</label>
+                            <comment>From 0 to 9. The higher value is, more CPU capacity is required to compress data.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </level>
+                        <max_size translate="label comment">
+                            <label>Maximum Storage Size</label>
+                            <disabled>1</disabled>
+                            <comment>In Megabytes. Available for DB cache storage only.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </max_size>
+                    </fields>
+                </compression>
+                <robots translate="label">
+                    <label>Search Engines</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>70</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <boost_robots translate="label comment">
+                            <label>Don't Start Session for Search Engines</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </boost_robots>
+                        <agents translate="label comment">
+                            <label>User Agents</label>
+                            <comment>Regular expression</comment>
+                            <depends>
+                                <boost_robots>1</boost_robots>
+                            </depends>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </agents>
+                    </fields>
+                </robots>
+                <stats translate="label">
+                    <label>Statistics</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>80</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <visits translate="label comment">
+                            <label>Collect Page Visit Statistics</label>
+                            <comment>Used by crawler extension</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </visits>
+                    </fields>
+                </stats>
+                <regen translate="label">
+                    <label>Cache Regeneration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>90</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <by_visitor translate="label comment">
+                            <label>Reset Page Lifetime When It Visited By Customer</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </by_visitor>
+                        <crawler_action translate="label comment">
+                            <label>Crawler Action</label>
+                            <comment>Action performed when crawler requests already crawled page</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>amfpc/config_source_crawlerAction</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </crawler_action>
+                    </fields>
+                </regen>
+                <debug translate="label">
+                    <label>Developer Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <hints translate="label comment">
+                            <label>Enable Debug Hints</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hints>
+                        <load_time translate="label comment">
+                            <label>Show Time Stats</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </load_time>
+                        <hidden_stats translate="label comment">
+                            <label>Hidden Stats in HTML Comment</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hidden_stats>
+                        <block_info translate="label comment">
+                            <label>Display All Block Names</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </block_info>
+                        <block_templates translate="label comment">
+                            <label>Display Block Template Path</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <depends>
+                                <block_info>1</block_info>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </block_templates>
+                        <ip translate="label comment">
+                            <label>Show Debug Information Only For</label>
+                            <comment>Comma separated IP addresses</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </ip>
+                    </fields>
+                </debug>
+            </groups>
+        </amfpc>
+    </sections>
+</config>

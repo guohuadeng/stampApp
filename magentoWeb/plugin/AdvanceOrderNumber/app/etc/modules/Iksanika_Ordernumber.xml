@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-    <modules>
-        <Iksanika_Ordernumber>
-            <active>true</active>
-            <codePool>community</codePool>
-        </Iksanika_Ordernumber>
-    </modules>
-</config>

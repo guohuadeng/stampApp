@@ -1,0 +1,113 @@
+<div class="stampcustomer">
+	<?php $product = Mage::registry('current_product');?>
+	<h1> <?php echo $product->getName(); ?><a class="close">×</a></h1>
+	<form action="<?php echo $this->getUrl('stampcustomer/index/ajax'); ?>" method="post" id="ajaxstampcustomer_form">
+		<?php echo $this->getBlockHtml('formkey'); ?>
+		<div class="fieldset">
+			<ul class="form-list">
+				<li>
+					<label for="a_state"><?php echo $this->__("注册区域"); ?></label>
+					<?php $states = Mage::helper("stampcustomer")->getState(); ?>
+					<?php if(count($states)>0): ?>
+					<select name="a_state" id="a_state" class="form-control">
+						<?php foreach($states as $index=>$state):?>
+							<option value="<?php echo $index?>"> <?php echo $state?></option>
+						<?php endforeach;?>
+					</select>
+					<?php else: ?>
+					<input type="text" name="a_state" id="a_state" class="form-control" />
+					<?php endif; ?>
+				</li>
+				<li>
+					<label for="a_name"><?php echo $this->__("姓名"); ?></label>
+					<input type="text" class="form-control" name="a_name" id="a_name" />
+			<input type="hidden" name="a_certtype" id="a_certtype" value=<?php echo $product->getName(); ?> />
+				</li>
+				<li>
+					<label for="a_company"><?php echo $this->__("公司"); ?></label>
+					<input type="text" class="form-control" name="a_company" id="a_company" />
+				</li>
+				<li>
+					<label for="a_certsn"><?php echo $this->__("注册号"); ?></label>
+					<input type="text" class="form-control" name="a_certsn" id="a_certsn" />
+				</li>
+				<li>
+					<label for="a_stampsn"><?php echo $this->__("印章号"); ?></label>
+					<input type="text" class="form-control" name="a_stampsn" id="a_stampsn" />
+				</li>
+			</ul>
+		</div>
+	</form>
+	<div class="row">
+	  <button type="button" class="col-xs-5 col-md-4 btn btn-lg btn-primary pull-right" onclick="AjaxStampcustomer.submit(this)"><?php echo $this->__("Search");?></button>
+	</div>
+	<div class="results">
+
+	</div>
+</div>
+<div class="yinke1 hidden">
+  <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('yinke1')->toHtml() ?>
+</div>
+<div class="yinke2 hidden">
+  <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('yinke2')->toHtml() ?>
+</div>
+<div class="yinke3 hidden">
+  <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('yinke3')->toHtml() ?>
+</div>
+
+<script type="text/javascript">
+	//<!{CDATA[
+		var AjaxStampcustomer  = new VarienForm('ajaxstampcustomer_form');
+		AjaxStampcustomer.submit = function(button){
+            if (this.validator.validate()) {
+                var url = jQuery("#ajaxstampcustomer_form").attr('action');
+				var a_name = jQuery("#a_name").val();
+				var a_company = jQuery("#a_company").val();
+				var a_certsn = jQuery("#a_certsn").val();
+				var a_stampsn = jQuery("#a_stampsn").val();
+				if(!a_name && !a_company && !a_certsn && !a_stampsn){
+					jQuery(".stampcustomer .fieldset").append('<div class="validation-advice advice-required-entry-a" >姓名,公司,注册号,印章号至少要填写一个</div>');
+					setTimeout(function () {
+						jQuery(".stampcustomer div.advice-required-entry-a").remove();
+					}, 2000);
+
+				}else{
+					jQuery.ajax({
+						type: "POST",
+						url: url,
+						dataType: "json",
+						data:jQuery("#ajaxstampcustomer_form").serialize(),
+						success: function(json) {
+							if(json.status){
+								jQuery(".results").empty().append(json.html);
+								jQuery(".sure").show();
+							}else{
+								jQuery(".results").empty().append(json.message);
+								jQuery(".sure").hide();
+							}
+						}
+					});
+				}
+            }
+        }.bind(AjaxStampcustomer);
+		jQuery(function($){
+			$(".yinke ul  li:eq(0)").append($(".yinke1").html() );
+			$(".yinke ul  li:eq(1)").append($(".yinke2").html() );
+			$(".yinke ul  li:eq(2)").append($(".yinke3").html() );
+			$(".entry").click(function(){
+				$(".stampcustomer").toggle();
+
+			});
+			$(".stampcustomer .close").click(function(){
+				$(".stampcustomer").hide();
+			})
+			$("#nextstep").click(function(){
+				$("#tab_description_tabbed").removeClass("active");
+				$("#tab_review_tabbed").addClass("active");
+				$("#tab_description_tabbed_contents").toggle();
+				$("#tab_review_tabbed_contents").toggle();
+				console.log("lll");
+			})
+		})
+	//]}>
+	</script>

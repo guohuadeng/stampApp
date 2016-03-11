@@ -15,7 +15,7 @@
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin" web="/" />
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi" web="/" />
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native" web="/" />
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/sunpopPortoTheme" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/amastyCustomerAttr" web="/" />
           </mappings>
         </serverdata>
       </paths>

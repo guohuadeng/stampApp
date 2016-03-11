@@ -1,0 +1,44 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Fpccrawler
+ */
+?>
+<div>
+    <?php if ($this->getTitle()): ?>
+        <div class="content-header">
+            <table cellspacing="0">
+                <tbody>
+                <tr>
+                    <td style="width:50%;"><h3 class="icon-head head-system-variable"><?php echo $this->getTitle(); ?></h3></td>
+                    <td class="form-buttons"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <?php endif ?>
+    <?php if (!empty($tabs)): ?>
+        <ul id="<?php echo $this->getId() ?>" class="tabs-horiz">
+            <?php foreach ($tabs as $_tab): ?>
+                <li>
+                    <a href="<?php echo $this->getTabUrl($_tab) ?>" id="<?php echo $this->getTabId($_tab) ?>"
+                       title="<?php echo $this->getTabTitle($_tab) ?>"
+                       class="tab-item-link <?php echo $this->getTabClass($_tab) ?><?php if (preg_match('/\s?ajax\s?/', $this->getTabClass($_tab))) { ?> notloaded<?php } ?>">
+                        <span>
+                            <?php echo $this->getTabLabel($_tab) ?>
+                        </span>
+                    </a>
+
+                    <div id="<?php echo $this->getTabId($_tab) ?>_content" style="display:none"><?php echo $this->getTabContent($_tab) ?></div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        <script type="text/javascript">
+
+            <?php echo $this->getId() ?>JsTabs = new varienTabs('<?php echo $this->getId() ?>', '<?php echo $this->getDestElementId() ?>', '<?php echo $this->getActiveTabId() ?>', <?php echo $this->getAllShadowTabs()?>);
+        </script>
+    <?php endif; ?>
+
+    <div id="diagram_tab_content"></div>
+</div>

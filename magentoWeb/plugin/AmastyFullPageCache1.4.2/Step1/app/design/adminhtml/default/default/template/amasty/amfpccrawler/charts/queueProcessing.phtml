@@ -1,0 +1,32 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Fpccrawler
+ */
+?>
+<?php if ($this->getProcessing()) {
+    $data = $this->getProcessing();
+    if ($this->getForAdminNotice()) { ?>
+        <b>Current queue approximate processing time is <?php echo date("i", $data['queueProcessingTime']); ?> minutes</b>.
+        Click here for <a href="<?php echo Mage::helper("adminhtml")->getUrl('amfpccrawler/adminhtml_stats') ?>">detailed info</a>.
+    <?php } else { ?>
+        <div class="amfpccrawler processing">
+            <div>
+                <b>Approximate queue time processing:</b><br/>
+                <b> - all queue</b>: <b><?php echo date("H:i:s", $data['queueProcessingTime']); ?></b><br/>
+                <b> - one cron job</b>: <b><?php echo date("H:i:s", $data['cronProcessingTime']); ?></b><br/>
+
+                <div class="stats" style="padding-top: 10px;">
+                    <ul>
+                        <li>Queue URLs count: <b><?php echo $data['queueRowsCount']; ?></b> links</li>
+                        <li>Average processing time per URL: <b><?php echo round($data['avgProcessingTime'], 1); ?></b> seconds</li>
+                        <li>Number of options for each URL retrieve: <b><?php echo $data['urlOptionsCount']; ?></b> variants</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+<?php } else { ?>
+    <div id="amfpccrawler_chart_time">There are no stats available for now.</div>
+<?php } ?>

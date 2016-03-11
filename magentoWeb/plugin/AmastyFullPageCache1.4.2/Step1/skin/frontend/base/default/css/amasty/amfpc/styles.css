@@ -1,0 +1,124 @@
+/* Block hints */
+
+.amfpc-block-info
+{
+    position:relative;
+    border:1px dotted #008080;
+    margin:6px 2px;
+    padding:18px 2px 2px 2px;
+    zoom: 1;
+}
+
+.amfpc-block-info:hover
+{
+    border-color: orange !important;
+}
+
+.amfpc-block-info>.amfpc-block-handle,
+.amfpc-block-info>.amfpc-template-info
+{
+    position:absolute;
+    top:0;
+    padding:2px 5px;
+    background:#008080;
+    color:white;
+    font:normal 11px Arial;
+    text-align:left !important;
+    z-index:998;
+    text-transform: none;
+}
+
+.amfpc-block-info>.amfpc-block-handle:hover,
+.amfpc-block-info>.amfpc-template-info:hover
+{
+    z-index:999;
+}
+
+.amfpc-block-info>.amfpc-block-handle
+{
+    cursor: default;
+    left:0;
+    white-space: nowrap;
+}
+
+.amfpc-block-info>.amfpc-template-info
+{
+    right:0;
+}
+
+.amfpc-block-info>.amfpc-block-handle:hover
+{
+    background-color: orange !important;
+}
+
+.amfpc-block-info.active
+{
+    -webkit-animation: amfpc-blocks 1s linear .5s infinite alternate;
+    animation: amfpc-blocks 1s linear .5s infinite alternate;
+}
+
+@-webkit-keyframes amfpc-blocks {
+    from {opacity: 1;}
+    to {opacity: .1;}
+}
+
+@keyframes amfpc-blocks {
+    from {opacity: 1;}
+    to {opacity: .1;}
+}
+
+/* Updated blocks */
+
+.amfpc-block-info.updated
+{
+    border-color: red;
+}
+
+.amfpc-block-info.updated>.amfpc-block-handle
+{
+    top:0;
+    background:red;
+}
+
+/* Status popup */
+
+.amfpc-info
+{
+    width: 350px;
+    min-height: 95px;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background: #008080;
+    color: #fff;
+    z-index: 99999;
+    font-size: 32px;
+}
+
+.amfpc-info h1
+{
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 2px 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.amfpc-info h2
+{
+    margin-top: 12px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.help-box .content
+{
+    padding: 2px 5px 10px 5px;
+}
+
+.amfpc-info .content
+{
+    line-height: 48px;
+}

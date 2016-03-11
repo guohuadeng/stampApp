@@ -1,0 +1,60 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Fpccrawler
+ */
+?>
+<?php if ($this->getLoad()) { ?>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load('visualization', '1', {packages: ['corechart']});
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Url');
+            data.addColumn('number', 'Max Page Load Time');
+            data.addColumn({type: 'string', role: 'tooltip'});
+
+            data.addRows([
+                <?php
+                    foreach($this->getLoad() as $item) {
+                        echo "[ '".$item['url']."', ". $item['page_load'].", 'URL: ".$item['url'].". Page Rate: ". $item['rate']. ". Date: ". strftime('%G/%m/%d',$item['date'])."' ], \r\n";
+                    }
+                ?>
+            ]);
+
+            var options = {
+                width: 1000,
+                height: 563,
+                hAxis: {
+                    title: 'Max Page Load Time (s)'
+                },
+                vAxis: {
+                    title: 'Pages',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 1
+                    }
+                },
+                bars: 'vertical',
+                tooltip: {
+                    isHtml: true,
+                    trigger: 'focus'
+                }
+            };
+
+            var chart = new google.visualization.BarChart(
+                document.getElementById('amfpccrawler_chart_time'));
+
+            chart.draw(data, options);
+
+        }
+    </script>
+
+    <div id="amfpccrawler_chart_time"></div>
+<?php } else { ?>
+    <div id="amfpccrawler_chart_time">There are no stats available for now.</div>
+<?php } ?>

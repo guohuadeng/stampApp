@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Fpccrawler
+ */
+-->
+<config>
+    <modules>
+        <Amasty_Fpccrawler>
+            <version>1.0.4</version>
+        </Amasty_Fpccrawler>
+    </modules>
+
+    <global>
+        <models>
+            <amfpccrawler>
+                <class>Amasty_Fpccrawler_Model</class>
+                <resourceModel>amfpccrawler_resource</resourceModel>
+            </amfpccrawler>
+            <amfpccrawler_resource>
+                <class>Amasty_Fpccrawler_Model_Resource</class>
+                <entities>
+                    <queue>
+                        <table>amasty_amfpccrawler_queue</table>
+                    </queue>
+                    <log>
+                        <table>amasty_amfpccrawler_log</table>
+                    </log>
+                </entities>
+            </amfpccrawler_resource>
+        </models>
+
+        <resources>
+            <amfpccrawler_setup>
+                <setup>
+                    <module>Amasty_Fpccrawler</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </amfpccrawler_setup>
+
+            <amfpccrawler_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </amfpccrawler_write>
+
+            <amfpccrawler_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </amfpccrawler_read>
+        </resources>
+
+        <helpers>
+            <amfpccrawler>
+                <class>Amasty_Fpccrawler_Helper</class>
+            </amfpccrawler>
+        </helpers>
+
+        <blocks>
+            <amfpccrawler>
+                <class>Amasty_Fpccrawler_Block</class>
+            </amfpccrawler>
+        </blocks>
+
+        <events>
+            <controller_action_predispatch_adminhtml_system_config_edit>
+                <observers>
+                    <amfpccrawler>
+                        <class>amfpccrawler/observer</class>
+                        <method>checkCURL</method>
+                    </amfpccrawler>
+                </observers>
+            </controller_action_predispatch_adminhtml_system_config_edit>
+        </events>
+    </global>
+
+    <admin>
+        <routers>
+            <amfpccrawler_admin>
+                <use>admin</use>
+                <args>
+                    <module>Amasty_Fpccrawler</module>
+                    <frontName>amfpccrawler</frontName>
+                </args>
+            </amfpccrawler_admin>
+        </routers>
+    </admin>
+
+    <crontab>
+        <jobs>
+            <amfpccrawler_generate>
+                <schedule>
+                    <cron_expr>0 */12 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>amfpccrawler/observer::generateQueue</model>
+                </run>
+            </amfpccrawler_generate>
+            <amfpccrawler_process>
+                <schedule>
+                    <cron_expr>*/5 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>amfpccrawler/observer::processQueue</model>
+                </run>
+            </amfpccrawler_process>
+        </jobs>
+    </crontab>
+
+    <default>
+        <amfpccrawler>
+            <general>
+                <enabled>1</enabled>
+            </general>
+            <options>
+                <accepted_status>200,201,202,203,204,205,206</accepted_status>
+                <mobile_agent>Android</mobile_agent>
+            </options>
+            <queue>
+                <source>fpc</source>
+                <process_limit>50</process_limit>
+                <queue_limit>1000</queue_limit>
+            </queue>
+            <log>
+                <limit>50000</limit>
+            </log>
+            <advanced>
+                <show_notifications>1</show_notifications>
+            </advanced>
+        </amfpccrawler>
+    </default>
+
+    <frontend>
+        <routers>
+            <amfpccrawler_front>
+                <use>standard</use>
+                <args>
+                    <module>Amasty_Fpccrawler</module>
+                    <frontName>amfpccrawler</frontName>
+                </args>
+            </amfpccrawler_front>
+        </routers>
+    </frontend>
+</config>

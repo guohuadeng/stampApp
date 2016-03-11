@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Fpc
+ */
+-->
+<config>
+    <modules>
+        <Amasty_Fpc>
+            <version>1.4.2</version>
+        </Amasty_Fpc>
+    </modules>
+
+    <global>
+        <helpers>
+            <amfpc>
+                <class>Amasty_Fpc_Helper</class>
+            </amfpc>
+        </helpers>
+        <blocks>
+            <amfpc>
+                <class>Amasty_Fpc_Block</class>
+            </amfpc>
+            <core>
+                <rewrite>
+                    <messages>Amasty_Fpc_Block_Messages</messages>
+                </rewrite>
+            </core>
+        </blocks>
+        <cache>
+            <types>
+                <amfpc translate="label,description" module="amfpc">
+                    <label>Amasty Full Page Cache</label>
+                    <description>Cache for frontend pages.</description>
+                    <tags>AMFPC</tags>
+                </amfpc>
+            </types>
+        </cache>
+        <models>
+            <amfpc>
+                <class>Amasty_Fpc_Model</class>
+                <resourceModel>amfpc_resource</resourceModel>
+            </amfpc>
+            <amfpc_resource>
+                <class>Amasty_Fpc_Model_Resource</class>
+                <entities>
+                    <stats>
+                        <table>amasty_amfpc_stats</table>
+                    </stats>
+                    <url>
+                        <table>amasty_amfpc_url</table>
+                    </url>
+                </entities>
+            </amfpc_resource>
+        </models>
+
+        <resources>
+            <amfpc_setup>
+                <setup>
+                    <module>Amasty_Fpc</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </amfpc_setup>
+
+            <amfpc_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </amfpc_write>
+
+            <amfpc_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </amfpc_read>
+        </resources>
+
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>actionPredispatch</method>
+                    </amfpc>
+                </observers>
+            </controller_action_predispatch>
+            <cataloginventory_stock_item_save_after>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>flushOutOfStockCache</method>
+                    </amfpc>
+                </observers>
+            </cataloginventory_stock_item_save_after>
+            <application_clean_cache>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onApplicationCleanCache</method>
+                    </amfpc>
+                </observers>
+            </application_clean_cache>
+            <sales_model_service_quote_submit_success>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onQuoteSubmitSuccess</method>
+                    </amfpc>
+                </observers>
+            </sales_model_service_quote_submit_success>
+            <amfpccrawler_process_link>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onCrawlerProcessLink</method>
+                    </amfpc>
+                </observers>
+            </amfpccrawler_process_link>
+            <review_save_after>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onReviewSaveAfter</method>
+                    </amfpc>
+                </observers>
+            </review_save_after>
+        </events>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <amfpc>
+                    <file>amasty/amfpc/amfpc.xml</file>
+                </amfpc>
+            </updates>
+        </layout>
+
+        <events>
+            <http_response_send_before>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onHttpResponseSendBefore</method>
+                    </amfpc>
+                </observers>
+            </http_response_send_before>
+
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>afterToHtml</method>
+                    </amfpc>
+                </observers>
+            </core_block_abstract_to_html_after>
+            <controller_action_layout_render_before>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>layoutRenderBefore</method>
+                    </amfpc>
+                </observers>
+            </controller_action_layout_render_before>
+            <customer_login>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onCustomerLogin</method>
+                    </amfpc>
+                </observers>
+            </customer_login>
+            <sales_quote_save_after>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onQuoteSaveAfter</method>
+                    </amfpc>
+                </observers>
+            </sales_quote_save_after>
+            <customer_logout>
+                <observers>
+                    <amfpc_login_logout>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onCustomerLoginLogout</method>
+                    </amfpc_login_logout>
+                </observers>
+            </customer_logout>
+            <customer_login>
+                <observers>
+                    <amfpc_login_logout>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onCustomerLoginLogout</method>
+                    </amfpc_login_logout>
+                </observers>
+            </customer_login>
+        </events>
+    </frontend>
+
+    <adminhtml>
+        <events>
+            <controller_action_predispatch_adminhtml_cache_massRefresh>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onMassRefreshAction</method>
+                    </amfpc>
+                </observers>
+            </controller_action_predispatch_adminhtml_cache_massRefresh>
+            <controller_action_predispatch_adminhtml_cache_flushAll>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/fpc</class>
+                        <method>flush</method>
+                    </amfpc>
+                </observers>
+            </controller_action_predispatch_adminhtml_cache_flushAll>
+            <controller_action_predispatch_adminhtml_cache_flushSystem>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/fpc</class>
+                        <method>flush</method>
+                    </amfpc>
+                </observers>
+            </controller_action_predispatch_adminhtml_cache_flushSystem>
+
+            <adminhtml_cache_refresh_type>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onRefreshType</method>
+                    </amfpc>
+                </observers>
+            </adminhtml_cache_refresh_type>
+            <adminhtml_cache_flush_all>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/fpc</class>
+                        <method>flush</method>
+                    </amfpc>
+                </observers>
+            </adminhtml_cache_flush_all>
+            <model_save_before>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onModelSaveBefore</method>
+                    </amfpc>
+                </observers>
+            </model_save_before>
+            <catalog_category_save_commit_after>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onCategorySaveAfter</method>
+                    </amfpc>
+                </observers>
+            </catalog_category_save_commit_after>
+            <adminhtml_init_system_config>
+                <observers>
+                    <amfpc>
+                        <type>singleton</type>
+                        <class>amfpc/observer</class>
+                        <method>onAdminhtmlInitSystemConfig</method>
+                    </amfpc>
+                </observers>
+            </adminhtml_init_system_config>
+        </events>
+    </adminhtml>
+
+    <default>
+        <amfpc>
+            <general>
+                <page_lifetime>72</page_lifetime>
+                <block_lifetime>2</block_lifetime>
+                <dynamic_blocks>1</dynamic_blocks>
+            </general>
+            <pages>
+                <all>0</all>
+                <ignore_list><![CDATA[checkout
+onepage
+^/customer/
+/paypal/
+/paypaluk/
+^/catalog/product_compare/
+^/wishlist/
+^/sales/order/
+^/amlist/
+^/svm/svmPayment/
+^/securehosting/
+/redirect/
+/inipay/
+/payment/
+/sgps/
+/msp/
+/aw_recurring/
+/magesetup
+]]></ignore_list>
+                <ignored_params>price</ignored_params>
+                <disregard_params>gclid</disregard_params>
+            </pages>
+            <mobile>
+                <enabled>0</enabled>
+                <agents>iPhone|iPod|BlackBerry|Palm|Googlebot-Mobile|Mobile|mobile|mobi|Windows Mobile|Safari Mobile|Android|Opera Mini</agents>
+            </mobile>
+            <robots>
+                <boost_robots>1</boost_robots>
+                <agents>Googlebot|bingbot|YandexBot|yahoo|msnbot|PTST</agents>
+            </robots>
+            <compression>
+                <level>6</level>
+                <max_size>0</max_size>
+            </compression>
+            <regen>
+                <by_visitor>1</by_visitor>
+                <crawler_action>1</crawler_action>
+            </regen>
+        </amfpc>
+    </default>
+    <crontab>
+        <jobs>
+            <amfpc_clean_cache>
+                <schedule>
+                    <cron_expr>0 */2 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>amfpc/observer::cleanCache</model>
+                </run>
+            </amfpc_clean_cache>
+        </jobs>
+    </crontab>
+</config>

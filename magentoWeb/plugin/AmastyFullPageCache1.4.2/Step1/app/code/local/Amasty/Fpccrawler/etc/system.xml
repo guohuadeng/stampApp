@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Fpccrawler
+ */
+-->
+<config>
+    <sections>
+        <amfpccrawler translate="label" module="amfpccrawler">
+            <label>Full Page Cache Crawler</label>
+            <tab>amasty</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>62117</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable crawler</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <customer_group translate="label">
+                            <label>Customer Groups</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>amfpccrawler/source_groups</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </customer_group>
+                        <currency translate="label">
+                            <label>Currency</label>
+                            <sort_order>30</sort_order>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_currency</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </currency>
+                        <store translate="label">
+                            <label>Stores</label>
+                            <sort_order>30</sort_order>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_store</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </store>
+                        <mobile translate="label">
+                            <label>Process mobile view</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </mobile>
+                    </fields>
+                </general>
+                <options>
+                    <label>Crawler Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <accepted_status translate="label comment">
+                            <label>Accepted URL Status</label>
+                            <comment>Valid server response header for request</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </accepted_status>
+                        <mobile_agent translate="label comment">
+                            <label>Mobile Agent</label>
+                            <comment>This text will be sent as header on mobile request</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </mobile_agent>
+                    </fields>
+                </options>
+                <queue>
+                    <label>Queue Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <queue_limit>
+                            <label>Queue Max Size</label>
+                            <comment>Maximal number of rows in the query table</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </queue_limit>
+                        <process_limit>
+                            <label>Queue Process Limit</label>
+                            <comment>One cron run will process that number of rows</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </process_limit>
+                        <source>
+                            <label>Query Generation Source</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>amfpccrawler/source_sources</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Links for query will be extracted from given source</comment>
+                        </source>
+                        <queue_file_path translate="label comment">
+                            <label>Queue links file path</label>
+                            <comment>
+                                <![CDATA[Please, give the full path to file on server. <br/>Example: /var/www/sitename/var/tmp/queue_links.txt]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <source>file</source>
+                            </depends>
+                        </queue_file_path>
+                    </fields>
+                </queue>
+                <log>
+                    <label>Logging Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <limit>
+                            <label>Log Max Size</label>
+                            <comment>Maximal number of rows in the log table</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </limit>
+                    </fields>
+                </log>
+                <process>
+                    <label>Force cron job actions</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <generate translate="label">
+                            <label>Generate queue</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>amfpccrawler/adminhtml_ajaxGenerate</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </generate>
+                        <process translate="label">
+                            <label>Process queue</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>amfpccrawler/adminhtml_ajaxProcess</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </process>
+                    </fields>
+                </process>
+                <advanced>
+                    <label>Advanced</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>60</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <show_notifications translate="label">
+                            <label>Show warnings and notifications</label>
+                            <comment>Enables output of notifications and warnings about cron task execution time.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </show_notifications>
+                    </fields>
+                </advanced>
+            </groups>
+        </amfpccrawler>
+    </sections>
+</config>

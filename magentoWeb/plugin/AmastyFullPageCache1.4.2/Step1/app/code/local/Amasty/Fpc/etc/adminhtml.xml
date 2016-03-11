@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Fpc
+ */
+-->
+<config>
+    <translate>
+        <modules>
+            <Amasty_Fpc>
+                <files>
+                    <default>Amasty_Fpc.csv</default>
+                </files>
+            </Amasty_Fpc>
+        </modules>
+    </translate>
+
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <amfpc translate="title" module="amfpc">
+                                        <title>Amasty Full Page Cache</title>
+                                    </amfpc>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

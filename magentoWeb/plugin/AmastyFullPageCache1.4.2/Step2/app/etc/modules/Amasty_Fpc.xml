@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Fpc
+ */
+-->
+<config>
+    <modules>
+        <Amasty_Fpc>
+            <active>true</active>
+            <codePool>local</codePool>
+            <edition>community</edition>
+        </Amasty_Fpc>
+    </modules>
+</config>

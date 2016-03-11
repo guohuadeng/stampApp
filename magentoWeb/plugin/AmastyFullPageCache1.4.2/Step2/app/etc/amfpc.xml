@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Fpc
+ */
+-->
+<config>
+    <global>
+        <cache>
+            <request_processors>
+                <amfpc>Amasty_Fpc_Model_Fpc_Front</amfpc>
+            </request_processors>
+        </cache>
+        <amfpc>
+            <!-- Dynamic blocks -->
+            <blocks>
+                <!-- Common block structure:
+
+                    <blockname attribute1=value1 attribute2=value2>
+
+                        <route>route1</route>
+
+                        OR
+
+                        <routes>
+                            <routename1>route1</routename1>
+                            <routename2>route2</routename2>
+                            ...
+                            <routenameN>routeN</routenameN>
+                        </routes>
+
+                        <tags>tag1,tag2,...tagN</tags>
+                    </blockname>
+
+                    Where "blockname" is block name in layout. Use "Display all block names" setting to see all block names.
+                    Supported attributes:
+                        cart="1"        Block will be invalidated on cart update
+                        customer="1"    Block will be invalidated on customer login/logout
+                        persistent="1"  Block depends on "persistent_shopping_cart" cooke("remember me" checkbox)
+                        scope="url"     Block state depends on current url. Used for Product Parts Finder extension, etc.
+
+                    routename1..N  - Any unique name
+                    route1..N      - Magento route in front/controller/action format
+                                     Supported patterns: * - any, (item1|item2|item3) - any of enumerated items
+                                     Block cache will be invalidated when customer gets to described route(s)
+                -->
+
+
+                <!-- variant 1: separate login and info and cart info -->
+                <welcome customer="1" />
+                <top.links customer="1" cart="1" />
+
+                <minicart_head cart="1" />
+                <cart_sidebar cart="1" />
+                <cart_header cart="1" />
+                <cart.info cart="1" />
+                <mycart cart="1" />
+                <topcart cart="1" />
+
+                <!-- variant 2: login info and cart described by common block "header" -->
+                <!--<header persistent="1" customer="1" cart="1" />-->
+
+                <!--<store_language store_switcher="1" />-->
+
+                <catalog.compare.sidebar>
+                    <route>catalog/product_compare/(add|remove|clear)</route>
+                    <tags>catalog_product</tags>
+                </catalog.compare.sidebar>
+                <sale.reorder.sidebar customer="1">
+                    <route>checkout/onepage/saveOrder</route>
+                </sale.reorder.sidebar>
+
+                <wishlist_sidebar>
+                    <route>wishlist/index/*</route>
+                </wishlist_sidebar>
+<!--
+                <amfinder89 scope="url">
+                    <route>amfinder/index/search</route>
+                    <tags>catalog_product</tags>
+                </amfinder89>
+                <product_list scope="url">
+                    <route>amfinder/index/search</route>
+                    <tags>catalog_product</tags>
+                </product_list>
+-->
+
+                <!-- Custom blocks
+
+                You can surround any part of .phtml template
+                with <amfpc name="customblockname"></amfpc> tag
+                to add a hole punch for this template fragment
+                Custom blocks requires a "parent" attribute
+
+                -->
+
+<!--
+                <custom_login customer="1" parent="header" />
+                <custom_cart cart="1" parent="header" />
+-->
+            </blocks>
+
+            <!-- Pages -->
+            <routes>
+                <product>
+                    <path>catalog/product/view</path>
+                    <tags>catalog_product_{id}</tags>
+                </product>
+                <product_reviews>
+                    <path>review/product/list</path>
+                    <tags>catalog_product_{id}</tags>
+                </product_reviews>
+                <category>
+                    <path>catalog/category/view</path>
+                    <tags>catalog_category_{id}</tags>
+                </category>
+                <cms>
+                    <path>cms/page/view</path>
+                    <tags>cms_page{id}</tags>
+                </cms>
+                <index>
+                    <path>cms/index/index</path>
+                    <tags>cms_page,amfpc_index_page</tags>
+                </index>
+                <ig_404tosearch>
+                    <path>ig_404tosearch/index/index</path>
+                    <tags>cms_page</tags>
+                </ig_404tosearch>
+                <search>
+                    <path>catalogsearch/result/index</path>
+                    <tags>catalog_product</tags>
+                </search>
+                <login>
+                    <path>customer/account/login</path>
+                    <tags>cms_page</tags>
+                </login>
+                <amasty_faq_topic>
+                    <path>amfaq/topic/view</path>
+                    <tags>amfaq_topic</tags>
+                </amasty_faq_topic>
+                <amasty_faq_question>
+                    <path>amfaq/question/view</path>
+                    <tags>amfaq_question</tags>
+                </amasty_faq_question>
+                <amasty_faq_index>
+                    <path>amfaq</path>
+                    <tags>amfaq_topic,amfaq_question</tags>
+                </amasty_faq_index>
+            </routes>
+
+            <!-- Dynamic blocks loaded by AJAX -->
+            <ajax_blocks>
+                <messages />
+                <global_messages />
+                <right.reports.product.viewed />
+                <left.reports.product.viewed />
+
+                <optimiseweb_cookienotice />
+
+                <multipledeals_recent />
+                <multipledeals_list />
+                <multipledeals />
+                <multipledeals_sidedeals />
+                <multipledeals_cms />
+            </ajax_blocks>
+
+            <!-- Storage configuration -->
+            <options>
+                <backend>Amasty_Fpc_Backend_Database</backend><!-- apc / memcached / xcache / empty=file -->
+                <slow_backend></slow_backend> <!-- database / file (default) - used for 2 levels cache setup, necessary for all shared memory storages -->
+                <slow_backend_store_data></slow_backend_store_data> <!-- 1 / 0 (default) - used for 2 levels cache setup, sets whether store data in db slow cache backend -->
+                <auto_refresh_fast_cache></auto_refresh_fast_cache> <!-- 1 / 0 (default) - used for 2 levels cache setup, sets whether refresh data in fast cache backend -->
+                <memcached><!-- memcached cache backend related config -->
+                    <servers><!-- any number of server nodes can be included -->
+                        <server>
+                            <host><![CDATA[]]></host>
+                            <port><![CDATA[]]></port>
+                            <persistent><![CDATA[]]></persistent>
+                            <weight><![CDATA[]]></weight>
+                            <timeout><![CDATA[]]></timeout>
+                            <retry_interval><![CDATA[]]></retry_interval>
+                            <status><![CDATA[]]></status>
+                        </server>
+                    </servers>
+                    <compression><![CDATA[0]]></compression>
+                    <cache_dir><![CDATA[]]></cache_dir>
+                    <hashed_directory_level><![CDATA[]]></hashed_directory_level>
+                    <hashed_directory_umask><![CDATA[]]></hashed_directory_umask>
+                    <file_name_prefix><![CDATA[]]></file_name_prefix>
+                </memcached>
+                <backend_options>
+                    <cache_dir>amasty_fpc</cache_dir>
+                    <file_name_prefix>amfpc</file_name_prefix>
+                    <hashed_directory_level>3</hashed_directory_level>
+                </backend_options>
+            </options>
+            <cms_blocks>0</cms_blocks>
+            <cms_ajax_blocks>0</cms_ajax_blocks>
+            <session_name>frontend</session_name>
+            <miss_on_first_view>0</miss_on_first_view>
+            <cookie_notice_block>global_cookie_notice</cookie_notice_block>
+            <allowed_ajax_pattern>/catalog/category/view/</allowed_ajax_pattern>
+        </amfpc>
+
+        <!-- To load database storage before Core module initialization. Please do not edit. -->
+        <models>
+            <core_resource>
+                <entities>
+                    <session>
+                        <table>core_session</table>
+                    </session>
+                    <store_group>
+                        <table>core_store_group</table>
+                    </store_group>
+                    <store>
+                        <table>core_store</table>
+                    </store>
+                    <url_rewrite>
+                        <table>core_url_rewrite</table>
+                    </url_rewrite>
+                </entities>
+            </core_resource>
+            <core_mysql4>
+                <entities>
+                    <session>
+                        <table>core_session</table>
+                    </session>
+                    <store_group>
+                        <table>core_store_group</table>
+                    </store_group>
+                    <store>
+                        <table>core_store</table>
+                    </store>
+                    <url_rewrite>
+                        <table>core_url_rewrite</table>
+                    </url_rewrite>
+                </entities>
+            </core_mysql4>
+            <reports>
+                <resourceModel>reports_resource</resourceModel>
+            </reports>
+            <reports_resource>
+                <entities>
+                    <viewed_product_index>
+                        <table>report_viewed_product_index</table>
+                    </viewed_product_index>
+                </entities>
+            </reports_resource>
+            <amfpc>
+                <resourceModel>amfpc_resource</resourceModel>
+            </amfpc>
+            <amfpc_resource>
+                <entities>
+                    <url>
+                        <table>amasty_amfpc_url</table>
+                    </url>
+                </entities>
+            </amfpc_resource>
+        </models>
+    </global>
+</config>
