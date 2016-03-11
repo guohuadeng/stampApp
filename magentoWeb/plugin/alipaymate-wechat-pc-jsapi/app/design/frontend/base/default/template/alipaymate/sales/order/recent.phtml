@@ -62,20 +62,20 @@
                         <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
                             <span class="separator">|</span> <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $this->__('Reorder') ?></a>
                         <?php endif ?>
-                        
-                        <?php 
+
+                        <?php
                             $_methods = array('weixin', 'weixinmobile', 'alipay', 'alipaymobile');
-                            
+
                             foreach ($_methods as $_method) {
                                 $_model = Mage::getModel($_method . '/payment');
-                                
+
                                 if ($_model && method_exists($_model,'canRepay') && $_model->canRepay($_order)) {
                         ?>
-                                    <span class="separator">|</span> <a href="<?php echo $_model->getRepayUrl($_order); ?>" class="<?php echo $_method; ?>-repay link-repay"><?php echo $this->__('Repay') ?></a>           
+                                    <span class="separator">|</span> <a href="<?php echo $_model->getRepayUrl($_order); ?>" class="<?php echo $_method; ?>-repay link-repay btn btn-success"><?php echo $this->__('Repay') ?></a>
                         <?php
                                 }
                             }
-                        ?>                        
+                        ?>
                         </span>
                     </td>
                 </tr>
