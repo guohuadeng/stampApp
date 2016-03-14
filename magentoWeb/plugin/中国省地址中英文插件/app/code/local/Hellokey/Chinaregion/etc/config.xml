@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Hellokey_Chinaregion>
+            <version>0.1.0</version>
+        </Hellokey_Chinaregion>
+    </modules>
+    <global>
+        <resources>
+            <chinaregion_setup>
+                <setup>
+                    <module>Hellokey_Chinaregion</module>
+                    <class>Hellokey_Chinaregion_Model_Resource_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </chinaregion_setup>
+        </resources>
+    </global>
+</config>
