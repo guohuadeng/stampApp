@@ -1,147 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a543bcd7-5eaf-46bd-aa5f-746aa2fe7b48" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/skin/adminhtml/default/default/images/ambase/amasty.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/skin/adminhtml/default/default/images/ambase/bad.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/full-page-cache-user-guide.pdf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/58stamp/images/grid-cal.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/installation_guide.pdf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/skin/adminhtml/default/default/images/ambase/ok.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/skin/adminhtml/default/default/images/ambase/shop.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/skin/adminhtml/default/default/images/ambase/update.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/微信登陆安装install.doc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/controllers/Adminhtml/AjaxController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/AjaxGenerate.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/AjaxProcess.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step2/app/etc/modules/Amasty_Base.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/locale/en_US/Amasty_Fpc.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step2/app/etc/modules/Amasty_Fpc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step2/app/etc/modules/Amasty_Fpccrawler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/Block/Adminhtml/Debug/Base.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/controllers/Adminhtml/BaseController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Stats/Codes.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Resource/Url/Collection.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Model/Resource/Log/Collection.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Model/Resource/Queue/Collection.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Config/Source/Compression.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Config.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/Block/Adminhtml/Debug/Conflict.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/Model/Conflict.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/Block/Conflicts.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Stats/Crawled.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Config/Source/CrawlerAction.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Log/Filter/Currency.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/Helper/Data.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Helper/Data.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Helper/Data.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/lib/Amasty/Fpc/Backend/Database.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Log/Filter/Date.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Log/Renderer/Date.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/Block/Extensions.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/Model/Feed.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Config/Source/FlushOnPurchase.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Fpc.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Fpc/Front.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/Block/Adminhtml/Debug/General.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Log/Grid.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Queue/Grid.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Model/Source/Groups.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Log.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Model/Log.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Model/Resource/Log.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/controllers/Adminhtml/LogController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Block/Messages.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Log/Filter/Mobile.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Observer.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Model/Observer.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Queue.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Model/Queue.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Model/Resource/Queue.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/controllers/Adminhtml/QueueController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Stats/QueueProcessing.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Log/Filter/Rate.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/Block/Adminhtml/Debug/Rewrite.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Session.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Resource/Session.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Resource/Redis/Session.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Model/Source/Sources.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Stats.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Resource/Stats.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Stats.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/controllers/Adminhtml/StatsController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Log/Filter/Status.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Log/Renderer/Status.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/Block/Store.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Log/Filter/Store.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Model/Source/Stores.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/Block/Adminhtml/Stats/Time.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/Model/Source/Updates/Type.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Url.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/Model/Resource/Url.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/etc/adminhtml.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/etc/adminhtml.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/etc/adminhtml.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/design/adminhtml/default/default/layout/amasty/ambase/ambase.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/design/frontend/base/default/layout/amasty/amfpc/amfpc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step2/app/etc/amfpc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/58stamp/css/bootstrap.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/58stamp/js/bootstrap.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/design/adminhtml/default/default/template/amasty/amfpccrawler/system/config/buttonGenerate.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/design/adminhtml/default/default/template/amasty/amfpccrawler/system/config/buttonProcess.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/design/adminhtml/default/default/template/amasty/amfpccrawler/charts/codes.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step2/app/code/local/Amasty/Base/etc/config.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step2/app/code/local/Amasty/Fpc/etc/config.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step2/app/code/local/Amasty/Fpccrawler/etc/config.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/design/adminhtml/default/default/template/amasty/ambase/debug/conflict.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/design/adminhtml/default/default/template/amasty/amfpccrawler/charts/crawled.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/catalog/product/view/options/type/date.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/design/adminhtml/default/default/template/amasty/ambase/debug/general.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/stampcustomer/index.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/license.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/form/login.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/persistent/checkout/onepage/login.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/persistent/customer/form/login.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/sql/ambase_setup/mysql4-install-1.0.0.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/sql/amfpccrawler_setup/mysql4-install-1.0.0.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/sql/ambase_setup/mysql4-upgrade-1.0.0-1.0.1.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/sql/amfpc_setup/mysql4-upgrade-1.2.8-1.2.9.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/sql/amfpc_setup/mysql4-upgrade-1.3.0-1.3.1.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/catalog/product/view/options.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/design/adminhtml/default/default/template/amasty/amfpccrawler/charts/queueProcessing.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/design/adminhtml/default/default/template/amasty/ambase/debug/rewrite.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/catalog/product/view/options/type/select.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/58stamp/css/stampcustomer.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/layout/stampcustomer.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/js/amasty/ambase/store.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/skin/adminhtml/default/default/css/amasty/ambase/style.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/skin/frontend/base/default/css/amasty/amfpc/styles.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Base/etc/system.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpc/etc/system.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/code/local/Amasty/Fpccrawler/etc/system.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/design/adminhtml/default/default/template/amasty/amfpccrawler/tabshoriz.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/catalog/product/view/options/type/text.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1/app/design/adminhtml/default/default/template/amasty/amfpccrawler/charts/time.phtml" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\AdvanceOrderNumber\Iksanika_Ordernumber-1.0.1.tgz" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\AdvanceOrderNumber\app\code\community\Iksanika\Ordernumber\Helper\Data.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\AdvanceOrderNumber\app\code\community\Iksanika\Ordernumber\Model\Observer.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\AdvanceOrderNumber\app\code\community\Iksanika\Ordernumber\Model\Resource\Eav\Entity\Type.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\AdvanceOrderNumber\app\code\community\Iksanika\Ordernumber\Model\System\Config\Source\Reset.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\AdvanceOrderNumber\app\code\community\Iksanika\Ordernumber\etc\config.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\AdvanceOrderNumber\app\code\community\Iksanika\Ordernumber\etc\system.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\AdvanceOrderNumber\app\etc\modules\Iksanika_Ordernumber.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\AdvanceOrderNumber\app\locale\en_US\Iksanika_Ordernumber.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\AdvanceOrderNumber\app\locale\zh_CN\Iksanika_Ordernumber.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\StampCustomer - rwd.zip" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\StampCustomer1.zip" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\StampCustomer2.zip" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\StampCustomer3.zip" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\StampCustomer4.zip" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\StampCustomer6.zip" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\StampCustomer7.zip" afterPath="" />
-      <change type="DELETED" beforePath="D:\PjWeb\stampApp\magentoWeb\plugin\下单后产品自动加入wishlist- 1.9.2.2.zip" afterPath="" />
+    <list default="true" id="a543bcd7-5eaf-46bd-aa5f-746aa2fe7b48" name="Default" comment="更新微信登录插件样式，清理不必要插件及文件">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/base/default/images/logo_email.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/base/default/images/logo_white_plus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/SunpopSms/smsapi/CCPRestSmsSDK.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/中国省地址中英文插件/app/etc/modules/Hellokey_Chinaregion.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/SunpopSms/smsapi/SendTemplateSMS.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/中国省地址中英文插件/app/code/local/Hellokey/Chinaregion/Model/Resource/Mysql4/Setup.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/中国省地址中英文插件/app/code/local/Hellokey/Chinaregion/etc/config.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/form/edit.phtml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/account/dashboard/info.phtml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/inv说明.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/SunpopSms/smsapi/log.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/中国省地址中英文插件/app/code/local/Hellokey/Chinaregion/sql/chinaregion_setup/mysql4-install-0.1.0.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/widget/name.phtml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/sql/weixinlogin_setup/upgrade-1.6.0.0-2.0.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/SunpopSms/smsapi/接口说明.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/magentoWeb/plugin/中国省地址中英文插件/说明.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/locale/zh_CN/Alipaymate_Weixinlogin.csv" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/locale/zh_CN/Alipaymate_Weixinlogin.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/amastyCustomerAttr/app/locale/zh_CN/Amasty_Customerattr.csv" afterPath="$PROJECT_DIR$/magentoWeb/plugin/amastyCustomerAttr/app/locale/zh_CN/Amasty_Customerattr.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Helper/Identifiers.php" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Helper/Identifiers.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/controllers/ProcessingController.php" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/controllers/ProcessingController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/design/frontend/base/default/template/alipaymate/weixin/form.phtml" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/design/frontend/base/default/template/alipaymate/weixin/form.phtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/stampcustomer/index.phtml" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/stampcustomer/index.phtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/form/login.phtml" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/form/login.phtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/persistent/customer/form/login.phtml" afterPath="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/persistent/customer/form/login.phtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/catalog/product/view/options.phtml" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/catalog/product/view/options.phtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/58stamp/css/stampcustomer.css" afterPath="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/58stamp/css/stampcustomer.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="stampApp.iws" />
@@ -163,41 +50,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="weixinmobile.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/layout/alipaymate/weixinmobile.xml">
+      <file leaf-file-name="login.phtml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/persistent/customer/form/login.phtml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="13" column="145" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="145" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="recent.phtml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/sales/order/recent.phtml">
+      <file leaf-file-name="login.phtml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/form/login.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="55" column="52" selection-start-line="55" selection-start-column="52" selection-end-line="55" selection-end-column="52" />
+            <state vertical-scroll-proportion="-0.53979236">
+              <caret line="12" column="141" selection-start-line="12" selection-start-column="141" selection-end-line="12" selection-end-column="141" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stampcustomer.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/adminhtml/default/default/layout/stampcustomer.xml">
+      <file leaf-file-name="form.phtml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/design/frontend/base/default/template/alipaymate/weixin/form.phtml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stampcustomer.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/layout/stampcustomer.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="4" />
+              <caret line="4" column="10" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -207,57 +84,7 @@
         <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/stampcustomer/index.phtml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="150" selection-start-line="41" selection-start-column="150" selection-end-line="41" selection-end-column="150" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.phtml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/persistent/customer/form/login.phtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="49" column="58" selection-start-line="49" selection-start-column="58" selection-end-line="49" selection-end-column="58" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Customer.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/amastyCustomerAttr/app/code/local/Amasty/Customerattr/Model/Rewrite/Customer.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="310" column="166" selection-start-line="310" selection-start-column="75" selection-end-line="310" selection-end-column="166" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Amasty_Customerattr.csv" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/amastyCustomerAttr/app/locale/zh_CN/Amasty_Customerattr.csv">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="19" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sunpop_StampCustomer.csv" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/locale/zh_CN/Sunpop_StampCustomer.csv">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stampcustomer.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/58stamp/css/stampcustomer.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
+              <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="60" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -284,17 +111,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/code/local/Sunpop/StampCustomer/sql/stampcustomer_setup/mysql4-install-0.1.0.php" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_AutoWishlist/app/code/local/Sunpop/AutoWishlist/etc/system.xml" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_AutoWishlist/app/code/local/Sunpop/AutoWishlist/etc/config.xml" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/etc/config.xml" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate/app/code/local/Sunpop/Duplicate/etc/system.xml" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/SMTPPro-2.0.7/app/locale/zh_CN/Aschroder_SMTPPro.csv" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/SMTPPro-2.0.7/app/code/local/Aschroder/SMTPPro/etc/system.xml" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/SMTPPro-2.0.7/app/code/local/Aschroder/SMTPPro/controllers/Smtp/TestController.php" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/FME_Prod_Attachments_Ext_2.3.0/app/locale/en_US/FME_Productattachments.csv" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/FME_Prod_Attachments_Ext_2.3.0/app/code/local/FME/Productattachments/etc/adminhtml.xml" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/FME_Prod_Attachments_Ext_2.3.0/skin/frontend/default/default/css/productattachments/css/productattachments.css" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/FME_Prod_Attachments_Ext_2.3.0/skin/frontend/smartwave/porto/css/productattachments/css/productattachments.css" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/FME_Prod_Attachments_Ext_2.3.0/app/design/frontend/smartwave/porto/template/productattachments/items/attachments.phtml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/layout/stampcustomer.xml" />
@@ -312,7 +128,6 @@
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/etc/modules/Sunpop_StampCustomer.xml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options/type/date.phtml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Block/Redirect.php" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/controllers/ProcessingController.php" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/locale/en_US/Alipaymate_Alipaylogin.csv" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/locale/zh_CN/Alipaymate_Weixin.csv" />
         <option value="$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/template/wishlist/item/column/cart.phtml" />
@@ -324,17 +139,29 @@
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options.phtml" />
         <option value="$PROJECT_DIR$/magentoWeb/sunpopPortoTheme/app/design/frontend/smartwave/porto/template/catalog/product/view.phtml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/porto/template/catalog/product/view/options/type/select.phtml" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/locale/zh_CN/Alipaymate_Weixinlogin.csv" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/porto/template/persistent/customer/form/login.phtml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/porto/template/customer/form/login.phtml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/porto/template/persistent/checkout/onepage/login.phtml" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/porto/css/stampcustomer.css" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/sales/order/recent.phtml" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/58stamp/css/stampcustomer.css" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/layout/stampcustomer.xml" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/stampcustomer/index.phtml" />
-        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/persistent/customer/form/login.phtml" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/controllers/ProcessingController.php" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/sql/weixinlogin_setup/upgrade-1.6.0.0-1.6.0.1.php" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/etc/modules/Alipaymate_Weixinlogin.xml" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Core.php" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Helper/Identifiers.php" />
         <option value="$PROJECT_DIR$/magentoWeb/plugin/amastyCustomerAttr/app/locale/zh_CN/Amasty_Customerattr.csv" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/catalog/product/view/options.phtml" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/58stamp/css/stampcustomer.css" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/stampcustomer/index.phtml" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/widget/name.phtml" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/account/dashboard/hello.phtml" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/account/dashboard/info.phtml" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/form/edit.phtml" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/locale/zh_CN/Alipaymate_Weixinlogin.csv" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/persistent/customer/form/login.phtml" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/form/login.phtml" />
+        <option value="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/design/frontend/base/default/template/alipaymate/weixin/form.phtml" />
       </list>
     </option>
   </component>
@@ -408,7 +235,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="scss" />
+              <option name="myItemId" value="magentoWeb" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -422,7 +249,421 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StampCustomer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StampCustomer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StampCustomer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="design" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartwave" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="58stamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampcustomer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StampCustomer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="design" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartwave" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="58stamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StampCustomer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="design" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartwave" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="58stamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StampCustomer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="design" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alipaymate-wechat-mobile-native" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alipaymate-wechat-mobile-native" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alipaymate-wechat-mobile-native" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="design" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alipaymate" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="weixin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alipaymate-wechat-mobile-native" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="design" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alipaymate" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stampApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="magentoWeb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alipaymate-wechat-mobile-native" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="design" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -432,7 +673,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.HTML" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="settings.editor.splitter.proportion" value="0.19665737" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
@@ -464,11 +705,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PjWeb\stampApp\magentoWeb\plugin\alipaymate-magento-express-login-weixin\app\design\frontend\smartwave\58stamp\template\customer\account\dashboard" />
+      <recent name="D:\PjWeb\stampApp\magentoWeb\plugin\alipaymate-magento-express-login-weixin\app\design\frontend\smartwave\58stamp\template\customer\form" />
+      <recent name="D:\PjWeb\stampApp\magentoWeb\plugin\alipaymate-magento-express-login-weixin\app\code\community\Alipaymate\Weixinlogin\sql\weixinlogin_setup" />
       <recent name="D:\PjWeb\stampApp\magentoWeb\plugin\StampCustomer\app\code\local\Mage\Catalog\Block\Product\View" />
       <recent name="D:\PjWeb\stampApp\magentoWeb\plugin" />
-      <recent name="D:\PjWeb\stampApp\magentoWeb\plugin\FME_Prod_Attachments_Ext_2.3.0\app\locale\zh_CN" />
-      <recent name="D:\PjWeb\stampApp\magentoWeb\plugin\SMTPPro-2.0.7\app\locale\zh_CN" />
-      <recent name="D:\PjWeb\stampApp\magentoWeb\plugin\RestConnect\app\code\local\Sunpop\RestConnect\controllers" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PjWeb\stampApp\magentoWeb\plugin\alipaymate-magento-express-login-weixin\app\design\frontend\smartwave\58stamp\template\customer" />
     </key>
   </component>
   <component name="RunManager">
@@ -636,7 +880,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457687441967</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="更新微信登录插件样式，清理不必要插件及文件">
+      <created>1457698458865</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1457698458865</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -644,13 +894,11 @@
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24117647" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26096258" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24117647" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2540107" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20244716" sideWeight="0.44278076" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17352614" sideWeight="0.55721927" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19021134" sideWeight="0.43903744" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.09010011" sideWeight="0.47058824" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -660,9 +908,11 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18353726" sideWeight="0.43903744" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36495537" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21134594" sideWeight="0.55721927" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -726,271 +976,14 @@
     <MESSAGE value="将模板增加到项目" />
     <MESSAGE value="分离模板到别的项目，使用58stamp主题" />
     <MESSAGE value="改微信登录，stamp的主题为58stamp主题" />
-    <option name="LAST_COMMIT_MESSAGE" value="改微信登录，stamp的主题为58stamp主题" />
+    <MESSAGE value="更新微信登录插件样式，清理不必要插件及文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新微信登录插件样式，清理不必要插件及文件" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/sales/order/recent.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="52" selection-start-line="55" selection-start-column="52" selection-end-line="55" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/adminhtml/default/default/layout/stampcustomer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/layout/stampcustomer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/stampcustomer/index.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="150" selection-start-line="41" selection-start-column="150" selection-end-line="41" selection-end-column="150" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/persistent/customer/form/login.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/58stamp/css/stampcustomer.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/layout/alipaymate/weixinmobile.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/sales/order/recent.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="52" selection-start-line="55" selection-start-column="52" selection-end-line="55" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/adminhtml/default/default/layout/stampcustomer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/layout/stampcustomer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/stampcustomer/index.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="150" selection-start-line="41" selection-start-column="150" selection-end-line="41" selection-end-column="150" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/persistent/customer/form/login.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/58stamp/css/stampcustomer.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Resource/Setup.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Resource/Identifiers.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.637883">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Core.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/etc/modules/Sunpop_StampCustomer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29411766">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Block/Redirect.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/controllers/ProcessingController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/locale/en_US/Alipaymate_Alipaylogin.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1300813">
-          <caret line="4" column="41" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="135" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/locale/zh_CN/Alipaymate_WeixinMobile.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/locale/en_US/Alipaymate_WeixinMobile.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Block/Form.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Block/Redirect.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/controllers/ProcessingController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/etc/config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/etc/system.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Helper/Data.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Mysql4/Setup.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Resource/Setup.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Source/SignatureType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/weixinmobile/form.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="6" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/design/frontend/base/default/template/alipaymate/sales/order/history.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20916906">
-          <caret line="74" column="196" selection-start-line="74" selection-start-column="191" selection-end-line="74" selection-end-column="196" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/locale/zh_CN/Alipaymate_Weixin.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27507162">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/sales/order/history.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.1661892">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Model/Payment.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.106017195">
@@ -1019,81 +1012,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/locale/zh_CN/Alipaymate_Weixinlogin.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="59" selection-start-line="4" selection-start-column="59" selection-end-line="4" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/base/default/template/customer/form/login.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28959277">
-          <caret line="8" column="49" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/layout/alipaymate/weixinmobile.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/sales/order/recent.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="52" selection-start-line="55" selection-start-column="52" selection-end-line="55" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/adminhtml/default/default/layout/stampcustomer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/58stamp/css/stampcustomer.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/layout/stampcustomer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/stampcustomer/index.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="150" selection-start-line="41" selection-start-column="150" selection-end-line="41" selection-end-column="150" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/persistent/customer/form/login.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="49" column="58" selection-start-line="49" selection-start-column="58" selection-end-line="49" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/locale/zh_CN/Sunpop_StampCustomer.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1101,14 +1023,325 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="310" column="166" selection-start-line="310" selection-start-column="75" selection-end-line="310" selection-end-column="166" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/adminhtml/default/default/layout/stampcustomer.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1384083">
+          <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/design/frontend/base/default/template/alipaymate/sales/order/recent.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="55" column="52" selection-start-line="55" selection-start-column="52" selection-end-line="55" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/locale/zh_CN/Sunpop_StampCustomer.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33217993">
+          <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/code/community/Alipaymate/WeixinMobile/etc/config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/code/community/Alipaymate/Weixin/controllers/ProcessingController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Mysql4/Setup.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/sql/weixinlogin_setup/install-1.6.0.0.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31034482">
+          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Resource/Identifiers/Collection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/etc/modules/Alipaymate_Weixinlogin.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31034482">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Source/SignatureType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Resource/Setup.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Mysql4/Identifiers/Collection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Mysql4/Identifiers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Resource/Identifiers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/amastyCustomerAttr/app/locale/zh_CN/Amasty_Customerattr.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="19" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+          <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/amastyCustomerAttr/app/locale/zh_CN/Amasty_Base.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/etc/config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.30449826">
+          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/etc/system.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/etc/modules/Sunpop_StampCustomer.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/amastyCustomerAttr/app/design/frontend/base/default/template/amasty/amcustomerattr/customer_fields.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/base/default/template/customer/form/login.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="49" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/amastyCustomerAttr/app/code/local/Amasty/Customerattr/Block/Customer/Fields.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="140" column="29" selection-start-line="140" selection-start-column="29" selection-end-line="140" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/catalog/product/view/options.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="182" column="26" selection-start-line="182" selection-start-column="26" selection-end-line="182" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/skin/frontend/smartwave/58stamp/css/stampcustomer.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="92" selection-start-line="4" selection-start-column="92" selection-end-line="4" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/layout/stampcustomer.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Block/Form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/Block/Redirect.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/etc/system.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Identifiers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Model/Core.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="202" column="41" selection-start-line="202" selection-start-column="37" selection-end-line="202" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Helper/Identifiers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/etc/config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/widget/name.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53979236">
+          <caret line="42" column="1" selection-start-line="42" selection-start-column="1" selection-end-line="42" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/account/dashboard/info.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35986158">
+          <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="41" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Helper/Data.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/controllers/ProcessingController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34025374">
+          <caret line="64" column="38" selection-start-line="64" selection-start-column="38" selection-end-line="64" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/form/edit.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5697808">
+          <caret line="65" column="16" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/code/community/Alipaymate/Weixinlogin/Block/Redirect.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47981545">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi/app/code/community/Alipaymate/WeixinMobile/controllers/ProcessingController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.449827">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/locale/zh_CN/Alipaymate_Weixinlogin.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="63" selection-start-line="11" selection-start-column="63" selection-end-line="11" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/persistent/customer/form/login.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="145" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="145" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/StampCustomer/app/design/frontend/smartwave/58stamp/template/stampcustomer/index.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="60" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native/app/design/frontend/base/default/template/alipaymate/weixin/form.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="10" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/form/login.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.53979236">
+          <caret line="12" column="141" selection-start-line="12" selection-start-column="141" selection-end-line="12" selection-end-column="141" />
           <folding />
         </state>
       </provider>

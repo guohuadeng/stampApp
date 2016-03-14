@@ -1,0 +1,3 @@
+1. 添加了invoiceListAction函数  筛选参数string increment_id ,string created_at ,string order_currency_code ,string order_id,string state(Order state),string grand_total(Grand total amount invoiced) ,string invoice_id 
+2. 添加了invoiceInfoAction  参数是invoice_increment_id
+3. shipmentListAction shipmentInfoAction函数返回值中添加了order_increment_id

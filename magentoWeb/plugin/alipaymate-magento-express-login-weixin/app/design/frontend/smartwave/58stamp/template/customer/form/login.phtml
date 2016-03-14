@@ -10,6 +10,7 @@
                 <div class="content">
                     <h2><?php echo $this->__('New Customers') ?></h2>
                     <p><?php echo $this->__('By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.') ?></p>
+                    <p class="bg-success" style="padding:10px;"><?php echo $this->__('We suggest to use wechat to create an account.') ?></p>
                 </div>
                 <div class="buttons-set">
                     <button type="button" title="<?php echo $this->__('Create an Account') ?>" class="button" onclick="window.location='<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>';"><span><span><?php echo $this->__('Create an Account') ?></span></span></button>
@@ -43,7 +44,7 @@
                 </div>
             </div>
             <?php if ($weixin = Mage::getModel('weixinlogin/login')) { ?>
-              <div class="col-sm-4 wechat-users">
+              <div class="col-sm-4 wechat-users bg-success">
                   <div class="content">
                       <iframe  height="550" id="wechat-login" name="wechat-login" frameborder="0" scrolling="no" src="<?php echo $weixin->getRedirectURL() ?>"></iframe>
                   </div>

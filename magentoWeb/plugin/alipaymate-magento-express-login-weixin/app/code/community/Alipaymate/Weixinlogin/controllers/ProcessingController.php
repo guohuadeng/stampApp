@@ -73,7 +73,7 @@ class Alipaymate_Weixinlogin_ProcessingController extends Mage_Core_Controller_F
         }
 
         if ($url = Mage::getSingleton('core/session')->getBeforeWeixinAuthUrl()) {
-            header('Location: ' . $url);
+            echo '<script type="text/javascript">top.location.href="' .$url. '";</script>';
             exit();
         }
     }

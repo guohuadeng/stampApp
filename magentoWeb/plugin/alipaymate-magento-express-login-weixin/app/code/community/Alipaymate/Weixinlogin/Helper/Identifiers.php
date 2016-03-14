@@ -16,6 +16,7 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
         $city          =  isset($data['city']          ) ? $data['city']          : '';
         $province      =  isset($data['province']      ) ? $data['province']      : '';
         $country       =  isset($data['country']       ) ? $data['country']       : '';
+        $headimgurl       =  isset($data['headimgurl']       ) ? $data['headimgurl']       : '';
         $unionid       =  isset($data['unionid']       ) ? $data['unionid']       : '';
         $refresh_token =  isset($data['refresh_token'] ) ? $data['refresh_token'] : '';
         $inside_weixin =  isset($data['inside_weixin'] ) ? $data['inside_weixin'] :  0;
@@ -28,7 +29,7 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
             $email     = $unionid . '@weixin.com';
             $firstName = $nickname;
             $lastName  = '先生';
-            
+
             if ($sex == 2) {
                 $lastName  = '女士';
             }
@@ -76,13 +77,14 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
                 ->setProvince(     $province)
                 ->setCountry(      $country)
                 ->setUnionid(      $unionid)
+                ->setHeadimgurl(      $headimgurl)
                 ->setRefreshToken( $refresh_token)
                 ->setCustomerId(   $customer_id)
                 ->setInsideWeixin( $inside_weixin)
                 ->save();
 
             return $customer;
-        } catch (Exception $e) {  
+        } catch (Exception $e) {
             $_helper->log('weixinlogin-return saveIdentifier Exception', $e->getMessage());
         }
 
@@ -103,7 +105,7 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
 
         if ($collection->getSize()) {
             $customer_id = $collection->getFirstItem()->getCustomerId();
-            
+
             if (!empty($customer_id)) {
                 $customer = Mage::getModel('customer/customer')
                     ->getCollection()
