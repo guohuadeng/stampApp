@@ -46,7 +46,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 				return;
 			case 3:
 				$result['status'] = false;
-				$result['message'] = urlencode($this->__('公司至少3字!'));
+				$result['message'] = urlencode($this->__('公司至少2字!'));
 				$response = Mage::helper('core')->jsonEncode($result);
 				$this->getResponse()->setBody(urldecode($response));
 				return;
@@ -141,7 +141,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 				return;
 			case 3:
 				$result['status'] = false;
-				$result['message'] = urlencode($this->__('公司至少3字!'));
+				$result['message'] = urlencode($this->__('公司至少2字!'));
 				$response = Mage::helper('core')->jsonEncode($result);
 				$this->getResponse()->setBody(urldecode($response));
 				return;

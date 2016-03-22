@@ -2,12 +2,13 @@
 .results table tr,.stampcustomer a,.entry{cursor: pointer;  }
 .results table tr th,.results table tr td{padding:5px;  border-bottom: 1px solid #333;border-right: 1px solid #333;}
 .results table tr .last{border-right:none;}
+.toolbar  {display: none!important;}
 .stampcustomer{top: 0px; right: 0px;      z-index: 99;    background-color: #f4f4f4;  padding: 10px 30px 10px;display:none;}
 .catalog-product-view .col-main{position: relative;}
 .stampcustomer a.close{margin-top: -30px;font-size: 2.5em;}
 .stampcustomer .form-list .form-control{width:70%; float: right;}
 .stampcustomer .form-list  label{width: 28%;line-height: 30px;    float: left;}
-.stampcustomer .results{margin:20px 0 10px;    width: 100%; float: left;}
+.stampcustomer .results{margin:20px 0 10px;    width: 100%; float: left; border:3px solid #08c;}
 .stampcustomer button{float:right;}
 .stampcustomer .results button{margin-top:20px;}
 #customoption-date-trig{    float: right;    margin-top: -20px;    margin-right: 13px;    z-index: 10;   position: relative;}

@@ -43,7 +43,7 @@ class Sunpop_StampCustomer_Helper_Data extends Mage_Core_Helper_Abstract
 		);
 		return $state;
 	}
-	
+
 	public function getOptionArray(){
 		$status = array(
 			array(
@@ -55,9 +55,9 @@ class Sunpop_StampCustomer_Helper_Data extends Mage_Core_Helper_Abstract
 		);
 		return $status;
 	}
-	/* 
+	/*
 	* @param array $data
-	* @return int 1所有值为空，2名字不能小于两个字，3公司不能小于3个字
+	* @return int 1所有值为空，2名字不能小于两个字，3公司不能小于2个字
 	*/
 	public function isVerification($data){
 		if(!$data){
@@ -65,14 +65,13 @@ class Sunpop_StampCustomer_Helper_Data extends Mage_Core_Helper_Abstract
 		}
 		if(!$data['a_name'] && !$data['a_company'] && !$data['a_certtype'] && !$data['a_certsn'] && !$data['a_stampsn']){
 			return 1;
-		}  
+		}
 		if(($data['a_name']) && (strlen($data['a_name'])<6)){
 			return 2;
 		}
-		if(($data['a_company']) && (strlen($data['a_company'])<9)){
+		if(($data['a_company']) && (strlen($data['a_company'])<6)){
 			return 3;
 		}
 		return ;
 	}
 }
-	 
