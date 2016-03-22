@@ -1,3 +1,22 @@
-1. ������invoiceListAction����  ɸѡ����string increment_id ,string created_at ,string order_currency_code ,string order_id,string state(Order state),string grand_total(Grand total amount invoiced) ,string invoice_id 
-2. ������invoiceInfoAction  ������invoice_increment_id
-3. shipmentListAction shipmentInfoAction��������ֵ��������order_increment_id
+1. 添加了invoiceListAction函数  筛选参数string increment_id ,string created_at ,string order_currency_code ,string order_id,string state(Order state),string grand_total(Grand total amount invoiced) ,string invoice_id
+2. 添加了invoiceInfoAction  参数是invoice_increment_id
+3. shipmentListAction shipmentInfoAction函数返回值中添加了order_increment_id
+
+生成订单流程
+1.添加产品到购物车
+http://www.58stamp.com/cn/restconnect/cart/add?product=6&qty=2&options[25]=20&options[26]=37&options[27]=38&options[28]=bust&options[29]=waist&options[30]=hips&options[31]=Height with&options[32]=floor&options[33]=heel&options[34]=2018-12-25&options[35]=43&options[36]=item
+
+2.给订单添加customer信息(参数参考官方api对应参数)
+http://www.58stamp.com/cn/restconnect/cart/customerSet?fistname=xx&lastname=vvv
+
+3.给订单添加address信息(参数参考官方api对应参数)
+http://www.58stamp.com/cn/restconnect/cart/customerAddresses
+
+4.添加shippingMethod(参数就一个code,code对应值可以在shippingListAction看到)
+http://www.58stamp.com/cn/restconnect/cart/shippingMethod?code=flatrate_flatrate
+
+5.添加paymentmethod(参数code、 title,code、 title对应值可以在paymentListAction看到，举例货到付款)
+http://www.58stamp.com/cn/restconnect/cart/paymentMethod?method=checkmo&title=api test
+
+6. 创建订单(无参数，现在订单状态为processing)
+http://www.58stamp.com/cn/restconnect/cart/order

@@ -690,8 +690,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			return ;
         }
 		$paymentData = array();
-		foreach($paymentDat as $p){
-			$paymentData =$p;
+		foreach($paymentDat as $index => $p){
+			$paymentData[$index] =$p;
 		}
         if ($quote->isVirtual()) {
             // check if billing address is set
@@ -847,33 +847,30 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
 
 	public function shippingListAction(){
-		$quote = Mage::getSingleton('checkout/cart')->getQuote();
-        $quoteShippingAddress = $quote->getShippingAddress();
-        if (is_null($quoteShippingAddress->getId())) {
-			echo json_encode ( array (
-					'status' => '0x0002',
-					'message' => 'shipping_address_is_not_set'
-					));
-					return ;
-        }
 
+		$methods = Mage::getSingleton('shipping/config')->getActiveCarriers();
         try {
-            $quoteShippingAddress->collectShippingRates()->save();
-            $groupedRates = $quoteShippingAddress->getGroupedAllShippingRates();
-
             $ratesResult = array();
-            foreach ($groupedRates as $carrierCode => $rates ) {
+            foreach ($methods as $carrierCode => $rates ) {
                 $carrierName = $carrierCode;
+
                 if (!is_null(Mage::getStoreConfig('carriers/'.$carrierCode.'/title'))) {
                     $carrierName = Mage::getStoreConfig('carriers/'.$carrierCode.'/title');
                 }
 
-                foreach ($rates as $rate) {
-                    $rateItem = $this->_getAttributes($rate, "quote_shipping_rate");
-                    $rateItem['carrierName'] = $carrierName;
-                    $ratesResult[] = $rateItem;
-                    unset($rateItem);
-                }
+				if($_methods = $rates->getAllowedMethods())
+					{
+						foreach($_methods as $_mcode => $_method)
+						{
+							$_code = $carrierCode . '_' . $_mcode;
+						}
+					}
+
+				$rateItem['code'] = $_code;
+				$rateItem['carrierName'] = $carrierName;
+				$ratesResult[][] = $rateItem;
+				unset($rateItem);
+
             }
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
@@ -939,16 +936,25 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 	public function shippingMethodAction(){
 		$quote = Mage::getSingleton('checkout/cart')->getQuote();
         $quoteShippingAddress = $quote->getShippingAddress();
-        if(is_null($quoteShippingAddress->getId()) ) {
-			echo json_encode ( array (
-					'status' => '0x0002',
-					'message' => 'shipping_address_is_not_set'
-				));
-				return ;
-        }
+
 		$shippingMethod = $this->getRequest()->getParam ( 'code' );
-        $rate = $quote->getShippingAddress()->collectShippingRates()->getShippingRateByCode($shippingMethod);
-        if (!$rate) {
+
+
+		$methods = Mage::getSingleton('shipping/config')->getActiveCarriers();
+		$ratesResult = array();
+		foreach ($methods as $carrierCode => $rates ) {
+			if($_methods = $rates->getAllowedMethods())
+				{
+					foreach($_methods as $_mcode => $_method)
+					{
+						$_code = $carrierCode . '_' . $_mcode;
+					}
+				}
+
+			$ratesResult[] =$_code;
+		}
+
+        if (!in_array($shippingMethod,$ratesResult)) {
 			echo json_encode ( array (
 					'status' => '0x0003',
 					'message' => 'shipping_method_is_not_available'
@@ -1044,10 +1050,19 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
                 'checkout_submit_all_after',
                 array('order' => $order, 'quote' => $quote)
             );
+
+			$statusMessage = 'payment success';
+			$order->setState(Mage_Sales_Model_Order::STATE_PROCESSING,Mage_Sales_Model_Order::STATE_PROCESSING,$statusMessage, false);
+			$order->save();
+
 			echo json_encode ( array (
 					'status' => true,
-					'message' => 'creat order sucessfully'
+					'message' => 'creat order sucessfully',
+					'order_id' => $order->getIncrementId()
 				));
+			foreach( $quote->getItemsCollection() as $item ){
+				 Mage::getSingleton('checkout/cart')->removeItem( $item->getId() )->save();
+				}
 				return ;
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
