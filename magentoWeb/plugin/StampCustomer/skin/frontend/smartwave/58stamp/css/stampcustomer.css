@@ -20,11 +20,23 @@
 #wishlist-table textarea  {display: none;}
 .calendar {z-index: 10;}
 .product-view .product-img-box  {margin-bottom: 10px!important;}
-.yinke ul.options-list label {font-size:20px;color:#0088cc;}
-.yinke ul.options-list input.radio  {margin-top:10px;}
+.yinke ul.options-list label {font-size:20px;color:#0088cc;cursor: pointer;}
+.yinke ul.options-list input.radio  {margin-top:10px!important;}
+.yinke ul.options-list input.radio + label {
+  padding: 16px;
+}
+.yinke ul.options-list input.radio:checked + label:after {
+  width: 24px;
+  height: 24px;
+  left: 4px;
+  top: 4px;
+}
+
+
 .yinke .row {margin:0;}
 .yinke img {width:100%;height:auto;}
 .yinke ul.options-list li {}
+.yinke .ycontent {font-size: 2rem;}
 @media only screen and (min-width: 771px) {
   .product-options #tab_description_tabbed_contents dt {
     margin: 10px 0 3px;

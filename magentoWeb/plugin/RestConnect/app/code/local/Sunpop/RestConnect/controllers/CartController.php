@@ -266,8 +266,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		$oCoupon = Mage::getModel ( 'salesrule/coupon' )->load ( $oldCouponCode, 'code' );
 		$oRule = Mage::getModel ( 'salesrule/rule' )->load ( $oCoupon->getRuleId () );
 
-		$subtotal = round ( $totals ["subtotal"]->getValue () ); // Subtotal value
-		$grandtotal = round ( $totals ["grand_total"]->getValue () ); // Grandtotal value
+		$subtotal =  $totals ["subtotal"]->getValue () ; // Subtotal value
+		$grandtotal =  $totals ["grand_total"]->getValue () ; // Grandtotal value
 		if (isset ( $totals ['discount'] )) { // $totals['discount']->getValue()) {
 			$discount = round ( $totals ['discount']->getValue () ); // Discount value if applied
 		} else {
@@ -984,7 +984,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             if (!empty($diff)) {$this->_fault('required_agreements_are_not_all');
 				echo json_encode ( array (
 					'status' => '0x0002',
-					'message' => 'required_agreements_are_not_all'
+					'message' => 'required_agreements_are_not_all',
+					'order_id' => $order->getId()
 				));
 				return ;
             }

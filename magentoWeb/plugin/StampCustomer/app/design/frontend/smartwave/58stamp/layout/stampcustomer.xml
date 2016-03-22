@@ -10,6 +10,7 @@
     <remove name="product.info.sharing"/>
     <remove name="product.info.additional"/>
     <remove name="product.review"/>
+    <remove name="footer"/>
     <reference name="head">
       <action method="addItem"><type>skin_css</type><name>css/stampcustomer.css</name></action>
     </reference>

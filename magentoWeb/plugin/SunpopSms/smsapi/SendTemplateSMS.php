@@ -22,7 +22,7 @@ $accountToken= 'fbc1dd63e5944dc6b5236fd260dd0b23';
 
 //应用Id，在官网应用列表中点击应用，对应应用详情中的APP ID
 //在开发调试的时候，可以使用官网自动为您分配的测试Demo的APP ID
-$appId='8a48b5515018a0f401503d54b0713a16';
+$appId='aaf98f895388dae501538b3f133a04fd';
 
 //请求地址
 //沙盒环境（用于应用开发调试）：sandboxapp.cloopen.com
@@ -43,7 +43,7 @@ $softVersion='2013-12-26';
   * @param to 手机号码集合,用英文逗号分开
   * @param datas 内容数据 格式为数组 例如：array('Marry','Alon')，如不需替换请填 null
   * @param $tempId 模板Id,测试应用和未上线应用使用测试模板请填写1，正式应用上线后填写已申请审核通过的模板ID
-  */       
+  */
 function sendTemplateSMS($to,$datas,$tempId)
 {
      // 初始化REST SDK
@@ -51,7 +51,7 @@ function sendTemplateSMS($to,$datas,$tempId)
      $rest = new REST($serverIP,$serverPort,$softVersion);
      $rest->setAccount($accountSid,$accountToken);
      $rest->setAppId($appId);
-    
+
      // 发送模板短信
      $result = $rest->sendTemplateSMS($to,$datas,$tempId);
 	 echo json_encode ( $result );
@@ -75,7 +75,7 @@ function sendTemplateSMS($to,$datas,$tempId)
      */
 }
 
-//Demo调用 
+//Demo调用
 		//**************************************举例说明***********************************************************************
 		//*假设您用测试Demo的APP ID，则需使用默认模板ID 1，发送手机号是13800000000，传入参数为6532和5，则调用方式为           *
 		//*result = sendTemplateSMS("13800000000" ,array('6532','5'),"1");																		  *
@@ -86,6 +86,7 @@ $mobile = $_GET[mobile];
 $validation = $_GET[validation];
 $timeout = $_GET[timeout]?$_GET[timeout]:'60';
 //$template = $_GET[template];
-$template = '44150';
+//获取验证码
+$template = '74317';
 sendTemplateSMS($mobile,array($validation,$timeout),$template);//手机号码，替换内容数组，模板ID
 ?>
