@@ -10,9 +10,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Sunpop_RestConnect_BlogController extends Mage_Core_Controller_Front_Action {
-	
+
 	public function getCategoryListAction(){
-		
+
 		$categories = Mage::getModel("blog/cat")->getCollection();
 		$result = array();
 		foreach($categories as $category){
@@ -20,12 +20,12 @@ class Sunpop_RestConnect_BlogController extends Mage_Core_Controller_Front_Actio
 		}
 		echo json_encode ($result);
 	}
-	/* 
+	/*
 	* @Param int category_id
 	* return json
 	*/
 	public function getCategoryPostListAction(){
-		
+
 		$collection = Mage::getModel('blog/blog')->getCollection()
                 ->addPresentFilter()
                 ->addEnableFilter(Smartwave_Blog_Model_Status::STATUS_ENABLED)
@@ -44,11 +44,16 @@ class Sunpop_RestConnect_BlogController extends Mage_Core_Controller_Front_Actio
 				$collection->addCatFilter($category->getCatId());
 			}
 		}
-		
+
 		$result = array();
+		$post = array();
+		$storeUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
 		if(count($collection)>0){
 			foreach($collection as $c){
-				$result[] = $c->getData();
+			  $post = $c->getData();
+			  unset($post['post_content']);
+			  $post['image'] =  $storeUrl. $post['image'];
+				$result[] = $post;
 			}
 			echo json_encode ($result);
 		}else{
@@ -61,7 +66,7 @@ class Sunpop_RestConnect_BlogController extends Mage_Core_Controller_Front_Actio
 	}
 	const DEFAULT_COMMENT_SORT_ORDER = 'created_time';
     const DEFAULT_COMMENT_SORT_DIR = 'desc';
-	/* 
+	/*
 	* @Param int post_id
 	* return json
 	*/
@@ -80,7 +85,7 @@ class Sunpop_RestConnect_BlogController extends Mage_Core_Controller_Front_Actio
 		$sortDirection = $this->getRequest()->getParam('dir', self::DEFAULT_COMMENT_SORT_DIR);
 		$comments = Mage::getModel('blog/comment')
 			->getCollection()
-			->addPostFilter($post->getId()) 
+			->addPostFilter($post->getId())
 			->addApproveFilter(2);
 		$comments->setOrder($comments->getConnection()->quote($sortOrder), $sortDirection);
 		//$comment->setPageSize((int)Mage::helper('blog')->commentsPerPage());
@@ -88,13 +93,13 @@ class Sunpop_RestConnect_BlogController extends Mage_Core_Controller_Front_Actio
 		$response = Mage::helper('core')->jsonEncode($result);
 		$this->getResponse()->setBody(urldecode($response));
 	}
-	
-	/* 
+
+	/*
 	* @Param int post_id
 	* return json
 	*/
 	public function getPostCommentAction(){
-		
+
 		$post_id = $this->getRequest()->getParam('post_id');
 		$post = Mage::getModel('blog/post')->load($post_id);
 		if(!$post->getId()){
@@ -104,12 +109,12 @@ class Sunpop_RestConnect_BlogController extends Mage_Core_Controller_Front_Actio
 				));
 			return ;
 		}
-		
+
 		$sortOrder = $this->getRequest()->getParam('order', self::DEFAULT_COMMENT_SORT_ORDER);
 		$sortDirection = $this->getRequest()->getParam('dir', self::DEFAULT_COMMENT_SORT_DIR);
 		$comments = Mage::getModel('blog/comment')
 			->getCollection()
-			->addPostFilter($post->getId()) 
+			->addPostFilter($post->getId())
 			->addApproveFilter(2);
 		$comments->setOrder($comments->getConnection()->quote($sortOrder), $sortDirection);
 		//$comment->setPageSize((int)Mage::helper('blog')->commentsPerPage());
@@ -127,13 +132,13 @@ class Sunpop_RestConnect_BlogController extends Mage_Core_Controller_Front_Actio
 		$response = Mage::helper('core')->jsonEncode($comment);
 		$this->getResponse()->setBody(urldecode($response));
 	}
-	
-	/* 
+
+	/*
 	* @Param int post_id
 	* @Param string user
 	* @Param string email
 	* @Param string comment
-	* 
+	*
 	*/
 	public function addCommentAction(){
 		$data = $this->getRequest()->getParams();
@@ -165,7 +170,7 @@ class Sunpop_RestConnect_BlogController extends Mage_Core_Controller_Front_Actio
 					'message' => 'comment save successfully!'
 				));
 	}
-	
+
 	protected function _validateData($data)
     {
         $errors = array();
@@ -190,4 +195,4 @@ class Sunpop_RestConnect_BlogController extends Mage_Core_Controller_Front_Actio
 
         return $errors;
     }
-} 
+}

@@ -32,7 +32,7 @@
 					<input type="text" class="form-control" name="a_certsn" id="a_certsn" />
 				</li>
 				<li>
-					<label for="a_stampsn"><?php echo $this->__("印章号"); ?></label>
+					<label for="a_stampsn"><?php echo $this->__("印章编号"); ?></label>
 					<input type="text" class="form-control" name="a_stampsn" id="a_stampsn" />
 				</li>
 			</ul>
@@ -69,7 +69,7 @@
 				var a_certsn = jQuery("#a_certsn").val();
 				var a_stampsn = jQuery("#a_stampsn").val();
 				if(!a_name && !a_company && !a_certsn && !a_stampsn){
-					jQuery(".stampcustomer .fieldset").append('<div class="validation-advice advice-required-entry-a" >姓名,公司,注册号,印章号至少要填写一个</div>');
+					jQuery(".stampcustomer .fieldset").append('<div class="validation-advice advice-required-entry-a" >姓名,公司,注册号,印章编号至少要填写一个</div>');
 					setTimeout(function () {
 						jQuery(".stampcustomer div.advice-required-entry-a").remove();
 					}, 2000);

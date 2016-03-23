@@ -188,7 +188,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 							<th>公司</th>
 							<th>注册专业</th>
 							<th>注册号</th>
-							<th>印章号</th>
+							<th>印章编号</th>
 							<th>有效期至</th>
 						</tr>';
 				foreach($collection as $c){

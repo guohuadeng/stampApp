@@ -28,6 +28,13 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			$avatar = $customer->getAvatar ();
 			if (isset($avatar))
 				$avatar = $storeUrl . "customer" . $customer->getAvatar ();
+
+		  if (!isset($avatar))  {
+        //微信头像处理
+          if ($customer->getData('wechat_avatar'))
+            $avatar = 'http://' . $_SERVER['HTTP_HOST']. $customer->getData('wechat_avatar');
+            }
+
 			$customerinfo = array (
 					'name' => $customer->getName (),
 					'email' => $customer->getEmail (),
@@ -257,7 +264,11 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
         foreach ($resource->getAllowedAttributes($customer, $attributes) as $attributeCode=>$attribute) {
             $result[$attributeCode] = $customer->getData($attributeCode);
         }
-
+        //微信头像处理
+        if (!$result['avatar']) {
+          if ($customer->getData('wechat_avatar'))
+            $result['avatar'] = 'http://' . $_SERVER['HTTP_HOST']. $customer->getData('wechat_avatar');
+            }
         echo json_encode ( $result );
 	}
 

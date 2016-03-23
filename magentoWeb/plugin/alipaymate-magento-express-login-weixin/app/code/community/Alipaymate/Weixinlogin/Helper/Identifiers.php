@@ -53,6 +53,28 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
                 $customer->setConfirmation(null);
                 $customer->save();
                 $customer_id = $customer->getId();
+				/* 微信头像图片保存到服务器指定目录 */
+				$url = $headimgurl;
+				$avatarpath = "/attached/attachment/download/customer/".$customer_id."/file/";
+				$savepath = "/attached/attachment/download/customer/".$customer_id."/file/avatar.jpg";
+				$creatpath = "./attached/attachment/download/customer/".$customer_id."/file/";
+				if(!file_exists($creatpath))     mkdir($creatpath,0777,true);
+				$imageurl = Mage::getBaseDir().$avatarpath.'avatar.jpg';
+				$hander = curl_init();
+				$fp = fopen($imageurl,'wb');
+				curl_setopt($hander,CURLOPT_URL,$url);
+				curl_setopt($hander,CURLOPT_FILE,$fp);
+				curl_setopt($hander,CURLOPT_HEADER,0);
+				curl_setopt($hander,CURLOPT_FOLLOWLOCATION,1);
+				curl_setopt($hander,CURLOPT_TIMEOUT,60);
+				curl_exec($hander);
+				curl_close($hander);
+				fclose($fp);
+
+				/* 头像图片的路径保存到数据库对应的avatar字段 */
+				$currcustomer = Mage::getModel('customer/customer')->load($customer_id);
+				$currcustomer->setData ('wechat_avatar',$savepath );
+				$currcustomer->save();
             }
 
             if (empty($customer_id)) {
