@@ -53,6 +53,12 @@ class Sunpop_StampCustomer_Block_Adminhtml_Stampcustomer_Edit_Tab_Form extends M
 						'required'  => true,
 						));
 
+						$fieldset->addField("a_validatesn", "text", array(
+						"label" => Mage::helper("stampcustomer")->__("Validatesn"),
+						"name" => "a_validatesn",
+						'required'  => true,
+						));
+
 						$dateFormatIso = Mage::app()->getLocale()->getDateFormatWithLongYear(
 							Mage_Core_Model_Locale::FORMAT_TYPE_FULL
 						);
