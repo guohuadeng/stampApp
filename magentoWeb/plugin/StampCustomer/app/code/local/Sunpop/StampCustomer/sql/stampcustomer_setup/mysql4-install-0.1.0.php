@@ -11,8 +11,9 @@ CREATE TABLE IF NOT EXISTS `stampcustomerlist` (
   `a_certspec` varchar(30) NOT NULL COMMENT '注册专业',
   `a_certsn` varchar(30) NOT NULL COMMENT '注册号',
   `a_stampsn` varchar(30) NOT NULL COMMENT '印章编号',
-  `status` tinyint(1) NOT NULL,
+  `a_validatesn` varchar(5) NOT NULL COMMENT '执业印章校验码',
   `a_expdate` date NOT NULL COMMENT '有效期至',
+  `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`a_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 

@@ -50,7 +50,6 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 				$response = Mage::helper('core')->jsonEncode($result);
 				$this->getResponse()->setBody(urldecode($response));
 				return;
-
 		}*/
 
 		try{
@@ -91,6 +90,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 					$result['a_company'] = urlencode($c->getACompany());
 					$result['a_certsn'] = urlencode($c->getACertsn());
 					$result['a_stampsn'] = urlencode($c->getAStampsn());
+					$result['a_validatesn'] = urlencode($c->getAVlidatesn());
 					$result['a_expdate'] = urlencode($c->getAExpdate());
 					$arrayobject[]= new ArrayObject($result);
 				}
@@ -189,6 +189,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 							<th>注册专业</th>
 							<th>注册号</th>
 							<th>印章编号</th>
+							<th>校验码</th>
 							<th>有效期至</th>
 						</tr>';
 				foreach($collection as $c){
@@ -200,6 +201,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 					$html .= '<td class="a_certspec">'.$c->getACertspec().'</td>';
 					$html .= '<td class="a_certsn">'.$c->getACertsn().'</td>';
 					$html .= '<td class="a_stampsn">'.$c->getAStampsn().'</td>';
+					$html .= '<td class="a_validatesn">'.$c->getAValidatesn().'</td>';
 					$html .= '<td class="a_expdate">'.$c->getAExpdate().'</td>';
 					$html .= '</tr>';
 				}
@@ -216,6 +218,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 						var certspec = $(this).find(".a_certspec").html();
 						var certsn = $(this).find(".a_certsn").html();
 						var stampsn = $(this).find(".a_stampsn").html();
+						var validatesn = $(this).find(".a_validatesn").html();
 						var expdate = $(this).find(".a_expdate").html();
 						$(".a_state").val(state);
 						$(".a_name").val(name);
@@ -224,6 +227,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 						$(".a_certspec").val(certspec);
 						$(".a_certsn").val(certsn);
 						$(".a_stampsn").val(stampsn);
+						$(".a_validatesn").val(validatesn);
 						if(expdate){
 							$(".product-date").val(expdate);
 						}

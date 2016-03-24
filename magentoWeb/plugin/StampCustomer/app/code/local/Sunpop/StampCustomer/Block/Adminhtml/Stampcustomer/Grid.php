@@ -65,6 +65,11 @@ class Sunpop_StampCustomer_Block_Adminhtml_Stampcustomer_Grid extends Mage_Admin
 				"index" => "a_stampsn",
 				'sortable'  => true,
 				));
+				$this->addColumn("a_validatesn", array(
+				"header" => Mage::helper("stampcustomer")->__("Validatesn"),
+				"index" => "a_validatesn",
+				'sortable'  => true,
+				));
 				$this->addColumn('status', array(
 					'header'    => Mage::helper('stampcustomer')->__('Status'),
 					'index'     => 'status',
