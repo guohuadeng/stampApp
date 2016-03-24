@@ -9,6 +9,7 @@
 "Stampsn","印章编号"
 "Status","状态"
 "Expdate","有效期至"
+"expdate","有效期至"
 "Add New Item","新增档案"
 "Edit Item '%s'","编辑档案 '%s'"
 "Save Item","保存"
@@ -17,3 +18,4 @@
 "Item information","档案信息"
 "Edit Item","编辑档案"
 "Stampcustomer","管理资质档案"
+"My Order","我的订单"

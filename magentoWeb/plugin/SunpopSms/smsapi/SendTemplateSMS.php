@@ -85,8 +85,14 @@ function sendTemplateSMS($to,$datas,$tempId)
 $mobile = $_GET[mobile];
 $validation = $_GET[validation];
 $timeout = $_GET[timeout]?$_GET[timeout]:'60';
-//$template = $_GET[template];
+$template = $_GET[template];
 //获取验证码
-$template = '74317';
+/*
+74317,发验证码
+74318,发密码
+75704,验证码登录，发验证码
+75705,dev网站的验证码登录，发验证码
+*/
+if (!$template)  $template = '74317';
 sendTemplateSMS($mobile,array($validation,$timeout),$template);//手机号码，替换内容数组，模板ID
 ?>
