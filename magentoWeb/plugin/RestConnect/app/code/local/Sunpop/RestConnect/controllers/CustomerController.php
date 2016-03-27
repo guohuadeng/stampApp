@@ -90,46 +90,28 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
   (8, 33, 0, 'oPpMtuFeqlGaHRXCrGQm1J2p4Acg', 'ivan邓国华', 1, 'Guangzhou', 'Guangdong', 'CN', 'http://wx.qlogo.cn/mmopen/XuwOW3hqrNUia9NsHmAux8NouAozJV12woqFqC4Yp6VgrzicNPADMNkhfHfRP1Y2kUlqTibPkjZNqwNQAZDicQfSWR5XaE4WBCjM/0', 'oRGbUwH23-zCJ8xnD7lJbqdJIOk4', ''),
 	*/
 
-		$request = $this->getRequest()->getQuery();
-        $_helper = Mage::helper('weixinlogin')->setReturnLog();
-        $_helper->log('weixinlogin-return', $request);
-
-		$login   = Mage::getModel('weixinlogin/login');
-		$config  = $login->prepareConfig();
-
-		$weixin = Mage::getModel('weixinlogin/core');
-		$weixin->setConfig($config);
-
-		$info = $weixin->getUserInfo();
-		if (! isset($info['unionid'])) {
+		$data = $this->getRequest()->getParams();
+		if (! isset($data['unionid'])) {
 			echo json_encode ( array (
 					false,
 					'01',
-					Mage::helper ( 'customer' )->__('Sorry Wechat login failed!')
+					Mage::helper ( 'customer' )->__('unionid does not exist!')
 			) );
 			return ;
 		}
 
-		/*
-		 * customer login
-		 */
-		$info['inside_weixin'] = 0;
-
-		if ($weixin->is_weixin()) {
-			$info['inside_weixin'] = 1;
-		}
 
 		$identifierHelper = Mage::helper('weixinlogin/identifiers');
 
 		$collection = Mage::getModel('weixinlogin/identifiers')
 			->getCollection()
-			->addFieldToFilter('unionid', $info['unionid']);
+			->addFieldToFilter('unionid', $data['unionid']);
 		if(!$collection->getSize()){
-			$identifierHelper->saveLoginWeixin($info);
+			$identifierHelper->saveLoginWeixin($data);
 			echo json_encode ( array (
 					false,
 					'02',
-					Mage::helper ( 'customer' )->__ ('unionid not registered')
+					Mage::helper ( 'customer' )->__ ('Customer not registered')
 			) );
 			return ;
 		}
@@ -143,71 +125,54 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			) );
 			return ;
 		}
-		$data = $customer->getData();
-		//Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
+		$customer_data = $customer->getData();
+		Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
 		echo json_encode ( array (
 					00,
-					$data,
-					Mage::helper ( 'customer' )->__ ('login successful 11')
+					$customer_data,
+					Mage::helper ( 'customer' )->__ ('login successful')
 			) );
 	}
 
-	protected function _wechatLogin($request){
-		$request = $request;
-        $_helper = Mage::helper('weixinlogin')->setReturnLog();
-        $_helper->log('weixinlogin-return', $request);
-
-		$login   = Mage::getModel('weixinlogin/login');
-		$config  = $login->prepareConfig();
-
-		$weixin = Mage::getModel('weixinlogin/core');
-		$weixin->setConfig($config);
-
-		$info = $weixin->getUserInfo();
-		if (! isset($info['unionid'])) {
-			return array(
-				'status' => false
-			);
-		}
-
-		/*
-		 * customer login
-		 */
-		$info['inside_weixin'] = 0;
-
-		if ($weixin->is_weixin()) {
-			$info['inside_weixin'] = 1;
-		}
-
+	protected function _wechatLogin($data){
+		$data = $data;
 		$identifierHelper = Mage::helper('weixinlogin/identifiers');
 
 		$collection = Mage::getModel('weixinlogin/identifiers')
 			->getCollection()
-			->addFieldToFilter('unionid', $info['unionid']);
+			->addFieldToFilter('unionid', $data['unionid']);
 		if(!$collection->getSize()){
-			$restlogin = $identifierHelper->saveRestLoginWeixin($info);
 			return array(
 				'status' => false,
-				'id' => $restlogin->getId()
 			);
 		}
 		$customer_id = $collection->getFirstItem()->getCustomerId();
 		$customer = Mage::getModel('customer/customer')->load($customer_id);
 		if(!$customer->getId()){
 			return array(
-				'status' => false
+				'status' => false,
+				'id' =>$collection->getFirstItem()->getId()
 			);
 		}
-		$data = $customer->getData();
-		Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
+		//$data = $customer->getData();
+		//Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
 		return array(
-				'status' => true
+				'status' => true,
 			);
 	}
 
 	public function wechatRegisterAction(){
-		$request = $this->getRequest()->getQuery();
-		$result = $this->_wechatLogin($request);
+		$params = $this->getRequest()->getParams();
+		if (! isset($params['unionid'])) {
+			echo json_encode ( array (
+					false,
+					'01',
+					Mage::helper ( 'customer' )->__('unionid does not exist!')
+			) );
+			return ;
+		}
+
+		$result = $this->_wechatLogin($params);
 		if($result['status']){
 			echo json_encode ( array (
 					02,
@@ -216,24 +181,136 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			return ;
 		}
 
-		if($result['id']){
-			$identifier = Mage::getModel('weixinlogin/identifiers')->load($result['id']);
-			$data = $identifier->getData();
-			$identifierHelper = Mage::helper('weixinlogin/identifiers');
-			$customer = $identifierHelper->saveIdentifier($data);
-			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
+		$session = Mage::getSingleton ( 'customer/session' );
+		$session->setEscapeMessages ( true );
+
+		$customer = Mage::registry ( 'current_customer' );
+
+		$errors = array ();
+		if (is_null ( $customer )) {
+			$customer = Mage::getModel ( 'customer/customer' )->setId ( null );
+		}
+		if (isset ( $params ['isSubscribed'] )) {
+			$customer->setIsSubscribed ( 1 );
+		}
+		if( (null==Mage::app ()->getRequest ()->getParam ('password') ) || (null==Mage::app ()->getRequest ()->getParam ('email')) ){
 			echo json_encode ( array (
-					01,
-					Mage::helper ( 'customer' )->__ ('registration success')
+					false,
+					'0x1100',
+					Mage::helper ( 'customer' )->__ ('empty password or email.')
 			) );
 			return ;
 		}
-		echo json_encode ( array (
-					03,
-					Mage::helper ( 'customer' )->__ ('registration failed')
-			) );
-			return ;
+		$customer->getGroupId ();
+		try {
+			//中文姓名处理，如果有 chinesename字段
+			if ( $params ['chinesename'] == null  )	{
+				$customer->setData ( 'firstname', $params ['firstname'] );
+				$customer->setData ( 'lastname', $params ['lastname'] );
+				}
+			else	{
+				$customer->setData ( 'lastname', mb_substr($params ['chinesename'], 0, 1, 'utf-8') );
+				$customer->setData ( 'firstname', mb_substr($params ['chinesename'], 1, mb_strlen($params ['chinesename'])-1, 'utf-8') );
+				}
+			$customer->setPassword ( $params ['password'] );
+			$customer->setConfirmation ( $this->getRequest ()->getPost ( 'confirmation', $params ['password'] ) );
+			$customer->setData ( 'email', $params ['email'] );
+			$customer->setData ( 'gender', $params ['gender'] );
+			$customer->setData ( 'default_mobile_number', $params ['default_mobile_number'] );
+			$customer->setData ( 'avatar', $params ['avatar'] );
+			$validationResult = count ( $errors ) == 0;
+			if (true === $validationResult) {
+				$customer->save ();
+				if ($customer->isConfirmationRequired ()) {
+					$customer->sendNewAccountEmail ( 'confirmation', $session->getBeforeAuthUrl (), Mage::app ()->getStore ()->getId () );
+				} else {
+					$session->setCustomerAsLoggedIn ( $customer );
+					$customer->sendNewAccountEmail ( 'registered', '', Mage::app ()->getStore ()->getId () );
+				}
 
+				/* 微信表相关unionid绑定到magento相关customer_id */
+
+
+				if($result['id']){
+					$customer_id = $customer->getEntityId();
+					$identifier = Mage::getModel('weixinlogin/identifiers');
+					$identifier_id = $identifier->getCollection()->addFieldToFilter('unionid', $params['unionid'])->getFirstItem()->getId();
+					if (!empty($identifier_id)) {
+						$headimgurl = $identifier->getCollection()->addFieldToFilter('unionid', $params['unionid'])->getFirstItem()->getHeadimgurl();
+						/* 微信头像图片保存到服务器指定目录 */
+						$url = $headimgurl;
+						$avatarpath = "/media/attached/attachment/download/customer/".$customer_id."/file/";
+						$savepath = "/media/attached/attachment/download/customer/".$customer_id."/file/avatar.jpg";
+						$creatpath = "./media/attached/attachment/download/customer/".$customer_id."/file/";
+						if(!file_exists($creatpath))     mkdir($creatpath,0777,true);
+						$imageurl = Mage::getBaseDir().$avatarpath.'avatar.jpg';
+						$hander = curl_init();
+						$fp = fopen($imageurl,'wb');
+						curl_setopt($hander,CURLOPT_URL,$url);
+						curl_setopt($hander,CURLOPT_FILE,$fp);
+						curl_setopt($hander,CURLOPT_HEADER,0);
+						curl_setopt($hander,CURLOPT_FOLLOWLOCATION,1);
+						curl_setopt($hander,CURLOPT_TIMEOUT,60);
+						curl_exec($hander);
+						curl_close($hander);
+						fclose($fp);
+
+						/* 头像图片的路径保存到数据库对应的avatar字段 */
+						$customer->setData ('wechat_avatar',$savepath );
+						$customer->save();
+
+						$identifier->load($identifier_id)->setCustomerId($customer_id)->save();
+					}
+				}
+
+
+				$addressData = $session->getGuestAddress ();
+				if ($addressData && $customer->getId ()) {
+					$address = Mage::getModel ( 'customer/address' );
+					$address->setData ( $addressData );
+					$address->setCustomerId ( $customer->getId () );
+					$address->save ();
+					$session->unsGuestAddress ();
+				}
+
+				echo json_encode ( array (
+						true,
+						'0x0000',
+						array ()
+				) );
+			} else {
+				echo json_encode ( array (
+						false,
+						'0x1000',
+						$errors
+				) );
+			}
+		} catch ( Mage_Core_Exception $e ) {
+			if ($e->getCode () === Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS) {
+				$url = Mage::getUrl ( 'customer/account/forgotpassword' );
+				$message = $this->__ ( 'There is already an account with this email address. If you are sure that it is your email address, <a href="%s">click here</a> to get your password and access your account.', $url );
+				$session->setEscapeMessages ( false );
+			} else {
+				$message = Mage::helper ( 'customer' )->__ ( $e->getMessage () );
+				//中文翻译有问题，故手工代码
+				$message = str_replace("Please specify different value for","存在相同的注册信息，请输入一个不同的值", $message);
+				$message = str_replace("attribute. Customer with such value already exists.","。", $message);
+
+			}
+			echo json_encode ( array (
+					false,
+					'0x1000',
+					array (
+							$message
+					)
+			) );
+		} catch ( Exception $e ) {
+			echo json_encode ( array (
+					false,
+					'0x1000',
+					$this->__( $e->getMessage () )
+			) );
+		}
 	}
 
 	protected function _status() {

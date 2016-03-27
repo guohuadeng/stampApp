@@ -13,17 +13,15 @@ $installer->run("
       city          varchar(64)  not null default '',
       province      varchar(64)  not null default '',
       country       char(2)      not null default '',
-      headimgurl         varchar(255) not null default '',
-      local_avatar         varchar(255) not null default '',
+      avatar         varchar(255) not null default '',
       unionid       varchar(64)  not null default '',
       refresh_token varchar(255) not null default '',
       primary key (id), unique(unionid)
     ) engine=innodb default charset=utf8;
-  alter table  {$this->getTable('social_login_weixin')} add COLUMN headimgurl VARCHAR(255) not null after country; //增加微信头像地址
-  alter table  {$this->getTable('social_login_weixin')} add COLUMN local_avatar VARCHAR(255) not null after country; //增加本地头像地址
 ");
 
 $installer->run("
+  alter table  {$this->getTable('social_login_weixin')} add COLUMN avatar VARCHAR(255) not null; //增加头像地址
 ");
 
 $installer->endSetup();

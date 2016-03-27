@@ -60,21 +60,42 @@ class Alipaymate_Weixinlogin_ProcessingController extends Mage_Core_Controller_F
             }
 
             $identifierHelper = Mage::helper('weixinlogin/identifiers');
-            $customer = $identifierHelper->getCustomer($info['unionid']);
-
-            if (!$customer || ! $customer->getId()) {
-                $customer = $identifierHelper->saveIdentifier($info);
-            }
-
-            Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
+			
+			$collection = Mage::getModel('weixinlogin/identifiers')
+				->getCollection()
+				->addFieldToFilter('unionid', $info['unionid']);
+			
+			$params = "?unionid=".$info['unionid'];
+			
+			if($collection->getSize()){
+				$customer = $identifierHelper->getCustomer($info['unionid']);
+				if (!$customer || ! $customer->getId()) {
+					$url = Mage::getUrl('customer/account/create').$params;
+				}else{ 
+					$currentcustomer = Mage::getModel("customer/customer")->load($customer->getId());
+					Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($currentcustomer);
+					$url = Mage::getSingleton('core/session')->getBeforeWeixinAuthUrl();	
+					
+				}
+			}else{
+				$identifierHelper->saveLoginWeixin($info);
+				$url = Mage::getUrl('customer/account/create').$params;
+			}	
+            
         } catch (Exception $e) {
             $_helper->log('weixinlogin-return (error)', $e->getMessage());
             Mage::getSingleton('core/session')->addNotice($_helper->__('Sorry, WeChat login failed!'));
         }
-
-        if ($url = Mage::getSingleton('core/session')->getBeforeWeixinAuthUrl()) {
-            echo '<script type="text/javascript">top.location.href="' .$url. '";</script>';
-            exit();
-        }
+		echo '<script type="text/javascript">top.location.href="' .$url. '";</script>';
+		exit();
+        
     }
+	
+	public function newloginAction(){
+        $this->getResponse()->setHeader('Login-Required', 'true');
+        $this->loadLayout();
+       // $this->_initLayoutMessages('customer/session');
+       // $this->_initLayoutMessages('catalog/session');
+        $this->renderLayout();
+	}
 }

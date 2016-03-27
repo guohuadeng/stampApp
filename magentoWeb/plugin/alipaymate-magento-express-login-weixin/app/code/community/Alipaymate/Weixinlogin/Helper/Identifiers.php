@@ -55,9 +55,9 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
                 $customer_id = $customer->getId();
 				/* 微信头像图片保存到服务器指定目录 */
 				$url = $headimgurl;
-				$avatarpath = "/attached/attachment/download/customer/".$customer_id."/file/";
-				$savepath = "/attached/attachment/download/customer/".$customer_id."/file/avatar.jpg";
-				$creatpath = "./attached/attachment/download/customer/".$customer_id."/file/";
+				$avatarpath = "/media/attached/attachment/download/customer/".$customer_id."/file/";
+				$savepath = "/media/attached/attachment/download/customer/".$customer_id."/file/avatar.jpg";
+				$creatpath = "./media/attached/attachment/download/customer/".$customer_id."/file/";
 				if(!file_exists($creatpath))     mkdir($creatpath,0777,true);
 				$imageurl = Mage::getBaseDir().$avatarpath.'avatar.jpg';
 				$hander = curl_init();
@@ -113,6 +113,78 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
         return false;
     }
 
+	public function saveLoginWeixin($data){
+		$openid        =  isset($data['openid']        ) ? $data['openid']        : '';
+        $nickname      =  isset($data['nickname']      ) ? $data['nickname']      : '';
+        $sex           =  isset($data['sex']           ) ? $data['sex']           :  0;
+        $city          =  isset($data['city']          ) ? $data['city']          : '';
+        $province      =  isset($data['province']      ) ? $data['province']      : '';
+        $country       =  isset($data['country']       ) ? $data['country']       : '';
+        $headimgurl       =  isset($data['headimgurl']       ) ? $data['headimgurl']       : '';
+        $unionid       =  isset($data['unionid']       ) ? $data['unionid']       : '';
+        $refresh_token =  isset($data['refresh_token'] ) ? $data['refresh_token'] : '';
+        $inside_weixin =  isset($data['inside_weixin'] ) ? $data['inside_weixin'] :  0;
+
+		 // save identifier
+		$identifier = Mage::getModel('weixinlogin/identifiers');
+		$identifier_id = $identifier->getCollection()->addFieldToFilter('unionid', $unionid)->getFirstItem()->getId();
+
+		if (empty($identifier_id)) {
+			$identifier_id = 0;
+		}
+		$customer_id = 0;
+		$identifier->load($identifier_id)
+			->setOpenid(       $openid)
+			->setNickname(     $nickname)
+			->setSex(          $sex )
+			->setCity(         $city)
+			->setProvince(     $province)
+			->setCountry(      $country)
+			->setUnionid(      $unionid)
+			->setHeadimgurl(      $headimgurl)
+			->setRefreshToken( $refresh_token)
+			->setCustomerId(   $customer_id)
+			->setInsideWeixin( $inside_weixin)
+			->save();
+		return true;
+	}
+
+	public function saveRestLoginWeixin($data){
+		$openid        =  isset($data['openid']        ) ? $data['openid']        : '';
+        $nickname      =  isset($data['nickname']      ) ? $data['nickname']      : '';
+        $sex           =  isset($data['sex']           ) ? $data['sex']           :  0;
+        $city          =  isset($data['city']          ) ? $data['city']          : '';
+        $province      =  isset($data['province']      ) ? $data['province']      : '';
+        $country       =  isset($data['country']       ) ? $data['country']       : '';
+        $headimgurl       =  isset($data['headimgurl']       ) ? $data['headimgurl']       : '';
+        $unionid       =  isset($data['unionid']       ) ? $data['unionid']       : '';
+        $refresh_token =  isset($data['refresh_token'] ) ? $data['refresh_token'] : '';
+        $inside_weixin =  isset($data['inside_weixin'] ) ? $data['inside_weixin'] :  0;
+
+		 // save identifier
+		$identifier = Mage::getModel('weixinlogin/identifiers');
+		$identifier_id = $identifier->getCollection()->addFieldToFilter('unionid', $unionid)->getFirstItem()->getId();
+
+		if (empty($identifier_id)) {
+			$identifier_id = 0;
+		}
+		$customer_id = 0;
+		$identifier->load($identifier_id)
+			->setOpenid(       $openid)
+			->setNickname(     $nickname)
+			->setSex(          $sex )
+			->setCity(         $city)
+			->setProvince(     $province)
+			->setCountry(      $country)
+			->setUnionid(      $unionid)
+			->setHeadimgurl(      $headimgurl)
+			->setRefreshToken( $refresh_token)
+			->setCustomerId(   $customer_id)
+			->setInsideWeixin( $inside_weixin)
+			->save();
+		return $identifier;
+	}
+
     /**
      * Gets a customer by identifier
      *
@@ -150,5 +222,20 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
 
         return $customer;
     }
+//增加发送短信
+	public function sendCms($mobil,$password){
+		$url = "http://www.58stamp.com/smsapi/SendTemplateSMS.php?template=74318";
+		$url = $url . '&mobile='. $mobil . '&validation=' . $password;
 
+		$ch = curl_init();
+
+		$timeout = 5;
+		curl_setopt ($ch, CURLOPT_URL,$url);
+		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);  // 遇到302自动跳转
+		$response = curl_exec($ch);
+		$responseData = json_decode($response, TRUE);
+		return $responseData;
+	}
 }

@@ -42,7 +42,13 @@
             <weixinlogin>
                 <class>Alipaymate_Weixinlogin_Helper</class>
             </weixinlogin>
-        </helpers>
+        </helpers>						
+		<rewrite>			
+			<weixinlogin_account>		
+				<from><![CDATA[#^/customer/account/#]]></from>			
+				<to>weixinlogin/account/</to>			
+			</weixinlogin_account>			
+		</rewrite>		
     </global>
 
     <frontend>
