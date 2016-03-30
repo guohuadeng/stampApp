@@ -50,6 +50,14 @@ class Sunpop_RestConnect_StoreController extends Mage_Core_Controller_Front_Acti
 		$group_name = Mage::app ()->getGroup($group_id) -> getName();
 		$storelang= Mage::getStoreConfig('general/locale/code', $store_id);
 
+		//微信相关信息，先写死
+		$wechatAppid = Mage::app ()->getRequest ()->getParam ( 'wechatAppid' );
+		if ($wechatAppid == 'wx1a3ecb686566647e') {
+		  //$wechatAppKey = 'www58stampcomwoailongmao12345678';
+		  //$wechatAppSign = '5fca0f59955deb2f755ae8d8d9b27b7a';
+		  $wechatAppSecret = '1370c0c44c0606228639a59bc125655e';
+		  }
+
 		echo json_encode(array(
 				'store_id'=>$store_id,
 				'store_code'=>Mage::app()->getStore()->getCode(),
@@ -66,7 +74,10 @@ class Sunpop_RestConnect_StoreController extends Mage_Core_Controller_Front_Acti
 				'store_url'=> Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB),
 				'skin_url'=> Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN),
 				'js_url'=> Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS),
-				'storelang'=> $storelang
+				'storelang'=> $storelang,
+		    //'wechatAppKey' => $wechatAppKey,
+		    //'wechatAppSign' => $wechatAppSigh,
+		    'wechatAppSecret' => $wechatAppSecret
 		));
 	}
 

@@ -42,11 +42,26 @@
 				'印章编号'=>'a_stampsn',
 				'执业印章校验码'=>'a_validatesn'
 			);
+			$customhint = array(
+				'姓名'=>'例如：赵子龙',
+				'注册区域'=>'例如：广东',
+				'注册号'=>'例如：粤132111301344',
+				'专业类型'=>'',
+				'注册专业'=>'例如：建筑,市政,港航,机电（使用逗号,分隔）',
+				'单位名称'=>'请输入完整单位名称',
+				'印章编号'=>'例如：4400888-CN008',
+				'执业印章校验码'=>'例如：01'
+			);
 		?>
 		<?php if($customoption[$title]): ?>
-			<input type="text" onchange="opConfig.reloadPrice()" id="options_<?php echo $_option->getId() ?>_text " class="<?php echo $customoption[$title]; ?> input-text<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?> <?php echo $_option->getMaxCharacters() ? ' validate-length maximum-length-'.$_option->getMaxCharacters() : '' ?> product-custom-option" name="options[<?php echo $_option->getId() ?>]" value="<?php echo $this->escapeHtml($this->getDefaultValue()) ?>" />
+			<input type="text" onchange="opConfig.reloadPrice()" id="options_<?php echo $_option->getId() ?>_text "
+			  class="<?php echo $customoption[$title]; ?> input-text form-control<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?>
+			  <?php echo $_option->getMaxCharacters() ? ' validate-length maximum-length-'.$_option->getMaxCharacters() : '' ?>
+			  product-custom-option" name="options[<?php echo $_option->getId() ?>]"
+			  placeholder="<?php echo $customhint[$title]; ?>"
+			  value="<?php echo $this->escapeHtml($this->getDefaultValue()) ?>" />
 		<?php else:?>
-			<input type="text" onchange="opConfig.reloadPrice()" id="options_<?php echo $_option->getId() ?>_text" class="input-text<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?> <?php echo $_option->getMaxCharacters() ? ' validate-length maximum-length-'.$_option->getMaxCharacters() : '' ?> product-custom-option" name="options[<?php echo $_option->getId() ?>]" value="<?php echo $this->escapeHtml($this->getDefaultValue()) ?>" />
+			<input type="text" onchange="opConfig.reloadPrice()" id="options_<?php echo $_option->getId() ?>_text" class="input-text form-control<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?> <?php echo $_option->getMaxCharacters() ? ' validate-length maximum-length-'.$_option->getMaxCharacters() : '' ?> product-custom-option" name="options[<?php echo $_option->getId() ?>]" value="<?php echo $this->escapeHtml($this->getDefaultValue()) ?>" />
 		<?php endif; ?>
    <?php elseif ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_AREA): ?>
         <textarea id="options_<?php echo $_option->getId() ?>_text" onchange="opConfig.reloadPrice()" class="<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?> <?php echo $_option->getMaxCharacters() ? ' validate-length maximum-length-'.$_option->getMaxCharacters() : '' ?> product-custom-option" name="options[<?php echo $_option->getId() ?>]" rows="5" cols="25"><?php echo $this->escapeHtml($this->getDefaultValue()) ?></textarea>

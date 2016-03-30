@@ -58,7 +58,7 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
 				$avatarpath = "/media/attached/attachment/download/customer/".$customer_id."/file/";
 				$savepath = "/media/attached/attachment/download/customer/".$customer_id."/file/avatar.jpg";
 				$creatpath = "./media/attached/attachment/download/customer/".$customer_id."/file/";
-				if(!file_exists($creatpath))     mkdir($creatpath,0777,true);
+				if(!file_exists($creatpath))     mkdir($creatpath,0777,true); 
 				$imageurl = Mage::getBaseDir().$avatarpath.'avatar.jpg';
 				$hander = curl_init();
 				$fp = fopen($imageurl,'wb');
@@ -70,7 +70,7 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
 				curl_exec($hander);
 				curl_close($hander);
 				fclose($fp);
-
+				
 				/* 头像图片的路径保存到数据库对应的avatar字段 */
 				$currcustomer = Mage::getModel('customer/customer')->load($customer_id);
 				$currcustomer->setData ('wechat_avatar',$savepath );
@@ -124,7 +124,7 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
         $unionid       =  isset($data['unionid']       ) ? $data['unionid']       : '';
         $refresh_token =  isset($data['refresh_token'] ) ? $data['refresh_token'] : '';
         $inside_weixin =  isset($data['inside_weixin'] ) ? $data['inside_weixin'] :  0;
-
+		
 		 // save identifier
 		$identifier = Mage::getModel('weixinlogin/identifiers');
 		$identifier_id = $identifier->getCollection()->addFieldToFilter('unionid', $unionid)->getFirstItem()->getId();
@@ -148,7 +148,7 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
 			->save();
 		return true;
 	}
-
+	
 	public function saveRestLoginWeixin($data){
 		$openid        =  isset($data['openid']        ) ? $data['openid']        : '';
         $nickname      =  isset($data['nickname']      ) ? $data['nickname']      : '';
@@ -160,7 +160,7 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
         $unionid       =  isset($data['unionid']       ) ? $data['unionid']       : '';
         $refresh_token =  isset($data['refresh_token'] ) ? $data['refresh_token'] : '';
         $inside_weixin =  isset($data['inside_weixin'] ) ? $data['inside_weixin'] :  0;
-
+		
 		 // save identifier
 		$identifier = Mage::getModel('weixinlogin/identifiers');
 		$identifier_id = $identifier->getCollection()->addFieldToFilter('unionid', $unionid)->getFirstItem()->getId();
@@ -184,7 +184,7 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
 			->save();
 		return $identifier;
 	}
-
+	
     /**
      * Gets a customer by identifier
      *
@@ -222,7 +222,7 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
 
         return $customer;
     }
-//增加发送短信
+
 	public function sendCms($mobil,$password){
 		$url = "http://www.58stamp.com/smsapi/SendTemplateSMS.php?template=74318";
 		$url = $url . '&mobile='. $mobil . '&validation=' . $password;
@@ -237,5 +237,56 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
 		$response = curl_exec($ch);
 		$responseData = json_decode($response, TRUE);
 		return $responseData;
+	}
+	/* *
+	* 判断当前customer_id是否已经绑定uniond
+	* @param string $unionid int customer_id
+	* @return array()  code = 1 是没有customer_id或unionid参数 ,code = 2 customer_id 没有改参数对应的customer,   code = 3 已经绑定, code = 4 参数正确没绑定, code = 5 unionid参数错误
+ 	*/
+	public function checkUnionidBound($customer_id, $unionid){
+		if(!$customer_id || !$unionid){
+			return array(
+				'status'=>false,
+				'code' => 1
+			);
+		}
+		
+		$customercollection = Mage::getModel('customer/customer')
+			->getCollection()
+			->addFieldToFilter('entity_id', $customer_id);
+		if ($customercollection->getSize()) {
+			$collection = Mage::getModel('weixinlogin/identifiers')
+				->getCollection()
+				->addFieldToFilter('customer_id', $customer_id);
+			if ($collection->getSize()) {
+				return array(
+						'status'=>true,
+						'code' => 3
+					);
+			}else{ 
+				$unionidcollection = Mage::getModel('weixinlogin/identifiers')
+					->getCollection()
+					->addFieldToFilter('unionid', $unionid);
+				if ($unionidcollection->getSize()) {
+					return array(
+						'status'=>false,
+						'code' => 4
+					  );
+				}else{ 
+					return array(
+						'status'=>false,
+						'code' => 5
+					  );
+				}
+			}
+		}else{
+			return array(
+				'status'=>false,
+				'code' => 2
+			  );
+		}
+
+		
+		
 	}
 }

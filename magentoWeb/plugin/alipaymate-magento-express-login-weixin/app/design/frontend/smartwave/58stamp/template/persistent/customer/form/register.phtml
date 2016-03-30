@@ -9,10 +9,15 @@
 ?>
 <!--微信扫描注册-->
 <?php if(count($data)>0):?>
-	<p> 如果已经有账号 <a href="<?php echo Mage::getUrl('customer/account/login').'?unionid='.$data['unionid'] ;?>">请登录进行微信帐号绑定</a></p>
 	<div class="account-create">
 		<div class="page-title">
-			<h1>微信用户，补充信息<?php echo $this->__('Create an Account') ?></h1>
+			<h1><?php echo $this->__('Create an Account') ?> &nbsp;|&nbsp;
+			  或对已有帐号进行&nbsp;<a href="<?php echo Mage::getUrl('customer/account/login').'?unionid='.$data['unionid'] ;?>" class="btn btn-success">
+			  微信绑定</a></h1>
+		</div>
+
+		<div class="wechatAvatar col-sm-12 col-md-6 col-lg-4 pull-right">
+		<img style="max-width:100px;padding-top:40px;float:right;" src="<?php echo $data['headimgurl'] ?>">
 		</div>
 		<?php echo $this->getChildHtml('form_fields_before')?>
 		<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
@@ -66,7 +71,7 @@
 						</div>
 					</li>
 					<li class="fields">
-						<label for="email_address" class="required wechat-msg bg-danger"><em>*</em><?php echo $this->__('Email Address') ?>，建议使用常用邮箱。</label>
+						<label for="email_address" class="required wechat-msg"><em>*</em><?php echo $this->__('Email Address') ?><span class="text-danger">（建议使用常用邮箱）</span></label>
 						<div class="input-box">
 							<input type="text" name="email" id="email_address" value="<?php echo $data['unionid']. '@weixin.com'; ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate-email required-entry" />
 						</div>

@@ -1,7 +1,7 @@
-<?php
+<?php 
 	require_once 'Mage/Customer/controllers/AccountController.php';
 	class Alipaymate_Weixinlogin_AccountController extends Mage_Customer_AccountController{
-
+		
     const CUSTOMER_ID_SESSION_NAME = "customerId";
     const TOKEN_SESSION_NAME = "token";
 
@@ -109,7 +109,7 @@
      * Login post action
      */
     public function loginPostAction()
-    {
+    {	
         if (!$this->_validateFormKey()) {
             $this->_redirect('*/*/');
             return;
@@ -123,13 +123,13 @@
 		$login = $this->getRequest()->getPost('login');
         if ($this->getRequest()->isPost()) {
             if (!empty($login['username']) && !empty($login['password'])) {
-
+				
 				$customerExist = Mage::getModel('customer/customer')
 						->getCollection()
 						->addAttributeToSelect('*')
 						->addAttributeToFilter('email', $login['username'] )
 						->getFirstItem();
-
+						
 				if(!$customerExist->getId()){
 					$customerExist = Mage::getModel('customer/customer')
 						->getCollection()
@@ -139,7 +139,7 @@
 				}
 				if($customerExist->getId()){
 					$phone =$customerExist->getDefaultMobileNumber();
-					if(preg_match("/^1[34578]{1}\d{9}$/",$phone)){
+					if(preg_match("/^1[34578]{1}\d{9}$/",$phone)){ 
 						$login['username'] = $customerExist->getEmail();
 					}else{
 						//$url = Mage::getUrl('weixinlogin/processing/newlogin');
@@ -147,15 +147,17 @@
 						//exit();
 					}
 				}
-
+				
                 try {
                     $session->login($login['username'], $login['password']);
 					$data = $this->getRequest()->getParams();
 					if($data['unionid']){
+						$customer_id = $session->getCustomer()->getEntityId();
+						$result = Mage::helper('weixinlogin/identifiers')->checkUnionidBound($customer_id,$data['unionid']);
+						if((!$result['status']) && ($result['code']==4) ){
 							$identifier = Mage::getModel('weixinlogin/identifiers');
 							$identifier_id = $identifier->getCollection()->addFieldToFilter('unionid', $data['unionid'])->getFirstItem()->getId();
 							if (!empty($identifier_id)) {
-								$customer_id = $session->getCustomer()->getEntityId();
 								$customer = Mage::getModel("customer/customer")->load($customer_id);
 								$headimgurl = $identifier->getCollection()->addFieldToFilter('unionid', $data['unionid'])->getFirstItem()->getHeadimgurl();
 								/* 微信头像图片保存到服务器指定目录 */
@@ -163,7 +165,7 @@
 								$avatarpath = "/media/attached/attachment/download/customer/".$customer_id."/file/";
 								$savepath = "/media/attached/attachment/download/customer/".$customer_id."/file/avatar.jpg";
 								$creatpath = "./media/attached/attachment/download/customer/".$customer_id."/file/";
-								if(!file_exists($creatpath))     mkdir($creatpath,0777,true);
+								if(!file_exists($creatpath))     mkdir($creatpath,0777,true); 
 								$imageurl = Mage::getBaseDir().$avatarpath.'avatar.jpg';
 								$hander = curl_init();
 								$fp = fopen($imageurl,'wb');
@@ -175,16 +177,16 @@
 								curl_exec($hander);
 								curl_close($hander);
 								fclose($fp);
-
+								
 								/* 头像图片的路径保存到数据库对应的avatar字段 */
 								$customer->setData ('wechat_avatar',$savepath );
 								$customer->save();
-
+								
 								$identifier->load($identifier_id)->setCustomerId($customer_id)->save();
 							}
-						}
-
-
+						}	
+					}
+						
                     if ($session->getCustomer()->getIsJustConfirmed()) {
                         $this->_welcomeCustomer($session->getCustomer(), true);
                     }
@@ -300,8 +302,14 @@
      * Create customer account action
      */
     public function createPostAction()
-    {
-        $errUrl = $this->_getUrl('*/*/create', array('_secure' => true));
+    {   
+		$data = $this->getRequest()->getParams();
+		if($data['unionid']){
+			$errUrl = $this->_getUrl('*/*/create', array('_secure' => true,'unionid'=>$data['unionid']));
+		}else{
+			$errUrl = $this->_getUrl('*/*/create', array('_secure' => true));
+		}
+        
 
         if (!$this->_validateFormKey()) {
             $this->_redirectError($errUrl);
@@ -321,7 +329,7 @@
         }
 
         $customer = $this->_getCustomer();
-
+		
         try {
             $errors = $this->_getCustomerErrors($customer);
 
@@ -329,41 +337,45 @@
                 $customer->cleanPasswordsValidationData();
                 $customer->save();
 				$customer_id = $customer->getEntityId();
-				$data = $this->getRequest()->getParams();
+				
+				Mage::helper('weixinlogin/identifiers')->sendCms($data['amcustomerattr']['default_mobile_number'],$data['password']);
 				if($data['unionid']){
-					$identifierHelper = Mage::helper('weixinlogin/identifiers')->sendCms($data['amcustomerattr']['default_mobile_number'],$data['password']);
-					$identifier = Mage::getModel('weixinlogin/identifiers');
-					$identifier_id = $identifier->getCollection()->addFieldToFilter('unionid', $data['unionid'])->getFirstItem()->getId();
-					if (!empty($identifier_id)) {
-
-						$headimgurl = $identifier->getCollection()->addFieldToFilter('unionid', $data['unionid'])->getFirstItem()->getHeadimgurl();
-						/* 微信头像图片保存到服务器指定目录 */
-						$url = $headimgurl;
-						$avatarpath = "/media/attached/attachment/download/customer/".$customer_id."/file/";
-						$savepath = "/media/attached/attachment/download/customer/".$customer_id."/file/avatar.jpg";
-						$creatpath = "./media/attached/attachment/download/customer/".$customer_id."/file/";
-						if(!file_exists($creatpath))     mkdir($creatpath,0777,true);
-						$imageurl = Mage::getBaseDir().$avatarpath.'avatar.jpg';
-						$hander = curl_init();
-						$fp = fopen($imageurl,'wb');
-						curl_setopt($hander,CURLOPT_URL,$url);
-						curl_setopt($hander,CURLOPT_FILE,$fp);
-						curl_setopt($hander,CURLOPT_HEADER,0);
-						curl_setopt($hander,CURLOPT_FOLLOWLOCATION,1);
-						curl_setopt($hander,CURLOPT_TIMEOUT,60);
-						curl_exec($hander);
-						curl_close($hander);
-						fclose($fp);
-
-						/* 头像图片的路径保存到数据库对应的avatar字段 */
-						$customer->setData ('wechat_avatar',$savepath );
-						$customer->save();
-
-						$identifier->load($identifier_id)->setCustomerId($customer_id)->save();
+					$result = Mage::helper('weixinlogin/identifiers')->checkUnionidBound($customer_id,$data['unionid']);
+					if((!$result['status']) && ($result['code']==4) ){
+						$identifier = Mage::getModel('weixinlogin/identifiers');
+						$identifier_id = $identifier->getCollection()->addFieldToFilter('unionid', $data['unionid'])->getFirstItem()->getId();
+						if (!empty($identifier_id)) {
+							
+							$headimgurl = $identifier->getCollection()->addFieldToFilter('unionid', $data['unionid'])->getFirstItem()->getHeadimgurl();
+							/* 微信头像图片保存到服务器指定目录 */
+							$url = $headimgurl;
+							$avatarpath = "/media/attached/attachment/download/customer/".$customer_id."/file/";
+							$savepath = "/media/attached/attachment/download/customer/".$customer_id."/file/avatar.jpg";
+							$creatpath = "./media/attached/attachment/download/customer/".$customer_id."/file/";
+							if(!file_exists($creatpath))     mkdir($creatpath,0777,true); 
+							$imageurl = Mage::getBaseDir().$avatarpath.'avatar.jpg';
+							$hander = curl_init();
+							$fp = fopen($imageurl,'wb');
+							curl_setopt($hander,CURLOPT_URL,$url);
+							curl_setopt($hander,CURLOPT_FILE,$fp);
+							curl_setopt($hander,CURLOPT_HEADER,0);
+							curl_setopt($hander,CURLOPT_FOLLOWLOCATION,1);
+							curl_setopt($hander,CURLOPT_TIMEOUT,60);
+							curl_exec($hander);
+							curl_close($hander);
+							fclose($fp);
+							
+							/* 头像图片的路径保存到数据库对应的avatar字段 */
+							$customer->setData ('wechat_avatar',$savepath );
+							$customer->save();
+							
+							$identifier->load($identifier_id)->setCustomerId($customer_id)->save();
+						}
 					}
+					
 				}
-
-
+				
+				
                 $this->_dispatchRegisterSuccess($customer);
                 $this->_successProcessRegistration($customer);
                 return;

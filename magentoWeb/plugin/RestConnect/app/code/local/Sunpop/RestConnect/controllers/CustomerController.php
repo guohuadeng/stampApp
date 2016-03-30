@@ -26,24 +26,28 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			$customer = Mage::getSingleton ( 'customer/session' )->getCustomer ();
 			$storeUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
 			$avatar = $customer->getAvatar ();
+			$wechat_avatar = $customer->getData('wechat_avatar');
 			if (isset($avatar))
-				$avatar = $storeUrl . "customer" . $customer->getAvatar ();
-
-		  if (!isset($avatar))  {
-        //微信头像处理
-          if ($customer->getData('wechat_avatar'))
-            $avatar = 'http://' . $_SERVER['HTTP_HOST']. $customer->getData('wechat_avatar');
-            }
+				$avatar = $customer->getAvatar ();
 
 			$customerinfo = array (
+			    'status' => true,
+			    'code' => 0,
+					'firstname' => $customer->getFirstname (),
+					'lastname' => $customer->getLastname (),
 					'name' => $customer->getName (),
 					'email' => $customer->getEmail (),
 					'avatar' => $avatar,
+					'wechat_avatar' => $wechat_avatar,
 					'tel' => $customer->getDefaultMobileNumber ()
 			);
 			echo json_encode ( $customerinfo );
 		} else
-			echo 'false';
+      echo json_encode ( array (
+          'status' => false,
+          'code' => $e->getCode (),
+          'message' => $message
+      ) );
 	}
 	public function loginAction() {
 		$session = Mage::getSingleton ( 'customer/session' );
@@ -64,6 +68,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 					$value = Mage::helper ( 'customer' )->getEmailConfirmationUrl ( $uname );
 					$message = Mage::helper ( 'customer' )->__ ( 'This account is not confirmed. <a href="%s">Click here</a> to resend confirmation email.', $value );
 					echo json_encode ( array (
+					    'status' => false,
 							'code' => $e->getCode (),
 							'message' => $message
 					) );
@@ -71,6 +76,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 				case Mage_Customer_Model_Customer::EXCEPTION_INVALID_EMAIL_OR_PASSWORD :
 					$message = $e->getMessage ();
 					echo json_encode ( array (
+					    'status' => false,
 							'code' => $e->getCode (),
 							'message' => $message
 					) );
@@ -78,6 +84,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 				default :
 					$message = $e->getMessage ();
 					echo json_encode ( array (
+					    'status' => false,
 							'code' => $e->getCode (),
 							'message' => $message
 					) );
@@ -93,13 +100,12 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		$data = $this->getRequest()->getParams();
 		if (! isset($data['unionid'])) {
 			echo json_encode ( array (
-					false,
-					'01',
-					Mage::helper ( 'customer' )->__('unionid does not exist!')
+					'status' =>false,
+					'code' =>'01',
+					'message' =>Mage::helper ( 'customer' )->__('unionid does not exist!')
 			) );
 			return ;
 		}
-
 
 		$identifierHelper = Mage::helper('weixinlogin/identifiers');
 
@@ -109,9 +115,9 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		if(!$collection->getSize()){
 			$identifierHelper->saveLoginWeixin($data);
 			echo json_encode ( array (
-					false,
-					'02',
-					Mage::helper ( 'customer' )->__ ('Customer not registered')
+					'status' =>false,
+					'code' =>'02',
+					'message' =>Mage::helper ( 'customer' )->__ ('Customer not registered'). '|'.$data['unionid']
 			) );
 			return ;
 		}
@@ -119,18 +125,18 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		$customer = Mage::getModel('customer/customer')->load($customer_id);
 		if(!$customer->getId()){
 			echo json_encode ( array (
-					false,
-					'03',
-					Mage::helper ( 'customer' )->__ ('Customer does not exist')
+					'status' =>false,
+					'code' =>'03',
+					'message' => Mage::helper ( 'customer' )->__ ('Customer does not exist'). '|'.$data['unionid']
 			) );
 			return ;
 		}
 		$customer_data = $customer->getData();
 		Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
 		echo json_encode ( array (
-					00,
-					$customer_data,
-					Mage::helper ( 'customer' )->__ ('login successful')
+					'status' =>true,
+					'code' =>'0',
+					'user' => $customer_data
 			) );
 	}
 
@@ -165,9 +171,9 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		$params = $this->getRequest()->getParams();
 		if (! isset($params['unionid'])) {
 			echo json_encode ( array (
-					false,
-					'01',
-					Mage::helper ( 'customer' )->__('unionid does not exist!')
+					'status' =>false,
+					'code' =>'01',
+					'message' =>Mage::helper ( 'customer' )->__('unionid does not exist!')
 			) );
 			return ;
 		}
@@ -175,8 +181,9 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		$result = $this->_wechatLogin($params);
 		if($result['status']){
 			echo json_encode ( array (
-					02,
-					Mage::helper ( 'customer' )->__ ('Already a member, please login')
+					'status' =>false,
+					'code' =>'02',
+					'message' =>Mage::helper ( 'customer' )->__ ('Already a member, please login')
 			) );
 			return ;
 		}
@@ -195,9 +202,9 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		}
 		if( (null==Mage::app ()->getRequest ()->getParam ('password') ) || (null==Mage::app ()->getRequest ()->getParam ('email')) ){
 			echo json_encode ( array (
-					false,
-					'0x1100',
-					Mage::helper ( 'customer' )->__ ('empty password or email.')
+					'status' =>false,
+					'code' =>'03',
+					'message' => Mage::helper ( 'customer' )->__ ('empty password or email.')
 			) );
 			return ;
 		}
@@ -329,36 +336,65 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
             }
 
 			$unionid = Mage::app ()->getRequest ()->getParam ( 'unionid' );
-			$identifier = Mage::getModel('weixinlogin/identifiers');
-			$identifier_id = $identifier->getCollection()->addFieldToFilter('unionid', $unionid)->getFirstItem()->getId();
-			if (!empty($identifier_id)) {
-				$customer_id = $customer->getId();
-				$headimgurl = $identifier->getCollection()->addFieldToFilter('unionid', $unionid)->getFirstItem()->getHeadimgurl();
-				/* 微信头像图片保存到服务器指定目录 */
-				$url = $headimgurl;
-				$avatarpath = "/media/attached/attachment/download/customer/".$customer_id."/file/";
-				$savepath = "/media/attached/attachment/download/customer/".$customer_id."/file/avatar.jpg";
-				$creatpath = "./media/attached/attachment/download/customer/".$customer_id."/file/";
-				if(!file_exists($creatpath))     mkdir($creatpath,0777,true);
-				$imageurl = Mage::getBaseDir().$avatarpath.'avatar.jpg';
-				$hander = curl_init();
-				$fp = fopen($imageurl,'wb');
-				curl_setopt($hander,CURLOPT_URL,$url);
-				curl_setopt($hander,CURLOPT_FILE,$fp);
-				curl_setopt($hander,CURLOPT_HEADER,0);
-				curl_setopt($hander,CURLOPT_FOLLOWLOCATION,1);
-				curl_setopt($hander,CURLOPT_TIMEOUT,60);
-				curl_exec($hander);
-				curl_close($hander);
-				fclose($fp);
+			$customer_id = $customer->getId();
+			if($unionid){
+				$result = Mage::helper('weixinlogin/identifiers')->checkUnionidBound($customer_id,$unionid);
 
-				/* 头像图片的路径保存到数据库对应的avatar字段 */
-				$customer->setData ('wechat_avatar',$savepath );
-				$customer->save();
 
-				$identifier->load($identifier_id)->setCustomerId($customer_id)->save();
+				if(!$result['status']){
+					if($result['code']== 5){
+						echo json_encode ( array (
+						'status'=>false,
+						'code'  => 06 ,
+						'message' =>'unionid param error'
+						) );
+						return ;
+					}
+					if($result['code']==4){
+						$identifier = Mage::getModel('weixinlogin/identifiers');
+						$identifier_id = $identifier->getCollection()->addFieldToFilter('unionid', $unionid)->getFirstItem()->getId();
+						if (!empty($identifier_id)) {
+							$headimgurl = $identifier->getCollection()->addFieldToFilter('unionid', $unionid)->getFirstItem()->getHeadimgurl();
+							/* 微信头像图片保存到服务器指定目录 */
+							$url = $headimgurl;
+							$avatarpath = "/media/attached/attachment/download/customer/".$customer_id."/file/";
+							$savepath = "/media/attached/attachment/download/customer/".$customer_id."/file/avatar.jpg";
+							$creatpath = "./media/attached/attachment/download/customer/".$customer_id."/file/";
+							if(!file_exists($creatpath))     mkdir($creatpath,0777,true);
+							$imageurl = Mage::getBaseDir().$avatarpath.'avatar.jpg';
+							$hander = curl_init();
+							$fp = fopen($imageurl,'wb');
+							curl_setopt($hander,CURLOPT_URL,$url);
+							curl_setopt($hander,CURLOPT_FILE,$fp);
+							curl_setopt($hander,CURLOPT_HEADER,0);
+							curl_setopt($hander,CURLOPT_FOLLOWLOCATION,1);
+							curl_setopt($hander,CURLOPT_TIMEOUT,60);
+							curl_exec($hander);
+							curl_close($hander);
+							fclose($fp);
+
+							/* 头像图片的路径保存到数据库对应的avatar字段 */
+							$customer->setData ('wechat_avatar',$savepath );
+							$customer->save();
+
+							$identifier->load($identifier_id)->setCustomerId($customer_id)->save();
+						}
+					}
+				}else{
+					echo json_encode ( array (
+						'status'=>false,
+						'code'  => 05 ,
+						'message' =>'customer_id already bound unionid'
+					) );
+					return ;
+				}
+			}else{
+				echo json_encode ( array (
+						false,
+						'unionid param does not exist'
+				) );
+				return ;
 			}
-
 
 			$customerinfo = array (
 					'name' => $customer->getName (),
@@ -380,47 +416,37 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		$username = Mage::app ()->getRequest ()->getParam ( 'username' );
 		$password = Mage::app ()->getRequest ()->getParam ( 'password' );
 		$unionid = Mage::app ()->getRequest ()->getParam ( 'unionid' );
-		if($unionid){
-				try {
-				if (! $session->login ( $username, $password )) {
-					echo Mage::helper ( 'customer' )->__ ('Invalid login or password.');
-				} else {
-					echo $this->_status ();
-				}
-			} catch ( Mage_Core_Exception $e ) {
-				switch ($e->getCode ()) {
-					case Mage_Customer_Model_Customer::EXCEPTION_EMAIL_NOT_CONFIRMED :
-						$value = Mage::helper ( 'customer' )->getEmailConfirmationUrl ( $uname );
-						$message = Mage::helper ( 'customer' )->__ ( 'This account is not confirmed. <a href="%s">Click here</a> to resend confirmation email.', $value );
-						echo json_encode ( array (
-								'code' => $e->getCode (),
-								'message' => $message
-						) );
-						break;
-					case Mage_Customer_Model_Customer::EXCEPTION_INVALID_EMAIL_OR_PASSWORD :
-						$message = $e->getMessage ();
-						echo json_encode ( array (
-								'code' => $e->getCode (),
-								'message' => $message
-						) );
-						break;
-					default :
-						$message = $e->getMessage ();
-						echo json_encode ( array (
-								'code' => $e->getCode (),
-								'message' => $message
-						) );
-				}
+		try {
+			if (! $session->login ( $username, $password )) {
+				echo Mage::helper ( 'customer' )->__ ('Invalid login or password.');
+			} else {
+				echo $this->_status ();
 			}
-		}else{
-			echo json_encode ( array (
-					false,
-					'unionid param does not exist'
-			) );
+		} catch ( Mage_Core_Exception $e ) {
+			switch ($e->getCode ()) {
+				case Mage_Customer_Model_Customer::EXCEPTION_EMAIL_NOT_CONFIRMED :
+					$value = Mage::helper ( 'customer' )->getEmailConfirmationUrl ( $uname );
+					$message = Mage::helper ( 'customer' )->__ ( 'This account is not confirmed. <a href="%s">Click here</a> to resend confirmation email.', $value );
+					echo json_encode ( array (
+							'code' => $e->getCode (),
+							'message' => $message
+					) );
+					break;
+				case Mage_Customer_Model_Customer::EXCEPTION_INVALID_EMAIL_OR_PASSWORD :
+					$message = $e->getMessage ();
+					echo json_encode ( array (
+							'code' => $e->getCode (),
+							'message' => $message
+					) );
+					break;
+				default :
+					$message = $e->getMessage ();
+					echo json_encode ( array (
+							'code' => $e->getCode (),
+							'message' => $message
+					) );
+			}
 		}
-
-
-
 	}
 
 	public function mobileResetPwdAction(){

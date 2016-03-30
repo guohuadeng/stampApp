@@ -33,7 +33,6 @@
   top: 4px;
 }
 
-
 .yinke .row {margin:0;}
 .yinke img {width:100%;height:auto;}
 .yinke ul.options-list li {}
@@ -56,3 +55,4 @@
   }
   .item-options dt,.item-options dd {display: inline-block!important;}
 }
+.cart .cart-table-wrap  {margin-bottom: 10px!important;}
