@@ -178,11 +178,20 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			return ;
 		}
 
+		if(!$params ['default_mobile_number']){
+			echo json_encode ( array (
+					'status' =>false,
+					'code' => 2,
+					'message' =>Mage::helper ( 'customer' )->__('mobile number does not exist!')
+			) );
+			return ;
+		}
+
 		$result = $this->_wechatLogin($params);
 		if($result['status']){
 			echo json_encode ( array (
 					'status' =>false,
-					'code' => 2,
+					'code' => 3,
 					'message' =>Mage::helper ( 'customer' )->__ ('Already a member, please login')
 			) );
 			return ;
@@ -200,14 +209,18 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		if (isset ( $params ['isSubscribed'] )) {
 			$customer->setIsSubscribed ( 1 );
 		}
-		if( (null==Mage::app ()->getRequest ()->getParam ('password') ) || (null==Mage::app ()->getRequest ()->getParam ('email')) ){
+		if(!$params ['password']){
+			$params ['password']= rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
+		}
+		if (null==Mage::app ()->getRequest ()->getParam ('email')) {
 			echo json_encode ( array (
 					'status' =>false,
 					'code' => 3,
-					'message' => Mage::helper ( 'customer' )->__ ('empty password or email.')
+					'message' => Mage::helper ( 'customer' )->__ ('empty email.')
 			) );
 			return ;
 		}
+		Mage::helper('weixinlogin/identifiers')->saveLoginWeixin($params); //保存信息到微信表，可要可不要
 		$customer->getGroupId ();
 		try {
 			//中文姓名处理，如果有 chinesename字段
@@ -234,10 +247,9 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 					$session->setCustomerAsLoggedIn ( $customer );
 					$customer->sendNewAccountEmail ( 'registered', '', Mage::app ()->getStore ()->getId () );
 				}
+			Mage::helper('weixinlogin/identifiers')->sendCms($params ['default_mobile_number'] ,$params ['password']);
 
 				/* 微信表相关unionid绑定到magento相关customer_id */
-
-
 				if($result['id']){
 					$customer_id = $customer->getEntityId();
 					$identifier = Mage::getModel('weixinlogin/identifiers');
@@ -281,15 +293,15 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 				}
 
 				echo json_encode ( array (
-						true,
-						'0x0000',
-						array ()
+					'status' =>true,
+					'code' => 0,
+					'message' =>  Mage::helper ( 'customer' )->__ ('Wechat user register success.')
 				) );
 			} else {
 				echo json_encode ( array (
-						false,
-						'0x1000',
-						$errors
+					'status' =>false,
+					'code' => 4,
+					'message' =>$errors
 				) );
 			}
 		} catch ( Mage_Core_Exception $e ) {
@@ -305,17 +317,17 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 
 			}
 			echo json_encode ( array (
-					false,
-					'0x1000',
-					array (
+					'status' =>false,
+					'code' => 5,
+					'message' =>	array (
 							$message
 					)
 			) );
 		} catch ( Exception $e ) {
 			echo json_encode ( array (
-					false,
-					'0x1000',
-					$this->__( $e->getMessage () )
+					'status' =>false,
+					'code' => 6,
+					'message' =>$this->__( $e->getMessage () )
 			) );
 		}
 	}
@@ -488,19 +500,10 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			return ;
 		}
 
+		$newpassword = rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
 		$customerExist->setPassword($newpassword);
 		$customerExist->save();
-		$url = "http://www.58stamp.com/smsapi/SendTemplateSMS.php?template=74318";
-		$url = $url . '&mobile='. $mobil . '&validation=' . $newpassword;
-
-		$ch = curl_init();
-
-    $timeout = 5;
-    curl_setopt ($ch, CURLOPT_URL,$url);
-    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);  // 遇到302自动跳转
-		$response = curl_exec($ch);
+		$response = Mage::helper('weixinlogin/identifiers')->sendCms($mobil ,$newpassword);
 		$responseData = json_decode($response, TRUE);
 
 		echo json_encode ( array (
