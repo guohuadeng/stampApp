@@ -131,13 +131,11 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			) );
 			return ;
 		}
-		$customer_data = $customer->getData();
 		Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-		echo json_encode ( array (
-					'status' =>true,
-					'code' => 0,
-					'user' => $customer_data
-			) );
+		$customer_data = $customer->getData();
+		$customer_data ['status' ] = true;
+		$customer_data ['code' ] = 0;
+		echo json_encode ( $customer_data);
 	}
 
 	protected function _wechatLogin($data){
