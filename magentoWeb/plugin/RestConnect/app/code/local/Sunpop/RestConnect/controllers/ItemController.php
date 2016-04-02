@@ -9,6 +9,7 @@
  * @copyright  Copyright (c) 2008-2015 Sunpop Ltd. (http://www.sunpop.cn)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+header("Access-Control-Allow-Origin: *");
 class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Action {
 	/**
 	 * Current product object
@@ -22,7 +23,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 	protected $thumbnail_height = null;
 	protected $main_with = 640;
 	protected $main_height = null;
-	
+
 	/**
 	 * the item converted by the current product
 	 *
@@ -58,7 +59,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 		// $this->main_height = $height > 160 ? $height : null;
 		// }
 		// }
-		
+
 		// $this->_keepAspectRatio = $this->main_height < 1;
 	}
 	public function getItemAction() {
@@ -67,7 +68,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 	/**
 	 * the API interface function
 	 *
-	 * @param type $apidata        	
+	 * @param type $apidata
 	 * @return type
 	 */
 	public function _getitem() {
@@ -87,8 +88,8 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 				true,
 				'0x0000',
 				array (
-						'item' => $this->item 
-				) 
+						'item' => $this->item
+				)
 		);
 	}
 	public function getItemBaseInfo() {
@@ -220,11 +221,11 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 		}
 		return $imageType;
 	}
-	
+
 	/**
 	 * add prefix to options to distinguish between options,super attribute,bunlde and super group
 	 *
-	 * @param type $options        	
+	 * @param type $options
 	 */
 	private function addPrefixTo(&$options, $type) {
 		if ($options) {
@@ -259,7 +260,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 				foreach ( $block->getSamples () as $sample ) {
 					$features [] = array (
 							'name' => $block->getSamplesTitle (),
-							'value' => '<a href="' . $block->getSampleUrl ( $sample ) . '" ' . ($block->getIsOpenInNewWindow () ? 'onclick="this.target=\'_blank\'">' : '>') . $block->escapeHtml ( $sample->getTitle () ) . '</a>' 
+							'value' => '<a href="' . $block->getSampleUrl ( $sample ) . '" ' . ($block->getIsOpenInNewWindow () ? 'onclick="this.target=\'_blank\'">' : '>') . $block->escapeHtml ( $sample->getTitle () ) . '</a>'
 					);
 				}
 			}
@@ -271,11 +272,11 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 			foreach ( $data as $feature ) {
 				$features [] = array (
 						'name' => $block->htmlEscape ( $block->__ ( $feature ['label'] ) ),
-						'value' => $helper->productAttribute ( $this->product, $feature ['value'], $feature ['code'] ) 
+						'value' => $helper->productAttribute ( $this->product, $feature ['value'], $feature ['code'] )
 				);
 			}
 		}
-		
+
 		return $features;
 	}
 	private function getItemImageUrl($imageFile = null) {
@@ -303,10 +304,10 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 				}
 				if (isset ( $first )) {
 					$this->item ['item_imgs'] = array_merge ( array (
-							$first 
+							$first
 					), $this->item ['item_imgs'] );
 				}
-				
+
 				return $this->item ['item_imgs'];
 			}
 		}
@@ -361,7 +362,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 			foreach ( $_product->getTierPrice () as $discount ) {
 				$result [] = array (
 						'min_qty' => ( int ) $discount ['price_qty'],
-						'price' => $this->getCurrencyPrice ( $discount ['price'] ) 
+						'price' => $this->getCurrencyPrice ( $discount ['price'] )
 				);
 			}
 		}
@@ -391,7 +392,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 				continue;
 			}
 			$attribute = array ();
-			
+
 			$attribute ['attribute_id'] = $_item->getId ();
 			$attribute ['input'] = 'product';
 			$attribute ['title'] = strip_tags ( $_item->getName () );
@@ -449,7 +450,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 					$none = array (
 							'attribute_id' => 'none',
 							'option_id' => '',
-							'title' => 'None' 
+							'title' => 'None'
 					);
 					$attribute ['options'] [] = $none;
 				}
@@ -486,11 +487,11 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 仅仅将$attributes中的数据提取出来，其中价格已经是根据当前汇率转换后的价格
 	 *
-	 * @param type $attributes        	
+	 * @param type $attributes
 	 * @return type
 	 */
 	private function getProductConfigurableAttributes($configurableProductAttributes) {
@@ -549,7 +550,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 					'id' => $productAttribute->getId (),
 					'label' => $attribute->getLabel (),
 					'is_required' => $productAttribute->getRequired () || $productAttribute->getIsRequired () || $productAttribute->getIsRequire (),
-					'options' => array () 
+					'options' => array ()
 			);
 			$prices = $attribute->getPrices ();
 			if (is_array ( $prices )) {
@@ -560,7 +561,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 					$info ['options'] [] = array (
 							'id' => $value ['value_index'],
 							'label' => $value ['label'],
-							'price' => $this->_preparePrice ( $product, $value ['pricing_value'], $value ['is_percent'] ) 
+							'price' => $this->_preparePrice ( $product, $value ['pricing_value'], $value ['is_percent'] )
 					);
 				}
 			}
@@ -602,7 +603,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 				$none = array (
 						'attribute_id' => 'none',
 						'option_id' => '',
-						'title' => 'None' 
+						'title' => 'None'
 				);
 				$optionObj ['options'] [] = $none;
 			}
@@ -625,7 +626,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 	}
 	private function _getOptionTypeForKanCartByRealType($realType) {
 		static $map = null;
-		
+
 		if (is_null ( $map )) {
 			$maps = array (
 					Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN => self::OPTION_TYPE_SELECT,
@@ -638,24 +639,24 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 					Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME => self::OPTION_TYPE_DATE_TIME,
 					Mage_Catalog_Model_Product_Option::OPTION_TYPE_FIELD => self::OPTION_TYPE_TEXT,
 					Mage_Catalog_Model_Product_Option::OPTION_TYPE_AREA => self::OPTION_TYPE_TEXT,
-					'multi' => self::OPTION_TYPE_MULTIPLE_SELECT 
+					'multi' => self::OPTION_TYPE_MULTIPLE_SELECT
 			);
 		}
-		
+
 		return isset ( $maps [$realType] ) ? $maps [$realType] : self::OPTION_TYPE_TEXT;
 	}
-	
+
 	/**
 	 * dowload options
 	 *
-	 * @param type $attributes        	
+	 * @param type $attributes
 	 * @return type
 	 */
 	private function getProductDownloadOptions($product) {
 		$block = Mage::getBlockSingleton ( 'downloadable/catalog_product_links' );
 		$block->setProduct ( $product );
 		$links = $block->getLinks ();
-		
+
 		$attributes = array ();
 		if ($block->hasLinks ()) {
 			$eachAttribute = array ();
@@ -685,7 +686,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 	}
 	private function getAttributeRelation($options, $type = 'associate') {
 		$attributeRelation = array ();
-		
+
 		if ($type == 'associate') {
 			if ($options && sizeof ( $options ) > 1) {
 				$min = 100;
@@ -699,7 +700,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 						$parentOption = $option;
 					}
 				}
-				
+
 				foreach ( $options as $attributeId => $option ) {
 					if ($parentAttributeId == $attributeId) {
 						continue;
@@ -714,13 +715,13 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 							'parent_attribute_id' => 'super_attribute_' . $parentAttributeId,
 							'child_attribute_id' => 'super_attribute_' . $attributeId,
 							'type' => $type,
-							'value' => array_values ( $relations ) 
+							'value' => array_values ( $relations )
 					);
 				}
 			}
 		} elseif ($type == 'display') {
 		}
-		
+
 		return $attributeRelation;
 	}
 	private function _preparePrice($product, $price, $isPercent = false) {
@@ -738,9 +739,9 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 		$prices ['currency'] = Mage::app ()->getStore ()->getCurrentCurrencyCode ();
 		$display_prices = array ();
 		$prices ['tier_prices'] = $this->getItemTierPrice ( $product );
-		
+
 		$_minimalPriceValue = $product->getMinimalPrice ();
-		
+
 		if (! $product->isGrouped ()) {
 			$_price = $product->getPrice ();
 			$_finalPrice = $product->getFinalPrice ();
@@ -775,7 +776,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 			$_finalPrice = $_minimalPriceValue;
 		}
 		$prices ['base_price'] = array (
-				'price' => $this->getCurrencyPrice ( $_finalPrice ) 
+				'price' => $this->getCurrencyPrice ( $_finalPrice )
 		);
 		$prices ['display_prices'] = $display_prices;
 		return $prices;
@@ -785,7 +786,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 		$prices ['currency'] = Mage::app ()->getStore ()->getCurrentCurrencyCode ();
 		$display_prices = array ();
 		$prices ['tier_prices'] = $this->getItemTierPrice ( $product );
-		
+
 		/* @var $_weeeHelper Mage_Weee_Helper_Data */
 		/* @var $_taxHelper Mage_Tax_Helper_Data */
 		list ( $_minimalPrice, $_maximalPrice ) = $product->getPriceModel ()->getPrices ( $product );
@@ -808,7 +809,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 			}
 		}
 		$prices ['base_price'] = array (
-				'price' => $this->getCurrencyPrice ( $_finalPrice ) 
+				'price' => $this->getCurrencyPrice ( $_finalPrice )
 		);
 		$prices ['display_prices'] = $display_prices;
 		return $prices;
@@ -817,7 +818,7 @@ class Sunpop_RestConnect_ItemController extends Mage_Core_Controller_Front_Actio
 		$display_prices [] = array (
 				'title' => $title,
 				'price' => $value,
-				'style' => $style ? $style : 'normal' 
+				'style' => $style ? $style : 'normal'
 		);
 		return $display_prices;
 	}

@@ -3,8 +3,13 @@
  * * NOTICE OF LICENSE
  * * This source file is subject to the Open Software License (OSL 3.0)
  *
+ * Author: Ivan Deng
+ * QQ: 300883
+ * Email: 300883@qq.com
+ * @copyright  Copyright (c) 2008-2015 Sunpop Ltd. (http://www.sunpop.cn)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+header("Access-Control-Allow-Origin: *");
 class Sunpop_RestConnect_ProductsController extends Mage_Core_Controller_Front_Action {
 	public function getcustomoptionAction() {
 		$baseCurrency = Mage::app ()->getStore ()->getBaseCurrency ()->getCode ();
@@ -23,7 +28,7 @@ class Sunpop_RestConnect_ProductsController extends Mage_Core_Controller_Front_A
 						'price' => number_format ( Mage::helper ( 'directory' )->currencyConvert ( $o->getPrice (), $baseCurrency, $currentCurrency ), 2, '.', '' ),
 						'price_type' => $o->getPriceType (),
 						'sku' => $o->getSku (),
-						'max_characters' => $o->getMaxCharacters () 
+						'max_characters' => $o->getMaxCharacters ()
 				);
 			} else {
 				$max_characters = $o->getMaxCharacters ();
@@ -36,8 +41,8 @@ class Sunpop_RestConnect_ProductsController extends Mage_Core_Controller_Front_A
 						$options [$optionid]['price']=number_format ( Mage::helper ( 'directory' )->currencyConvert ( $v->getPrice (), $baseCurrency, $currentCurrency ), 2, '.', '' );
 						$options [$optionid]['default_price']=number_format ( Mage::helper ( 'directory' )->currencyConvert ( $v->getDefaultPrice (), $baseCurrency, $currentCurrency ), 2, '.', '' );
 					}
-						
-					
+
+
 					$optionid ++;
 				}
 				$select [$selectid] = array (
@@ -47,10 +52,10 @@ class Sunpop_RestConnect_ProductsController extends Mage_Core_Controller_Front_A
 						'is_require' => $o->getIsRequire (),
 						'price' => number_format ( Mage::helper ( 'directory' )->currencyConvert ( $o->getFormatedPrice (), $baseCurrency, $currentCurrency ), 2, '.', '' ),
 						'max_characters' => $max_characters,
-						'custom_option_value' => $options 
+						'custom_option_value' => $options
 				);
 			}
-			
+
 			$selectid ++;
 			// echo "----------------------------------<br/>";
 		}
@@ -63,13 +68,13 @@ class Sunpop_RestConnect_ProductsController extends Mage_Core_Controller_Front_A
 		$currentCurrency = Mage::app ()->getStore ()->getCurrentCurrencyCode ();
 		$productid = $this->getRequest ()->getParam ( 'productid' );
 		$product = Mage::getModel ( "catalog/product" )->load ( $productid );
-		
-		$storeUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); 
+
+		$storeUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
 		//$description =  nl2br ( $product->getDescription () );
 		$description =   $product->getDescription ();
 		$description = str_replace("{{media url=\"",$storeUrl,$description);
 		$description = str_replace("\"}}","",$description);
-		
+
 		if ($product->getOptions ())
 			$has_custom_options = true;
 		else
@@ -115,7 +120,7 @@ class Sunpop_RestConnect_ProductsController extends Mage_Core_Controller_Front_A
 		foreach ( $_images as $_image ) {
 			$images [] = array (
 					'url' => $_image->getUrl (),
-					'position' => $_image->getPosition () 
+					'position' => $_image->getPosition ()
 			);
 		}
 		echo json_encode ( $images );
@@ -125,7 +130,7 @@ class Sunpop_RestConnect_ProductsController extends Mage_Core_Controller_Front_A
 		$productId = ( int ) $this->getRequest ()->getParam ( 'productid' );
 		$product = Mage::getModel('catalog/product')->load($productId);
 		$attributes = $product->getAttributes ();
-		
+
 		foreach ( $attributes as $attribute ) {
             $value= $attribute->getFrontend()->getValue($product);
 			$code = $attribute->getAttributeCode();
@@ -184,4 +189,4 @@ class Sunpop_RestConnect_ProductsController extends Mage_Core_Controller_Front_A
         }
         return $data;
 	}
-} 
+}

@@ -1,4 +1,15 @@
 <?php
+/**
+ * * NOTICE OF LICENSE
+ * * This source file is subject to the Open Software License (OSL 3.0)
+ *
+ * Author: Ivan Deng
+ * QQ: 300883
+ * Email: 300883@qq.com
+ * @copyright  Copyright (c) 2008-2015 Sunpop Ltd. (http://www.sunpop.cn)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+header("Access-Control-Allow-Origin: *");
 class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Action {
 	protected $_keepFrame = true;
 	protected $_keepAspectRatio = true; // false stretch the image
@@ -19,19 +30,19 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 		$orderBy = $this->getRequest ()->getParam ( 'order_by', false );
 		$orderBy = $orderBy && strpos ( $orderBy, ':' ) > 0 ? $orderBy : 'postion:desc';
 		list ( $order, $direction ) = explode ( ':', $orderBy, 2 );
-		
+
 		$category = Mage::getModel ( 'catalog/category' )->load ( $categoryid );
 		$model = Mage::getModel ( 'catalog/product' );
 		$collection = $category->getProductCollection ()->addAttributeToFilter ( 'status', 1 )->addAttributeToFilter ( 'visibility', array (
-				
-				'neq' => 1 
+
+				'neq' => 1
 		) );
 		$filter = $this->getRequest ()->getParam ( 'filter', array () );
 		if ($filter && is_array ( $filter )) {
 			foreach ( $filter as $key => $o ) {
 				// echo '<br>collection->addAttributeToFilter(' . $o['attribute'] . ',array('.$o['key'].'=>' . $o['value'] . ')</br>';
 				$collection->addAttributeToFilter ( $o ['attribute'], array (
-						$o ['key'] => $o ['value'] 
+						$o ['key'] => $o ['value']
 				) );
 			}
 		}
@@ -51,8 +62,8 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 			$products ['total_results'] = $size;
 			echo json_encode ( $products );
 		}
-		
-		
+
+
 	}
 	public function getProductlist($products, $mod = 'product') {
 		$productlist = array ();
@@ -76,7 +87,7 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 					'url_key' => $product->getProductUrl (),
 					'regular_price_with_tax' => number_format ( Mage::helper ( 'directory' )->currencyConvert ( $product->getPrice (), $baseCurrency, $currentCurrency ), 2, '.', '' ),
 					'final_price_with_tax' => number_format ( Mage::helper ( 'directory' )->currencyConvert ( $product->getSpecialPrice (), $baseCurrency, $currentCurrency ), 2, '.', '' ),
-					'symbol' => Mage::app ()->getLocale ()->currency ( Mage::app ()->getStore ()->getCurrentCurrencyCode () )->getSymbol () 
+					'symbol' => Mage::app ()->getLocale ()->currency ( Mage::app ()->getStore ()->getCurrentCurrencyCode () )->getSymbol ()
 			);
 		}
 		return $productlist;
@@ -90,7 +101,7 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 		$category = Mage::getModel ( "catalog/category" )->load ( $categoryid );
 		$layer->setCurrentCategory ( $category );
 		$attributes = $layer->getFilterableAttributes ();
-		
+
 		foreach ( $attributes as $key => $attribute ) {
 			if ($attribute->getAttributeCode () == 'price') {
 				$filterBlockName = 'catalog/layer_filter_price';
@@ -105,7 +116,7 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 				foreach ( $result->getItems () as $option ) {
 					$filter_options [$key] ['options'] [] = array (
 							'laber' => $option->getLabel (),
-							'value' => $option->getValue () 
+							'value' => $option->getValue ()
 					);
 				}
 			} elseif ($filterBlockName == 'catalog/layer_filter_price') {
@@ -116,7 +127,7 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 						foreach ( $result->getItems () as $option ) {
 							$filter_options [$key] ['options'] [] = array (
 									'laber' => $option->getLabel (),
-									'value' => $option->getValue () 
+									'value' => $option->getValue ()
 							);
 						}
 					} else
@@ -217,19 +228,19 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 			return array (
 					true,
 					'0x0000',
-					$products 
+					$products
 			);
 		} catch ( Exception $e ) {
 			return array (
 					false,
 					'0x0013',
-					$e->getMessage () 
+					$e->getMessage ()
 			);
 		}
 	}
 	private function getSpecifiedProducts($ids, $pageNo, $pageSize, $order, $direction) {
 		$collection = Mage::getResourceModel ( 'catalog/product_collection' )->addAttributeToSelect ( Mage::getSingleton ( 'catalog/config' )->getProductAttributes () )->addMinimalPrice ()->addFinalPrice ()->addTaxPercents ()->setCurPage ( $pageNo )->setPageSize ( $pageSize );
-		
+
 		if (strlen ( $ids )) {
 			is_string ( $ids ) && $ids = explode ( ',', $ids );
 			$count = count ( $ids );
@@ -239,13 +250,13 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 		} else {
 			return array (
 					'items' => array (),
-					'total_results' => 0 
+					'total_results' => 0
 			);
 		}
-		
+
 		$collection->load ();
 		$productList = $collection->getItems ();
-		
+
 		$items = array ();
 		$sortOrder = array ();
 		foreach ( $productList as $key => $product ) {
@@ -255,7 +266,7 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 			}
 		}
 		array_multisort ( $sortOrder, SORT_ASC, $items );
-		
+
 		$products = array ();
 		$products ['items'] = $items;
 		$products ['total_results'] = $count;
@@ -271,7 +282,7 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 			$fromPart ['cat_index'] ['joinCondition'] = preg_replace ( '/category_id\s*=\s*\'\d+\'/', 'category_id > \'0\'', $fromPart ['cat_index'] ['joinCondition'] );
 			$collection->getSelect ()->setPart ( Zend_Db_Select::FROM, $fromPart );
 		}
-		
+
 		if ($specials) {
 			$collection->getSelect ()->where ( '`price` > `final_price`' );
 		}
@@ -279,7 +290,7 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 		$collection->getSelect ()->group ( 'e.entity_id' );
 		$collection->load ();
 		$productList = $collection->getItems ();
-		
+
 		$items = array ();
 		foreach ( $productList as $key => $product ) {
 			if ($product->getId ()) {
@@ -320,10 +331,10 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 					$query->save ();
 				}
 			}
-			
+
 			$layer = Mage::getSingleton ( 'catalogsearch/layer' );
 			$collection = $layer->getProductCollection ()->setCurPage ( $pageNo )->setPageSize ( $pageSize )->setOrder ( $order, $direction );
-			
+
 			$collection->load ();
 			$size = $collection->getSize ();
 			$productList = $collection->getItems ();
@@ -333,11 +344,11 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 					$items [$key] = $this->_getItemBaseInfo ( $product );
 				}
 			}
-			
+
 			$products ['items'] = $items;
 			$products ['total_results'] = $size;
 		}
-		
+
 		return $products;
 	}
 	private function getProductsByCategory($cid = false, $pageNo = 1, $pageSize = 20, $order = 'entity_id', $direction = 'asc') {
@@ -349,14 +360,14 @@ class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Acti
 			}
 			Mage::getBlockSingleton ( 'catalog/layer_view' );
 		}
-		
+
 		// var_dump ( $filter );
 		$collection = $layer->getProductCollection ()->setCurPage ( $pageNo )->setPageSize ( $pageSize )->setOrder ( $order, $direction );
-		
+
 		$collection->load ();
 		$size = $collection->getSize ();
 		$productList = $collection->getItems ();
-		
+
 		$items = array ();
 		foreach ( $productList as $key => $product ) {
 			if ($product->getId ()) {

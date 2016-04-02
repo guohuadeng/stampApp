@@ -1,46 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="58stamp">
+  <component name="PublishConfigData" serverName="www.58stamp.com">
     <serverData>
-      <paths name="58stamp">
+      <paths name="www.58stamp.com">
         <serverdata>
           <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin" web="/" />
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/RestConnect" web="/" />
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer" web="/" />
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/SMTPPro-2.0.7" web="/" />
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_AutoWishlist" web="/" />
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate" web="/" />
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1" web="/" />
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step2" web="/" />
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin" web="/" />
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi" web="/" />
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native" web="/" />
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/amastyCustomerAttr" web="/" />
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/SunpopSms" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="aototech.sunpop.cn">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="m19.local">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/FME_Prod_Attachments_Ext_2.3.0" web="/" />
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/Mage_Imaclean-1.2.0" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="www.aototech.com">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/FME_Prod_Attachments_Ext_2.3.0" web="/" />
-            <mapping local="" />
           </mappings>
         </serverdata>
       </paths>

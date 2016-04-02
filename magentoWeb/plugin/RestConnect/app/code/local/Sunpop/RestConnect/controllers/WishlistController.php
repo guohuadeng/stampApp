@@ -9,6 +9,7 @@
  * @copyright  Copyright (c) 2008-2015 Sunpop Ltd. (http://www.sunpop.cn)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+header("Access-Control-Allow-Origin: *");
 class Sunpop_RestConnect_WishlistController extends Mage_Core_Controller_Front_Action {
 	protected $_optionsCfg = array('default' => array(
         'helper' => 'catalog/product_configuration',

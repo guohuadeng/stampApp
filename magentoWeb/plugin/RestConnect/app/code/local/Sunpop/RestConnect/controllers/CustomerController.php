@@ -9,6 +9,7 @@
  * @copyright  Copyright (c) 2008-2015 Sunpop Ltd. (http://www.sunpop.cn)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+header("Access-Control-Allow-Origin: *");
 class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_Action {
 	const XML_PATH_REGISTER_EMAIL_TEMPLATE = 'customer/create_account/email_template';
 	const XML_PATH_REGISTER_EMAIL_IDENTITY = 'customer/create_account/email_identity';
@@ -24,7 +25,6 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		$customerinfo = array ();
 		if (Mage::getSingleton ( 'customer/session' )->isLoggedIn ()) {
 			$customer = Mage::getSingleton ( 'customer/session' )->getCustomer ();
-			$storeUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
 			$avatar = $customer->getAvatar ();
 			$wechat_avatar = $customer->getData('wechat_avatar');
 			if (isset($avatar))

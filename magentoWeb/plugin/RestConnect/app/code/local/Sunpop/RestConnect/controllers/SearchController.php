@@ -9,14 +9,12 @@
  * @copyright  Copyright (c) 2008-2015 Sunpop Ltd. (http://www.sunpop.cn)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-/**
- * Catalog Search Controller
- */
+header("Access-Control-Allow-Origin: *");
 class Sunpop_RestConnect_SearchController extends Mage_Core_Controller_Front_Action {
 	protected function _getSession() {
 		return Mage::getSingleton ( 'catalog/session' );
 	}
-	
+
 	public function getfilterAction() {
 		//http://domainname/restconnect/search/getfilter/categoryid/1/storeid/1
 		//categoryid
@@ -24,21 +22,21 @@ class Sunpop_RestConnect_SearchController extends Mage_Core_Controller_Front_Act
 		$categoryid = $this->getRequest()->getParam('categoryid');
  		$layer = Mage::getModel("catalog/layer");
  		if($categoryid){
-        	$rootCategory=Mage::getModel('catalog/category')->load($categoryid); 
+        	$rootCategory=Mage::getModel('catalog/category')->load($categoryid);
  		}else{
  			$rootCategory=Mage::getModel('catalog/category')->load(Mage::app()->getStore()->getRootCategoryId());
  		}
- 		
- 		if(!$rootCategory->is_active && !$rootCategory->is_anchor){ 
- 			echo Mage::helper('core')->jsonEncode(false); 
+
+ 		if(!$rootCategory->is_active && !$rootCategory->is_anchor){
+ 			echo Mage::helper('core')->jsonEncode(false);
  			return;
  		}
- 		
-        $layer->setCurrentCategory($rootCategory);  
-        $attributes = $layer->getFilterableAttributes();  
-        
-       
-        $this->_filterableAttributesExists=array();  
+
+        $layer->setCurrentCategory($rootCategory);
+        $attributes = $layer->getFilterableAttributes();
+
+
+        $this->_filterableAttributesExists=array();
         foreach ($attributes as $attribute) {
         	$datas = '';
         	$collection = Mage::getResourceModel('eav/entity_attribute_option_collection')
@@ -49,7 +47,7 @@ class Sunpop_RestConnect_SearchController extends Mage_Core_Controller_Front_Act
 
         	$attributeType = $attribute->getSource()->getAttribute()->getFrontendInput();
         	$defaultValues = $attribute->getSource()->getAttribute()->getDefaultValue();
-			
+
         	$_labels = $attribute->getSource()->getAttribute()->getStoreLabels();
 			$_label = $_labels[$storeid] ? $_labels[$storeid] : $attribute->getSource()->getAttribute()->getFrontendLabel();
         	if ($attributeType == 'select' || $attributeType == 'multiselect') {
@@ -67,12 +65,12 @@ class Sunpop_RestConnect_SearchController extends Mage_Core_Controller_Front_Act
 	        	}
 	        	$datas[] = $option;
         	}
-        	
+
         	$this->_filterableAttributes[$attribute->getAttributeCode()]=$datas;
-        }  
-        krsort($this->_filterableAttributes);  
+        }
+        krsort($this->_filterableAttributes);
         echo Mage::helper('core')->jsonEncode($this->_filterableAttributes);
-		
+
 	}
 	public function indexAction() {
 
@@ -81,9 +79,9 @@ class Sunpop_RestConnect_SearchController extends Mage_Core_Controller_Front_Act
 		$dir = ($this->getRequest ()->getParam ( 'dir' )) ? ($this->getRequest ()->getParam ( 'dir' )) : 'desc';
 		$page = ($this->getRequest ()->getParam ( 'page' )) ? ($this->getRequest ()->getParam ( 'page' )) : 1;
 		$limit = ($this->getRequest ()->getParam ( 'limit' )) ? ($this->getRequest ()->getParam ( 'limit' )) : 20;
-		
-		
-		
+
+
+
 		$query = Mage::helper ( 'catalogsearch' )->getQuery ();
 		/* @var $query Mage_CatalogSearch_Model_Query */
 		$query->setStoreId ( Mage::app ()->getStore ()->getId () );
@@ -96,7 +94,7 @@ class Sunpop_RestConnect_SearchController extends Mage_Core_Controller_Front_Act
 				} else {
 					$query->setPopularity ( 1 );
 				}
-				
+
 				if ($query->getRedirect ()) {
 					$query->save ();
 					$this->getResponse ()->setRedirect ( $query->getRedirect () );
@@ -105,7 +103,7 @@ class Sunpop_RestConnect_SearchController extends Mage_Core_Controller_Front_Act
 					$query->prepare ();
 				}
 			}
-			
+
 			Mage::helper ( 'catalogsearch' )->checkNotes ();
 			// $collection = Mage::getModel ( "catalogsearch/query" )->getResultCollection ();
 			$result = $query->getResultCollection ()
@@ -115,20 +113,20 @@ class Sunpop_RestConnect_SearchController extends Mage_Core_Controller_Front_Act
 					) );
 			//pages
 			$result->setPageSize($limit);
-				
+
 			$result->setCurPage($page);
-			
+
 
 			//sort
 			//$ud = 'ASC' | 'DESC'
 			$result->addAttributeToSort($order,$dir);
 
-				
+
 			$result->load();
-				
+
 			$lastpagenumber = $result->getLastPageNumber();
-				
-				
+
+
 			$i = 1;
 			$baseCurrency = Mage::app ()->getStore ()->getBaseCurrency ()->getCode ();
 		    $currentCurrency = Mage::app ()->getStore ()->getCurrentCurrencyCode ();
@@ -179,7 +177,7 @@ class Sunpop_RestConnect_SearchController extends Mage_Core_Controller_Front_Act
 		$query = Mage::helper ( 'catalogSearch' )->getQuery ();
 		$searcher = Mage::getSingleton ( 'catalogsearch/advanced' )->addFilters ( array (
 				'name' => $query->getQueryText (),
-				'description' => $query->getQueryText () 
+				'description' => $query->getQueryText ()
 		) );
 		// $obj = new stdClass ();
 		// $obj->query = $query->getQueryText ();

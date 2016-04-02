@@ -9,9 +9,7 @@
  * @copyright  Copyright (c) 2008-2015 Sunpop Ltd. (http://www.sunpop.cn)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-/**
- * Catalog Search Controller
- */
+header("Access-Control-Allow-Origin: *");
 class Sunpop_RestConnect_SearchadvController extends Mage_Core_Controller_Front_Action {
 	protected function _getSession() {
 		return Mage::getSingleton ( 'catalog/session' );
@@ -24,17 +22,17 @@ class Sunpop_RestConnect_SearchadvController extends Mage_Core_Controller_Front_
 		//$andor1 = $this->getRequest()->getParam('andor1') !== null ? $this->getRequest()->getParam('andor1') : 'and';
 		$storeid = $this->getRequest()->getParam('storeid') ? $this->getRequest()->getParam('storeid') : Mage::app()->getStore()->getStoreId();
 		$andor2 = $this->getRequest()->getParam('andor2') !== null ? $this->getRequest()->getParam('andor2') : 'and';
-	
+
 		//$is_searchable = $this->getRequest()->getParam('is_searchable') !== null ? $this->getRequest()->getParam('is_searchable') : 1;
 		$is_visible_in_advanced_search = $this->getRequest()->getParam('is_visible_in_advanced_search') !== null ? $this->getRequest()->getParam('is_visible_in_advanced_search') : 1;
 		$used_for_sort_by = $this->getRequest()->getParam('used_for_sort_by') !== null ? $this->getRequest()->getParam('used_for_sort_by') : 1;
-	
+
 		//$is_searchable_where = 'additional_table.is_searchable = ' . $is_searchable;
-	
+
 		$is_visible_in_advanced_search_where = 'is_visible_in_advanced_search = ' . $is_visible_in_advanced_search;
-	
+
 		$used_for_sort_by_where = 'additional_table.used_for_sort_by = ' . $used_for_sort_by;
-	
+
 		//$where = $is_searchable_where .' '. $andor1 .' '. $is_visible_in_advanced_search_where .' '. $andor2 .' '. $used_for_sort_by_where;
 		$where = $is_visible_in_advanced_search_where;
 		$attributes = Mage::getResourceModel('catalog/product_attribute_collection')
@@ -48,7 +46,7 @@ class Sunpop_RestConnect_SearchadvController extends Mage_Core_Controller_Front_
 			$collection = Mage::getResourceModel('eav/entity_attribute_option_collection')
 			->setAttributeFilter($attribute->getSource()->getAttribute()->getId())
 			->setStoreFilter($attribute->getSource()->getAttribute()->getStoreId());
-			
+
 			$collection->getSelect()->order('main_table.sort_order '.$orderby);
 			$collection->load();
 			$attributeType = $attribute->getSource()->getAttribute()->getFrontendInput();
@@ -56,13 +54,13 @@ class Sunpop_RestConnect_SearchadvController extends Mage_Core_Controller_Front_
 			$_labels = $attribute->getSource()->getAttribute()->getStoreLabels();
 			//$_label = $_labels[$storeid];
 			$_label = $_labels[$storeid] ? $_labels[$storeid] : $attribute->getSource()->getAttribute()->getFrontendLabel();
-	
+
 			if ($attributeType == 'select' || $attributeType == 'multiselect') {
 				$defaultValues = explode(',', $defaultValues);
 			} else {
 				$defaultValues = array();
 			}
-			
+
 			$options = $collection->getData();
 
 			$optionid = 0;
@@ -81,13 +79,13 @@ class Sunpop_RestConnect_SearchadvController extends Mage_Core_Controller_Front_
 			$datas['position'] = $attribute->getPosition();
 			$datas['label'] = $_label;
 			$datas['attributeType'] = $attributeType;
-			$datas['attributeValue'] = $options;	
-			 
+			$datas['attributeValue'] = $options;
+
 			$this->_searchableAttributes[$attribute->getAttributeCode()]=$datas;
 		}
 		//krsort($this->_searchableAttributes);
 		echo Mage::helper('core')->jsonEncode($this->_searchableAttributes);
-			
+
 	}
 	public function indexAction() {
 		//http://domainname/restconnect/searchadv/index/name/aaa/description/bbbb/short_description/ccc/sku/123/price/2to6/tax_class_id/1,2,3
@@ -107,12 +105,12 @@ class Sunpop_RestConnect_SearchadvController extends Mage_Core_Controller_Front_
 		//'color' =>
 		//	array (size=1)
 		//	0 => string '5' (length=1)
-		
+
 		$order = ($this->getRequest ()->getParam ( 'order' )) ? ($this->getRequest ()->getParam ( 'order' )) : 'entity_id';
 		$dir = ($this->getRequest ()->getParam ( 'dir' )) ? ($this->getRequest ()->getParam ( 'dir' )) : 'desc';
 		$page = ($this->getRequest ()->getParam ( 'page' )) ? ($this->getRequest ()->getParam ( 'page' )) : 1;
 		$limit = ($this->getRequest ()->getParam ( 'limit' )) ? ($this->getRequest ()->getParam ( 'limit' )) : 20;
-	
+
 		$farray = array();//构建一个addFilters 数组参数
 		if($this->getRequest ()->getParam ( 'name' )) $farray['name'] = $this->getRequest ()->getParam ( 'name' );
 		if($this->getRequest ()->getParam ( 'description' )) $farray['description'] = $this->getRequest ()->getParam ( 'description' );
@@ -127,12 +125,12 @@ class Sunpop_RestConnect_SearchadvController extends Mage_Core_Controller_Front_
 					'to'   => $to
 			);
 		}
-		if(!empty($this->getRequest ()->getParam ( 'tax_class_id' )) || $this->getRequest ()->getParam ( 'tax_class_id' ) == '0') {				
+		if(!empty($this->getRequest ()->getParam ( 'tax_class_id' )) || $this->getRequest ()->getParam ( 'tax_class_id' ) == '0') {
 			$farray['tax_class_id'] = explode(",", $this->getRequest ()->getParam ( 'tax_class_id' ));
 		}
 		foreach ($this->getRequest ()->getParams() as $key => $value){
 			if(!in_array($key, array('name','description','short_description','sku','price','tax_class_id'))){
-				if(!empty($value) || $value == '0') {				
+				if(!empty($value) || $value == '0') {
 					$farray[$key] = explode(",", $value);
 					if(count($farray[$key]) <= 1) $farray[$key] = $value;
 				}
@@ -143,7 +141,7 @@ class Sunpop_RestConnect_SearchadvController extends Mage_Core_Controller_Front_
 		$result = $searcher->getProductCollection()
 				->addAttributeToFilter ( 'status', 1 )
 				->addAttributeToFilter ( 'visibility', array (
-						'neq' => 1 
+						'neq' => 1
 				) );
 		if($categoryid = $this->getRequest()->getParam('categoryid')){
 			$_category = Mage::getModel('catalog/category')->load($categoryid);
@@ -151,15 +149,15 @@ class Sunpop_RestConnect_SearchadvController extends Mage_Core_Controller_Front_
 		}
 		//var_dump(get_class_methods($result));exit;
 		//pages
-		
+
 		$result->setPageSize($limit);
 		$result->setCurPage($page);
 		//sort
 		$result->addAttributeToSort($order,$dir);
 		$result->load();
-		
+
 		$lastpagenumber = $result->getLastPageNumber();
-		
+
 		$baseCurrency = Mage::app ()->getStore ()->getBaseCurrency ()->getCode ();
 	    $currentCurrency = Mage::app ()->getStore ()->getCurrentCurrencyCode ();
 		foreach($result as $product){

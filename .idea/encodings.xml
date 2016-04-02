@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/../stamp-app/www/locales/en-US.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../stamp-app/www/templates/welcome.html" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin/app/design/frontend/smartwave/58stamp/template/customer/account/dashboard/info.phtml" charset="UTF-8" />
-    <file url="PROJECT" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/.gitignore" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/BlogController.php" charset="UTF-8" />
   </component>
 </project>
