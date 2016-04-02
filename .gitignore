@@ -1,7 +1,9 @@
 ~*.doc
 ~*.docx
 s.*
-.idea\
+.idea/
+/.idea
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
