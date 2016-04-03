@@ -10,6 +10,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 header("Access-Control-Allow-Origin: *");
+
 class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Action {
 
 	protected $_attributesMap = array(
@@ -66,13 +67,13 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		);
 
 		/** @var $apiHelper Mage_Api_Helper_Data */
-		$apiHelper = Mage::helper('api');
-		$filters = $this->getRequest()->getParams();
-		$filters = $apiHelper->parseFilters($filters, $_attributesMap['order']);
+		//$apiHelper = Mage::helper('api');
+		//$filters = $this->getRequest()->getParams();
+		//$filters = $apiHelper->parseFilters($filters, $_attributesMap['order']);
 		try {
-			foreach ($filters as $field => $value) {
-				$orderCollection->addFieldToFilter($field, $value);
-			}
+			//foreach ($filters as $field => $value) {
+				//$orderCollection->addFieldToFilter($field, $value);
+			//}
 			$orderCollection->addFieldToFilter('customer_id',$customer_id);
 			$orderCollection->setOrder('created_at','desc');
 
@@ -87,11 +88,12 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 				return ;
 		}
 		foreach ($orderCollection as $order) {
-
 			$data = $this->_getAttributes($order, 'order');
 			$shipment = $order->getShipmentsCollection()->getFirstItem();
 			$data['shipment_increment_id'] = $shipmentIncrementId = $shipment->getIncrementId();
 			$data['invoice_increment_id'] = null;
+			$data['payment_code'] = $order->getPayment()->getMethodInstance()->getCode();
+			$data['payment_title'] = $order->getPayment()->getMethodInstance()->getTitle();
 			if ($order->hasInvoices()) {
 				$invIncrementIDs = array();
 				foreach ($order->getInvoiceCollection() as $inv) {
@@ -103,6 +105,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 				$productid = $item->getProduct()->getId();
 				$_product = Mage::getModel('catalog/product')->load($productid);
 				//print_r($_product->getData());exit;
+				$productname[$i]['sku']= $_product->getSku();
 				$productname[$i]['name']= $item->getName();
 				$productname[$i]['price']= $item->getPrice();
 
