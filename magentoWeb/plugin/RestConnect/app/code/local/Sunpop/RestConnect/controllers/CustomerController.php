@@ -811,6 +811,30 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		return ;
 	}
 
+	public function addressCountryListAction(){
+	  $countryList = Mage::getResourceModel('directory/country_collection')->loadData()->toOptionArray(false);
+    echo json_encode($countryList);
+		return ;
+	}
+
+	public function addressRegionListAction($countryCode){
+  //[{"region_id":"521","code":"SH","name":"\u4e0a\u6d77"},{"region_id":"544","code":"YN","name":"\u4e91\u5357"}]
+
+		$countryCode = $this->getRequest ()->getParam('countrycode')?$this->getRequest ()->getParam('countrycode'):'CN' ;
+
+		$regionList = Mage::getModel('directory/region_api')->items($countryCode);
+
+    usort($regionList, function($a, $b) {
+                $al = $a['region_id'];
+                $bl = $b['region_id'];
+                if ($al == $bl)
+                    return 0;
+                return ($al < $bl) ? -1 : 1;
+            });
+    echo json_encode($regionList);
+		return ;
+	}
+
 	public function addressListAction(){
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		if (!$customer->getId()) {

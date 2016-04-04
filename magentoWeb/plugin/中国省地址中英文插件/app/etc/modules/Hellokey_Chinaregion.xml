@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<modules>
-		<Hellokey_Chinaregion>  
+		<Hellokey_Chinaregion>
 		<active>true</active>
 		<codePool>local</codePool>
 		</Hellokey_Chinaregion>

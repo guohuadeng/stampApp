@@ -26,9 +26,16 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 	protected $_ignoredAttributeCodes = array(
         'global'    =>  array('entity_id', 'attribute_set_id', 'entity_type_id')
 		);
+
+	/* *
+	*@param string $orderType  为空获取所有订单 ,notpaid, 未付款 , notshipping 未发货 ,isshipped 已发货 ,complete  完成
+	*@param int $page ,int $limit,
+	*@return josn
+	*/
 	public function listAction(){
 
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
+
 		if (!$customer->getId()) {
 		   echo json_encode ( array (
 					'code' => '0x0002',
@@ -36,49 +43,95 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			));
 			return ;
 		}
+		$orderlist = array();
+		$page = $this->getRequest ()->getParam ( 'page' ) ? $this->getRequest ()->getParam ( 'page' ) : 1;
+		$limit = $this->getRequest ()->getParam ( 'limit' ) ? $this->getRequest ()->getParam ( 'limit' ) : 10;
+	  $orderType = $this->getRequest ()->getParam ( 'status' ) ? $this->getRequest ()->getParam ( 'ordertype' ) : 'all';
+		//所有
+    if($orderType == 'all'){
+			$orderlist = $this->_getOrderList($customer,'',$page,$limit);
+		}
+		//未付款
+		if($orderType == 'notpaid'){
+			$orderlist = $this->_getOrderList($customer,'notpaid',$page,$limit);
+		}
+		//未发货
+		if($orderType == 'notshipping'){
+			$orderlist = $this->_getOrderList($customer,'notshipping',$page,$limit);
+		}
+		//已发货
+		if($orderType == 'isshipped'){
+			$orderlist = $this->_getOrderList($customer,'isshipped',$page,$limit);
+		}
+		//已完成
+		if($orderType == 'complete'){
+			$orderlist = $this->_getOrderList($customer,'complete',$page,$limit);
+		}
+		$result = Mage::helper('core')->jsonEncode($orderlist);
+		$this->getResponse()->setBody(urldecode($result));
+	}
+
+
+	/* *
+	*@param  object $customer, string $orderType 订单状态 为空所有订单 notpaid 未付款  notshipping 未发货 isshipped 已发货 complete  完成
+	*int $page当前页数，int $limit 一页显示个数*@return array()
+	*
+	*/
+	protected function _getOrderList($customer, $orderType = '', $page = 1, $limit = 10){
 		$customer_id = $customer->getId();
-
 		$orders = array();
-
-		//TODO: add full name logic
-		$billingAliasName = 'billing_o_a';
-		$shippingAliasName = 'shipping_o_a';
-
 		/** @var $orderCollection Mage_Sales_Model_Mysql4_Order_Collection */
 		$orderCollection = Mage::getModel("sales/order")->getCollection();
-		$billingFirstnameField = "$billingAliasName.firstname";
-		$billingLastnameField = "$billingAliasName.lastname";
-		$shippingFirstnameField = "$shippingAliasName.firstname";
-		$shippingLastnameField = "$shippingAliasName.lastname";
-		$orderCollection->addAttributeToSelect('*')
-			->addAddressFields()
-			->addExpressionFieldToSelect('billing_firstname', "{{billing_firstname}}",
-				array('billing_firstname' => $billingFirstnameField))
-			->addExpressionFieldToSelect('billing_lastname', "{{billing_lastname}}",
-				array('billing_lastname' => $billingLastnameField))
-			->addExpressionFieldToSelect('shipping_firstname', "{{shipping_firstname}}",
-				array('shipping_firstname' => $shippingFirstnameField))
-			->addExpressionFieldToSelect('shipping_lastname', "{{shipping_lastname}}",
-				array('shipping_lastname' => $shippingLastnameField))
-			->addExpressionFieldToSelect('billing_name', "CONCAT({{billing_firstname}}, ' ', {{billing_lastname}})",
-				array('billing_firstname' => $billingFirstnameField, 'billing_lastname' => $billingLastnameField))
-			->addExpressionFieldToSelect('shipping_name', 'CONCAT({{shipping_firstname}}, " ", {{shipping_lastname}})',
-				array('shipping_firstname' => $shippingFirstnameField, 'shipping_lastname' => $shippingLastnameField)
-		);
 
-		/** @var $apiHelper Mage_Api_Helper_Data */
-		//$apiHelper = Mage::helper('api');
-		//$filters = $this->getRequest()->getParams();
-		//$filters = $apiHelper->parseFilters($filters, $_attributesMap['order']);
 		try {
-			//foreach ($filters as $field => $value) {
-				//$orderCollection->addFieldToFilter($field, $value);
-			//}
 			$orderCollection->addFieldToFilter('customer_id',$customer_id);
-			$orderCollection->setOrder('created_at','desc');
 
-			$page = $this->getRequest ()->getParam ( 'page' ) ? $this->getRequest ()->getParam ( 'page' ) : 1;
-			$limit = $this->getRequest ()->getParam ( 'limit' ) ? $this->getRequest ()->getParam ( 'limit' ) : 10;
+			$invoices =  Mage::getResourceModel('sales/order_invoice_collection');
+			$invoices->getSelect()->joinLeft(array('order' => Mage::getModel('core/resource')->getTableName('sales/order')), 'order.entity_id=main_table.order_id', array('customer_id' => 'customer_id'));
+			$invoices->addFieldToFilter('customer_id',$customer_id);
+			if(count($invoices)>0){
+				foreach($invoices as $i){
+					$orderid = $i->getOrderId();
+					$invoicesorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
+				}
+			}
+			if($status == 'notpaid'){
+				if(count($invoicesorderincrementid)>0){
+					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$invoicesorderincrementid));
+				}
+			}
+
+
+			$shipment =  Mage::getResourceModel('sales/order_shipment_collection')->addFieldToFilter('customer_id',$customer_id);
+			$shipmentorderincrementid = array();
+			if(count($shipment)>0){
+				foreach($shipment as $s){
+					$orderid = $s->getOrderId();
+					$shipmentorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
+				}
+			}
+			if($orderType == 'notshipping'){
+				if(count($shipmentorderincrementid)>0){
+					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$shipmentorderincrementid));
+				}
+			}
+			if($orderType == "isshipped"){
+				if(count($shipmentorderincrementid)>0){
+					$orderCollection->addFieldToFilter('increment_id',array('in'=>$shipmentorderincrementid));
+					$orderCollection->addFieldToFilter('status',array('neq'=>'complete'));
+				}
+			}
+
+			if($orderType == "complete"){
+				$orderCollection->addFieldToFilter('status','complete');
+				if((count($shipmentorderincrementid)>0) & (count($shipmentorderincrementid)>0)){
+					$intersection = array_intersect($invoicesorderincrementid,$shipmentorderincrementid);
+					$orderCollection->addFieldToFilter('increment_id',array('in'=>$intersection));
+				}
+			}
+
+			$orderCollection->setOrder('created_at','desc');
+			$orders['orderCount'] = $orderCollection->getSize();
 			$orderCollection->setPageSize($limit)->setCurPage($page);
 		} catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
@@ -88,9 +141,28 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 				return ;
 		}
 		foreach ($orderCollection as $order) {
-			$data = $this->_getAttributes($order, 'order');
+			$data = array();
+			//$data = $this->_getAttributes($order, 'order');
 			$shipment = $order->getShipmentsCollection()->getFirstItem();
-			$data['shipment_increment_id'] = $shipmentIncrementId = $shipment->getIncrementId();
+			$invoicees = $order->getInvoiceCollection()->getFirstItem();
+			$data['isPaid'] = false;
+			if(($invoicees->getIncrementId())){
+				$data['isPaid'] = true;
+			}
+			$data['isShiping'] = false;
+			if(($shipment->getIncrementId())){
+				$data['isShiping'] = true;
+			}
+			$data['increment_id'] = $order->getIncrementId();
+			$data['status'] = $order->getStatus();
+			$data['customer_id'] = $order->getCustomerId();
+			$data['grand_total'] = $order->getGrandTotal();
+			$data['subtotal'] = $order->getSubtotal();
+			$data['shipping_amount'] = $order->getShippingAmount();
+			$data['total_qty_ordered'] = $order->getTotalQtyOrdered();
+			$data['created_at'] = $order->getCreatedAt();
+			$data['updated_at'] = $order->getUpdatedAt();
+			$data['shipment_increment_id'] = $shipment->getIncrementId();
 			$data['invoice_increment_id'] = null;
 			$data['payment_code'] = $order->getPayment()->getMethodInstance()->getCode();
 			$data['payment_title'] = $order->getPayment()->getMethodInstance()->getTitle();
@@ -105,9 +177,11 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 				$productid = $item->getProduct()->getId();
 				$_product = Mage::getModel('catalog/product')->load($productid);
 				//print_r($_product->getData());exit;
+				$productname[$i]['id']= $_product->getId();
 				$productname[$i]['sku']= $_product->getSku();
 				$productname[$i]['name']= $item->getName();
 				$productname[$i]['price']= $item->getPrice();
+				$productname[$i]['qty']= $item->getQtyOrdered();
 
 				if(($_product->getImage() == 'no_selection') || (!$_product->getImage())){
 					$productname[$i]['image_url']= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/base/default/images/catalog/product/placeholder/image.jpg';
@@ -127,12 +201,106 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 				$productname[$i]['options'] = $newoptions;
 			}
 			$data['products'] = $productname;
-			$orders[] = $data;
-
-
+			$orders['list'][] = $data;
 		}
-		$result = Mage::helper('core')->jsonEncode($orders);
+		return $orders;
+	}
+
+	public function countAction(){
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+
+		if (!$customer->getId()) {
+		   echo json_encode ( array (
+					'code' => '0x0002',
+					'message' => 'customer_not_login'
+			));
+			return ;
+		}
+		$orderlist = array();
+
+		//未付款
+		$orderlist['notpaid'] = $this->_getOrderListCount($customer,'notpaid');
+		//未发货
+		$orderlist['notshipping'] = $this->_getOrderListCount($customer,'notshipping');
+		//已发货
+		$orderlist['isshipped'] = $this->_getOrderListCount($customer,'isshipped');
+		//已完成
+		$orderlist['complete'] = $this->_getOrderListCount($customer,'complete');
+		//所有订单
+		$orderlist['all'] = $this->_getOrderListCount($customer,'');
+		$result = Mage::helper('core')->jsonEncode($orderlist);
 		$this->getResponse()->setBody(urldecode($result));
+	}
+
+	/* *
+	*@param  object $customer, string $status 订单状态 为空所有订单 notpaid 未付款  notshipping 未发货 isshipped 已发货 complete  完成
+	*@return array()
+	*
+	*/
+	protected function _getOrderListCount($customer, $status = ''){
+		$customer_id = $customer->getId();
+		$orders = array();
+		$orderCount = 0;
+		$orderCollection = Mage::getModel("sales/order")->getCollection();
+		try {
+			$orderCollection->addFieldToFilter('customer_id',$customer_id);
+
+			if($status == ''){
+				$orderCount = $orderCollection->getSize();
+			}
+			$invoices =  Mage::getResourceModel('sales/order_invoice_collection');
+			$invoices->getSelect()->joinLeft(array('order' => Mage::getModel('core/resource')->getTableName('sales/order')), 'order.entity_id=main_table.order_id', array('customer_id' => 'customer_id'));
+			$invoices->addFieldToFilter('customer_id',$customer_id);
+			if(count($invoices)>0){
+				foreach($invoices as $i){
+					$orderid = $i->getOrderId();
+					$invoicesorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
+				}
+			}
+			if($status == 'notpaid'){
+				if(count($invoicesorderincrementid)>0){
+					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$invoicesorderincrementid));
+					$orderCount = $orderCollection->getSize();
+				}
+			}
+			$shipment =  Mage::getResourceModel('sales/order_shipment_collection')->addFieldToFilter('customer_id',$customer_id);
+			$shipmentorderincrementid = array();
+			if(count($shipment)>0){
+				foreach($shipment as $s){
+					$orderid = $s->getOrderId();
+					$shipmentorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
+				}
+			}
+			if($status == 'notshipping'){
+				if(count($shipmentorderincrementid)>0){
+					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$shipmentorderincrementid));
+					$orderCount = $orderCollection->getSize();
+				}
+			}
+			if($status == "isshipped"){
+				if(count($shipmentorderincrementid)>0){
+					$orderCollection->addFieldToFilter('increment_id',array('in'=>$shipmentorderincrementid));
+					$orderCollection->addFieldToFilter('status',array('neq'=>'complete'));
+					$orderCount = $orderCollection->getSize();
+				}
+			}
+
+			if($status == "complete"){
+				$orderCollection->addFieldToFilter('status','complete');
+				if((count($shipmentorderincrementid)>0) & (count($shipmentorderincrementid)>0)){
+					$intersection = array_intersect($invoicesorderincrementid,$shipmentorderincrementid);
+					$orderCollection->addFieldToFilter('increment_id',array('in'=>$intersection));
+					$orderCount = $orderCollection->getSize();
+				}
+			}
+		} catch (Mage_Core_Exception $e) {
+			echo json_encode ( array (
+					'status' => '0x0002',
+					'message' => $e->getMessage()
+				));
+				return ;
+		}
+		return $orderCount;
 	}
 
 	protected function _getAttributes($object, $type, array $attributes = null)
