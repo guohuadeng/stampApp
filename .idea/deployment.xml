@@ -2,6 +2,14 @@
 <project version="4">
   <component name="PublishConfigData" serverName="www.58stamp.com">
     <serverData>
+      <paths name="dev.58stamp.com">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/中国省地址中英文插件" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="www.58stamp.com">
         <serverdata>
           <mappings>
@@ -9,6 +17,7 @@
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin" web="/" />
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/RestConnect" web="/" />
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/中国省地址中英文插件" web="/" />
           </mappings>
         </serverdata>
       </paths>

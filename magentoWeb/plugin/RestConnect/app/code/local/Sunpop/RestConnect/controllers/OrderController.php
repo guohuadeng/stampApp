@@ -10,6 +10,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 header("Access-Control-Allow-Origin: *");
+header("P3P: CP=CAO PSA OUR");
 
 class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Action {
 
@@ -149,9 +150,9 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			if(($invoicees->getIncrementId())){
 				$data['isPaid'] = true;
 			}
-			$data['isShiping'] = false;
+			$data['isShipping'] = false;
 			if(($shipment->getIncrementId())){
-				$data['isShiping'] = true;
+				$data['isShipping'] = true;
 			}
 			$data['increment_id'] = $order->getIncrementId();
 			$data['status'] = $order->getStatus();

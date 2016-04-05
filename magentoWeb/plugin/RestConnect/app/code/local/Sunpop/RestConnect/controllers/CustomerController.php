@@ -10,6 +10,8 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 header("Access-Control-Allow-Origin: *");
+header("P3P: CP=CAO PSA OUR");
+
 class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_Action {
 	const XML_PATH_REGISTER_EMAIL_TEMPLATE = 'customer/create_account/email_template';
 	const XML_PATH_REGISTER_EMAIL_IDENTITY = 'customer/create_account/email_identity';
@@ -91,6 +93,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			}
 		}
 	}
+
 	public function wechatLoginAction(){
 	/*demo data
 	`id`, `customer_id`, `inside_weixin`, `openid`, `nickname`, `sex`, `city`, `province`, `country`, `headimgurl`, `unionid`, `refresh_token`) VALUES
@@ -638,9 +641,17 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 	public function logoutAction() {
 		try {
 			Mage::getSingleton ( 'customer/session' )->logout();
-			echo json_encode(array(true, '0x0000', null));
+			echo json_encode ( array (
+			    'status' => true,
+					'code' => 0,
+					'message' => null
+			) );
 		} catch (Exception $e) {
-			echo json_encode(array(false, '0x1000', $e->getMessage()));
+			echo json_encode ( array (
+			    'status' => false,
+					'code' => 1,
+					'message' => Mage::helper ( 'customer' )->__ ('Logout fail.')
+			) );
 		}
 	}
 	protected function _user_isexists($email) {
