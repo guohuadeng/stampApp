@@ -43,6 +43,9 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 	public function addAction() {
 		try {
 			$product_id = $this->getRequest ()->getParam ( 'product' );
+			if (!$product_id) {
+				$product_id = $this->getRequest ()->getParam ( 'entity_id' );
+			}
 			$params = $this->getRequest ()->getParams ();
 			if (isset ( $params ['qty'] )) {
 				$filter = new Zend_Filter_LocalizedToNormalized ( array (
@@ -65,13 +68,22 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			$session->setCartWasUpdated ( true );
 			$cart->save ();
 			$items_qty = floor ( Mage::getModel ( 'checkout/cart' )->getQuote ()->getItemsQty () );
-			$result = '{"result":"success"';
-			$result .= ', "items_qty": "' . $items_qty . '"}';
-			echo $result;
+
+			$result = array (
+			    'status' => true,
+			    'code' => 0,
+			    'restult' => "success",
+			    'items_qty' => $items_qty
+			);
+			echo json_encode ( $result );
 		} catch ( Exception $e ) {
-			$result = '{"result":"error"';
-			$result .= ', "message": "' . str_replace("\"","||",$this->__ ($e->getMessage ())) . '"}';
-			echo $result;
+			$result = array (
+			    'status' => false,
+			    'code' => 1,
+			    'restult' => "error",
+			    'message' => str_replace("\"","||",$this->__ ($e->getMessage ()))
+			);
+			echo json_encode ( $result );
 		}
 	}
 	public function getCartInfoAction() {

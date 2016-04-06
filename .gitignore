@@ -1,6 +1,7 @@
 ~*.doc
 ~*.docx
 s.*
+.idea
 .idea/
 /.idea
 

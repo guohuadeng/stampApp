@@ -152,7 +152,8 @@ class Sunpop_RestConnect_WishlistController extends Mage_Core_Controller_Front_A
             'image_url' => $product->getImageUrl (),
             'image_thumbnail_url' => Mage::getModel ( 'catalog/product_media_config' )->getMediaUrl( $product->getThumbnail() ),
             'image_small_url' => Mage::getModel ( 'catalog/product_media_config' )->getMediaUrl( $product->getSmallImage() ),
-						'option' => $cuoptions
+						'option' => $cuoptions,
+						'options' => $cuoptions
 				);
 			}
 		}
@@ -325,5 +326,114 @@ class Sunpop_RestConnect_WishlistController extends Mage_Core_Controller_Front_A
         Mage::helper('wishlist')->calculate();
 
         $this->_redirectReferer(Mage::getUrl('*/*'));
+    }
+
+  public function cartAction()
+    {
+        $itemId = (int) $this->getRequest()->getParam('item');
+
+        /* @var $item Mage_Wishlist_Model_Item */
+        $item = Mage::getModel('wishlist/item')->load($itemId);
+        if (!$item->getId()) {
+        	echo json_encode ( array (
+						'status' => false,
+						'code' => 1,
+						'message' => 'item_not_exists.'
+						));
+					return ;
+        }
+        $wishlist = $this->_getWishlist($item->getWishlistId());
+        if (!$wishlist) {
+        	echo json_encode ( array (
+						'status' => false,
+						'code' => 2,
+						'message' =>  'wishlist_not_exists.'
+					));
+					return ;
+        }
+
+        // Set qty
+        $qty = $this->getRequest()->getParam('qty');
+        if (is_array($qty)) {
+            if (isset($qty[$itemId])) {
+                $qty = $qty[$itemId];
+            } else {
+                $qty = 1;
+            }
+        }
+        if ($qty) {
+            $item->setQty($qty);
+        }
+        /* @var $session Mage_Wishlist_Model_Session */
+        $session    = Mage::getSingleton('wishlist/session');
+        $cart       = Mage::getSingleton('checkout/cart');
+
+        try {
+            $options = Mage::getModel('wishlist/item_option')->getCollection()
+                    ->addItemFilter(array($itemId));
+            $item->setOptions($options->getOptionsByItem($itemId));
+
+            $buyRequest = Mage::helper('catalog/product')->addParamsToBuyRequest(
+                $this->getRequest()->getParams(),
+                array('current_config' => $item->getBuyRequest())
+            );
+
+            $item->mergeBuyRequest($buyRequest);
+            if ($item->addToCart($cart, true)) {
+                $cart->save()->getQuote()->collectTotals();
+            }
+
+            $wishlist->save();
+            Mage::helper('wishlist')->calculate();
+
+            if (Mage::helper('checkout/cart')->getShouldRedirectToCart()) {
+                $redirectUrl = Mage::helper('checkout/cart')->getCartUrl();
+            }
+            Mage::helper('wishlist')->calculate();
+
+            $product = Mage::getModel('catalog/product')
+                ->setStoreId(Mage::app()->getStore()->getId())
+                ->load($item->getProductId());
+            $productName = Mage::helper('core')->escapeHtml($product->getName());
+            $message = $this->__('%s was added to your shopping cart.', $productName);
+
+						echo json_encode ( array (
+								'status' => true,
+								'code' => 0,
+								'message' => $message
+						));
+						return ;
+        } catch (Mage_Core_Exception $e) {
+            if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
+								echo json_encode ( array (
+									'status' => false,
+									'code' => 3,
+									'message' => $this->__('This product(s) is currently out of stock')
+								));
+            } else if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
+								echo json_encode ( array (
+									'status' => false,
+									'code' => 3,
+									'message' => $this->__('EXCEPTION_CODE_HAS_REQUIRED_OPTIONS')
+								));
+            } else {
+								echo json_encode ( array (
+									'status' => false,
+									'code' => 3,
+									'message' => $this->__('Unknow error.')
+								));
+            }
+        } catch (Exception $e) {
+            Mage::logException($e);
+						echo json_encode ( array (
+							'status' => false,
+							'code' => 3,
+							'message' => $this->__('Cannot add item to shopping cart')
+						));
+        }
+
+        Mage::helper('wishlist')->calculate();
+
+        return $this->_redirectUrl($redirectUrl);
     }
 }
