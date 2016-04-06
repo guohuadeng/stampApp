@@ -29,12 +29,11 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		);
 
 	/* *
-	*@param string $orderType  为空获取所有订单 ,notpaid, 未付款 , notshipping 未发货 ,isshipped 已发货 ,complete  完成
+	*@param string $orderType  为空获取所有订单 ,notpaid, 未付款 , notshipped 未发货 , notreceived 待收货 ,complete  完成
 	*@param int $page ,int $limit,
 	*@return josn
 	*/
 	public function listAction(){
-
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 
 		if (!$customer->getId()) {
@@ -47,7 +46,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		$orderlist = array();
 		$page = $this->getRequest ()->getParam ( 'page' ) ? $this->getRequest ()->getParam ( 'page' ) : 1;
 		$limit = $this->getRequest ()->getParam ( 'limit' ) ? $this->getRequest ()->getParam ( 'limit' ) : 10;
-	  $orderType = $this->getRequest ()->getParam ( 'status' ) ? $this->getRequest ()->getParam ( 'ordertype' ) : 'all';
+	  $orderType = $this->getRequest ()->getParam ( 'ordertype' ) ? $this->getRequest ()->getParam ( 'ordertype' ) : 'all';
 		//所有
     if($orderType == 'all'){
 			$orderlist = $this->_getOrderList($customer,'',$page,$limit);
@@ -57,12 +56,12 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			$orderlist = $this->_getOrderList($customer,'notpaid',$page,$limit);
 		}
 		//未发货
-		if($orderType == 'notshipping'){
-			$orderlist = $this->_getOrderList($customer,'notshipping',$page,$limit);
+		if($orderType == 'notshipped'){
+			$orderlist = $this->_getOrderList($customer,'notshipped',$page,$limit);
 		}
-		//已发货
-		if($orderType == 'isshipped'){
-			$orderlist = $this->_getOrderList($customer,'isshipped',$page,$limit);
+		//待收货
+		if($orderType == 'notreceived'){
+			$orderlist = $this->_getOrderList($customer,'notreceived',$page,$limit);
 		}
 		//已完成
 		if($orderType == 'complete'){
@@ -74,7 +73,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 
 
 	/* *
-	*@param  object $customer, string $orderType 订单状态 为空所有订单 notpaid 未付款  notshipping 未发货 isshipped 已发货 complete  完成
+	*@param  object $customer, string $orderType 订单状态 为空所有订单 notpaid 未付款  notshipped 待发货 notreceived 待收货 complete  完成
 	*int $page当前页数，int $limit 一页显示个数*@return array()
 	*
 	*/
@@ -96,13 +95,6 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 					$invoicesorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
 				}
 			}
-			if($status == 'notpaid'){
-				if(count($invoicesorderincrementid)>0){
-					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$invoicesorderincrementid));
-				}
-			}
-
-
 			$shipment =  Mage::getResourceModel('sales/order_shipment_collection')->addFieldToFilter('customer_id',$customer_id);
 			$shipmentorderincrementid = array();
 			if(count($shipment)>0){
@@ -111,18 +103,23 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 					$shipmentorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
 				}
 			}
-			if($orderType == 'notshipping'){
+
+			if($orderType == 'notpaid'){
+				if(count($invoicesorderincrementid)>0){
+					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$invoicesorderincrementid));
+				}
+			}
+			if($orderType == 'notshipped'){
 				if(count($shipmentorderincrementid)>0){
 					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$shipmentorderincrementid));
 				}
 			}
-			if($orderType == "isshipped"){
+			if($orderType == "notreceived"){
 				if(count($shipmentorderincrementid)>0){
 					$orderCollection->addFieldToFilter('increment_id',array('in'=>$shipmentorderincrementid));
 					$orderCollection->addFieldToFilter('status',array('neq'=>'complete'));
 				}
 			}
-
 			if($orderType == "complete"){
 				$orderCollection->addFieldToFilter('status','complete');
 				if((count($shipmentorderincrementid)>0) & (count($shipmentorderincrementid)>0)){
@@ -132,7 +129,19 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			}
 
 			$orderCollection->setOrder('created_at','desc');
+			$orderGrandTotal = 0;
+			$orderSubTotal = 0;
+			$orderQtyTotal = 0;
+			foreach ($orderCollection as $order) {
+				$orderGrandTotal = $orderSubTotal + $order->getGrandTotal();
+				$orderSubTotal = $orderSubTotal + $order->getSubtotal();
+				$orderQtyTotal = $orderQtyTotal + $order->getTotalQtyOrdered();
+			}
 			$orders['orderCount'] = $orderCollection->getSize();
+			$orders['orderGrandTotal'] = $orderGrandTotal;
+			$orders['orderSubTotal'] = $orderSubTotal;
+			$orders['orderQtyTotal'] = $orderQtyTotal;
+
 			$orderCollection->setPageSize($limit)->setCurPage($page);
 		} catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
@@ -150,9 +159,9 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			if(($invoicees->getIncrementId())){
 				$data['isPaid'] = true;
 			}
-			$data['isShipping'] = false;
+			$data['isShipped'] = false;
 			if(($shipment->getIncrementId())){
-				$data['isShipping'] = true;
+				$data['isShipped'] = true;
 			}
 			$data['increment_id'] = $order->getIncrementId();
 			$data['status'] = $order->getStatus();
@@ -221,10 +230,10 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 
 		//未付款
 		$orderlist['notpaid'] = $this->_getOrderListCount($customer,'notpaid');
-		//未发货
-		$orderlist['notshipping'] = $this->_getOrderListCount($customer,'notshipping');
-		//已发货
-		$orderlist['isshipped'] = $this->_getOrderListCount($customer,'isshipped');
+		//待发货
+		$orderlist['notshipped'] = $this->_getOrderListCount($customer,'notshipped');
+		//待收货
+		$orderlist['notreceived'] = $this->_getOrderListCount($customer,'notreceived');
 		//已完成
 		$orderlist['complete'] = $this->_getOrderListCount($customer,'complete');
 		//所有订单
@@ -234,7 +243,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 	}
 
 	/* *
-	*@param  object $customer, string $status 订单状态 为空所有订单 notpaid 未付款  notshipping 未发货 isshipped 已发货 complete  完成
+	*@param  object $customer, string $orderType 订单状态 为空所有订单 notpaid 未付款  notshipped 待发货 notreceived 待收货 complete  完成
 	*@return array()
 	*
 	*/
@@ -258,12 +267,6 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 					$invoicesorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
 				}
 			}
-			if($status == 'notpaid'){
-				if(count($invoicesorderincrementid)>0){
-					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$invoicesorderincrementid));
-					$orderCount = $orderCollection->getSize();
-				}
-			}
 			$shipment =  Mage::getResourceModel('sales/order_shipment_collection')->addFieldToFilter('customer_id',$customer_id);
 			$shipmentorderincrementid = array();
 			if(count($shipment)>0){
@@ -272,20 +275,25 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 					$shipmentorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
 				}
 			}
-			if($status == 'notshipping'){
+			if($status == 'notpaid'){
+				if(count($invoicesorderincrementid)>0){
+					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$invoicesorderincrementid));
+					$orderCount = $orderCollection->getSize();
+				}
+			}
+			if($status == 'notshipped'){
 				if(count($shipmentorderincrementid)>0){
 					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$shipmentorderincrementid));
 					$orderCount = $orderCollection->getSize();
 				}
 			}
-			if($status == "isshipped"){
+			if($status == "notreceived"){
 				if(count($shipmentorderincrementid)>0){
 					$orderCollection->addFieldToFilter('increment_id',array('in'=>$shipmentorderincrementid));
 					$orderCollection->addFieldToFilter('status',array('neq'=>'complete'));
 					$orderCount = $orderCollection->getSize();
 				}
 			}
-
 			if($status == "complete"){
 				$orderCollection->addFieldToFilter('status','complete');
 				if((count($shipmentorderincrementid)>0) & (count($shipmentorderincrementid)>0)){
