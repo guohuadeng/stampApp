@@ -10,8 +10,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 header("Access-Control-Allow-Origin: *");
-header("P3P: CP=CAO PSA OUR");
-
 class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_Action {
 	const XML_PATH_REGISTER_EMAIL_TEMPLATE = 'customer/create_account/email_template';
 	const XML_PATH_REGISTER_EMAIL_IDENTITY = 'customer/create_account/email_identity';
@@ -23,34 +21,36 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 	const XML_PATH_CONFIRM_EMAIL_TEMPLATE       = 'customer/create_account/email_confirmation_template';
 	const XML_PATH_CONFIRMED_EMAIL_TEMPLATE     = 'customer/create_account/email_confirmed_template';
 	const XML_PATH_GENERATE_HUMAN_FRIENDLY_ID   = 'customer/create_account/generate_human_friendly_id';
-	public function statusAction() {
-		$customerinfo = array ();
-		if (Mage::getSingleton ( 'customer/session' )->isLoggedIn ()) {
-			$customer = Mage::getSingleton ( 'customer/session' )->getCustomer ();
-			$avatar = $customer->getAvatar ();
-			$wechat_avatar = $customer->getData('wechat_avatar');
-			if (isset($avatar))
-				$avatar = $customer->getAvatar ();
 
-			$customerinfo = array (
-			    'status' => true,
-			    'code' => 0,
-					'firstname' => $customer->getFirstname (),
-					'lastname' => $customer->getLastname (),
-					'name' => $customer->getName (),
-					'email' => $customer->getEmail (),
-					'avatar' => $avatar,
-					'wechat_avatar' => $wechat_avatar,
-					'tel' => $customer->getDefaultMobileNumber ()
-			);
-			echo json_encode ( $customerinfo );
-		} else
-      echo json_encode ( array (
+	public function statusAction() {
+		$result = array ();
+		if (!Mage::getSingleton ( 'customer/session' )->isLoggedIn ()) {
+        $result = array (
           'status' => false,
           'code' => 1,
-          'message' =>  Mage::helper ( 'customer' )->__ ('Please login.')
-      ) );
+          'message' => Mage::helper ( 'customer' )->__ ('not_exists')
+        );
+			} else {
+        $customer = Mage::getSingleton ( 'customer/session' )->getCustomer ();
+        $items_qty = floor(Mage::getModel('checkout/cart')->getQuote()->getItemsQty());
+
+        if (!is_null($attributes) && !is_array($attributes)) {
+            $attributes = array($attributes);
+        }
+        $result =  array (
+          'status' => true,
+          'code' => 0,
+          'customer_id' => $customer->getId(),
+          'items_qty' => $items_qty
+          );
+        $resource = new Mage_Customer_Model_Api_Resource;
+        foreach ($resource->getAllowedAttributes($customer, $attributes) as $attributeCode=>$attribute) {
+          $result[$attributeCode] = $customer->getData($attributeCode);
+          }
+      }
+    echo json_encode ( $result );
 	}
+
 	public function loginAction() {
 		$session = Mage::getSingleton ( 'customer/session' );
 		if (Mage::getSingleton ( 'customer/session' )->isLoggedIn ()) {
@@ -93,7 +93,6 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			}
 		}
 	}
-
 	public function wechatLoginAction(){
 	/*demo data
 	`id`, `customer_id`, `inside_weixin`, `openid`, `nickname`, `sex`, `city`, `province`, `country`, `headimgurl`, `unionid`, `refresh_token`) VALUES
@@ -641,17 +640,9 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 	public function logoutAction() {
 		try {
 			Mage::getSingleton ( 'customer/session' )->logout();
-			echo json_encode ( array (
-			    'status' => true,
-					'code' => 0,
-					'message' => null
-			) );
+			echo json_encode(array(true, '0x0000', null));
 		} catch (Exception $e) {
-			echo json_encode ( array (
-			    'status' => false,
-					'code' => 1,
-					'message' => Mage::helper ( 'customer' )->__ ('Logout fail.')
-			) );
+			echo json_encode(array(false, '0x1000', $e->getMessage()));
 		}
 	}
 	protected function _user_isexists($email) {
@@ -708,11 +699,6 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
         foreach ($resource->getAllowedAttributes($customer, $attributes) as $attributeCode=>$attribute) {
             $result[$attributeCode] = $customer->getData($attributeCode);
         }
-        //微信头像处理
-        if (!$result['avatar']) {
-          if ($customer->getData('wechat_avatar'))
-            $result['avatar'] = 'http://' . $_SERVER['HTTP_HOST']. $customer->getData('wechat_avatar');
-            }
         echo json_encode ( $result );
 	}
 
