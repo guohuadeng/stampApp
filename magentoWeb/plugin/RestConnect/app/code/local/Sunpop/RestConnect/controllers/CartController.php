@@ -40,6 +40,10 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			echo $result;
 		}
 
+	public function getCartInfoAction() {
+		echo json_encode ( $this->_getCartInformation () );
+	}
+
 	public function addAction() {
 		try {
 			$product_id = $this->getRequest ()->getParam ( 'product' );
@@ -67,15 +71,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			$session->setLastAddedProductId ( $product->getId () );
 			$session->setCartWasUpdated ( true );
 			$cart->save ();
-			$items_qty = floor ( Mage::getModel ( 'checkout/cart' )->getQuote ()->getItemsQty () );
-
-			$result = array (
-			    'status' => true,
-			    'code' => 0,
-			    'restult' => "success",
-			    'items_qty' => $items_qty
-			);
-			echo json_encode ( $result );
+		  echo json_encode ( $this->_getCartInformation () );
 		} catch ( Exception $e ) {
 			$result = array (
 			    'status' => false,
@@ -86,28 +82,24 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			echo json_encode ( $result );
 		}
 	}
-	public function getCartInfoAction() {
-		echo json_encode ( $this->_getCartInformation () );
-	}
 	public function removeAction() {
 		$cart = Mage::getSingleton ( 'checkout/cart' );
 		$id = ( int ) $this->getRequest ()->getParam ( 'cart_item_id', 0 );
 		if ($id) {
 			try {
 				$cart->removeItem ( $id )->save ();
-				echo json_encode(array('cart_info'=>$this->_getCartInformation(),'total'=>$this->_getCartTotal ()));
+				echo json_encode($this->_getCartInformation());
 			} catch ( Mage_Core_Exception $e ) {
 				echo json_encode ( $e->getMessage () );
-				// return $this->getCartInfoAction()
 			} catch ( Exception $e ) {
 				echo json_encode ( $e->getMessage () );
-				// return $this->getCartInfoAction();
 			}
 		} else {
 			echo json_encode ( array (
-					false,
-					'0x5002',
-					'Param cart_item_id is empty.'
+			    'status' => false,
+			    'code' => '0x5002',
+			    'restult' => 'error',
+					'message' => 'Param cart_item_id is empty.'
 			) );
 		}
 	}
@@ -126,8 +118,9 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 					$item = $cart->getQuote ()->getItemById ( $itemId );
 				} else {
 					echo json_encode ( array (
-							'code' => '0x0001',
-							'message' => 'a wrong cart_item_id was given.'
+			      'status' => false,
+						'code' => '0x0001',
+						'message' => 'a wrong cart_item_id was given.'
 					) );
 					return false;
 				}
@@ -153,7 +146,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			echo json_encode ( $e->getMessage () );
 			return false;
 		}
-		echo json_encode(array('cart_info'=>$this->_getCartInformation(),'total'=>$this->_getCartTotal ()));
+		echo json_encode($this->_getCartInformation());
 	}
 	public function getTotalAction() {
 		echo json_encode ( $this->_getCartTotal () );
@@ -262,6 +255,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		}
 		$cart->getQuote ()->collectTotals ()->save ();
 		$cartInfo = array ();
+		$cartInfo ['status'] = sizeof ( $this->errors ) ? false : true;
+		$cartInfo ['error'] = 0;
 		$cartInfo ['is_virtual'] = Mage::helper ( 'checkout/cart' )->getIsVirtualQuote ();
 		$cartInfo ['cart_items'] = $this->_getCartItems ();
 		$cartInfo ['messages'] = sizeof ( $this->errors ) ? $this->errors : $this->_getMessage ();

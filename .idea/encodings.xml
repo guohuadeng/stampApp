@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/.gitignore" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/BlogController.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/magentoWeb/plugin/RestConnect/app/code/local/Sunpop/RestConnect/controllers/OrderController.php" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
