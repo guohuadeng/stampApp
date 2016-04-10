@@ -268,6 +268,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		$cartInfo ['cart_items_count'] = Mage::helper ( 'checkout/cart' )->getSummaryCount ();
 		$cartInfo ['payment_methods'] = $this->_getPaymentInfo ();
 		$cartInfo ['allow_guest_checkout'] = Mage::helper ( 'checkout' )->isAllowedGuestCheckout ( $cart->getQuote () );
+		$cartInfo ['total'] = $this->_getCartTotal ();
 
 		return $cartInfo;
 	}
@@ -1104,3 +1105,4 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		echo json_encode($agreements);
 	}
 }
+ 
