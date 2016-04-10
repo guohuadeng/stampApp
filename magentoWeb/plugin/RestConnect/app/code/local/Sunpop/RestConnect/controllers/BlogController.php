@@ -13,7 +13,6 @@ header("Access-Control-Allow-Origin: *");
 class Sunpop_RestConnect_BlogController extends Mage_Core_Controller_Front_Action {
 
 	public function getCategoryListAction(){
-
 		$categories = Mage::getModel("blog/cat")->getCollection();
 		$result = array();
 		foreach($categories as $category){
