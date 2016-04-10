@@ -1,0 +1,9 @@
+"Country","Region/State","City","Zip/Postal Code","Zip to","Weight from","Weight to","Price From","Price To","Item From","Item To","Shipping Price","Algorithm","Delivery Type","Sort order"
+"USA,CAN","*","*","*","*","*","*","*","*",1,1,7.99,,"Ground",
+"USA,CAN","*","*","*","*","*","*","*","*",2,2,9.99,,"Ground",
+"USA,CAN","*","*","*","*","*","*","*","*",3,"*",15.99,,"Ground",
+"USA,CAN","*","*","*","*",0,4.99,"*","*",1,1,9.45,,"Express",
+"USA,CAN","*","*","*","*",5,"*","*","*",2,2,10,,"Express",
+"USA,CAN","*","*","*","*",5,"*","*","*",3,"*",15.45,,"Express",
+"USA,CAN","*","*","*","*","*","*","*","*","*","*",20,,"Next Day",
+"*","*","*","*","*","*","*","*","*","*","*",50,,"Worldwide",

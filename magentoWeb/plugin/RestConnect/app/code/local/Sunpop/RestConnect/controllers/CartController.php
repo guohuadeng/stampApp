@@ -260,7 +260,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		$cartInfo ['is_virtual'] = Mage::helper ( 'checkout/cart' )->getIsVirtualQuote ();
 		$cartInfo ['cart_items'] = $this->_getCartItems ();
 		$cartInfo ['messages'] = sizeof ( $this->errors ) ? $this->errors : $this->_getMessage ();
-		$cartInfo ['cart_items_count'] = Mage::helper ( 'checkout/cart' )->getSummaryCount ();
+		$cartInfo ['items_qty'] = Mage::helper ( 'checkout/cart' )->getSummaryCount ();
+		$cartInfo ['cart_items_count'] = $cartInfo ['items_qty'] ;
 		$cartInfo ['payment_methods'] = $this->_getPaymentInfo ();
 		$cartInfo ['allow_guest_checkout'] = Mage::helper ( 'checkout' )->isAllowedGuestCheckout ( $cart->getQuote () );
 		$cartInfo ['total'] = $this->_getCartTotal ();

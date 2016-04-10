@@ -1,0 +1,6 @@
+"Country","Region/State","City","Zip/Postal Code","Zip to","Weight from","Weight to","Price From","Price To","Item From","Item To","Shipping Price","Algorithm","Delivery Type","Sort Order"
+"AUS","*","*","*","*",0,20,"*","*","*","*",15,,"Main Post",
+"AUS","*","*",9766,9856,0,20,"*","*","*","*",15,,"Main Post",
+"AUS","*","*",9766,9856,0,20,"*","*","*","*",9.5,,"Aus Courier1",
+"AUS","*","*",9857,9899,0,20,"*","*","*","*",12.5,,"Aus Courier2",
+"*","*","*","*","*",0,10,"*","*","*","*",50,,"Worldwide",

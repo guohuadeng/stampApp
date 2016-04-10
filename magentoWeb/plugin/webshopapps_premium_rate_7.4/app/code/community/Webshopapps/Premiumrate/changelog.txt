@@ -1,0 +1,30 @@
+4.5 - Depends on WSACommon.
+4.6 - Added Support for Shopping Cart Promotions as in UPS etc.
+4.7 - Saves CSV File to file system under var/export/your csv.csv.
+4.8 - Refactored tax incl logic
+5.0 - Resolved issue that was causing csv upload error
+5.1 - Removed Google Checkout for 1.5+ installs
+5.2 - Includes wsacommon fix to resolve invalid call to downloadable shipping
+5.3 - Added in Canada postcode filtering. Adding in some logging output
+5.4 - Changed canada postcode filtering to support 3 digit matching on first part of postcode and full postcode matching.
+5.5 - updated to support 1.4.1, 1.5 and 1.6 google checkout in one file
+5.6 - Moved new callback to be after 1.4.2 as taxonshipping not present before
+5.7 - Fixed issue with non-numerics when zip range set
+5.8 - Fixed issue with free shipping text not using correct name in system.xml
+5.9 - Added ability to remove free price/quantity and weight from the calculation. This is when using promotions
+5.10 - Fixed instock flag to support instock=false
+5.11 - Added support to notify user of mac windows upload error
+6.0 - Added support for specifying some methods to always use actual weight even if volweight is higher. Removed class for tax calculation as tax logic reworked to no longer require.
+6.1 - Added new algorithm to support always using weight in W= surcharge, it's AW=. Syntax identical to W=.
+6.2 - Moved condition logic under carrier
+6.3 - Added support for canada and numeric simultaneously
+6.4 - Added feature to change the max length of the zipcode
+6.5 - Fixed issue with Brazilian postcodes
+6.6 - Fixed issue with weight when using promotions logic
+6.7 - Added in logic that strips "-" from Brazil post codes
+6.8 - Added new wnc= algorithm - weight without rounding.
+6.9 - Improved the -1 exclusion logic.
+6.10 - Added explicit support for NL postal codes.
+7.0 - Moved to community
+7.1 - Added support for CSV export.
+7.2 - COMMON-26 Updated CSV export button 7.3  - PREMIUM-8 Added additional shipping price per unit of cart price

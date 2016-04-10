@@ -1,0 +1,5 @@
+"Country","Region/State","City","Zip/Postal Code","Zip to","Weight from","Weight to","Price From","Price To","Item From","Item To","Shipping Price","Algorithm","Delivery Type","Sort Order"
+"USA","*","*","*","*","*","*","*","*","*","*",149,"*","Terminal Pickup",
+"USA","*","*","*","*","*","*","*","*","*","*",249,"*","Residential",
+"USA","*","*","*","*","*","*","*","*","*","*",200,"*","Commercial",
+"USA","*","*","*","*","*","*","*","*","*","*",200,"*","Construction Site",

@@ -1,0 +1,11 @@
+"Country","Region/State","City","Zip/Postal Code","Zip to","Weight From","Weight To","Price From","Price To","Item From","Item To","Shipping Price","Algorithm","Delivery Type","Sort order"
+"USA","*","*","*","*","*","*",0,150,"Item From","Item To",8.95,,"Normal",
+"USA","*","*","*","*","*","*",0,150,0,1,12,,"Normal",
+"USA","*","*","*","*","*","*",0,150,2,3,15,,"Normal",
+"USA","*","*","*","*","*","*",150,"*",3,"*",6,,"Normal",
+"USA","*","*","*","*","*","*",150,"*",0,1,8,,"Normal",
+"USA","*","*","*","*","*","*",150,"*",2,3,10,,"Normal",
+"USA","*","*","*","*","*","*","*","*",3,"*",12,,"Express",
+"CAN","*","*","*","*","*","*","*","*","*","*",50,,"Worldwide",
+"CAN","*","*","*","*","*","*","*","*",0,3,70,,"Worldwide",
+,,,,,,,,,4,"*",,,,

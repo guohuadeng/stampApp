@@ -1,0 +1,5 @@
+"Country","Region/State","City","Zip from","Zip to","Weight from","Weight to","Price From","Price To","Item From","Item To","Shipping Price","Algorithm","Delivery Type","Sort Order"
+"GBR","*","*","*","*","*","*","*","*","*","*",20,,"Standard","*"
+"IRL","*","*","*","*","*","*","*","*","*","*",10,,"Standard","*"
+"FRA,ITA","*","*","*","*","*","*","*","*","*","*",25,,"Europe","*"
+"*","*","*","*","*","*","*","*","*","*","*",50,,"Worldwide","*"

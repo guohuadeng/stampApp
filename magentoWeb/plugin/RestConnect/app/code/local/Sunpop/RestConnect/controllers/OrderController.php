@@ -73,7 +73,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 
 
 	/* *
-	*@param  object $customer, string $orderType 订单状态 为空所有订单 notpaid 未付款  notshipped 待发货 notreceived 待收货 complete  完成
+	*@param  object $customer, string $orderType 订单状态 为空或all为所有订单 notpaid 未付款  notshipped 待发货 notreceived 待收货 complete  完成
 	*int $page当前页数，int $limit 一页显示个数*@return array()
 	*
 	*/
@@ -103,6 +103,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 					$shipmentorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
 				}
 			}
+			if($orderType == '' || $orderType == 'all'){}
 
 			if($orderType == 'notpaid'){
 				if(count($invoicesorderincrementid)>0){
@@ -730,4 +731,3 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		echo json_encode($result);
 	}
 }
-?>

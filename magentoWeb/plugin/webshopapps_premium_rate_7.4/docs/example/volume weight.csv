@@ -1,0 +1,5 @@
+"Country","Region/State","City","Zip/Postal Code","Zip to","Weight From","Weight To","Price From","Price To","Volume From","Volume To","Shipping Price","Algorithm","Delivery Type","Sort Order"
+"*","*","*","*","*",0,15.99,"*","*",0,4.99,5,,"Standard",
+"*","*","*","*","*",0,15.99,"*","*",5,"*",10,,"Standard",
+"*","*","*","*","*",16,"*","*","*",0,4.99,7,,"Standard",
+"*","*","*","*","*",16,"*","*","*",5,"*",12,,"Standard",

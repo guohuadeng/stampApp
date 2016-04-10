@@ -1,0 +1,9 @@
+"Country","Region/State","City","Zip/Postal Code","Zip to","Weight/Volume From","Weight/Volume To","Price From","Price To","Item From","Item To","Shipping Price","Algorithm","Delivery Type","Sort Order"
+"AUS","*","PERTH",2000,3000,"*","*",0,5,"*","*",4.99,,"AllRate",
+"AUS","*","PERTH",2000,3000,"*","*",7,20,"*","*",4.99,,"Big All Rate",
+"AUS","*","PERTH",2000,3000,"*","*",0,5,"*","*",6.99,,"1st Class Recorded",
+"AUS","*","PERTH","*","*","*","*",0,5,"*","*",2.99,,"1st Class Recorded",
+"AUS","*","*","*","*","*","*",0,5,"*","*",2.99,,"AUS Rate inclusive",
+"AUS","*","*",2551,3200,"*","*",0,5,"*","*",12.99,,"AUS Postcode Range only",
+"AUS","*","SYDNEY","*","*","*","*",0,32,"*","*",7.99,,"ParcelForce 24-48",
+"*","*","*","*","*","*","*",0,10,"*","*",50,,"Worldwide",
