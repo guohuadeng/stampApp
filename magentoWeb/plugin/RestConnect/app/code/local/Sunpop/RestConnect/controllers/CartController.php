@@ -156,6 +156,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		$cart = Mage::helper ( 'checkout/cart' )->getCart ();
 		if (! $cart->getItemsCount ()) {
 			echo json_encode ( array (
+			    'status' => false,
 					'code' => '0X0001',
 					'message' => "You can't use coupon code with an empty shopping cart"
 			) );
@@ -167,6 +168,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		$oldCouponCode = $cart->getQuote ()->getCouponCode ();
 		if (! strlen ( $couponCode ) && ! strlen ( $oldCouponCode )) {
 			echo json_encode ( array (
+			    'status' => false,
 					'code' => '0X0002',
 					'message' => "Emptyed."
 			) );
@@ -182,28 +184,33 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			if ($codeLength) {
 				if ($isCodeLengthValid && $couponCode == $cart->getQuote ()->getCouponCode ()) {
 					$messages = array (
+			        'status' => true,
 							'code' => '0x0000',
 							'message' => $this->__ ( 'Coupon code "%s" was applied.', Mage::helper ( 'core' )->escapeHtml ( $couponCode ) )
 					);
 				} else {
 					$messages = array (
+			        'status' => false,
 							'code' => '0x0001',
 							'message' => $this->__ ( 'Coupon code "%s" is not valid.', Mage::helper ( 'core' )->escapeHtml ( $couponCode ) )
 					);
 				}
 			} else {
 				$messages = array (
+			      'status' => false,
 						'code' => '0x0002',
 						'message' => $this->__ ( 'Coupon code was canceled.' )
 				);
 			}
 		} catch ( Mage_Core_Exception $e ) {
 			$messages = array (
+			    'status' => false,
 					'code' => '0x0003',
 					'message' => $e->getMessage ()
 			);
 		} catch ( Exception $e ) {
 			$messages = array (
+			    'status' => false,
 					'code' => '0x0004',
 					'message' => $this->__ ( 'Cannot apply the coupon code.' )
 			);
@@ -400,75 +407,6 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		}
 		return $result;
 	}
-	public function _addToCart() {
-		$cart = Mage::getSingleton ( 'checkout/cart' );
-		$session = Mage::getSingleton ( 'core/session', array (
-				'name' => 'frontend'
-		) );
-		$params = $this->getRequest ()->getParams ();
-		if ($params ['isAjax'] == 1) {
-			$response = array ();
-			try {
-				if (isset ( $params ['qty'] )) {
-					$filter = new Zend_Filter_LocalizedToNormalized ( array (
-							'locale' => Mage::app ()->getLocale ()->getLocaleCode ()
-					) );
-					$params ['qty'] = $filter->filter ( $params ['qty'] );
-				}
-				$product = Mage::getModel ( 'catalog/product' )->load ( $params['product_id'] );
-				$related = $this->getRequest ()->getParam ( 'related_product' );
-				/**
-				 * Check product availability
-				 */
-				if (! $product) {
-					$response ['status'] = 'ERROR';
-					$response ['message'] = $this->__ ( 'Unable to find Product ID' );
-				}
-				$cart->addProduct ( $product, $params );
-				if (! empty ( $related )) {
-					$cart->addProductsByIds ( explode ( ',', $related ) );
-				}
-				$cart->save ();
-				$session->setCartWasUpdated ( true );
-				/**
-				 *
-				 * @todo remove wishlist observer processAddToCart
-				 */
-				Mage::dispatchEvent ( 'checkout_cart_add_product_complete', array (
-						'product' => $product,
-						'request' => $this->getRequest (),
-						'response' => $this->getResponse ()
-				) );
-				if (! $session->getNoCartRedirect ( true )) {
-					if (! $cart->getQuote ()->getHasError ()) {
-						$message = $this->__ ( '%s was added to your shopping cart.', Mage::helper ( 'core' )->htmlEscape ( $product->getName () ) );
-						$response ['status'] = 'SUCCESS';
-						$response ['message'] = $message;
-					}
-				}
-			} catch ( Mage_Core_Exception $e ) {
-				$msg = "";
-				if ($session->getUseNotice ( true )) {
-					$msg = $e->getMessage ();
-				} else {
-					$messages = array_unique ( explode ( "\n", $e->getMessage () ) );
-					foreach ( $messages as $message ) {
-						$msg .= $message . '<br>';
-					}
-				}
-				$response ['status'] = 'ERROR';
-				$response ['message'] = $msg;
-			} catch ( Exception $e ) {
-				$response ['status'] = 'ERROR';
-				$response ['message'] = $this->__ ( 'Cannot add the item to shopping cart.' );
-				Mage::logException ( $e );
-			}
-			$this->getResponse ()->setBody ( Mage::helper ( 'core' )->jsonEncode ( $response ) );
-			return;
-		} else {
-			return parent::addAction ();
-		}
-	}
 
 	public function customerSetAction(){
 		$quote = Mage::getModel('checkout/cart')->getQuote();
@@ -477,6 +415,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		$customerData = $this->getRequest ()->getParams();
         if (!isset($customerData['mode'])) {
 			echo json_encode ( array (
+			    'status' => false,
 					'code' => '0x0002',
 					'message' => 'customer_mode_is_unknown'
 			));
@@ -506,6 +445,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             if ($isCustomerValid !== true && is_array($isCustomerValid)) {
 
 				echo json_encode ( array (
+			    'status' => false,
 					'code' => '0x0001',
 					'message' => 'customer_mode_is_unknown'
 				));
@@ -521,11 +461,13 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
                 ->save();
 				echo json_encode ( array (
 					'status' => true,
+					'code' => 0,
 					'message' => 'set successfully'
 				));
 				return ;
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
+			    'status' => false,
 					'code' => '0x0001',
 					'message' => 'customer_not_set'
 				));
@@ -547,7 +489,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
 		if (!is_array($customerAddressData) || !is_array($customerarray[0])) {
             echo json_encode ( array (
-					'status' => '0x0001',
+			    'status' => false,
+					'code' => '0x0001',
 					'message' => 'empty'
 				));
 				return ;
@@ -569,7 +512,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
         if (is_null($customerAddressData)) {
 			echo json_encode ( array (
-					'status' => '0x0002',
+			    'status' => false,
+					'code' => '0x0002',
 					'message' => 'customer_address_data_empty'
 				));
 				return ;
@@ -594,7 +538,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 				$addresses = Mage::getModel('customer/address')->load($addressid);
 				if (is_null($addresses->getId())) {
 					echo json_encode ( array (
-					'status' => '0x0003',
+			    'status' => false,
+					'code' => '0x0003',
 					'message' => 'invalid_address_id'
 					));
 					return ;
@@ -609,7 +554,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
                 if ($customerAddress->getCustomerId() != $quote->getCustomerId()) {
 					echo json_encode ( array (
-						'status' => '0x0004',
+			      'status' => false,
+						'code' => '0x0004',
 						'message' => 'address_not_belong_customer'
 					));
 					return ;
@@ -624,7 +570,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
             if (($validateRes = $address->validate())!==true) {
 				echo json_encode ( array (
-						'status' => '0x0005',
+			      'status' => false,
+						'code' => '0x0005',
 						'message' => implode(PHP_EOL, $validateRes)
 					));
 				return ;
@@ -672,12 +619,14 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
                 ->save();
 				echo json_encode ( array (
 					'status' => true,
+					'code' => 0,
 					'message' => "customer Addresses set successfully"
 				));
 				return ;
         } catch (Exception $e) {
 			echo json_encode ( array (
-					'status' => '0x0005',
+					'status' => false,
+					'code' => '0x0005',
 					'message' => $e->getMessage()
 				));
 			return ;
@@ -694,7 +643,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         $paymentDat = $this->_preparePaymentData($paymentDat);
         if (empty($paymentDat)) {
 			echo json_encode ( array (
-					'status' => '0x0002',
+					'status' => false,
+					'code' => '0x0002',
 					'message' => 'payment_method_empty'
 				));
 			return ;
@@ -707,7 +657,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             // check if billing address is set
             if (is_null($quote->getBillingAddress()->getId())) {
 				echo json_encode ( array (
-					'status' => '0x0003',
+					'status' => false,
+					'code' => '0x0003',
 					'message' => 'billing_address_is_not_set'
 				));
 				return ;
@@ -719,7 +670,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             // check if shipping address is set
             if (is_null($quote->getShippingAddress()->getId())) {
 				echo json_encode ( array (
-					'status' => '0x0004',
+					'status' => false,
+					'code' => '0x0004',
 					'message' => 'shipping_address_is_not_set'
 				));
 				return ;
@@ -745,7 +697,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
                         || ($quote->hasRecurringItems() && $method->canManageRecurringProfiles())))
                 ) {
 					echo json_encode ( array (
-					'status' => '0x0005',
+					'status' => false,
+					'code' => '0x0005',
 					'message' => 'method_not_allowed'
 					));
 					return ;
@@ -762,12 +715,14 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
                 ->save();
 				echo json_encode ( array (
 					'status' => true,
+					'code' => 0,
 					'message' => 'payment method set successfully'
 					));
 					return ;
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
-					'status' => '0x0006',
+					'status' => false,
+					'code' => '0x0006',
 					'message' => $e->getMessage()
 					));
 					return ;
@@ -857,7 +812,6 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
 
 	public function shippingListAction(){
-
 		$methods = Mage::getSingleton('shipping/config')->getActiveCarriers();
         try {
             $ratesResult = array();
@@ -878,13 +832,14 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
 				$rateItem['code'] = $_code;
 				$rateItem['carrierName'] = $carrierName;
-				$ratesResult[][] = $rateItem;
+				$ratesResult[] = $rateItem;
 				unset($rateItem);
 
             }
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
-					'status' => '0x0003',
+			    'status' => false,
+					'code' => '0x0003',
 					'message' => $e->getMessage()
 					));
 					return ;
@@ -966,7 +921,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
         if (!in_array($shippingMethod,$ratesResult)) {
 			echo json_encode ( array (
-					'status' => '0x0003',
+					'status' => false,
+					'code' => '0x0003',
 					'message' => 'shipping_method_is_not_available'
 				));
 				return ;
@@ -977,12 +933,14 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             $quote->collectTotals()->save();
 			echo json_encode ( array (
 					'status' => true,
+					'code' => 0,
 					'message' => "set shipping method sucessfully"
 				));
 				return ;
         } catch(Mage_Core_Exception $e) {
 			echo json_encode ( array (
-					'status' => '0x0004',
+					'status' => false,
+					'code' => '0x0004',
 					'message' => $e->getMessage()
 				));
 				return ;
@@ -999,7 +957,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             $diff = array_diff($agreements, $requiredAgreements);
             if (!empty($diff)) {$this->_fault('required_agreements_are_not_all');
 				echo json_encode ( array (
-					'status' => '0x0002',
+					'status' => false,
+					'code' => '0x0002',
 					'message' => 'required_agreements_are_not_all',
 					'order_id' => $order->getId()
 				));
@@ -1010,7 +969,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         $quote = Mage::getSingleton('checkout/cart')->getQuote();
         if ($quote->getIsMultiShipping()) {
 			echo json_encode ( array (
-					'status' => '0x0003',
+					'status' => false,
+					'code' => '0x0003',
 					'message' => 'invalid_checkout_type'
 				));
 				return ;
@@ -1018,7 +978,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         if ($quote->getCheckoutMethod() == Mage_Checkout_Model_Api_Resource_Customer::MODE_GUEST
                 && !Mage::helper('checkout')->isAllowedGuestCheckout($quote, $quote->getStoreId())) {
 			echo json_encode ( array (
-					'status' => '0x0004',
+					'status' => false,
+					'code' => '0x0004',
 					'message' => 'guest_checkout_is_not_enabled'
 				));
 				return ;
@@ -1067,6 +1028,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
 			echo json_encode ( array (
 					'status' => true,
+					'code' => 0,
 					'message' => 'creat order sucessfully',
 					'order_id' => $order->getIncrementId()
 				));
@@ -1076,7 +1038,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 				return ;
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
-					'status' => '0x0005',
+					'status' => false,
+					'code' => '0x0005',
 					'message' => $e->getMessage()
 				));
 				return ;
@@ -1101,4 +1064,3 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		echo json_encode($agreements);
 	}
 }
- 
