@@ -1,0 +1,11 @@
+"Country","Region/State","City","Zip/Postal Code","Zip to","Weight from","Weight to","Price From","Price To","Item From","Item To","Shipping Price","Algorithm","Delivery Type","Sort Order"
+"GBR","*","*","*","*","*","*",0,5,"*","*",2.99,,"1st Class Recorded",
+"GBR","*","*","*","*","*","*",0,32,"*","*",7.99,,"ParcelForce 24-48",
+"GBR","*","*","*","*","*","*",32,1000,"*","*",80,,"Special Pallet Delivery",
+"GBR","*","*","*","*","*","*",2000,2100,"*","*",0,,"Collection Only",
+"GBR","*","*","BT%","*","*","*",0,5,"*","*",11.99,,"1st Class Recorded",
+"GBR","*","*","BT%","*","*","*",0,32,"*","*",14.99,,"ParcelForce 24-48",
+"GBR","*","*","BT%","*","*","*",0,1000,"*","*",200,,"Special Pallet Delivery",
+"IRL","*","*","*","*","*","*",0,5,"*","*",17.99,,"1st Class Recorded",
+"IRL","*","*","*","*","*","*",0,32,"*","*",17.99,,"ParcelForce 24-48",
+"*","*","*","*","*","*","*",0,10,"*","*",50,,"Worldwide",

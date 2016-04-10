@@ -1,0 +1,6 @@
+"Country","Region/State","City","Zip/Postal Code","Zip to","Weight from","Weight to","Price From","Price To","Item From","Item To","Shipping Price","Algorithm","Delivery Type","Sort order"
+"CAN","*","*","A0A","A8N",0,"*","*","*","*","*",15,"*","Freight Ground","*"
+"CAN","*","*","B0C","B2N",0,"*","*","*","*","*",25,"*","Freight Ground","*"
+"CAN","*","*","B2R","B2R",0,"*","*","*","*","*",91.44,"*","Freight Ground","*"
+"CAN","*","*","C0A","C8A",0,"*","*","*","*","*",92.16,"*","Freight Ground","*"
+"CAN","*","*","A5A 5TY","A5A 5TY",0,"*","*","*","*","*",-1,"*","Freight Ground","*"

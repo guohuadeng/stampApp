@@ -1,0 +1,3 @@
+"Country","Region/State","City","Zip/Postal Code","Zip to","Weight from","Weight to","Price From","Price To","Item From","Item To","Shipping Price","Algorithm","Delivery Type","Sort Order"
+"GBR","*","*","*","*","*","*","*","*",0,9,8.95,"*","Courier",
+"GBR","*","*","*","*","*","*","*","*",10,"*",9.95,"I=1","Courier",

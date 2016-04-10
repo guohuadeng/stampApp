@@ -1,0 +1,3 @@
+Country,Region/State,City,Zip/Postal Code,Zip to,Weight >=,Weight <=,Price >=,Price <=,Qty >=,Qty <=,Shipping Price,Algorithm,Delivery Type,Sort Order
+GBR,*,*,*,*,*,*,0,50,*,*,10,,Standard,*
+GBR,*,*,*,*,*,*,50,*,*,*,10,pr=5@5,Standard,*

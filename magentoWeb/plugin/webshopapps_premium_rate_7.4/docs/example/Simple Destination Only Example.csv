@@ -1,0 +1,6 @@
+"Country","Region/State","City","Zip/Postal Code","Zip to","Weight from","Weight to","Price From","Price To","Item From","Item To","Shipping Price","Algorithm","Delivery Type","Sort order"
+"GBR","*","*","*","*","*","*","*","*","*","*",0,"*","Next Business Day","*"
+"GBR","*","*","*","*","*","*","*","*","*","*",12,"*","AM Delivery","*"
+"GBR","*","*","*","*","*","*","*","*","*","*",12,"*","Saturday Delivery","*"
+"FRA,ITA","*","*","*","*","*","*","*","*","*","*",40,"*","48 Hour Service","*"
+"GBR","*","*","BT%","*","*","*","*","*","*","*",40,"*","48 Hour Service","*"

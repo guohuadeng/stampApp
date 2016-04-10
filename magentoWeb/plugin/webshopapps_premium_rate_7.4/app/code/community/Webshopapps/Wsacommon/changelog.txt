@@ -1,0 +1,85 @@
+0.14 - Added check to see if extension active in admin panel config
+0.15 - UPS Freight extension compatible release
+0.16 - updated for shipping override to support multiple freight carriers
+0.17 - Added support for Shipping Insurance to work with Shipping Override
+0.18 - Added support for Dropship with Override
+0.19 - Added fix so that ProductMatrix can work with Downloadable shipping
+0.20 - Added fix to pickup on custom options set for Downloadable shipping
+0.21 - Split Shipping Abstract.php into 2 classes to allow support for non-freight extensions.
+       Removed references to virtual products in getItemTotals to ensure no adverse effects.
+0.22 - Split getItemTotals into 2 methods for virtual items and physical items
+0.23 - Added ABF Support. Changed getAllowedMethod call for Freight extns
+0.24 - Added a method to save a CSV file to the file system for backup purposes.
+0.25 - Now resets results in Shipping.php for multi-cart checkout
+0.26 - Added check to ensure item is an object.
+1.0 - Removed logger components
+1.1 - Added in 1.6 support
+1.2 - Resolved issue producing 'Mage_Wsacommon\log_Helper_Data' not found error
+1.3 - Added support for freight rate
+1.4 - Re-released without logger using new ant build.xml
+1.5 - Fixed issued with getVersion call on certain PHP versions
+1.6 - Wasn't using the ceil weight value in getLineItems. Only affects freight extensions.
+1.7 - Made weight check in freight more robust
+1.8 - Reworked getAllowedMethods call to allow multiple results to be returned
+1.9 - Was calling downloadable shipping even if it wasn't installed. Caused issues with virtual products
+2.0 - Changed to work with version 2.0 of logger
+2.1 - Added support for multiple extensions using Sales Order Grid menu
+2.2 - Added support for pricing calculations of fixed priced bundled products
+2.3 - Added support for Handling Matrix with Shipping Override
+2.4 - Added support for EE1.11
+2.5 - Added support for Free shipping on cart to affect getItemTotals
+2.6 - Amended controller action of import shipments template
+2.7 - Added back Select All option for Order Export
+2.8 - Resolved Downloadable shipping extension issue which was causing problems when a shippable virtual product is in cart with a non shippable virtual product.
+3.0 - Fixed isModuleEnabled() calls when using multiple extensions so can disable each at store level with no impact
+3.1 - Moved to community
+3.2 - Moved back to local - too hard to support when local is overriding
+3.3 - Added in shipmanager extn
+3.4 - Added Select All option for Order Export version check
+3.5 - Added ability to return the base currency totals from the getItem family of methods.
+3.6 - Added support for 1.6.2 around Shipping.php
+3.7 - Fixed typo in handling matrix and shipping insurance reset Result
+3.8 - Added try catch around code that may fail when run from cron.
+3.9 - Added deleteDbVersion() function to be used by the setResource script.
+3.10 - Added Fedex freight support
+3.11 - Changed tracking for custom shipping methods so will return title/number when entered
+3.12 - Support for tax inclusive prices in getItemTotals and getVirtualItemsTotals
+3.13 - Defined store address location constants to resolve backward compatibilty issues with some extensions
+3.14 - Changed bundled check logic as was causing an issue in multi-address checkout
+3.15 - Added support for Estes
+3.16 - Added support for EE1.12,CE1.7
+3.17 - Added support for wsafreightcommon
+3.18 - Changed order of calling extensions when shippingoverride and freight rate installed.
+3.19 - Added support for exported column in orders grid
+3.20 - Fixed issue with getting tax amounts on multi shipping checkout.
+3.21 - Added exported column in Orders grid
+3.22 - Moved freight common to shipping settings.
+3.23 - Improved handling of virtual items.
+3.24 - Further improved virtual item handling to correctly pickup the quantity
+3.25 - Update Orders Grid for CE1.4.0 as doesn't support Exported column
+3.26 - Resolved issue with price retrieval in multi address checkout
+3.27 - Updated to work with freight common freight class
+3.28 - Skipped. Not released
+3.29 - Freight common updates
+4.0  - Add in getProduct capability. Deprecated Abstract.php
+4.1  - Put back in zipcode logic to deprecated Abstract.php so that doesnt cause issues with people running old extns
+4.2  - Added workaround for EE1.9 which doesnt support addTierPriceData() method for bundled virtual products
+4.3  - Added Header block
+5.0  - Moved to community
+5.1  - Added CSV export functionality
+5.2  - Improved serial key checking
+5.3  - Now adds WSA to make files saved in var/export unique. Will help avoid conflicts with other extensions that save to var/export.
+5.4  - Added fixed weight for bundle product support & CSV export now works specific to the extension
+5.5  - CSV export changes
+5.6  - Improved csv export functionality to be unique
+5.7  - SO-6 Added support in hasFreightCarrierEnabled call for fedex
+5.8  - HOC1 Refactor code around how Freight carriers work
+5.9  - Added carrier code to csv export file name so works with multiple WSA extensions installed
+5.10 - Added observer logic to shipping area to enable extensions to work better together
+5.11 - COMMON-29 fixed price bundle issue
+5.12 - HFM-5 Changed HandlingMatrix to use event based logic
+5.13 - COMMON-30 Refactored csv export logic to not read content
+5.14 - AS1-Added compatibility for AdminShipping and Freight Extensions
+5.15 - COMMON-31 Added support for CE1.8
+5.16 - PICKUP-1 Moved methods into baseabstract from abstract in freight common so can be used in StorePickup
+

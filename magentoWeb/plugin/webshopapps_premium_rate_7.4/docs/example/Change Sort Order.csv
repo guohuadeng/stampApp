@@ -1,0 +1,4 @@
+"Country","Region/State","City","Zip/Postal Code","Zip to","Weight from","Weight to","Price From","Price To","Item From","Item To","Shipping Price","Algorithm","Delivery Type","Sort Order"
+"USA","*","*","*","*","*","*","*","*","*","*",9.5,,"USPS Priority Mail",0
+"USA","*","*","*","*","*","*","*","*","*","*",9,,"First Class Mail",1
+"USA","*","*","*","*","*","*","*","*","*","*",0,,"Local Pickup",2

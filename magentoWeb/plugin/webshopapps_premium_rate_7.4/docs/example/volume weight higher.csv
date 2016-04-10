@@ -1,0 +1,6 @@
+"Country","Region/State","City","Zip/Postal Code","Zip to","Weight/Volume From","Weight/Volume To","Price From","Price To","Item From","Item To","Shipping Price","Algorithm","Delivery Type","Sort Order"
+"*","*","*","*","*","*",12,"*","*","*","*",5,,"Standard",
+"*","*","*","*","*",12.01,"*","*","*","*","*",8,,"Standard",
+"*","*","*","*","*","*",20,"*","*","*","*",10,,"Express",
+"*","*","*","*","*",20.01,"*","*","*","*","*",12,,"Express",
+"GBR","*","*","*","*","*","*","*","*","*","*",10,,"Courier",
