@@ -484,14 +484,15 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		foreach($customerAddressData as $c){
 			$customerarray[] = $c;
 		}
-		//print_r($customerAddressData);
 
 
 		if (!is_array($customerAddressData) || !is_array($customerarray[0])) {
             echo json_encode ( array (
 			    'status' => false,
 					'code' => '0x0001',
-					'message' => 'empty'
+					'message' => 'empty',
+					'test'=> json_encode($customerAddressData),
+					't2'=> json_encode($customerarray)
 				));
 				return ;
         }
@@ -741,29 +742,23 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
     }
 
 	public function paymentListAction(){
-		$quote = Mage::getSingleton('checkout/cart')->getQuote();
-		$store = $quote->getStoreId();
 
-        $total = $quote->getBaseSubtotal();
+	   $payments = Mage::getSingleton('payment/config')->getActiveMethods();
+	   $methods = array();
 
-        $methodsResult = array();
-        $methods = Mage::helper('payment')->getStoreMethods($store, $quote);
+	   foreach ($payments as $paymentCode=>$paymentModel) {
+		   if(($paymentCode != 'free') && ($paymentCode != 'paypal_billing_agreement') ){
+				$paymentTitle = Mage::getStoreConfig('payment/'.$paymentCode.'/title');
+				$methods[$paymentCode] = array(
+					'title'   => $paymentTitle,
+					'code' => $paymentCode,
+					'cc_types' => $this->_getPaymentMethodAvailableCcTypes($paymentModel),
+				);
+			}
+	   }
+		echo json_encode($methods);
 
-        foreach ($methods as $method) {
-            /** @var $method Mage_Payment_Model_Method_Abstract */
-            if ($this->_canUsePaymentMethod($method, $quote)) {
-                $isRecurring = $quote->hasRecurringItems() && $method->canManageRecurringProfiles();
 
-                if ($total != 0 || $method->getCode() == 'free' || $isRecurring) {
-                    $methodsResult[] = array(
-                        'code' => $method->getCode(),
-                        'title' => $method->getTitle(),
-                        'cc_types' => $this->_getPaymentMethodAvailableCcTypes($method),
-                    );
-                }
-            }
-        }
-		echo json_encode($methodsResult);
 	}
 
 	protected function _canUsePaymentMethod($method, $quote)
@@ -902,8 +897,8 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		$quote = Mage::getSingleton('checkout/cart')->getQuote();
         $quoteShippingAddress = $quote->getShippingAddress();
 
-		$shippingMethod = $this->getRequest()->getParam ( 'code' );
-
+		//$shippingMethod = $this->getRequest()->getParam ( 'code' );
+		$shippingMethod = $this->getRequest()->getParam ( 'shippingmethod' )?$this->getRequest()->getParam ( 'shippingmethod' ):$this->getRequest()->getParam ( 'code' );
 
 		$methods = Mage::getSingleton('shipping/config')->getActiveCarriers();
 		$ratesResult = array();
