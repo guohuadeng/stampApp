@@ -73,18 +73,6 @@
                 </Sunpop_WeixinApp>
             </modules>
         </translate>
-
-        <events>
-            <controller_action_predispatch>
-                <observers>
-                    <sunpop_alipay_notification>
-                        <type>singleton</type>
-                        <class>weixinapp/feed</class>
-                        <method>check</method>
-                    </sunpop_alipay_notification>
-                </observers>
-            </controller_action_predispatch>
-        </events>
     </adminhtml>
 
     <default>
