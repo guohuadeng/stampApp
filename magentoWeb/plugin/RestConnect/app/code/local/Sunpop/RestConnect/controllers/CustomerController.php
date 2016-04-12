@@ -10,6 +10,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 header("Access-Control-Allow-Origin: *");
+header("P3P: CP=CAO PSA OUR");
 class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_Action {
 	const XML_PATH_REGISTER_EMAIL_TEMPLATE = 'customer/create_account/email_template';
 	const XML_PATH_REGISTER_EMAIL_IDENTITY = 'customer/create_account/email_identity';
@@ -211,6 +212,14 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		}
 		if(!$params ['password']){
 			$params ['password']= rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
+		}
+		if (null==Mage::app ()->getRequest ()->getParam ('email')) {
+			echo json_encode ( array (
+					'status' =>false,
+					'code' => 3,
+					'message' => Mage::helper ( 'customer' )->__ ('empty email.')
+			) );
+			return ;
 		}
 		if (null==Mage::app ()->getRequest ()->getParam ('email')) {
 			echo json_encode ( array (
@@ -537,6 +546,16 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			) );
 			return ;
 		}
+		$email = Mage::app ()->getRequest ()->getParam ('email');
+		$preg = preg_match("/([a-z0-9]*[-_.]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[.][a-z]{2,3}([.][a-z]{2})?/i",trim($email));
+		if  (!$preg )  {
+			echo json_encode ( array (
+        'status' => false,
+        'code' => 5,
+        'message' =>Mage::helper ( 'customer' )->__ ('wrong email format.')
+			) );
+			return ;
+		}
 		$customer->getGroupId ();
 		try {
 			//中文姓名处理，如果有 chinesename字段
@@ -572,17 +591,16 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 					$address->save ();
 					$session->unsGuestAddress ();
 				}
-
 				echo json_encode ( array (
-						true,
-						'0x0000',
-						array ()
+          'status' => true,
+          'code' => 0,
+          'message' => Mage::helper ( 'customer' )->__ ('User register success.')
 				) );
 			} else {
 				echo json_encode ( array (
-						false,
-						'0x1000',
-						$errors
+          'status' => false,
+          'code' => 2,
+          'message' => $errors
 				) );
 			}
 		} catch ( Mage_Core_Exception $e ) {
@@ -598,17 +616,15 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 
 			}
 			echo json_encode ( array (
-					false,
-					'0x1000',
-					array (
-							$message
-					)
+          'status' => false,
+          'code' => 3,
+          'message' => $message
 			) );
 		} catch ( Exception $e ) {
 			echo json_encode ( array (
-					false,
-					'0x1000',
-					$this->__( $e->getMessage () )
+          'status' => false,
+          'code' => 4,
+          'message' => $this->__( $e->getMessage () )
 			) );
 		}
 	}
@@ -1118,6 +1134,5 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 			return ;
 		}
 	}
-
 
 }

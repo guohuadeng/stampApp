@@ -47,25 +47,26 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		$page = $this->getRequest ()->getParam ( 'page' ) ? $this->getRequest ()->getParam ( 'page' ) : 1;
 		$limit = $this->getRequest ()->getParam ( 'limit' ) ? $this->getRequest ()->getParam ( 'limit' ) : 10;
 	  $orderType = $this->getRequest ()->getParam ( 'ordertype' ) ? $this->getRequest ()->getParam ( 'ordertype' ) : 'all';
+	  $showfile = $this->getRequest ()->getParam ( 'showfile' ) ? $this->getRequest ()->getParam ( 'showfile' ) : 0;
 		//所有
     if($orderType == 'all'){
-			$orderlist = $this->_getOrderList($customer,'',$page,$limit);
+			$orderlist = $this->_getOrderList($customer,'',$page,$limit,$showfile);
 		}
 		//未付款
 		if($orderType == 'notpaid'){
-			$orderlist = $this->_getOrderList($customer,'notpaid',$page,$limit);
+			$orderlist = $this->_getOrderList($customer,'notpaid',$page,$limit,$showfile);
 		}
 		//未发货
 		if($orderType == 'notshipped'){
-			$orderlist = $this->_getOrderList($customer,'notshipped',$page,$limit);
+			$orderlist = $this->_getOrderList($customer,'notshipped',$page,$limit,$showfile);
 		}
 		//待收货
 		if($orderType == 'notreceived'){
-			$orderlist = $this->_getOrderList($customer,'notreceived',$page,$limit);
+			$orderlist = $this->_getOrderList($customer,'notreceived',$page,$limit,$showfile);
 		}
 		//已完成
 		if($orderType == 'complete'){
-			$orderlist = $this->_getOrderList($customer,'complete',$page,$limit);
+			$orderlist = $this->_getOrderList($customer,'complete',$page,$limit,$showfile);
 		}
 		$result = Mage::helper('core')->jsonEncode($orderlist);
 		$this->getResponse()->setBody(urldecode($result));
@@ -77,7 +78,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 	*int $page当前页数，int $limit 一页显示个数*@return array()
 	*
 	*/
-	protected function _getOrderList($customer, $orderType = '', $page = 1, $limit = 10){
+	protected function _getOrderList($customer, $orderType = '', $page = 1, $limit = 10, $showfile = 0){
 		$customer_id = $customer->getId();
 		$orders = array();
 		/** @var $orderCollection Mage_Sales_Model_Mysql4_Order_Collection */
@@ -201,15 +202,26 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 					$productname[$i]['image_url']= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $_product->getImage();
 					$productname[$i]['image_thumbnail_url'] = Mage::getModel ( 'catalog/product_media_config' )->getMediaUrl( $_product->getThumbnail() );
 				}
-				$optionsall = $item->getProductOptions();
-				$options = $optionsall['options'];
-				$newoptions = array();
-				foreach($options as $j=>$option){
-					foreach($option as $index=>$p){
-						$newoptions[$j][$index] = urlencode($p);
-					}
-				}
-				$productname[$i]['options'] = $newoptions;
+				$options = $item->getProductOptions();
+
+        $rOptions = array ();
+        if ($options) {
+          if (isset ( $options ['options'] )) {
+            $rOptions = array_merge ( $rOptions, $options ['options'] );
+          }
+          if (isset ( $options ['additional_options'] )) {
+            $rOptions = array_merge ( $rOptions, $options ['additional_options'] );
+          }
+          if (! empty ( $options ['attributes_info'] )) {
+            $rOptions = array_merge ( $rOptions, $options ['attributes_info'] );
+          }
+          foreach($rOptions as $j => $option){
+              //对文件类型的处理，清除字段减少流量
+              if ($rOptions[$j]['option_type']='file')
+                $rOptions[$j]['option_value']='';
+          }
+        }
+				$productname[$i]['options'] = $rOptions;
 			}
 			$data['products'] = $productname;
 			$orders['list'][] = $data;

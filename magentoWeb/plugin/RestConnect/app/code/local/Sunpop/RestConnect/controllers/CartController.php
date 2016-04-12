@@ -10,6 +10,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 header("Access-Control-Allow-Origin: *");
+header("P3P: CP=CAO PSA OUR");
 class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Action {
 	 const MODE_CUSTOMER = Mage_Checkout_Model_Type_Onepage::METHOD_CUSTOMER;
      const MODE_REGISTER = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
@@ -217,6 +218,9 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 		}
 		echo json_encode ( array_merge ( $messages, $this->_getCartTotal () ) );
 	}
+
+
+
 	public function cartInfoAction(){
 		$quote = Mage::getSingleton('checkout/cart')->getQuote();
 		 if ($quote->getGiftMessageId() > 0) {
@@ -228,27 +232,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         $result = $this->_getAttributes($quote, 'quote');
         $result['shipping_address'] = $this->_getAttributes($quote->getShippingAddress(), 'quote_address');
         $result['billing_address'] = $this->_getAttributes($quote->getBillingAddress(), 'quote_address');
-        $result['items'] = array();
-
-        foreach ($quote->getAllItems() as $i => $item) {
-            if ($item->getGiftMessageId() > 0) {
-                $item->setGiftMessage(
-                    Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage()
-                );
-            }
-
-            $result['items'][$i] = $this->_getAttributes($item, 'quote_item');
-			$_customOptions = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct());
-			$cuoptions = array();
-			foreach($_customOptions['options'] as $j => $option){
-					foreach($option as $index=>$p){
-						$cuoptions[$j][$index] = urlencode($p);
-					}
-				}
-            $result['items'][$i]['custom_option'] = $cuoptions;
-			//print_r($_customOptions['options']);
-        }
-
+		    $result ['cart_items'] = $this->_getCartItems ();
         $result['payment'] = $this->_getAttributes($quote->getPayment(), 'quote_payment');
 		$result = Mage::helper('core')->jsonEncode($result);
 		$this->getResponse()->setBody(urldecode($result));
@@ -399,10 +383,15 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 				$result = array_merge ( $result, $options ['options'] );
 			}
 			if (isset ( $options ['additional_options'] )) {
-				$result = $result = array_merge ( $result, $options ['additional_options'] );
+				$result = array_merge ( $result, $options ['additional_options'] );
 			}
 			if (! empty ( $options ['attributes_info'] )) {
-				$result = $result = array_merge ( $result, $options ['attributes_info'] );
+				$result = array_merge ( $result, $options ['attributes_info'] );
+			}
+      foreach($result as $j => $option){
+					//对文件类型的处理，清除字段减少流量
+					if ($result[$j]['option_type']='file')
+            $result[$j]['option_value']='';
 			}
 		}
 		return $result;
@@ -752,6 +741,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 				$methods[$paymentCode] = array(
 					'title'   => $paymentTitle,
 					'code' => $paymentCode,
+					'method' => $paymentCode,
 					'cc_types' => $this->_getPaymentMethodAvailableCcTypes($paymentModel),
 				);
 			}
@@ -1024,7 +1014,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			echo json_encode ( array (
 					'status' => true,
 					'code' => 0,
-					'message' => 'creat order sucessfully',
+					'message' => '生成订单成功，感谢您的购买。',
 					'order_id' => $order->getIncrementId()
 				));
 			foreach( $quote->getItemsCollection() as $item ){
@@ -1058,4 +1048,13 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         }
 		echo json_encode($agreements);
 	}
+
+  protected function _escapeQuotes($str) {
+    if ($str && is_string($str)) {
+        $str = str_replace("'",  "\'", $str);
+        $str = str_replace('"',  '\"', $str);
+    }
+    return $str;
+  }
+
 }
