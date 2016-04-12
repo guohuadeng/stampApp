@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Sunpop_WeixinApp>
+            <version>6.0</version>
+        </Sunpop_WeixinApp>
+    </modules>
+    <global>
+        <models>
+            <weixinapp>
+                <class>Sunpop_WeixinApp_Model</class>
+                <resourceModel>weixinapp_resource</resourceModel>
+            </weixinapp>
+
+            <weixinapp_resource>
+                <class>Sunpop_WeixinApp_Model_Resource</class>
+                <deprecatedNode>weixinapp_mysql4</deprecatedNode>
+            </weixinapp_resource>
+        </models>
+
+        <blocks>
+            <weixinapp>
+                <class>Sunpop_WeixinApp_Block</class>
+            </weixinapp>
+        </blocks>
+
+        <helpers>
+            <weixinapp>
+                <class>Sunpop_WeixinApp_Helper</class>
+            </weixinapp>
+        </helpers>
+    </global>
+
+    <frontend>
+        <secure_url>
+            <weixinapp_processing>/weixinapp/processing</weixinapp_processing>
+        </secure_url>
+        <routers>
+            <weixinapp>
+                <use>standard</use>
+                <args>
+                    <module>Sunpop_WeixinApp</module>
+                    <frontName>weixinapp</frontName>
+                </args>
+            </weixinapp>
+        </routers>
+        <translate>
+            <modules>
+                <Sunpop_WeixinApp>
+                    <files>
+                        <default>Sunpop_WeixinApp.csv</default>
+                    </files>
+                </Sunpop_WeixinApp>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <weixinapp>
+                    <file>sunpop/weixinapp.xml</file>
+                </weixinapp>
+            </updates>
+        </layout>
+    </frontend>
+
+
+   <adminhtml>
+        <translate>
+            <modules>
+                <Sunpop_WeixinApp>
+                    <files>
+                        <default>Sunpop_WeixinApp.csv</default>
+                    </files>
+                </Sunpop_WeixinApp>
+            </modules>
+        </translate>
+
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <sunpop_alipay_notification>
+                        <type>singleton</type>
+                        <class>weixinapp/feed</class>
+                        <method>check</method>
+                    </sunpop_alipay_notification>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+    </adminhtml>
+
+    <default>
+        <payment>
+            <weixinapp>
+                  <model>weixinapp/payment</model>
+                  <title>App微信支付 </title>
+                  <show_logo>1</show_logo>
+                  <enable_repay>1</enable_repay>
+                  <debug>1</debug>
+                  <order_status_payment_accepted>processing</order_status_payment_accepted>
+                  <allowspecific>0</allowspecific>
+                  <license>87e84ee1027ce96cfe12e13000ac0b0fb17cd68b</license>
+            </weixinapp>
+        </payment>
+    </default>
+</config>
