@@ -82,11 +82,19 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		$customer_id = $customer->getId();
 		$orders = array();
 		/** @var $orderCollection Mage_Sales_Model_Mysql4_Order_Collection */
-		$orderCollection = Mage::getModel("sales/order")->getCollection();
+		try {
+		  $orderCollection = Mage::getModel("sales/order")->getCollection()->addFieldToFilter('customer_id',$customer_id);
+		  }
+		catch (Mage_Core_Exception $e) {
+      echo json_encode ( array (
+          'status' => false,
+          'code' => 1,
+          'message' => $e->getMessage()
+        ));
+        return ;
+    	}
 
 		try {
-			$orderCollection->addFieldToFilter('customer_id',$customer_id);
-
 			$invoices =  Mage::getResourceModel('sales/order_invoice_collection');
 			$invoices->getSelect()->joinLeft(array('order' => Mage::getModel('core/resource')->getTableName('sales/order')), 'order.entity_id=main_table.order_id', array('customer_id' => 'customer_id'));
 			$invoices->addFieldToFilter('customer_id',$customer_id);
@@ -97,24 +105,29 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 				}
 			}
 			$shipment =  Mage::getResourceModel('sales/order_shipment_collection')->addFieldToFilter('customer_id',$customer_id);
-			$shipmentorderincrementid = array();
+
 			if(count($shipment)>0){
+				$shipmentorderincrementid = array();
 				foreach($shipment as $s){
 					$orderid = $s->getOrderId();
 					$shipmentorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
 				}
 			}
-			if($orderType == '' || $orderType == 'all'){}
+			if($orderType == '' || $orderType == 'all'){
+			  ;
+			} else  {
+					$orderCollection->addFieldToFilter('status',array('neq'=>'canceled'))
+		        ->addFieldToFilter('status',array('neq'=>'holded'))
+		        ->addFieldToFilter('status',array('neq'=>'closed'));
+			}
 
 			if($orderType == 'notpaid'){
-				if(count($invoicesorderincrementid)>0){
-					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$invoicesorderincrementid));
-				}
+					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$invoicesorderincrementid))
+		      ->addFieldToFilter('status',array('neq'=>'canceled'))
+		      ->addFieldToFilter('status',array('neq'=>'closed'));
 			}
 			if($orderType == 'notshipped'){
-				if(count($shipmentorderincrementid)>0){
 					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$shipmentorderincrementid));
-				}
 			}
 			if($orderType == "notreceived"){
 				if(count($shipmentorderincrementid)>0){
@@ -147,7 +160,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			$orderCollection->setPageSize($limit)->setCurPage($page);
 		} catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
-					'status' => '0x0002',
+					'status' => false,
+					'code' => 2,
 					'message' => $e->getMessage()
 				));
 				return ;
@@ -261,7 +275,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 	*@return array()
 	*
 	*/
-	protected function _getOrderListCount($customer, $status = ''){
+	protected function _getOrderListCount($customer, $orderType = ''){
 		$customer_id = $customer->getId();
 		$orders = array();
 		$orderCount = 0;
@@ -277,46 +291,49 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
         return ;
     	}
 		try {
-			if($status == '' || $status == 'all'){
+			if($orderType == '' || $orderType == 'all'){
 				$orderCount = $orderCollection->getSize();
+			} else  {
+					$orderCollection->addFieldToFilter('status',array('neq'=>'canceled'))
+		        ->addFieldToFilter('status',array('neq'=>'holded'))
+		        ->addFieldToFilter('status',array('neq'=>'closed'));
 			}
 			$invoices =  Mage::getResourceModel('sales/order_invoice_collection');
 			$invoices->getSelect()->joinLeft(array('order' => Mage::getModel('core/resource')->getTableName('sales/order')), 'order.entity_id=main_table.order_id', array('customer_id' => 'customer_id'));
 			$invoices->addFieldToFilter('customer_id',$customer_id);
+
 			if(count($invoices)>0){
+				$invoicesorderincrementid = array();
 				foreach($invoices as $i){
 					$orderid = $i->getOrderId();
 					$invoicesorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
 				}
 			}
 			$shipment =  Mage::getResourceModel('sales/order_shipment_collection')->addFieldToFilter('customer_id',$customer_id);
-			$shipmentorderincrementid = array();
+
 			if(count($shipment)>0){
+				$shipmentorderincrementid = array();
 				foreach($shipment as $s){
 					$orderid = $s->getOrderId();
 					$shipmentorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
 				}
 			}
-			if($status == 'notpaid'){
-				if(count($invoicesorderincrementid)>0){
-					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$invoicesorderincrementid));
-					$orderCount = $orderCollection->getSize();
-				}
+			if($orderType == 'notpaid'){
+				$orderCollection->addFieldToFilter('increment_id',array('nin'=>$invoicesorderincrementid));
+				$orderCount = $orderCollection->getSize();
 			}
-			if($status == 'notshipped'){
-				if(count($shipmentorderincrementid)>0){
-					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$shipmentorderincrementid));
-					$orderCount = $orderCollection->getSize();
-				}
+			if($orderType == 'notshipped'){
+				$orderCollection->addFieldToFilter('increment_id',array('nin'=>$shipmentorderincrementid));
+				$orderCount = $orderCollection->getSize();
 			}
-			if($status == "notreceived"){
+			if($orderType == "notreceived"){
 				if(count($shipmentorderincrementid)>0){
 					$orderCollection->addFieldToFilter('increment_id',array('in'=>$shipmentorderincrementid));
 					$orderCollection->addFieldToFilter('status',array('neq'=>'complete'));
 					$orderCount = $orderCollection->getSize();
 				}
 			}
-			if($status == "complete"){
+			if($orderType == "complete"){
 				$orderCollection->addFieldToFilter('status','complete');
 				if((count($shipmentorderincrementid)>0) & (count($shipmentorderincrementid)>0)){
 					$intersection = array_intersect($invoicesorderincrementid,$shipmentorderincrementid);
@@ -388,7 +405,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		if (!$customer->getId()) {
 		   echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 1,
 					'message' => 'customer_not_login'
 			));
 			return ;
@@ -400,7 +418,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		$order_customer_id = $order->getCustomerId();
 		if($customer_id!=$order_customer_id){
 			echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 2,
 					'message' => 'Order increment_id Error'
 			));
 			return ;
@@ -506,13 +525,15 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
                 Mage::getDesign()->setArea($oldArea);
             }
 			echo json_encode ( array (
-					'code' => true,
+					'status' => true,
+					'code' => 0,
 					'message' => "comment add sucessfully"
 			));
 			return ;
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 2,
 					'message' => $e->getMessage()
 			));
 			return ;
@@ -523,7 +544,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		if (!$customer->getId()) {
 		   echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 1,
 					'message' => 'customer_not_login'
 			));
 			return ;
@@ -549,7 +571,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			$shipmentCollection->setOrder('created_at','desc');
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 2,
 					'message' => $e->getMessage()
 			));
 			return ;
@@ -586,7 +609,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		if (!$customer->getId()) {
 		   echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 1,
 					'message' => 'customer_not_login'
 			));
 			return ;
@@ -597,7 +621,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		$shipment_customer_id = $shipment->getCustomerId();
 		if($shipment_customer_id!=$customer_id){
 			echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 2,
 					'message' => 'shipment increment_id Error'
 			));
 			return ;
@@ -606,7 +631,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 
         if (!$shipment->getId()) {
 			echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 3,
 					'message' => 'not_exists'
 			));
 			return ;
@@ -641,7 +667,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		if (!$customer->getId()) {
 		   echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 1,
 					'message' => 'customer_not_login'
 			));
 			return ;
@@ -664,7 +691,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			$invoiceCollection->setOrder('created_at','desc');
         } catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 2,
 					'message' => $e->getMessage()
 			));
 			return ;
@@ -705,7 +733,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		$customer = Mage::getSingleton('customer/session')->getCustomer();
 		if (!$customer->getId()) {
 		   echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 1,
 					'message' => 'customer_not_login'
 			));
 			return ;
@@ -721,7 +750,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		$invoice_customer_id = $order->getCustomerId();
 		if($invoice_customer_id!=$customer_id){
 			echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 2,
 					'message' => 'invoice increment_id Error'
 			));
 			return ;
@@ -732,7 +762,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 
         if (!$invoice->getId()) {
 			echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 3,
 					'message' => 'not_exists'
 			));
 			return ;
