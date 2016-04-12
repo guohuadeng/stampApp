@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Magehit_Deleteorder>
+            <version>0.1.0</version>
+        </Magehit_Deleteorder>
+    </modules>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <deleteorder before="Mage_Adminhtml">Magehit_Deleteorder_Adminhtml</deleteorder>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Magehit_Deleteorder>
+                    <files>
+                        <default>Magehit_Deleteorder.csv</default>
+                    </files>
+                </Magehit_Deleteorder>
+            </modules>
+        </translate>
+    
+        <events>
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <deleteorder>
+                        <class>deleteorder/observer</class>
+                        <method>core_block_abstract_to_html_before</method>
+                    </deleteorder>
+                </observers>
+            </core_block_abstract_to_html_before>
+        </events>
+
+    </adminhtml>
+    <global>
+        <models>
+            <deleteorder>
+                <class>Magehit_Deleteorder_Model</class>
+            </deleteorder>
+        </models>
+        <blocks>
+            <deleteorder>
+                <class>Magehit_Deleteorder_Block</class>
+            </deleteorder>
+        </blocks>
+        <helpers>
+            <deleteorder>
+                <class>Magehit_Deleteorder_Helper</class>
+            </deleteorder>
+        </helpers>
+    </global>
+    <default>
+        <deleteorder>
+            <general>
+                <enable>1</enable>
+            </general>
+        </deleteorder>
+    </default>
+</config>

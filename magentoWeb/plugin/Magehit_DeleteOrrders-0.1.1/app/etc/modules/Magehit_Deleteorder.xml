@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Magehit_Deleteorder>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Magehit_Deleteorder>
+    </modules>
+</config>

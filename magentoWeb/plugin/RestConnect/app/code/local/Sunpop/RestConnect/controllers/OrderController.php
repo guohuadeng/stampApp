@@ -234,7 +234,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 
 		if (!$customer->getId()) {
 		   echo json_encode ( array (
-					'code' => '0x0002',
+		      'status' => false,
+					'code' => 2,
 					'message' => 'customer_not_login'
 			));
 			return ;
@@ -252,7 +253,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		//所有订单
 		$orderlist['all'] = $this->_getOrderListCount($customer,'');
 		$result = Mage::helper('core')->jsonEncode($orderlist);
-		$this->getResponse()->setBody(urldecode($result));
+		echo $result;
 	}
 
 	/* *
@@ -264,11 +265,19 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		$customer_id = $customer->getId();
 		$orders = array();
 		$orderCount = 0;
-		$orderCollection = Mage::getModel("sales/order")->getCollection();
 		try {
-			$orderCollection->addFieldToFilter('customer_id',$customer_id);
-
-			if($status == ''){
+		  $orderCollection = Mage::getModel("sales/order")->getCollection()->addFieldToFilter('customer_id',$customer_id);
+		  }
+		catch (Mage_Core_Exception $e) {
+      echo json_encode ( array (
+          'status' => false,
+          'code' => 2,
+          'message' => $e->getMessage()
+        ));
+        return ;
+    	}
+		try {
+			if($status == '' || $status == 'all'){
 				$orderCount = $orderCollection->getSize();
 			}
 			$invoices =  Mage::getResourceModel('sales/order_invoice_collection');
@@ -317,7 +326,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			}
 		} catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
-					'status' => '0x0002',
+					'status' => false,
+					'code' => 2,
 					'message' => $e->getMessage()
 				));
 				return ;

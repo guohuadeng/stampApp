@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <all>
+                <title>Delete Order</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <deleteorder translate="title">
+                                        <title>Delete Order</title>
+                                    </deleteorder>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

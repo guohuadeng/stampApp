@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Magehit_DeleteOrrders</name>
+    <version>0.1.1</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">Open Software License (OSL)</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Delete Orders version 0.1.1</summary>
+    <description>Delete Orders version 0.1.1</description>
+    <notes>Delete Orders version 0.1.1</notes>
+    <authors><author><name>MageHit</name><user>magehit</user><email>support@magehit.com</email></author></authors>
+    <date>2015-11-09</date>
+    <time>03:30:56</time>
+    <contents><target name="magelocal"><dir name="Magehit"><dir name="Deleteorder"><dir name="Helper"><file name="Data.php" hash="2d1fcd27fa5eae9ea5b460f02d2858cb"/></dir><dir name="Model"><file name="Config.php" hash="664dc88379f1079edc2417e18b5dbbc9"/><file name="Observer.php" hash="6e152b15a69e33d5b49cbcdb1c914501"/><file name="Order.php" hash="a72e837ab2b7b0a18c799d3f3d8ac7d9"/><file name="Status.php" hash="3edb78e93f5505409bc3ef9694fdb2fc"/></dir><dir name="controllers"><dir name="Adminhtml"><dir name="Deleteorder"><file name="DeleteordersController.php" hash="c82c754736ae714a29dda8a333eb8d86"/></dir></dir></dir><dir name="etc"><file name="adminhtml.xml" hash="d183cf1031e19320048bd872fd9f02e8"/><file name="config.xml" hash="108e4dbe97f7a66b3aa188910ce98142"/><file name="system.xml" hash="efb0f61a82d0f11ba8082f48a1c0cbca"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Magehit_Deleteorder.xml" hash="284f56283266a8e8f110123812a042fe"/></dir></target><target name="magelocale"><dir name="en_US"><file name="Magehit_Deleteorder.csv" hash="daa13ecced4f79f55f9de0d2cdd2e1c3"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.0.0</min><max>6.0.0</max></php></required></dependencies>
+</package>
