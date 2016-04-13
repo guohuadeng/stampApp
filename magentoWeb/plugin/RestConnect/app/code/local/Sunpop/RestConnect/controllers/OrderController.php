@@ -38,7 +38,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 
 		if (!$customer->getId()) {
 		   echo json_encode ( array (
-					'code' => '0x0002',
+		      'status' => false,
+					'code' => 2,
 					'message' => 'customer_not_login'
 			));
 			return ;
@@ -168,7 +169,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		}
 		foreach ($orderCollection as $order) {
 			$data = array();
-			//$data = $this->_getAttributes($order, 'order');
+			$data = $this->_baseInfo($order);
 			$shipment = $order->getShipmentsCollection()->getFirstItem();
 			$invoicees = $order->getInvoiceCollection()->getFirstItem();
 			$data['isPaid'] = false;
@@ -179,19 +180,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			if(($shipment->getIncrementId())){
 				$data['isShipped'] = true;
 			}
-			$data['increment_id'] = $order->getIncrementId();
-			$data['status'] = $order->getStatus();
-			$data['customer_id'] = $order->getCustomerId();
-			$data['grand_total'] = $order->getGrandTotal();
-			$data['subtotal'] = $order->getSubtotal();
-			$data['shipping_amount'] = $order->getShippingAmount();
-			$data['total_qty_ordered'] = $order->getTotalQtyOrdered();
-			$data['created_at'] = $order->getCreatedAt();
-			$data['updated_at'] = $order->getUpdatedAt();
 			$data['shipment_increment_id'] = $shipment->getIncrementId();
 			$data['invoice_increment_id'] = null;
-			$data['payment_code'] = $order->getPayment()->getMethodInstance()->getCode();
-			$data['payment_title'] = $order->getPayment()->getMethodInstance()->getTitle();
 			if ($order->hasInvoices()) {
 				$invIncrementIDs = array();
 				foreach ($order->getInvoiceCollection() as $inv) {
@@ -425,60 +415,29 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			return ;
 		}
 
+		$shipment = $order->getShipmentsCollection()->getFirstItem();
+		$invoicees = $order->getInvoiceCollection()->getFirstItem();
 
 		if ($order->getGiftMessageId() > 0) {
             $order->setGiftMessage(
                 Mage::getSingleton('giftmessage/message')->load($order->getGiftMessageId())->getMessage()
             );
         }
+		$data = $this->_baseInfo($order);
+    $data['shipment_increment_id'] = $shipment->getIncrementId();
+    $data['invoice_increment_id'] = null;
+    if ($order->hasInvoices()) {
+      $invIncrementIDs = array();
+      foreach ($order->getInvoiceCollection() as $inv) {
+        $data['invoice_increment_id'] = $inv->getIncrementId();
+      }
+    }
 
-        $result = $this->_getAttributes($order, 'order');
+    $data['shipping_address'] = $this->_getAttributes($order->getShippingAddress(), 'order_address');
+    $data['billing_address']  = $this->_getAttributes($order->getBillingAddress(), 'order_address');
 
-        $result['shipping_address'] = $this->_getAttributes($order->getShippingAddress(), 'order_address');
-        $result['billing_address']  = $this->_getAttributes($order->getBillingAddress(), 'order_address');
-        $result['items'] = array();
-
-        foreach ($order->getAllItems() as $item) {
-            if ($item->getGiftMessageId() > 0) {
-                $item->setGiftMessage(
-                    Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage()
-                );
-            }
-
-			$productinfos = $this->_getAttributes($item, 'order_item');
-			$product_options = $productinfos['product_options'];
-			$product_optionsarray = unserialize($product_options);
-			$options = $product_optionsarray['options'];
-			$newoptions = array();
-			foreach($options as $j=>$option){
-				foreach($option as $index=>$p){
-					$newoptions[$j][$index] = urlencode($p);
-				}
-			}
-			$productinfos['product_options'] = $newoptions;
-            $result['items'][] = $productinfos;
-        }
-
-        $result['payment'] = $this->_getAttributes($order->getPayment(), 'order_payment');
-
-        $result['status_history'] = array();
-
-        foreach ($order->getAllStatusHistory() as $history) {
-            $result['status_history'][] = $this->_getAttributes($history, 'order_status_history');
-        }
-		$shipment = $order->getShipmentsCollection()->getFirstItem();
-		$result['shipment_increment_id'] = $shipmentIncrementId = $shipment->getIncrementId();
-		$result['invoice_increment_id'] = '';
-		if ($order->hasInvoices()) {
-			$invIncrementIDs = array();
-			foreach ($order->getInvoiceCollection() as $inv) {
-				$result['invoice_increment_id'] = $inv->getIncrementId();
-			}
-		}
-
-		$result = Mage::helper('core')->jsonEncode($result);
-		$this->getResponse()->setBody(urldecode($result));
-		//echo json_encode($result);
+		$data = Mage::helper('core')->jsonEncode($data);
+		$this->getResponse()->setBody(urldecode($data));
 	}
 
 	protected function _initOrder($orderIncrementId)
@@ -491,7 +450,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 
         if (!$order->getId()) {
 			echo json_encode ( array (
-					'code' => '0x0002',
+					'status' => false,
+					'code' => 2,
 					'message' => 'not_exists'
 			));
 			return ;
@@ -783,4 +743,74 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
         }
 		echo json_encode($result);
 	}
+
+	protected  function _baseInfo($order) {
+    $data = array();
+    /*取全部属性，暂时不用
+    $data = $this->_getAttributes($order, 'order');
+    */
+    $data['increment_id'] = $order->getIncrementId();
+    $data['status'] = $order->getStatus();
+    $data['customer_id'] = $order->getCustomerId();
+    $data['grand_total'] = $order->getGrandTotal();
+    $data['subtotal'] = $order->getSubtotal();
+    $data['shipping_amount'] = $order->getShippingAmount();
+    $data['total_qty_ordered'] = $order->getTotalQtyOrdered();
+    $data['created_at'] = $order->getCreatedAt();
+    $data['updated_at'] = $order->getUpdatedAt();
+    $data['payment_code'] = $order->getPayment()->getMethodInstance()->getCode();
+    $data['payment_title'] = $order->getPayment()->getMethodInstance()->getTitle();
+    $productname = array();
+    foreach ($order->getAllItems() as $i=>$item){
+    /*取全部属性，暂时不用
+			$productinfos = $this->_getAttributes($item, 'order_item');
+			$product_options = $productinfos['product_options'];
+			$product_optionsarray = unserialize($product_options);
+			$options = $product_optionsarray['options'];
+    */
+      $productid = $item->getProduct()->getId();
+      $_product = Mage::getModel('catalog/product')->load($productid);
+      $productname[$i]['id']= $_product->getId();
+      $productname[$i]['sku']= $_product->getSku();
+      $productname[$i]['item_id']= $item->getItemId();
+      $productname[$i]['quote_item_id']= $item->getQuoteItemId();
+      $productname[$i]['product_id']= $item->getProductId();
+      $productname[$i]['name']= $item->getName();
+      $productname[$i]['price']= $item->getPrice();
+      $productname[$i]['price_incl_tax']= $item->getPriceInclTax();
+      $productname[$i]['qty']= $item->getQtyOrdered();
+      $productname[$i]['qty_ordered']= $item->getQtyOrdered();
+
+      if(($_product->getImage() == 'no_selection') || (!$_product->getImage())){
+        $productname[$i]['image_url']= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/base/default/images/catalog/product/placeholder/image.jpg';
+          $productname[$i]['image_thumbnail_url']=  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'frontend/base/default/images/catalog/product/placeholder/image.jpg';
+      }else{
+        $productname[$i]['image_url']= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $_product->getImage();
+        $productname[$i]['image_thumbnail_url'] = Mage::getModel ( 'catalog/product_media_config' )->getMediaUrl( $_product->getThumbnail() );
+      }
+      $options = $item->getProductOptions();
+
+      $rOptions = array ();
+      if ($options) {
+        if (isset ( $options ['options'] )) {
+          $rOptions = array_merge ( $rOptions, $options ['options'] );
+        }
+        if (isset ( $options ['additional_options'] )) {
+          $rOptions = array_merge ( $rOptions, $options ['additional_options'] );
+        }
+        if (! empty ( $options ['attributes_info'] )) {
+          $rOptions = array_merge ( $rOptions, $options ['attributes_info'] );
+        }
+        foreach($rOptions as $j => $option){
+            //对文件类型的处理，清除字段减少流量
+            if ($rOptions[$j]['option_type']='file')
+              $rOptions[$j]['option_value']='';
+        }
+      }
+      $productname[$i]['options'] = $rOptions;
+    }
+    $data['products'] = $productname;
+    return $data;
+	}
+
 }
