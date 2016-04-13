@@ -689,7 +689,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
         $total = $quote->getBaseSubtotal();
         $methods = Mage::helper('payment')->getStoreMethods($store, $quote);
-        /*
+
         foreach ($methods as $method) {
             if ($method->getCode() == $paymentData['method']) {
                 // @var $method Mage_Payment_Model_Method_Abstract
@@ -706,7 +706,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
                   return ;
                 }
             }
-        }*/
+        }
 
         try {
 
@@ -765,15 +765,19 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
 	protected function _canUsePaymentMethod($method, $quote)
     {
+        /*此处会返回错误，待研究，先屏蔽
         if (!($method->isGateway() || $method->canUseInternal())) {
+            echo 'gateway inter';
             return false;
-        }
+        }*/
 
         if (!$method->canUseForCountry($quote->getBillingAddress()->getCountry())) {
+            echo 'country';
             return false;
         }
 
         if (!$method->canUseForCurrency(Mage::app()->getStore($quote->getStoreId())->getBaseCurrencyCode())) {
+            echo 'currency';
             return false;
         }
 
@@ -785,6 +789,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         $maxTotal = $method->getConfigData('max_order_total');
 
         if ((!empty($minTotal) && ($total < $minTotal)) || (!empty($maxTotal) && ($total > $maxTotal))) {
+            echo 'min max';
             return false;
         }
 
@@ -1023,10 +1028,11 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 			//生成订单，只有货到付款是生成已处理的订单。其它支付方式生成 pending的订单
       if ($paymentcode == 'cashondelivery') {
 			  $statusMessage = 'Order payment success';
-			  $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING,Mage_Sales_Model_Order::STATE_PROCESSING,$statusMessage, false);
+			  $order->addStatusToHistory(Mage_Sales_Model_Order::STATE_PROCESSING,Mage_Sales_Model_Order::STATE_PROCESSING,$statusMessage, false);
       } else  {
-			  $statusMessage = 'Pending order success';
-			  $order->setState(Mage_Sales_Model_Order::STATE_PENDING,Mage_Sales_Model_Order::STATE_PENDING,$statusMessage, false);
+			  $statusMessage = 'App Pending order success';
+			  //$order->addStatusToHistory(Mage_Sales_Model_Order::STATE_PENDING,Mage_Sales_Model_Order::STATE_PENDING,$statusMessage, false);
+			  //$order->setState(Mage_Sales_Model_Order::STATE_PENDING,Mage_Sales_Model_Order::STATE_PENDING,$statusMessage, false);
 			  }
 			$order->save();
 
