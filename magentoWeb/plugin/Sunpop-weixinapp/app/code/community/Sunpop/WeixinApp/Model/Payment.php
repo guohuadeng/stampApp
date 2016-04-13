@@ -88,7 +88,7 @@ class Sunpop_WeixinApp_Model_Payment extends Mage_Payment_Model_Method_Abstract
             'appid'             => trim($this->getConfigData('app_id')),
             'secret'            => trim($this->getConfigData('app_secret')),
             'spbill_create_ip'  => '',
-            'device_info'       => 'WEB',
+            'device_info'       => 'APP',
             'limit_pay'         => '',
             'notify_url'        => $this->getNotifyURL(),
             'license'           => trim($this->getConfigData('license')),

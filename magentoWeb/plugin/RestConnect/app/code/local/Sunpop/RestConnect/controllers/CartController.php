@@ -15,6 +15,17 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 	 const MODE_CUSTOMER = Mage_Checkout_Model_Type_Onepage::METHOD_CUSTOMER;
      const MODE_REGISTER = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
      const MODE_GUEST    = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
+
+    //引用微信支付模块，输出json的例子
+    public function testAction()  {
+
+      $payment = Mage::getModel('weixinapp/payment');
+      $config  = $payment->prepareConfig();
+        $weixin = Mage::getModel('weixinapp/core');
+        $weixin->setConfig($config);
+			echo json_encode ($config);
+    }
+
 	 protected $_attributesMap = array(
         'global' => array(),
     );
@@ -678,23 +689,24 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
         $total = $quote->getBaseSubtotal();
         $methods = Mage::helper('payment')->getStoreMethods($store, $quote);
+        /*
         foreach ($methods as $method) {
             if ($method->getCode() == $paymentData['method']) {
-                /** @var $method Mage_Payment_Model_Method_Abstract */
+                // @var $method Mage_Payment_Model_Method_Abstract
                 if (!($this->_canUsePaymentMethod($method, $quote)
                     && ($total != 0
                         || $method->getCode() == 'free'
                         || ($quote->hasRecurringItems() && $method->canManageRecurringProfiles())))
                 ) {
-					echo json_encode ( array (
-					'status' => false,
-					'code' => '0x0005',
-					'message' => 'method_not_allowed'
-					));
-					return ;
+                  echo json_encode ( array (
+                  'status' => false,
+                  'code' => '0x0005',
+                  'message' => 'method_not_allowed'
+                  ));
+                  return ;
                 }
             }
-        }
+        }*/
 
         try {
 
@@ -1007,14 +1019,22 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
                 array('order' => $order, 'quote' => $quote)
             );
 
-			$statusMessage = 'payment success';
-			$order->setState(Mage_Sales_Model_Order::STATE_PROCESSING,Mage_Sales_Model_Order::STATE_PROCESSING,$statusMessage, false);
+			$paymentcode = $order->getPayment()->getMethodInstance()->getCode();
+			//生成订单，只有货到付款是生成已处理的订单。其它支付方式生成 pending的订单
+      if ($paymentcode == 'cashondelivery') {
+			  $statusMessage = 'Order payment success';
+			  $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING,Mage_Sales_Model_Order::STATE_PROCESSING,$statusMessage, false);
+      } else  {
+			  $statusMessage = 'Pending order success';
+			  $order->setState(Mage_Sales_Model_Order::STATE_PENDING,Mage_Sales_Model_Order::STATE_PENDING,$statusMessage, false);
+			  }
 			$order->save();
 
 			echo json_encode ( array (
 					'status' => true,
 					'code' => 0,
 					'message' => '生成订单成功，感谢您的购买。',
+					'statusMessage' => $statusMessage,
 					'order_id' => $order->getIncrementId()
 				));
 			foreach( $quote->getItemsCollection() as $item ){
