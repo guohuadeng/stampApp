@@ -18,21 +18,18 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
     const MODE_REGISTER = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
     const MODE_GUEST = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
 
-    //引用微信支付模块，输出json的例子
-    public function paymentAction()
+    //返回微信app支付参数
+    protected function _paymentWeixinapp($order_id,$total_fee)
     {
         $payment = Mage::getModel('weixinapp/payment');
         $config = $payment->prepareConfig();
-		
-        $config['body'] = 'APP支付测试';
-        $config['order_id'] = time();
-        $config['total_fee'] = 1;
+
+        $config['body'] = '订单#'.$order_id.'-执业印章之家';
+        $config['order_id'] = $order_id;
+        $config['total_fee'] = $total_fee*100;
 
         $app = Mage::getModel('weixinapp/app');
-        echo json_encode(array(
-            'status' => true,
-            'result' => $app->payment($config),
-        ));
+        return $app->payment($config);
     }
 
     protected $_attributesMap = array(
@@ -797,6 +794,10 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
                     'method' => $paymentCode,
                     'cc_types' => $this->_getPaymentMethodAvailableCcTypes($paymentModel),
                 );
+                //设置默认值
+                if ($paymentCode == "weixinapp")  {
+                  $methods[$paymentCode]['default'] = true;
+                  }
             }
         }
         echo json_encode($methods);
@@ -854,16 +855,25 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         return $ccTypes;
     }
 
+    public function shippingRatesListAction()
+    {
+
+    }
+
     public function shippingListAction()
     {
         $methods = Mage::getSingleton('shipping/config')->getActiveCarriers();
+
         try {
             $ratesResult = array();
             foreach ($methods as $carrierCode => $rates) {
                 $carrierName = $carrierCode;
 
+                if (!is_null(Mage::getStoreConfig('carriers/'.$carrierCode.'/name'))) {
+                    $carrierName = Mage::getStoreConfig('carriers/'.$carrierCode.'/name');
+                }
                 if (!is_null(Mage::getStoreConfig('carriers/'.$carrierCode.'/title'))) {
-                    $carrierName = Mage::getStoreConfig('carriers/'.$carrierCode.'/title');
+                    $carrierTitle = Mage::getStoreConfig('carriers/'.$carrierCode.'/title');
                 }
 
                 if ($_methods = $rates->getAllowedMethods()) {
@@ -874,6 +884,11 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
                 $rateItem['code'] = $_code;
                 $rateItem['carrierName'] = $carrierName;
+                $rateItem['carrierTitle'] = $carrierTitle;
+                //设置默认值
+                if ($_code == "flatrate_flatrate")  {
+                  $rateItem['default'] = true;
+                  }
                 $ratesResult[] = $rateItem;
                 unset($rateItem);
             }
@@ -1067,23 +1082,30 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             );
 
             $paymentcode = $order->getPayment()->getMethodInstance()->getCode();
+            $payconfig = null;
+            $message = null;
             //生成订单，只有货到付款是生成已处理的订单。其它支付方式生成 pending的订单
             if ($paymentcode == 'cashondelivery') {
-                $statusMessage = 'Order payment success';
-                $order->addStatusToHistory(Mage_Sales_Model_Order::STATE_PROCESSING, Mage_Sales_Model_Order::STATE_PROCESSING, $statusMessage, false);
-            } else {
-                $statusMessage = 'App Pending order success';
+              $order->addStatusToHistory(Mage_Sales_Model_Order::STATE_PROCESSING, Mage_Sales_Model_Order::STATE_PROCESSING, $statusMessage, false);
+              $order_id =  $order->getIncrementId();
+              $message = '生成订单 #'.$order_id.' 成功，感谢您的购买。';
+            } else if ($paymentcode == 'weixinapp') {
+              $order->save();
+              $order_id =  $order->getIncrementId();
+              $payconfig = $this->_paymentWeixinapp($order_id,$order->getGrandTotal());
+              $message = '生成订单 #'.$order_id.' 成功。';
               //$order->addStatusToHistory(Mage_Sales_Model_Order::STATE_PENDING,Mage_Sales_Model_Order::STATE_PENDING,$statusMessage, false);
               //$order->setState(Mage_Sales_Model_Order::STATE_PENDING,Mage_Sales_Model_Order::STATE_PENDING,$statusMessage, false);
             }
-            $order->save();
+            $statusMessage = 'Order success '.$paymentcode;
 
             echo json_encode(array(
                     'status' => true,
                     'code' => 0,
-                    'message' => '生成订单成功，感谢您的购买。',
+                    'message' => $message,
                     'statusMessage' => $statusMessage,
                     'order_id' => $order->getIncrementId(),
+                    'payconfig' => $payconfig
                 ));
             foreach ($quote->getItemsCollection() as $item) {
                 Mage::getSingleton('checkout/cart')->removeItem($item->getId())->save();

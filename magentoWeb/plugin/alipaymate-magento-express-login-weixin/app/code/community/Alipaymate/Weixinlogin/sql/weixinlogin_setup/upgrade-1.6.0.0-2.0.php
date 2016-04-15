@@ -20,8 +20,10 @@ $installer->run("
     ) engine=innodb default charset=utf8;
 ");
 
+/*
 $installer->run("
   alter table  {$this->getTable('social_login_weixin')} add COLUMN avatar VARCHAR(255) not null; //增加头像地址
 ");
+*/
 
 $installer->endSetup();
