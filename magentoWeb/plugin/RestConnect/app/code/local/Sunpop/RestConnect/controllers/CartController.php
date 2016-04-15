@@ -18,6 +18,29 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
     const MODE_REGISTER = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
     const MODE_GUEST = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
 
+    public function testAction()
+    {
+        $cart = Mage::getSingleton('checkout/cart');
+        $totalItemsInCart = Mage::helper('checkout/cart')->getItemsCount(); // total items in cart
+        $totals = Mage::getSingleton('checkout/session')->getQuote()->getTotals(); // Total object
+        $oldCouponCode = $cart->getQuote()->getCouponCode();
+        $oCoupon = Mage::getModel('salesrule/coupon')->load($oldCouponCode, 'code');
+        $oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
+
+        $subtotal = $totals ['subtotal']->getValue(); // Subtotal value
+        $grandtotal = $totals ['grand_total']->getValue(); // Grandtotal value
+        echo var_dump(get_class_methods(Mage::getSingleton('checkout/session')->getQuote()->collectTotals()));;
+        if (isset($totals ['discount'])) { // $totals['discount']->getValue()) {
+            $discount = round($totals ['discount']->getValue()); // Discount value if applied
+        } else {
+            $discount = '';
+        }
+        if (isset($totals ['tax'])) { // $totals['tax']->getValue()) {
+            $tax = round($totals ['tax']->getValue()); // Tax value if present
+        } else {
+            $tax = '';
+        };
+    }
     //返回微信app支付参数
     protected function _paymentWeixinapp($order_id,$total_fee)
     {
@@ -299,8 +322,10 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         $oCoupon = Mage::getModel('salesrule/coupon')->load($oldCouponCode, 'code');
         $oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
 
-        $subtotal = $totals ['subtotal']->getValue(); // Subtotal value
-        $grandtotal = $totals ['grand_total']->getValue(); // Grandtotal value
+        $grandtotal = number_format ($totals ['grand_total']->getValue(),2,'.','');
+        $subtotal = number_format ($totals ['subtotal']->getValue(),2,'.','');
+        $shippingtotal = number_format ($totals ['grand_total']->getValue() - $totals ['subtotal']->getValue(),2,'.',''); // Subtotal value
+
         if (isset($totals ['discount'])) { // $totals['discount']->getValue()) {
             $discount = round($totals ['discount']->getValue()); // Discount value if applied
         } else {
@@ -314,6 +339,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
         return array(
                 'subtotal' => $subtotal,
+                'shippingtotal' => $shippingtotal,
                 'grandtotal' => $grandtotal,
                 'discount' => $discount,
                 'tax' => $tax,
@@ -987,10 +1013,18 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         try {
             $quote->getShippingAddress()->setShippingMethod($shippingMethod);
             $quote->collectTotals()->save();
+            //$total = $quote->getTotals();
+            $totals = Mage::getSingleton('checkout/session')->getQuote()->getTotals(); // Total object
+            $grandtotal = number_format ($totals ['grand_total']->getValue(),2,'.','');
+            $subtotal = number_format ($totals ['subtotal']->getValue(),2,'.','');
+            $shippingtotal = number_format ($totals ['grand_total']->getValue() - $totals ['subtotal']->getValue(),2,'.',''); // Subtotal value
             echo json_encode(array(
                     'status' => true,
                     'code' => 0,
-                    'message' => 'set shipping method sucessfully',
+                    'grandtotal' => $grandtotal,
+                    'subtotal' => $subtotal,
+                    'shippingtotal' => $shippingtotal,
+                    'message' => 'set shipping method sucessfully'
                 ));
 
             return;
@@ -998,7 +1032,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             echo json_encode(array(
                     'status' => false,
                     'code' => '0x0004',
-                    'message' => $e->getMessage(),
+                    'message' => $e->getMessage()
                 ));
 
             return;

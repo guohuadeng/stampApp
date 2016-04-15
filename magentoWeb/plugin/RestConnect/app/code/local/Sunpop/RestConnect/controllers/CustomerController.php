@@ -902,25 +902,34 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		$resource = new Mage_Customer_Model_Api_Resource;
 		$address = Mage::getModel('customer/address');
 
-        foreach ($resource->getAllowedAttributes($address) as $attributeCode=>$attribute) {
-            if (isset($addressData[$attributeCode])) {
-                $address->setData($attributeCode, $addressData[$attributeCode]);
-            }
+		if (!$this->getRequest ()->getParam('region_id')) {
+			echo json_encode ( array (
+					'status' => false,
+					'code' => 1,
+					'message' => '请指定省/直辖市。'
+			));
+			return ;
         }
 
-        if (isset($addressData['is_default_billing'])) {
-            $address->setIsDefaultBilling($addressData['is_default_billing']);
+    foreach ($resource->getAllowedAttributes($address) as $attributeCode=>$attribute) {
+        if (isset($addressData[$attributeCode])) {
+            $address->setData($attributeCode, $addressData[$attributeCode]);
         }
+    }
 
-        if (isset($addressData['is_default_shipping'])) {
-            $address->setIsDefaultShipping($addressData['is_default_shipping']);
-        }
+    if (isset($addressData['is_default_billing'])) {
+        $address->setIsDefaultBilling($addressData['is_default_billing']);
+    }
 
-        $address->setCustomerId($customer->getId());
+    if (isset($addressData['is_default_shipping'])) {
+        $address->setIsDefaultShipping($addressData['is_default_shipping']);
+    }
 
-        $valid = $address->validate();
+    $address->setCustomerId($customer->getId());
 
-        if (is_array($valid)) {
+    $valid = $address->validate();
+
+    if (is_array($valid)) {
 			echo json_encode ( array (
           'status' => false,
 					'code' => 2,
@@ -1041,6 +1050,15 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 				return ;
 			}
 			$addressData = $this->getRequest ()->getParams();
+
+      if (!$this->getRequest ()->getParam('region_id')) {
+        echo json_encode ( array (
+            'status' => false,
+            'code' => 1,
+            'message' => '请指定省/直辖市。'
+        ));
+        return ;
+          }
 			foreach ($resource->getAllowedAttributes($address) as $attributeCode=>$attribute) {
             if (isset($addressData[$attributeCode])) {
 					$address->setData($attributeCode, $addressData[$attributeCode]);
