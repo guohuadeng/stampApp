@@ -285,7 +285,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         $result = $this->_getAttributes($quote, 'quote');
         $result['shipping_address'] = $this->_getAttributes($quote->getShippingAddress(), 'quote_address');
         $result['billing_address'] = $this->_getAttributes($quote->getBillingAddress(), 'quote_address');
-        $result ['cart_items'] = $this->_getCartItems();
+        $result ['products'] = $this->_getCartProducts();
         $result['payment'] = $this->_getAttributes($quote->getPayment(), 'quote_payment');
         $result = Mage::helper('core')->jsonEncode($result);
         $this->getResponse()->setBody(urldecode($result));
@@ -303,7 +303,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         $cartInfo ['status'] = sizeof($this->errors) ? false : true;
         $cartInfo ['error'] = 0;
         $cartInfo ['is_virtual'] = Mage::helper('checkout/cart')->getIsVirtualQuote();
-        $cartInfo ['cart_items'] = $this->_getCartItems();
+        $cartInfo ['products'] = $this->_getCartProducts();
         $cartInfo ['messages'] = sizeof($this->errors) ? $this->errors : $this->_getMessage();
         $cartInfo ['items_qty'] = Mage::helper('checkout/cart')->getSummaryCount();
         $cartInfo ['cart_items_count'] = $cartInfo ['items_qty'];
@@ -322,7 +322,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         $oCoupon = Mage::getModel('salesrule/coupon')->load($oldCouponCode, 'code');
         $oRule = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId());
 
-        $grandtotal = number_format ($totals ['grand_total']->getValue(),2,'.','');
+        $grand_total = number_format ($totals ['grand_total']->getValue(),2,'.','');
         $subtotal = number_format ($totals ['subtotal']->getValue(),2,'.','');
         $shippingtotal = number_format ($totals ['grand_total']->getValue() - $totals ['subtotal']->getValue(),2,'.',''); // Subtotal value
 
@@ -339,8 +339,10 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
         return array(
                 'subtotal' => $subtotal,
+                'shipping_amount' => $shippingtotal,
+                'grand_total' => $grand_total,
                 'shippingtotal' => $shippingtotal,
-                'grandtotal' => $grandtotal,
+                'grandtotal' => $grand_total,
                 'discount' => $discount,
                 'tax' => $tax,
                 'coupon_code' => $oldCouponCode,
@@ -385,7 +387,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
         return array();
     }
-    protected function _getCartItems()
+    protected function _getCartProducts()
     {
         $cartItemsArr = array();
         $cart = Mage::getSingleton('checkout/cart');
@@ -400,10 +402,10 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             $cartItemArr ['cart_item_id'] = $item->getId();
             $cartItemArr ['currency'] = $currency;
             $cartItemArr ['entity_type'] = $item->getProductType();
-            $cartItemArr ['item_id'] = $item->getProduct()->getId();
+            $cartItemArr ['product_id'] = $item->getProduct()->getId();
             $cartItemArr ['item_title'] = strip_tags($item->getProduct()->getName());
             $cartItemArr ['qty'] = $item->getQty();
-            $cartItemArr ['thumbnail_pic_url'] = (string) Mage::helper('catalog/image')->init($item->getProduct(), 'thumbnail')->resize(75);
+            $cartItemArr ['image_thumbnail_url'] = (string) Mage::helper('catalog/image')->init($item->getProduct(), 'thumbnail')->resize(75);
             $cartItemArr ['custom_option'] = $this->_getCustomOptions($item);
             if ($displayCartPriceExclTax || $displayCartBothPrices) {
                 if (Mage::helper('weee')->typeOfDisplay($item, array(
@@ -826,6 +828,9 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
                   }
             }
         }
+        //不显示微信扫码和公众号支付
+        unset ($methods['weixin']);
+        unset ($methods['weixinmobile']);
         echo json_encode($methods);
     }
 
@@ -1015,15 +1020,16 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             $quote->collectTotals()->save();
             //$total = $quote->getTotals();
             $totals = Mage::getSingleton('checkout/session')->getQuote()->getTotals(); // Total object
-            $grandtotal = number_format ($totals ['grand_total']->getValue(),2,'.','');
+            $grand_total = number_format ($totals ['grand_total']->getValue(),2,'.','');
             $subtotal = number_format ($totals ['subtotal']->getValue(),2,'.','');
-            $shippingtotal = number_format ($totals ['grand_total']->getValue() - $totals ['subtotal']->getValue(),2,'.',''); // Subtotal value
+            $shipping_amount = number_format ($totals ['grand_total']->getValue() - $totals ['subtotal']->getValue(),2,'.',''); // Subtotal value
             echo json_encode(array(
                     'status' => true,
                     'code' => 0,
-                    'grandtotal' => $grandtotal,
+                    'grand_total' => $grand_total,
                     'subtotal' => $subtotal,
-                    'shippingtotal' => $shippingtotal,
+                    'shippingtotal' => $shipping_amount,
+                    'shipping_amount' => $shipping_amount,
                     'message' => 'set shipping method sucessfully'
                 ));
 

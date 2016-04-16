@@ -96,6 +96,13 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
     	}
 
 		try {
+			if($orderType == '' || $orderType == 'all'){
+			  ;
+			} else  { //除了全部订单，其它的都要屏蔽cancel
+					$orderCollection->addFieldToFilter('status',array('neq'=>'canceled'))
+		        ->addFieldToFilter('status',array('neq'=>'closed'))
+		        ->addFieldToFilter('status',array('neq'=>'holded'));
+			}
 			$invoices =  Mage::getResourceModel('sales/order_invoice_collection');
 			$invoices->getSelect()->joinLeft(array('order' => Mage::getModel('core/resource')->getTableName('sales/order')), 'order.entity_id=main_table.order_id', array('customer_id' => 'customer_id'));
 			$invoices->addFieldToFilter('customer_id',$customer_id);
@@ -114,37 +121,29 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 					$shipmentorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
 				}
 			}
-			if($orderType == '' || $orderType == 'all'){
-			  ;
-			} else  {
-					$orderCollection->addFieldToFilter('status',array('neq'=>'canceled'))
-		        ->addFieldToFilter('status',array('neq'=>'holded'))
-		        ->addFieldToFilter('status',array('neq'=>'closed'));
-			}
 
 			if($orderType == 'notpaid'){
-					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$invoicesorderincrementid))
-		      ->addFieldToFilter('status',array('neq'=>'canceled'))
-		      ->addFieldToFilter('status',array('neq'=>'closed'));
+				$orderCollection->addFieldToFilter('increment_id',array('nin'=>$invoicesorderincrementid));
 			}
 			if($orderType == 'notshipped'){
-					$orderCollection->addFieldToFilter('increment_id',array('nin'=>$shipmentorderincrementid));
+				$orderCollection->addFieldToFilter('increment_id',array('nin'=>$shipmentorderincrementid));
 			}
 			if($orderType == "notreceived"){
 				if(count($shipmentorderincrementid)>0){
 					$orderCollection->addFieldToFilter('increment_id',array('in'=>$shipmentorderincrementid));
-					$orderCollection->addFieldToFilter('status',array('neq'=>'complete'));
 				}
 			}
 			if($orderType == "complete"){
 				$orderCollection->addFieldToFilter('status','complete');
-				if((count($shipmentorderincrementid)>0) & (count($shipmentorderincrementid)>0)){
+				/*应该不需要
+				if((count($invoicesorderincrementid)>0) && (count($shipmentorderincrementid)>0)){
 					$intersection = array_intersect($invoicesorderincrementid,$shipmentorderincrementid);
 					$orderCollection->addFieldToFilter('increment_id',array('in'=>$intersection));
-				}
+				}*/
 			}
+			$orderCollection->setPageSize($limit)->setCurPage($page);
 
-			$orderCollection->setOrder('created_at','desc');
+			$orderCollection->setOrder('increment_id','desc');
 			$orderGrandTotal = 0;
 			$orderSubTotal = 0;
 			$orderQtyTotal = 0;
@@ -158,7 +157,6 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			$orders['orderSubTotal'] = $orderSubTotal;
 			$orders['orderQtyTotal'] = $orderQtyTotal;
 
-			$orderCollection->setPageSize($limit)->setCurPage($page);
 		} catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
 					'status' => false,
@@ -247,15 +245,15 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 		$orderlist = array();
 
 		//未付款
-		$orderlist['notpaid'] = $this->_getOrderListCount($customer,'notpaid');
+		$orderlist['notpaid'] = $this->_getOrderCount($customer,'notpaid');
 		//待发货
-		$orderlist['notshipped'] = $this->_getOrderListCount($customer,'notshipped');
+		$orderlist['notshipped'] = $this->_getOrderCount($customer,'notshipped');
 		//待收货
-		$orderlist['notreceived'] = $this->_getOrderListCount($customer,'notreceived');
+		$orderlist['notreceived'] = $this->_getOrderCount($customer,'notreceived');
 		//已完成
-		$orderlist['complete'] = $this->_getOrderListCount($customer,'complete');
+		$orderlist['complete'] = $this->_getOrderCount($customer,'complete');
 		//所有订单
-		$orderlist['all'] = $this->_getOrderListCount($customer,'');
+		$orderlist['all'] = $this->_getOrderCount($customer,'');
 		$result = Mage::helper('core')->jsonEncode($orderlist);
 		echo $result;
 	}
@@ -265,7 +263,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 	*@return array()
 	*
 	*/
-	protected function _getOrderListCount($customer, $orderType = ''){
+	protected function _getOrderCount($customer, $orderType = ''){
 		$customer_id = $customer->getId();
 		$orders = array();
 		$orderCount = 0;
@@ -282,11 +280,11 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
     	}
 		try {
 			if($orderType == '' || $orderType == 'all'){
-				$orderCount = $orderCollection->getSize();
+			  ;
 			} else  {
 					$orderCollection->addFieldToFilter('status',array('neq'=>'canceled'))
-		        ->addFieldToFilter('status',array('neq'=>'holded'))
-		        ->addFieldToFilter('status',array('neq'=>'closed'));
+		        ->addFieldToFilter('status',array('neq'=>'closed'))
+		        ->addFieldToFilter('status',array('neq'=>'holded'));
 			}
 			$invoices =  Mage::getResourceModel('sales/order_invoice_collection');
 			$invoices->getSelect()->joinLeft(array('order' => Mage::getModel('core/resource')->getTableName('sales/order')), 'order.entity_id=main_table.order_id', array('customer_id' => 'customer_id'));
@@ -308,29 +306,22 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 					$shipmentorderincrementid[] = Mage::getModel('sales/order')->load($orderid)->getIncrementId();
 				}
 			}
+
 			if($orderType == 'notpaid'){
 				$orderCollection->addFieldToFilter('increment_id',array('nin'=>$invoicesorderincrementid));
-				$orderCount = $orderCollection->getSize();
 			}
 			if($orderType == 'notshipped'){
 				$orderCollection->addFieldToFilter('increment_id',array('nin'=>$shipmentorderincrementid));
-				$orderCount = $orderCollection->getSize();
 			}
 			if($orderType == "notreceived"){
 				if(count($shipmentorderincrementid)>0){
 					$orderCollection->addFieldToFilter('increment_id',array('in'=>$shipmentorderincrementid));
-					$orderCollection->addFieldToFilter('status',array('neq'=>'complete'));
-					$orderCount = $orderCollection->getSize();
 				}
 			}
 			if($orderType == "complete"){
 				$orderCollection->addFieldToFilter('status','complete');
-				if((count($shipmentorderincrementid)>0) & (count($shipmentorderincrementid)>0)){
-					$intersection = array_intersect($invoicesorderincrementid,$shipmentorderincrementid);
-					$orderCollection->addFieldToFilter('increment_id',array('in'=>$intersection));
-					$orderCount = $orderCollection->getSize();
-				}
 			}
+			$orderCount = $orderCollection->getSize();
 		} catch (Mage_Core_Exception $e) {
 			echo json_encode ( array (
 					'status' => false,
@@ -751,6 +742,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
     */
     $data['increment_id'] = $order->getIncrementId();
     $data['status'] = $order->getStatus();
+    $data['status_label'] = $order->getStatusLabel();
+    $data['state'] = $order->getState();
     $data['customer_id'] = $order->getCustomerId();
     $data['grand_total'] = $order->getGrandTotal();
     $data['subtotal'] = $order->getSubtotal();
