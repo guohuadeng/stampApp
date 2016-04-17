@@ -44,10 +44,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
     //返回微信app支付参数
     protected function _paymentWeixinapp($order_id,$total_fee)
     {
-
         try {
-          $request = $this->getRequest()->getQuery();
-
           if (isset($order_id) && $order_id > '') {
               $orderId = $order_id;
           } else {
@@ -63,9 +60,10 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
 
           $payment = Mage::getModel('weixinapp/payment');
           $config = $payment->prepareConfig();
+          $total_fee = $order->getGrandTotal();
 
-          $config['body'] = '订单#'.$order_id.'-执业印章之家';
-          $config['order_id'] = $order_id;
+          $config['body'] = '订单#'.$orderId.'-执业印章之家';
+          $config['order_id'] = $orderId;
           $config['total_fee'] = $total_fee*100;
 
           $app = Mage::getModel('weixinapp/app');

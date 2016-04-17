@@ -679,17 +679,50 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 	}
 
     //订单重新支付
-  protected function repayAction($order_id,$total_fee)
-  {
-      $payment = Mage::getModel('weixinapp/payment');
-      $config = $payment->prepareConfig();
+  public function repayAction()  {
+    $orderId = $this->getRequest ()->getParam ( "orderid" );
+    $repay = $this->getRequest ()->getParam ( "repay" );
 
-      $config['body'] = '订单#'.$order_id.'-执业印章之家';
-      $config['order_id'] = $order_id;
-      $config['total_fee'] = $total_fee*100;
+    try {
+      if (isset($repay) && $repay == 1) {
+        //重新支付操作
+        $repay = $repay;
+        } else  {
+        return;
+        }
+      if (isset($orderId) && $orderId > '') {
+          $orderId = $orderId;
+        } else {
+          $session = Mage::getSingleton('checkout/session');;
+          $orderId = $session->getLastRealOrderId();
+        }
 
-      $app = Mage::getModel('weixinapp/app');
-      return $app->payment($config);
+      $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+
+      if (!$order->getId()) {
+          Mage::throwException(Mage::helper('weixinapp')->__('No order for processing'));
+        }
+      if ($order->getPayment()->getMethodInstance()->getCode() == 'weixinapp')  {
+        $payment = Mage::getModel('weixinapp/payment');
+        $config = $payment->prepareConfig();
+        $total_fee = $order->getGrandTotal()*100;
+        $config['body'] = '订单#'.$orderId.'-执业印章之家';
+        $config['order_id'] = $orderId;
+        $config['total_fee'] = $total_fee;
+        $app = Mage::getModel('weixinapp/app');
+        echo json_encode( $app->payment($config));
+        } else  {
+       echo json_encode ( array (
+                     'status' => false,
+                     'code' => 1,
+                     'message' => '重新支付功能暂时只支持微信App支付。'
+                 ));
+        }
+    } catch (Mage_Core_Exception $e) {
+        $this->_getCheckout()->addError($e->getMessage());
+    } catch(Exception $e) {
+        Mage::logException($e);
+    }
   }
 	/*
 	* @param int invoice_increment_id
