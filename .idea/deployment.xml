@@ -6,7 +6,21 @@
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-magento-express-login-weixin" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/amastyCustomerAttr" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step1" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/AmastyFullPageCache1.4.2/Step2" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/RestConnect" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/SMTPPro-2.0.7" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/Sunpop-weixinapp" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_duplicate" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/SunpopSms" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/webshopapps_premium_rate_7.4" web="/" />
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/中国省地址中英文插件" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_AutoWishlist" web="/" />
           </mappings>
         </serverdata>
       </paths>
@@ -19,6 +33,7 @@
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/StampCustomer" web="/" />
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/中国省地址中英文插件" web="/" />
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/webshopapps_premium_rate_7.4" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/Sunpop-weixinapp" web="/" />
           </mappings>
         </serverdata>
       </paths>

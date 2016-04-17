@@ -44,15 +44,37 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
     //返回微信app支付参数
     protected function _paymentWeixinapp($order_id,$total_fee)
     {
-        $payment = Mage::getModel('weixinapp/payment');
-        $config = $payment->prepareConfig();
 
-        $config['body'] = '订单#'.$order_id.'-执业印章之家';
-        $config['order_id'] = $order_id;
-        $config['total_fee'] = $total_fee*100;
+        try {
+          $request = $this->getRequest()->getQuery();
 
-        $app = Mage::getModel('weixinapp/app');
-        return $app->payment($config);
+          if (isset($order_id) && $order_id > '') {
+              $orderId = $order_id;
+          } else {
+              $session = Mage::getSingleton('checkout/session');;
+              $orderId = $session->getLastRealOrderId();
+          }
+
+          $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+
+          if (!$order->getId()) {
+              Mage::throwException(Mage::helper('weixinapp')->__('No order for processing'));
+          }
+
+          $payment = Mage::getModel('weixinapp/payment');
+          $config = $payment->prepareConfig();
+
+          $config['body'] = '订单#'.$order_id.'-执业印章之家';
+          $config['order_id'] = $order_id;
+          $config['total_fee'] = $total_fee*100;
+
+          $app = Mage::getModel('weixinapp/app');
+          return $app->payment($config);
+        } catch (Mage_Core_Exception $e) {
+            $this->_getCheckout()->addError($e->getMessage());
+        } catch(Exception $e) {
+            Mage::logException($e);
+        }
     }
 
     protected $_attributesMap = array(

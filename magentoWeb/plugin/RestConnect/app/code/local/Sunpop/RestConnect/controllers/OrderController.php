@@ -677,6 +677,20 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
         }
 		echo json_encode($invoices);
 	}
+
+    //订单重新支付
+  protected function repayAction($order_id,$total_fee)
+  {
+      $payment = Mage::getModel('weixinapp/payment');
+      $config = $payment->prepareConfig();
+
+      $config['body'] = '订单#'.$order_id.'-执业印章之家';
+      $config['order_id'] = $order_id;
+      $config['total_fee'] = $total_fee*100;
+
+      $app = Mage::getModel('weixinapp/app');
+      return $app->payment($config);
+  }
 	/*
 	* @param int invoice_increment_id
 	*/
