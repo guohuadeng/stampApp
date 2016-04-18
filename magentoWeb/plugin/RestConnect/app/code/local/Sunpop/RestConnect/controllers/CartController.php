@@ -130,6 +130,32 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             $session = Mage::getSingleton('core/session', array(
                     'name' => 'frontend',
             ));
+
+            //图片上传
+            $upload   = new Zend_File_Transfer_Adapter_Http();
+            $base64_img = $this->getRequest ()->getParam ( 'option_153_file_data' );
+            $img_extension = $this->getRequest ()->getParam ( 'option_153_file_type' );
+            $img = $this->getRequest ()->getParam ( $base64_img );//图片base64码
+            $img_extension = $this->getRequest ()->getParam ( $img_extension );//后缀
+            $img = base64_decode($base64_img);
+            $img_extension_array = array('jpg','gif','png');
+
+                      if(isset($img) && in_array($img_extension,$img_extension_array)) {
+                try {
+                  //图片存放路径
+                  $path = $this->getTargetDir();
+                  $path = $path.md5(time()).'.'.$img_extension;
+                  //rewrite
+                  $upload->addFilter('Rename', array(
+                                'target' => $path,
+                                'overwrite' => true
+                          ));
+                  file_put_contents($path,$img);
+                } catch (Exception $e) {
+                      $session->addError ( "The image upload is error." );
+                    }
+            }
+            //end 图片上传
             $cart = Mage::helper('checkout/cart')->getCart();
             // $cart->addProduct ( $product, $qty );
             $cart->addProduct($product, $params);

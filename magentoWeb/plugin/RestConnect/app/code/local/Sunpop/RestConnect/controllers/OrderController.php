@@ -682,12 +682,24 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
   public function repayAction()  {
     $orderId = $this->getRequest ()->getParam ( "orderid" );
     $repay = $this->getRequest ()->getParam ( "repay" );
+    $isapp = $this->getRequest ()->getParam ( "isapp" );
 
     try {
       if (isset($repay) && $repay == 1) {
         //重新支付操作
         $repay = $repay;
         } else  {
+        return;
+        }
+      if (isset($isapp) && $isapp == 1) {
+        //来自手机app
+        $isapp = $isapp;
+        } else  {
+        echo json_encode ( array (
+                     'status' => false,
+                     'code' => 1,
+                     'message' => '请在App端操作。'
+                 ));
         return;
         }
       if (isset($orderId) && $orderId > '') {
@@ -714,7 +726,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
         } else  {
        echo json_encode ( array (
                      'status' => false,
-                     'code' => 1,
+                     'code' => 2,
                      'message' => '重新支付功能暂时只支持微信App支付。'
                  ));
         }
@@ -800,6 +812,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
     $data['updated_at'] = $order->getUpdatedAt();
     $data['payment_code'] = $order->getPayment()->getMethodInstance()->getCode();
     $data['payment_title'] = $order->getPayment()->getMethodInstance()->getTitle();
+    $data['shipment_method'] = $order->getShippingMethod();
+    $data['shipment_description'] = $order->getShippingDescription();
     $productname = array();
     foreach ($order->getAllItems() as $i=>$item){
     /*取全部属性，暂时不用
