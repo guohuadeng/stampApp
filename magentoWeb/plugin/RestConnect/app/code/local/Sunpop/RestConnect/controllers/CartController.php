@@ -115,15 +115,15 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             if (!$product_id) {
                 $product_id = $this->getRequest()->getParam('entity_id');
             }
-            $params = $this->getRequest()->getParams();
+            $params = $this->getRequest()->getPost();
+
             if (isset($params ['qty'])) {
                 $filter = new Zend_Filter_LocalizedToNormalized(array(
                         'locale' => Mage::app()->getLocale()->getLocaleCode(),
                 ));
                 $params ['qty'] = $filter->filter($params ['qty']);
             } elseif ($product_id == '') {
-                $session->addError("Product Not Added
-					The SKU you entered ($sku) was not found.");
+                $session->addError("Product Not Added.The SKU you entered ($sku) was not found.");
             }
             $request = Mage::app()->getRequest();
             $product = Mage::getModel('catalog/product')->load($product_id);
@@ -132,29 +132,41 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             ));
 
             //图片上传
-            $upload   = new Zend_File_Transfer_Adapter_Http();
-            $base64_img = $this->getRequest ()->getParam ( 'option_153_file_data' );
-            $img_extension = $this->getRequest ()->getParam ( 'option_153_file_type' );
-            $img = $this->getRequest ()->getParam ( $base64_img );//图片base64码
-            $img_extension = $this->getRequest ()->getParam ( $img_extension );//后缀
-            $img = base64_decode($base64_img);
-            $img_extension_array = array('jpg','gif','png');
+            $base64_img = $this->getRequest ()->getParam ( 'option_159_file_data' );
+            $img_extension = $this->getRequest ()->getParam ( 'option_159_file_type' )?$this->getRequest ()->getParam ( 'option_159_file_type' ):'png';
+            if ($base64_img && $img_extension)  {
+              $img = base64_decode($base64_img);
+              //保存图片
+              $creatpath = './media/custom_options/order/';
+              $path = $creatpath . 'test.'.$img_extension;
+              $temppath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'media/custom_options/order/'. 'test.'.$img_extension;
+              if(!file_exists($creatpath))     mkdir($creatpath,0777,true);
+              if (file_put_contents(sys_get_temp_dir().'/test.png', $img)) {
+                $params['options_159_file_action'] = 'save_new';
+                $params['options']['162'] = sys_get_temp_dir().'/test.png';//$temppath;
+                $_FILES['options_159_file']['name'] = 'test.png';
+                $_FILES['options_159_file']['error']  = UPLOAD_ERR_OK;
+                $_FILES['options_159_file']['name'] = 206;
+                $_FILES['options_159_file']['tmp_name'] = sys_get_temp_dir().'/test.png';
+                $_FILES['options_159_file']['type'] = 'image/png';
+                }
+              }
+            //如果能直接将图片处理放到$_FILES，应该会省事，但实际测试不成功
+            /*
+            http://stackoverflow.com/questions/33733870/remove-an-image-that-was-not-put-in-uploads-folder-via-wp-handle-upload
+            http://stackoverflow.com/questions/17802886/can-i-add-a-base64-image-to-the-files-array
 
-                      if(isset($img) && in_array($img_extension,$img_extension_array)) {
-                try {
-                  //图片存放路径
-                  $path = $this->getTargetDir();
-                  $path = $path.md5(time()).'.'.$img_extension;
-                  //rewrite
-                  $upload->addFilter('Rename', array(
-                                'target' => $path,
-                                'overwrite' => true
-                          ));
-                  file_put_contents($path,$img);
-                } catch (Exception $e) {
-                      $session->addError ( "The image upload is error." );
-                    }
-            }
+            $_FILES array's structure is like this
+
+            array(5) {
+                'name'     => string(8) "file name.extension" // file name with extension
+                'type'     => string(0) "" // mime type of file, i.e. image/png
+                'tmp_name' => string(0) "" // absolute path of file on disk.
+                'error'    => int(2) // 0 for no error
+                'size'     => int(0) // size in bytes
+              }
+            You can create array like above with all details, use various file handling PHP functions to get size and mime type. Name is whatever you want to put, and tmp_name is a path of file on server where file is exists, in your case location of folder where you save your file from base64 string.
+            */
             //end 图片上传
             $cart = Mage::helper('checkout/cart')->getCart();
             // $cart->addProduct ( $product, $qty );
@@ -162,13 +174,22 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             $session->setLastAddedProductId($product->getId());
             $session->setCartWasUpdated(true);
             $cart->save();
-            echo json_encode($this->_getCartInformation());
+            $rcart = $this->_getCartInformation();
+            $result = array(
+                'status' => true,
+                'code' => 0,
+                'items_qty' => $rcart['items_qty'],
+                'restult' => 'success',
+                'path' => json_encode($_FILES),
+                'message' => '加入购物车成功。'
+            );
+            echo json_encode($result);//json_encode($this->_getCartInformation());
         } catch (Exception $e) {
             $result = array(
                 'status' => false,
                 'code' => 1,
                 'restult' => 'error',
-                'message' => str_replace('"', '||', $this->__($e->getMessage())),
+                'message' => str_replace('"', '||', $this->__($e->getMessage()))
             );
             echo json_encode($result);
         }
