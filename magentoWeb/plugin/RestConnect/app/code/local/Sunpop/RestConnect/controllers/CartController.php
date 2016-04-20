@@ -115,7 +115,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             if (!$product_id) {
                 $product_id = $this->getRequest()->getParam('entity_id');
             }
-            $params = $this->getRequest()->getPost();
+            $params = $this->getRequest()->getParams();
 
             if (isset($params ['qty'])) {
                 $filter = new Zend_Filter_LocalizedToNormalized(array(
@@ -130,7 +130,6 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             $session = Mage::getSingleton('core/session', array(
                     'name' => 'frontend',
             ));
-
             //图片上传
             $base64_img = $this->getRequest ()->getParam ( 'option_159_file_data' );
             $img_extension = $this->getRequest ()->getParam ( 'option_159_file_type' )?$this->getRequest ()->getParam ( 'option_159_file_type' ):'png';
@@ -149,7 +148,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
                 $_FILES['options_159_file']['name'] = 206;
                 $_FILES['options_159_file']['tmp_name'] = sys_get_temp_dir().'/test.png';
                 $_FILES['options_159_file']['type'] = 'image/png';
-                }
+                } else  {}
               }
             //如果能直接将图片处理放到$_FILES，应该会省事，但实际测试不成功
             /*
