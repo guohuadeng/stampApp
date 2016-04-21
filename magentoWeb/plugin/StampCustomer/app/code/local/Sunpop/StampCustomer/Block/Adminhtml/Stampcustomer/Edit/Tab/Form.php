@@ -44,19 +44,19 @@ class Sunpop_StampCustomer_Block_Adminhtml_Stampcustomer_Edit_Tab_Form extends M
 						$fieldset->addField("a_certsn", "text", array(
 						"label" => Mage::helper("stampcustomer")->__("Certsn"),
 						"name" => "a_certsn",
-						'required'  => true,
+						'required'  => false,
 						));
 
 						$fieldset->addField("a_stampsn", "text", array(
 						"label" => Mage::helper("stampcustomer")->__("Stampsn"),
 						"name" => "a_stampsn",
-						'required'  => true,
+						'required'  => false,
 						));
 
 						$fieldset->addField("a_validatesn", "text", array(
 						"label" => Mage::helper("stampcustomer")->__("Validatesn"),
 						"name" => "a_validatesn",
-						'required'  => true,
+						'required'  => false,
 						));
 
 						$dateFormatIso = Mage::app()->getLocale()->getDateFormatWithLongYear(

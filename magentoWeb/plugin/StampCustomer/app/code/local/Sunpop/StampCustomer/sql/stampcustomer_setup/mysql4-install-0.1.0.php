@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `stampcustomerlist` (
   `a_stampsn` varchar(30) COMMENT '印章编号',
   `a_validatesn` varchar(5) COMMENT '执业印章校验码',
   `a_expdate` date COMMENT '有效期至',
-  `status` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT  '1',
   PRIMARY KEY (`a_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
