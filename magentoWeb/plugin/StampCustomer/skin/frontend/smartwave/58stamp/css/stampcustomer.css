@@ -5,10 +5,11 @@
 .toolbar  {display: none!important;}
 .stampcustomer{top: 0px; right: 0px;      z-index: 99;    background-color: #f4f4f4;  padding: 10px 30px 10px;display:none;}
 .catalog-product-view .col-main{position: relative;}
-.stampcustomer a.close{margin-top: -30px;font-size: 2.5em;}
+.stampcustomer .fieldset{margin: 5px 0;}
+.stampcustomer a.close{font-size: 3em;}
 .stampcustomer .form-list .form-control{width:70%; float: right;}
 .stampcustomer .form-list  label{width: 28%;line-height: 30px;    float: left;}
-.stampcustomer .results{margin:20px 0 10px;    width: 100%; float: left; border:3px solid #08c;}
+.stampcustomer .results{margin:20px 0 10px;    width: 100%; float: left; border-bottom:3px solid #08c;}
 .stampcustomer button{float:right;}
 .stampcustomer .results button{margin-top:20px;}
 #customoption-date-trig{    float: right;    margin-top: -20px;    margin-right: 13px;    z-index: 10;   position: relative;}
@@ -16,14 +17,14 @@
 .sure{display:none;}
 .product-options-bottom{display:block;}
 .short-description{padding-top:90px;}
-.product-tabs .tab-content	{padding: 10px 16px!important;}
+.product-tabs .tab-content	{padding: 10px 15px 20px!important}
 .data-table .add-to-cart-alt  {width: 100px;}
 #wishlist-table textarea  {display: none;}
 .calendar {z-index: 10;}
 .product-view .product-img-box  {margin-bottom: 10px!important;}
-.yinke ul.options-list label {font-size:20px;color:#0088cc;cursor: pointer;}
-.yinke ul.options-list input.radio  {margin-top:10px!important;}
-.yinke ul.options-list input.radio + label {
+.product-options ul.options-list label {font-size:20px;color:#0088cc;cursor: pointer;}
+.product-options ul.options-list input.radio  {margin-top:10px!important;}
+.product-options ul.options-list input.radio + label {
   padding: 16px;
 }
 .yinke ul.options-list input.radio:checked + label:after {
@@ -32,23 +33,29 @@
   left: 4px;
   top: 4px;
 }
-
+.yinke1 {display: none;}
+.yinke2 {display: none;}
 .yinke .row {margin:0;}
 .yinke img {width:100%;height:auto;}
 .yinke ul.options-list li {}
 .yinke .ycontent {font-size: 2rem;}
+input.input-text, select, textarea {
+  font-size: 16px!important;
+  height: 36px!important;
+}
 @media only screen and (min-width: 771px) {
   .product-options #tab_description_tabbed_contents dt {
-    margin: 10px 0 3px;
+    margin: 5px 0 3px;
+    padding: 0 0 2px 0;
     font-weight: normal;
     min-width: 70px;
     width: 30%;
-    line-height: 41px;
+    line-height: 38px;
   }
 
   .product-options .stamp-input {
     padding: 0 0 10px 0;
-    margin: -42px 0 5px!important;
+    margin: -38px 0 5px!important;
     border-bottom: 0px;
     width: 68%;
     float: right;

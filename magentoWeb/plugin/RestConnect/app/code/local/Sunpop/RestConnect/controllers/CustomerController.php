@@ -509,6 +509,13 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
                   ) );
                   return;
               }
+          } else {
+            echo json_encode ( array (
+                'status' => false,
+                'code' => 3,
+                'message' => $this->__('Invalid email address.')
+            ) );
+            return;
           }
           $message = $this->_getHelper('customer')
               ->__('If there is an account associated with %s you will receive an email with a link to reset your password.',
@@ -523,7 +530,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
       } else {
           echo json_encode ( array (
               'status' => false,
-              'code' => 3,
+              'code' => 4,
               'message' => $this->__('Please enter your email.')
           ) );
           return;
@@ -576,7 +583,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		echo json_encode ( array (
       'status' => true,
       'code' => 0,
-      'message' =>Mage::helper ( 'customer' )->__ ('Password Reset Success')
+      'message' =>Mage::helper ( 'customer' )->__ ('密码重置成功，你将会收到一条密码短信，可以使用该新密码进行登录。')
 			) );
 			return ;
 	}
