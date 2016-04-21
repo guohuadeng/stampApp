@@ -3,9 +3,9 @@
 .results table tr th,.results table tr td{padding:5px;  border-bottom: 1px solid #333;border-right: 1px solid #333;}
 .results table tr .last{border-right:none;}
 .toolbar  {display: none!important;}
-.stampcustomer{top: 0px; right: 0px;      z-index: 99;    background-color: #f4f4f4;  padding: 10px 30px 10px;display:none;}
+.stampcustomer{top: 0px; right: 0px;background-color: #f7f7f7;z-index: 99;padding: 10px 0px 30px 0px;display:none;}
 .catalog-product-view .col-main{position: relative;}
-.stampcustomer .fieldset{margin: 5px 0;}
+.stampcustomer .fieldset{margin: 5px;}
 .stampcustomer a.close{font-size: 3em;}
 .stampcustomer .form-list .form-control{width:70%; float: right;}
 .stampcustomer .form-list  label{width: 28%;line-height: 30px;    float: left;}

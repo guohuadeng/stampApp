@@ -102,7 +102,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 				return;
 			}else{
 				$result['status'] = false;
-				$result['message'] = urlencode($this->__('结果为空!'));
+				$result['message'] = urlencode($this->__('搜索结果为空，请更改搜索条件或者手工输入！'));
 				$response = Mage::helper('core')->jsonEncode($result);
 				$this->getResponse()->setBody(urldecode($response));
 				return;
@@ -129,19 +129,19 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 		switch($verification){
 			case 1:
 				$result['status'] = false;
-				$result['message'] = urlencode($this->__('查询条件不能为空!'));
+				$result['message'] = '<h2 class="error">'.urlencode($this->__('查询条件不能为空!')).'</h2>';
 				$response = Mage::helper('core')->jsonEncode($result);
 				$this->getResponse()->setBody(urldecode($response));
 				return;
 			case 2:
 				$result['status'] = false;
-				$result['message'] = urlencode($this->__('姓名至少2字!'));
+				$result['message'] = '<h2 class="error">'.urlencode($this->__('姓名至少2字!')).'</h2>';
 				$response = Mage::helper('core')->jsonEncode($result);
 				$this->getResponse()->setBody(urldecode($response));
 				return;
 			case 3:
 				$result['status'] = false;
-				$result['message'] = urlencode($this->__('公司至少2字!'));
+				$result['message'] = '<h2 class="error">'.urlencode($this->__('公司至少2字!')).'</h2>';
 				$response = Mage::helper('core')->jsonEncode($result);
 				$this->getResponse()->setBody(urldecode($response));
 				return;
@@ -180,7 +180,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 
 			if(count($collection)>0){
 				$html = '';
-				$html .= '<table class="table table-hover table-striped table-bordered">
+				$html .= '<div class="table-responsive"><table class="table table-condensed table-hover table-bordered">
 						<tr>
 							<th>序号</th>
 							<th>姓名</th>
@@ -205,7 +205,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 					$html .= '<td class="a_expdate">'.$c->getAExpdate().'</td>';
 					$html .= '</tr>';
 				}
-				$html .= '</table>';
+				$html .= '</table></div>';
 				$html .='<script type="text/javascript">
 				jQuery(function($){
 					$(".info").click(function(){
@@ -246,7 +246,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 				return;
 			}else{
 				$result['status'] = false;
-				$result['message'] = urlencode($this->__('结果为空!'));
+				$result['message'] = '<h2 class="error">'.urlencode($this->__('搜索结果为空，请更改搜索条件或者手工输入！')).'</h2>';
 				$response = Mage::helper('core')->jsonEncode($result);
 				$this->getResponse()->setBody(urldecode($response));
 				return;

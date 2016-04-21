@@ -37,7 +37,7 @@
 			</ul>
 		</div>
 	</form>
-	<div class="row">
+	<div class="row" style="margin:5px">
 	  <div class="pull-left"><a class="close">×</a>&nbsp;海量执业注册师数据</div>
 	  <button type="button" class="col-xs-5 col-md-4 btn btn-lg btn-primary pull-right" onclick="AjaxStampcustomer.submit(this)"><?php echo $this->__("Search");?></button>
 	</div>
@@ -134,7 +134,7 @@
 				$("#tab_review_tabbed").addClass("active");
 				$("#tab_description_tabbed_contents").toggle();
 				$("#tab_review_tabbed_contents").toggle();
-				console.log("lll");
+				$(".stampcustomer").hide();
 			})
 		})
 	//]}>
