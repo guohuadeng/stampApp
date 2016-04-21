@@ -9,7 +9,8 @@
  * @copyright  Copyright (c) 2008-2015 Sunpop Ltd. (http://www.sunpop.cn)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Origin: *');
+header('P3P: CP=CAO PSA OUR');
 class Sunpop_RestConnect_CatalogController extends Mage_Core_Controller_Front_Action {
 	public function categoryTreeAction() {
     $_helper = Mage::helper ( 'catalog/category' );

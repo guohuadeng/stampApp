@@ -1,4 +1,16 @@
 <?php
+/**
+ * * NOTICE OF LICENSE
+ * * This source file is subject to the Open Software License (OSL 3.0)
+ *
+ * Author: Ivan Deng
+ * QQ: 300883
+ * Email: 300883@qq.com
+ * @copyright  Copyright (c) 2008-2015 Sunpop Ltd. (http://www.sunpop.cn)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+header('Access-Control-Allow-Origin: *');
+header('P3P: CP=CAO PSA OUR');
 class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Action{
     /* public function IndexAction() {
 
@@ -77,7 +89,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 				$collection->addFieldToFilter('a_certspec', array('like' => "%".trim($data['a_certspec'])."%"));
 			}
 			$collection->addFieldToFilter('status', array('eq' => 1));
-			//$collection->setPageSize(20)->setCurPage(1);
+			$collection->setPageSize(30)->setCurPage(1);
 
 
 			if(count($collection)>0){

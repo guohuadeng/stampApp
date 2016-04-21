@@ -9,7 +9,8 @@
  * @copyright  Copyright (c) 2008-2015 Sunpop Ltd. (http://www.sunpop.cn)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Origin: *');
+header('P3P: CP=CAO PSA OUR');
 class Sunpop_RestConnect_ItemsController extends Mage_Core_Controller_Front_Action {
 	protected $_keepFrame = true;
 	protected $_keepAspectRatio = true; // false stretch the image
