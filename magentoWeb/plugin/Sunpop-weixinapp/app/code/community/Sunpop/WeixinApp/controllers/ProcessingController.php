@@ -23,7 +23,7 @@ class Sunpop_WeixinApp_ProcessingController extends Mage_Core_Controller_Front_A
     public function redirectAction()
     {
         try {
-            $request = $this->getRequest()->getQuery();
+            $request = $this->getRequest()->getParams();
 
             if (isset($request['orderId']) && $request['orderId'] > '') {
                 $orderId = $request['orderId'];

@@ -210,13 +210,20 @@ class Alipaymate_WeixinMobile_Model_Payment extends Mage_Payment_Model_Method_Ab
                 return false;
             }
 
-            if ($order->getStatus() != 'pending') {
+            if ($order->getState() != 'new') {
                 return false;
             }
 
+	        //此处改成所有微信都可以
 	        if ($order->getPayment()->getMethodInstance()->getCode() != $this->getCode()) {
 	            return false;
 	        }
+	        /*改成所有微信都可以失败，后续再处理
+	          $paymentAllow = array("weixin", "weixinmobile", "weixinapp");
+	          if (!in_array($order->getPayment()->getMethodInstance()->getCode(), $paymentAllow)) {
+                return false;
+	          }*/
+
         } catch (Exception $e) {
             return false;
         }

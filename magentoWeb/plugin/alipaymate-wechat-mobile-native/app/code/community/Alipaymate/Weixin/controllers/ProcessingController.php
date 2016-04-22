@@ -28,7 +28,7 @@ class Alipaymate_Weixin_ProcessingController extends Mage_Core_Controller_Front_
     public function redirectAction()
     {
         try {
-            $request = $this->getRequest()->getQuery();
+            $request = $this->getRequest()->getParams();
 
             if (isset($request['orderId']) && $request['orderId'] > '') {
                 $orderId = $request['orderId'];
@@ -36,7 +36,6 @@ class Alipaymate_Weixin_ProcessingController extends Mage_Core_Controller_Front_
                 $session = $this->_getCheckout();
                 $orderId = $session->getLastRealOrderId();
             }
-
             $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 
             if (!$order->getId()) {

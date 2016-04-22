@@ -713,7 +713,28 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 
       if (!$order->getId()) {
           Mage::throwException(Mage::helper('weixinapp')->__('No order for processing'));
+          echo json_encode ( array (
+                       'status' => false,
+                       'code' => 2,
+                       'message' => '没有找到可操作的订单。'
+                   ));
+          return;
         }
+      if ($order->getState() != 'pending') {
+                return false;
+            }
+
+	        if ($order->getPayment()->getMethodInstance()->getCode() != $this->getCode()) {
+	            return false;
+	        }
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
+	}
+
+
       if ($order->getPayment()->getMethodInstance()->getCode() == 'weixinapp')  {
         $payment = Mage::getModel('weixinapp/payment');
         $config = $payment->prepareConfig();
@@ -724,7 +745,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
         $app = Mage::getModel('weixinapp/app');
         echo json_encode( $app->payment($config));
         } else  {
-       echo json_encode ( array (
+        echo json_encode ( array (
                      'status' => false,
                      'code' => 2,
                      'message' => '重新支付功能暂时只支持微信App支付。'
