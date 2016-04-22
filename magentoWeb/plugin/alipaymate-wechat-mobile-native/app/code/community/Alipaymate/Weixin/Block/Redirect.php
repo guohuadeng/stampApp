@@ -55,6 +55,7 @@ class Alipaymate_Weixin_Block_Redirect extends Mage_Core_Block_Abstract
             <div class="tip-text">
                 <p>请使用微信扫一扫</p>
                 <p>扫描二维码完成支付</p>
+                <p>微信内请长按二维码并识别</p>
             </div>
         </div>
      </div>
