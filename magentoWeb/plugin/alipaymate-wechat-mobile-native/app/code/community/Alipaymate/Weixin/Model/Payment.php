@@ -220,7 +220,7 @@ class Alipaymate_Weixin_Model_Payment extends Mage_Payment_Model_Method_Abstract
                 return false;
             }
 
-            if ($order->getStatus() != 'pending') {
+            if ($order->getState() != 'new') {
                 return false;
             }
 
