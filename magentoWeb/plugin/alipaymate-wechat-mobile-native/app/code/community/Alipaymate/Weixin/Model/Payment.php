@@ -224,15 +224,13 @@ class Alipaymate_Weixin_Model_Payment extends Mage_Payment_Model_Method_Abstract
                 return false;
             }
 
-            if ($this->isWeixinBrowser()) {//微信公众号或手机网页必须到公众号js支付
+            if ($this->isWeixinBrowser()) {//微信公众号支付必须到公众号内才显示
                 return false;
             }
-
-
-/*
-            if ($order->getPayment()->getMethodInstance()->getCode() != $this->getCode()) {
+            //微信扫码的不能换成微信公众号的支付，反之亦然，APP内的是另外的商户号，不受影响
+            if ($order->getPayment()->getMethodInstance()->getCode() == 'weixinmobile') {
                 return false;
-            }*/
+            }
         } catch (Exception $e) {
             return false;
         }

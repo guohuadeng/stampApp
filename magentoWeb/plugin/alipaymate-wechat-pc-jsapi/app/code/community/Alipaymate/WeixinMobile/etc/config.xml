@@ -85,7 +85,7 @@
                   <debug>1</debug>
                   <order_status_payment_accepted>processing</order_status_payment_accepted>
                   <allowspecific>0</allowspecific>
-                  <license>87e84ee1027ce96cfe12e13000ac0b0fb17cd68b</license>
+                  <license>1c953fb1676e2781939713d8e25229f9010d5d49</license>
             </weixinmobile>
         </payment>
     </default>

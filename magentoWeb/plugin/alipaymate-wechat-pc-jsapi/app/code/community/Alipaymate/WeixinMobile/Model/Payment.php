@@ -179,9 +179,9 @@ class Alipaymate_WeixinMobile_Model_Payment extends Mage_Payment_Model_Method_Ab
         return Mage::getUrl('weixinmobile/processing/redirect', array('_secure' => true));
     }
 
-	public function getReturnURL()
+	public function getReturnURL($orderId)
 	{
-        return Mage::getUrl('weixinmobile/processing/return/', array('_secure' => true));
+        return Mage::getUrl('weixinmobile/processing/return/', array('_secure' => true,'orderId' => $orderId));
 	}
 
 	public function getNotifyURL()
@@ -189,9 +189,9 @@ class Alipaymate_WeixinMobile_Model_Payment extends Mage_Payment_Model_Method_Ab
 		return Mage::getUrl('weixinmobile/processing/notify/', array('_secure' => true));
 	}
 
-	public function getPaidURL()
+	public function getPaidURL($orderId)
 	{
-        return Mage::getUrl('weixinmobile/processing/paid/', array('_secure' => true));
+        return Mage::getUrl('weixinmobile/processing/paid/', array('_secure' => true,'orderId' => $orderId));
 	}
 
 	public function getCode()
@@ -210,19 +210,17 @@ class Alipaymate_WeixinMobile_Model_Payment extends Mage_Payment_Model_Method_Ab
                 return false;
             }
 
-            if ($order->getState() != 'new') {
+            if (!$order->canInvoice()) {
                 return false;
             }
 
-	        //此处改成所有微信都可以
-	        if ($order->getPayment()->getMethodInstance()->getCode() != $this->getCode()) {
-	            return false;
-	        }
-	        /*改成所有微信都可以失败，后续再处理
-	          $paymentAllow = array("weixin", "weixinmobile", "weixinapp");
-	          if (!in_array($order->getPayment()->getMethodInstance()->getCode(), $paymentAllow)) {
+            if (!$this->isWeixinBrowser()) {//微信公众号支付必须到公众号内才显示
                 return false;
-	          }*/
+            }
+            //微信扫码的不能换成微信公众号的支付，反之亦然，APP内的是另外的商户号，不受影响
+            if ($order->getPayment()->getMethodInstance()->getCode() == 'weixin') {
+                return false;
+            }
 
         } catch (Exception $e) {
             return false;

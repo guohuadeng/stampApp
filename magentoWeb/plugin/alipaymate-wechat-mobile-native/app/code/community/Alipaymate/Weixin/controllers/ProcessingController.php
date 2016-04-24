@@ -32,7 +32,7 @@ class Alipaymate_Weixin_ProcessingController extends Mage_Core_Controller_Front_
             $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 
             if (!$order->getId()) {
-                Mage::throwException('No order for processing found');
+                Mage::throwException('No order for processing');
             }
 
             $this->getResponse()->setBody($this->getLayout()->createBlock('weixin/redirect')->toHtml());
@@ -150,28 +150,38 @@ class Alipaymate_Weixin_ProcessingController extends Mage_Core_Controller_Front_
                 $order->loadByIncrementId($orderId);
 
                 if ($order->canInvoice()) {
-                    // make invoice
-
-                    $invoice = $order->prepareInvoice();
-                    $invoice->register()->capture();
-                    Mage::getModel('core/resource_transaction')
-                        ->addObject($invoice)
-                        ->addObject($invoice->getOrder())
-                        ->save();
-
                     $status = Mage::getStoreConfig('payment/weixin/order_status_payment_accepted');
+                    $paymentcode = $order->getPayment()->getMethodInstance()->getCode();
+                    $message = '';
+                    //change payment，and log，这是因为要适用于所有类型的微信支付
+                    $payment = $order->getPayment();
+                    if ($paymentcode!='weixin') {
+                      $message = 'Payment change:'.$paymentcode.'>>weixin. ';
+                      $payment->setMethod('weixin'); // Assuming 'test' is updated payment method
+                      $payment->save();
+                      $helper->log('order payment', $message);
+                      }
 
                     $helper->log('order status', $status);
 
                     if (! $status) {
                         $status = Mage_Sales_Model_Order::STATE_PROCESSING;
                     }
+                    $message = $message.Mage::helper('weixin')->__('Payment successful') ;
 
-                    $order->addStatusToHistory($status, Mage::helper('weixin')->__('Payment successful'));
+                    $order->addStatusToHistory($status, $message);
                     $order->sendNewOrderEmail();
                     $order->setEmailSent(true);
                     $order->setIsCustomerNotified(true);
                     $order->save();
+
+                    // make invoice
+                    $invoice = $order->prepareInvoice();
+                    $invoice->register()->capture();
+                    Mage::getModel('core/resource_transaction')
+                        ->addObject($invoice)
+                        ->addObject($invoice->getOrder())
+                        ->save();
                 }
 
                 $this->success();
