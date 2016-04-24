@@ -28,14 +28,7 @@ class Alipaymate_Weixin_ProcessingController extends Mage_Core_Controller_Front_
     public function redirectAction()
     {
         try {
-            $request = $this->getRequest()->getParams();
-
-            if (isset($request['orderId']) && $request['orderId'] > '') {
-                $orderId = $request['orderId'];
-            } else {
-                $session = $this->_getCheckout();
-                $orderId = $session->getLastRealOrderId();
-            }
+            $orderId = $this->_getOrderId();
             $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 
             if (!$order->getId()) {
@@ -61,16 +54,23 @@ class Alipaymate_Weixin_ProcessingController extends Mage_Core_Controller_Front_
      */
     public function returnAction()
     {
-        $session = $this->_getCheckout();
 
         try {
+            $orderId = $this->_getOrderId();
             $order = Mage::getModel('sales/order');
-            $order->loadByIncrementId($session->getLastRealOrderId());
+            $order->loadByIncrementId($orderId);
+            $order_id = $order->getId();
 
             $status = $order->getStatus();
 
             if ($status == Mage_Sales_Model_Order::STATE_PROCESSING || $status=='payment_success') {
-                header('Location: ' . Mage::getUrl('checkout/onepage/success', array('_secure' => true)));
+                //header('Location: ' . Mage::getUrl('checkout/onepage/success', array('_secure' => true)));
+                header('Location: ' . Mage::getUrl('sales/order/view', array(
+                  '_secure' => true,
+                  'order_id' => $order_id,
+                  'status' => true,
+                  'message' => Mage::helper('checkout')->__('Thank you for your purchase!')
+                )));
                 exit();
             }
         } catch(Exception $e) {
@@ -88,8 +88,8 @@ class Alipaymate_Weixin_ProcessingController extends Mage_Core_Controller_Front_
         $session = $this->_getCheckout();
 
         try {
-            $order = Mage::getModel('sales/order');
-            $order->loadByIncrementId($session->getLastRealOrderId());
+            $orderId = $this->_getOrderId();
+            $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 
             $status = $order->getStatus();
 
@@ -149,16 +149,15 @@ class Alipaymate_Weixin_ProcessingController extends Mage_Core_Controller_Front_
                 $order = Mage::getModel('sales/order');
                 $order->loadByIncrementId($orderId);
 
-                if ($order->getStatus() == 'pending') {
+                if ($order->canInvoice()) {
                     // make invoice
-                    if ($order->canInvoice()) {
-                        $invoice = $order->prepareInvoice();
-                        $invoice->register()->capture();
-                        Mage::getModel('core/resource_transaction')
-                            ->addObject($invoice)
-                            ->addObject($invoice->getOrder())
-                            ->save();
-                    }
+
+                    $invoice = $order->prepareInvoice();
+                    $invoice->register()->capture();
+                    Mage::getModel('core/resource_transaction')
+                        ->addObject($invoice)
+                        ->addObject($invoice->getOrder())
+                        ->save();
 
                     $status = Mage::getStoreConfig('payment/weixin/order_status_payment_accepted');
 
@@ -200,4 +199,21 @@ class Alipaymate_Weixin_ProcessingController extends Mage_Core_Controller_Front_
         exit();
     }
 
+    /**
+     * Get orderID model
+     *
+     * @return orderId
+     */
+    private function _getOrderId()
+    {
+        $request = $this->getRequest()->getParams();
+
+        if (isset($request['orderId']) && $request['orderId'] > '') {
+            $orderId = $request['orderId'];
+        } else {
+            $session = $this->_getCheckout();
+            $orderId = $session->getLastRealOrderId();
+        }
+		  return $orderId;
+    }
 }
