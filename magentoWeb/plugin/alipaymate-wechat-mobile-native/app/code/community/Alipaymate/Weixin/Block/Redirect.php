@@ -77,12 +77,14 @@ jQuery(document).ready(function($) {
                 { url: "{$paidUrl}", 
                   success: function(data) {                    
                     if ($.trim(data) == 'ok') {
+                      setTimeout(function() {
                         $(window.location).attr('href', '{$returnUrl}');
+                        },1000);
                     }
                 }, 
                 complete: poll 
            });
-        }, 5000);
+        }, 3000);
     })();
 });
 </script>
