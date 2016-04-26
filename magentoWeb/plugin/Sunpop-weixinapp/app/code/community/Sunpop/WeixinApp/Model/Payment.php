@@ -23,10 +23,7 @@ class Sunpop_WeixinApp_Model_Payment extends Mage_Payment_Model_Method_Abstract
 
     public function __construct()
     {
-        if (!$this->isWeixinBrowser()) {
-            $this->_canUseCheckout = false;
-        }
-        
+        $this->_canUseCheckout = false;
         parent::__construct();
     }
 
