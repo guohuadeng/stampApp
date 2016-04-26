@@ -28,6 +28,13 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
         'global'    =>  array('entity_id', 'attribute_set_id', 'entity_type_id')
 		);
 
+    public function testAction()
+    {
+		$increment_id = $this->getRequest()->getParam('increment_id');
+		if (!$increment_id) $increment_id = '100000307';
+		$order = $this->_initOrder($increment_id);
+		var_dump(get_class_methods($order));
+    }
 	/* *
 	*@param string $orderType  为空获取所有订单 ,notpaid, 未付款 , notshipped 未发货 , notreceived 待收货 ,complete  完成
 	*@param int $page ,int $limit,

@@ -70,7 +70,9 @@ class Alipaymate_WeixinMobile_Block_Redirect extends Mage_Core_Block_Abstract
 	        		{$jsapi_parameters},
 	        		function(res){
                         if (res.err_msg == 'get_brand_wcpay_request:ok') {
+                           setTimeout(function() {
                              window.location.href = "{$returnUrl}";
+                             }，1000);
                         }
 	        		}
 	        	);

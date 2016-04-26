@@ -77,7 +77,7 @@ jQuery(document).ready(function($) {
                 { url: "{$paidUrl}", 
                   success: function(data) {                    
                     if ($.trim(data) == 'ok') {
-                      setTimeout(function() {
+                      setTimeout(function() { //因为支付后订单仍要变更状态，故增加一点处理时间
                         $(window.location).attr('href', '{$returnUrl}');
                         },1000);
                     }

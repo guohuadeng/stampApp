@@ -122,35 +122,45 @@ class Sunpop_WeixinApp_ProcessingController extends Mage_Core_Controller_Front_A
                 $order = Mage::getModel('sales/order');
                 $order->loadByIncrementId($orderId);
 
-                if ($order->getStatus() == 'pending') {
+                if ($order->canInvoice()) {
+                    $status = Mage::getStoreConfig('payment/weixin/order_status_payment_accepted');
+                    $paymentcode = $order->getPayment()->getMethodInstance()->getCode();
+                    $message = '';
+                    //change payment，and log，这是因为要适用于所有类型的微信支付
+                    $payment = $order->getPayment();
+                    if ($paymentcode!='weixinapp') {
+                      $message = 'Payment change:'.$paymentcode.'>>weixinapp. ';
+                      $payment->setMethod('weixinapp'); // Assuming 'test' is updated payment method
+                      $payment->save();
+                      $helper->log('order payment', $message);
+                      }
                     // make invoice
-                    if ($order->canInvoice()) {
-                        $invoice = $order->prepareInvoice();
-                        $invoice->register()->capture();
-                        Mage::getModel('core/resource_transaction')
-                            ->addObject($invoice)
-                            ->addObject($invoice->getOrder())
-                            ->save();
+                    $invoice = $order->prepareInvoice();
+                    $invoice->register()->capture();
+                    Mage::getModel('core/resource_transaction')
+                        ->addObject($invoice)
+                        ->addObject($invoice->getOrder())
+                        ->save();
+
+                    if ($order->canShip())  { //重新支付的话，如果已发货，则不需要再更改订单状态，开invoice已OK
+                      if (! $status) {
+                          $status = Mage_Sales_Model_Order::STATE_PROCESSING;
+                      }
+                      $helper->log('order status', $status);
+
+                      $message = $message.Mage::helper('weixinapp')->__('Payment successful') ;
+
+                      $order->addStatusToHistory($status, $message);
+                      $order->sendNewOrderEmail();
+                      $order->setEmailSent(true);
+                      $order->setIsCustomerNotified(true);
+                      $order->save();
                     }
-
-                    $status = Mage::getStoreConfig('payment/weixinapp/order_status_payment_accepted');
-
-                    $helper->log('order status', $status);
-
-                    if (! $status) {
-                        $status = Mage_Sales_Model_Order::STATE_PROCESSING;
-                    }
-                    
-                    $order->addStatusToHistory($status, Mage::helper('weixinapp')->__('Order status: payment successful'));
-                    $order->sendNewOrderEmail();
-                    $order->setEmailSent(true);
-                    $order->setIsCustomerNotified(true);
-                    $order->save();
                 }
 
                 $this->success();
             } catch (Exception $e) {
-                $helper->log('weixinapp-notify', $e->getMessage());
+                $helper->log('weixinapp-notify error', $e->getMessage());
                 $this->error();
             }
         }

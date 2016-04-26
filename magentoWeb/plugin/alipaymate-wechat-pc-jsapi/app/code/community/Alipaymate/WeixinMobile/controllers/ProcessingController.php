@@ -120,8 +120,9 @@ class Alipaymate_WeixinMobile_ProcessingController extends Mage_Core_Controller_
 
                 $order = Mage::getModel('sales/order');
                 $order->loadByIncrementId($orderId);
+
                 if ($order->canInvoice()) {
-                    $status = Mage::getStoreConfig('payment/weixin/order_status_payment_accepted');
+                    $status = Mage::getStoreConfig('payment/weixinmobile/order_status_payment_accepted');
                     $paymentcode = $order->getPayment()->getMethodInstance()->getCode();
                     $message = '';
                     //change payment，and log，这是因为要适用于所有类型的微信支付
@@ -132,20 +133,6 @@ class Alipaymate_WeixinMobile_ProcessingController extends Mage_Core_Controller_
                       $payment->save();
                       $helper->log('order payment', $message);
                       }
-
-                    $helper->log('order status', $status);
-
-                    if (! $status) {
-                        $status = Mage_Sales_Model_Order::STATE_PROCESSING;
-                    }
-                    $message = $message.Mage::helper('weixinmobile')->__('Payment successful') ;
-
-                    $order->addStatusToHistory($status, $message);
-                    $order->sendNewOrderEmail();
-                    $order->setEmailSent(true);
-                    $order->setIsCustomerNotified(true);
-                    $order->save();
-
                     // make invoice
                     $invoice = $order->prepareInvoice();
                     $invoice->register()->capture();
@@ -153,11 +140,26 @@ class Alipaymate_WeixinMobile_ProcessingController extends Mage_Core_Controller_
                         ->addObject($invoice)
                         ->addObject($invoice->getOrder())
                         ->save();
+
+                    if ($order->canShip())  { //重新支付的话，如果已发货，则不需要再更改订单状态，开invoice已OK
+                      if (! $status) {
+                          $status = Mage_Sales_Model_Order::STATE_PROCESSING;
+                      }
+                      $helper->log('order status', $status);
+
+                      $message = $message.Mage::helper('weixinmobile')->__('Payment successful') ;
+
+                      $order->addStatusToHistory($status, $message);
+                      $order->sendNewOrderEmail();
+                      $order->setEmailSent(true);
+                      $order->setIsCustomerNotified(true);
+                      $order->save();
+                    }
                 }
 
                 $this->success();
             } catch (Exception $e) {
-                $helper->log('weixinmobile-notify', $e->getMessage());
+                $helper->log('weixinmobile-notify error', $e->getMessage());
                 $this->error();
             }
         }
