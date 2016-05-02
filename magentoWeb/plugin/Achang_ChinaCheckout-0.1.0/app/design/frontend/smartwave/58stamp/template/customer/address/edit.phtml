@@ -81,7 +81,7 @@
                         </select>
                         <script type="text/javascript">
                         //<![CDATA[
-                            $('region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
+                            $('region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId()?$this->getAddress()->getRegionId():'519'; ?>");
                         //]]>
                         </script>
                         <input type="text" id="region" name="region" value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" />
@@ -131,8 +131,15 @@
                     </div>
                 </div>
             </li>
+            <li<?php if($this->canSetAsDefaultBilling()) echo ' class="control"' ?>>
+                <?php if($this->isDefaultBilling()): ?>
+                    <strong><?php echo $this->__('Default Shipping Address') ?></strong>
+                <?php elseif($this->canSetAsDefaultBilling()): ?>
+                    <input type="checkbox" id="primary_billing" name="default_billing" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Use as My Default Shipping Address')) ?>" class="checkbox" /><label for="primary_billing"><?php echo $this->__('Use as my default shipping address') ?></label>
+                <?php else: ?>
                     <input type="hidden" name="default_billing" value="1" />
-                    <input type="hidden" name="default_shipping" value="1" />
+                <?php endif; ?>
+            </li>
         </ul>
     </div>
     <div class="buttons-set">

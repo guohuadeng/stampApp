@@ -177,14 +177,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			$data = $this->_baseInfo($order);
 			$shipment = $order->getShipmentsCollection()->getFirstItem();
 			$invoicees = $order->getInvoiceCollection()->getFirstItem();
-			$data['isPaid'] = false;
-			if(($invoicees->getIncrementId())){
-				$data['isPaid'] = true;
-			}
-			$data['isShipped'] = false;
-			if(($shipment->getIncrementId())){
-				$data['isShipped'] = true;
-			}
+			$data['isPaid'] = !$order ->canInvoice();
+			$data['isShipped'] = !$order ->canShip();
 			$data['shipment_increment_id'] = $shipment->getIncrementId();
 			$data['invoice_increment_id'] = null;
 			if ($order->hasInvoices()) {

@@ -22,6 +22,8 @@
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/中国省地址中英文插件" web="/" />
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/Sunpop_AutoWishlist" web="/" />
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/magpleasure_orderstatus-1.2.3-ce" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/Achang_ChinaCheckout-0.1.0" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/SSTech_CancelOrder-0.0.1" web="/" />
           </mappings>
         </serverdata>
       </paths>
@@ -37,7 +39,8 @@
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/Sunpop-weixinapp" web="/" />
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-mobile-native" web="/" />
             <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/alipaymate-wechat-pc-jsapi" web="/" />
-            <mapping local="" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/Achang_ChinaCheckout-0.1.0" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/magentoWeb/plugin/magpleasure_orderstatus-1.2.3-ce" web="/" />
           </mappings>
         </serverdata>
       </paths>
