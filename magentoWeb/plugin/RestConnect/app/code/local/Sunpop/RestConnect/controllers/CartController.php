@@ -42,7 +42,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         };
     }
     //返回微信app支付参数
-    protected function _paymentWeixinapp($order_id,$total_fee)
+    protected function _paymentWeixinapp($order_id)
     {
         try {
           if (isset($order_id) && $order_id > '') {
@@ -1198,7 +1198,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             } else if ($paymentcode == 'weixinapp') {
               $order->save();
               $order_id =  $order->getIncrementId();
-              $payconfig = $this->_paymentWeixinapp($order_id,$order->getGrandTotal());
+              $payconfig = $this->_paymentWeixinapp($order_id);
               $message = '生成订单 #'.$order_id.' 成功。';
               //$order->addStatusToHistory(Mage_Sales_Model_Order::STATE_PENDING,Mage_Sales_Model_Order::STATE_PENDING,$statusMessage, false);
               //$order->setState(Mage_Sales_Model_Order::STATE_PENDING,Mage_Sales_Model_Order::STATE_PENDING,$statusMessage, false);

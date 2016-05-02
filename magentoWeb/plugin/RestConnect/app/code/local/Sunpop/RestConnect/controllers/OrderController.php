@@ -711,26 +711,27 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
         }
 
       $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+      $payment = Mage::getModel('weixinapp/payment');
 
-      if (!$order->getId()) {
-          Mage::throwException(Mage::helper('weixinapp')->__('No order for processing'));
-        }
-      if ($order->getPayment()->getMethodInstance()->getCode() == 'weixinapp')  {
-        $payment = Mage::getModel('weixinapp/payment');
-        $config = $payment->prepareConfig();
-        $total_fee = $order->getGrandTotal()*100;
-        $config['body'] = '订单#'.$orderId.'-执业印章之家';
-        $config['order_id'] = $orderId;
-        $config['total_fee'] = $total_fee;
-        $app = Mage::getModel('weixinapp/app');
-        echo json_encode( $app->payment($config));
-        } else  {
-       echo json_encode ( array (
+      if (! $payment->canRepay($order))  {
+        echo json_encode ( array (
                      'status' => false,
                      'code' => 2,
-                     'message' => '重新支付功能暂时只支持微信App支付。'
+                     'message' => '此订单无法重新支付。'
                  ));
+        return;
         }
+
+      $payconfig = $this->_paymentWeixinapp($orderId);
+      echo json_encode(array(
+              'status' => true,
+              'code' => 0,
+              'message' => $message,
+              'statusMessage' => $statusMessage,
+              'order_id' => $order->getIncrementId(),
+              'payconfig' => $payconfig
+          ));
+      return;
     } catch (Mage_Core_Exception $e) {
         $this->_getCheckout()->addError($e->getMessage());
     } catch(Exception $e) {
@@ -868,4 +869,35 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
     return $data;
 	}
 
+    //返回微信app支付参数
+    protected function _paymentWeixinapp($order_id)
+    {
+        try {
+          if (isset($order_id) && $order_id > '') {
+              $orderId = $order_id;
+          } else {
+              $session = Mage::getSingleton('checkout/session');;
+              $orderId = $session->getLastRealOrderId();
+          }
+
+          $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+
+          if (!$order->getId()) {
+              Mage::throwException(Mage::helper('weixinapp')->__('No order for processing'));
+          }
+
+          $payment = Mage::getModel('weixinapp/payment');
+          $config = $payment->prepareConfig();
+          $total_fee = $order->getGrandTotal();
+
+          $config['body'] = '订单#'.$orderId.'-执业印章之家';
+          $config['order_id'] = $orderId;
+          $config['total_fee'] = $total_fee*100;
+
+          $app = Mage::getModel('weixinapp/app');
+          return $app->payment($config);
+        } catch(Exception $e) {
+            Mage::logException($e);
+        }
+    }
 }
