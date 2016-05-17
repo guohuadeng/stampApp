@@ -805,6 +805,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
     $data['status'] = $order->getStatus();
     $data['status_label'] = $order->getStatusLabel();
     $data['state'] = $order->getState();
+		$data['isPaid'] = !$order ->canInvoice();
+		$data['isShipped'] = !$order ->canShip();
     $data['customer_id'] = $order->getCustomerId();
     $data['grand_total'] = $order->getGrandTotal();
     $data['subtotal'] = $order->getSubtotal();
