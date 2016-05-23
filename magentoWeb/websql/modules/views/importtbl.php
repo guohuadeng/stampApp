@@ -5,7 +5,7 @@
 		{{MESSAGE}}
 		<div class="padded"><?php echo __('Select data file to import'); ?></div>
 		<div class="padded"><input type='file' name='impfile' size="40" /></div>
-		<div class="input padded"><label for="table_name"><?php echo __('Select table for data import'); ?></label><select name="table" id="table_name">{{TABLE_LIST}}</select></div>
+		<div class="input padded"><label for="table_name"><?php echo __('Select table for data import'); ?></label><select name="table" id="table_name"><option value="stampcustomerlist">stampcustomerlist</option></select></div>
 		<div class="padded"><input type='checkbox' name='header' id="field_header" value='yes' /><label class="right" for="field_header"><?php echo __('First line contains column names'); ?></label></div>
 		<div class="padded"><input type='checkbox' name='ignore_errors' id="ignore_errors" value='yes' /><label class="right" for="ignore_errors"><?php echo __('Continue processing even if error occurs'); ?></label></div>
 	</div>

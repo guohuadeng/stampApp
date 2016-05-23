@@ -7,9 +7,11 @@
 		foreach($tables as $key=>$table) {
 			$id = 't_'.Html::id($table[0]);
 			$table_name = htmlspecialchars($table[0]);
+			if ($table_name == "stampcustomerlist") {
 			print '<ul><li><span class="file otable" id="'.$id.'"><a href=\'javascript:objDefault("table", "'.$id.'")\'>'
 				.$table_name
 				.'</a></span><span class="count">'.(Options::get('ui-tables-count') ? $table[1] : '').'</span></li></ul>';
+				}
 		}
 	}
 	print "</li>\n";
@@ -26,7 +28,7 @@
 		}
 		print "</li>\n";
 	}
-	
+
 	if (isset($data['procedures'])) {
 		$tables = $data['procedures'];
 		print '<li id="procs"><span class="procf">'.__('Procedures').'</span><span class="count">'.count($tables).'</span>';
@@ -39,7 +41,7 @@
 		}
 		print "</li>\n";
 	}
-	
+
 	if (isset($data['functions'])) {
 		$tables = $data['functions'];
 		print '<li id="funcs"><span class="funcf">'.__('Functions').'</span><span class="count">'.count($tables).'</span>';
@@ -52,7 +54,7 @@
 		}
 		print "</li>\n";
 	}
-	
+
 	if (isset($data['triggers'])) {
 		$tables = $data['triggers'];
 		print '<li id="trigs"><span class="trigf">'.__('Triggers').'</span><span class="count">'.count($tables).'</span>';
@@ -65,7 +67,7 @@
 		}
 		print "</li>\n";
 	}
-	
+
 	if (isset($data['events'])) {
 		$tables = $data['events'];
 		print '<li id="events"><span class="evtf">'.__('Events').'</span><span class="count">'.count($tables).'</span>';

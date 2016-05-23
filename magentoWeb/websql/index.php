@@ -188,7 +188,7 @@
 				<div id="messages-div"></div>
 			</div>
 			<div id="tab-info" class="ui-widget">
-				<div id="info-div"></div>
+				<div id="info-div" style="display:none;"></div>
 			</div>
 			<div id="tab-history">
 				<table id="sql-history" width="100%"><tbody><tr><td></td></tr></tbody></table>
