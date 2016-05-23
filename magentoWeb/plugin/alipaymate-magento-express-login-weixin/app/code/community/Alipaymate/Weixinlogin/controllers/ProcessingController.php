@@ -32,7 +32,7 @@ class Alipaymate_Weixinlogin_ProcessingController extends Mage_Core_Controller_F
      */
     public function returnAction()
     {
-        $request = $this->getRequest()->getQuery();
+        $request = $this->getRequest()->getParams();
 
         $_helper = $this->_getHelper()->setReturnLog();
         $_helper->log('weixinlogin-return', $request);

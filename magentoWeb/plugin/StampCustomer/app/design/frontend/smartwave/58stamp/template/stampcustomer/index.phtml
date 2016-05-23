@@ -1,6 +1,5 @@
 <div class="stampcustomer">
 	<?php $product = Mage::registry('current_product');?>
-	<h1> <?php echo $product->getName(); ?><a class="close pull-right">×</a></h1>
 	<form action="<?php echo $this->getUrl('stampcustomer/index/ajax'); ?>" method="post" id="ajaxstampcustomer_form">
 		<?php echo $this->getBlockHtml('formkey'); ?>
 		<div class="fieldset">
@@ -38,10 +37,8 @@
 			</ul>
 		</div>
 	</form>
-	<div class="row">
-	  <div class="pull-left">
-	  直连职业注册师数据库
-	  </div>
+	<div class="row" style="margin:5px">
+	  <div class="pull-left"><a class="close">×</a>&nbsp;海量执业注册师数据</div>
 	  <button type="button" class="col-xs-5 col-md-4 btn btn-lg btn-primary pull-right" onclick="AjaxStampcustomer.submit(this)"><?php echo $this->__("Search");?></button>
 	</div>
 	<div class="results">
@@ -94,13 +91,40 @@
             }
         }.bind(AjaxStampcustomer);
 		jQuery(function($){
+		  $(".product-info .price-box").hide();
+		  $(".product-options-bottom").hide();
 		  $(".stampcustomer-container").append($(".stampcustomer"));
 			$(".yinke ul  li:eq(0)").append($(".yinke1").html() );
 			$(".yinke ul  li:eq(1)").append($(".yinke2").html() );
 			$(".yinke ul  li:eq(2)").append($(".yinke3").html() );
+			$(".yinke ul  li:eq(0) table").hide() ;
+			$(".yinke ul  li:eq(2) table").hide() ;
+
+			$(".yinke ul  li:eq(0)").click(function()  {
+		    $(".product-info .price-box").show();
+		    $(".product-options-bottom").show();
+			  $(".yinke ul  li:eq(0) table").show() ;
+			  $(".yinke ul  li:eq(1) table").hide() ;
+			  $(".yinke ul  li:eq(2) table").hide() ;
+			});
+			$(".yinke ul  li:eq(1)").click(function()  {
+		    $(".product-info .price-box").show();
+		    $(".product-options-bottom").show();
+			  $(".yinke ul  li:eq(0) table").hide() ;
+			  $(".yinke ul  li:eq(1) table").show() ;
+			  $(".yinke ul  li:eq(2) table").hide() ;
+			});
+			$(".yinke ul  li:eq(2)").click(function()  {
+		    $(".product-info .price-box").show();
+		    $(".product-options-bottom").show();
+			  $(".yinke ul  li:eq(0) table").hide() ;
+			  $(".yinke ul  li:eq(1) table").hide() ;
+			  $(".yinke ul  li:eq(2) table").show() ;
+			});
+
+
 			$(".entry").click(function(){
 				$(".stampcustomer").toggle();
-
 			});
 			$(".stampcustomer .close").click(function(){
 				$(".stampcustomer").hide();
@@ -110,7 +134,7 @@
 				$("#tab_review_tabbed").addClass("active");
 				$("#tab_description_tabbed_contents").toggle();
 				$("#tab_review_tabbed_contents").toggle();
-				console.log("lll");
+				$(".stampcustomer").hide();
 			})
 		})
 	//]}>

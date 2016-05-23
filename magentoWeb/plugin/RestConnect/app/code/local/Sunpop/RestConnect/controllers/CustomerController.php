@@ -473,8 +473,73 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		}
 	}
 
+    /**
+     * Forgot customer password action
+     */
+  public function forgotpwdAction()
+  {
+      $email = (string) Mage::app ()->getRequest ()->getParam ( 'email' );
+		  $session = Mage::getSingleton ( 'customer/session' );
+      if ($email) {
+          if (!Zend_Validate::is($email, 'EmailAddress')) {
+              $session->setForgottenEmail($email);
+              echo json_encode ( array (
+                  'status' => false,
+                  'code' => 1,
+                  'message' => $this->__('Invalid email address.')
+              ) );
+              return;
+          }
+
+          /** @var $customer Mage_Customer_Model_Customer */
+          $customer = $this->_getModel('customer/customer')
+              ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+              ->loadByEmail($email);
+
+          if ($customer->getId()) {
+              try {
+                  $newResetPasswordLinkToken =  $this->_getHelper('customer')->generateResetPasswordLinkToken();
+                  $customer->changeResetPasswordLinkToken($newResetPasswordLinkToken);
+                  $customer->sendPasswordResetConfirmationEmail();
+              } catch (Exception $exception) {
+                  echo json_encode ( array (
+                      'status' => false,
+                      'code' => 2,
+                      'message' => $this->__($exception->getMessage())
+                  ) );
+                  return;
+              }
+          } else {
+            echo json_encode ( array (
+                'status' => false,
+                'code' => 3,
+                'message' => $this->__('Invalid email address.')
+            ) );
+            return;
+          }
+          $message = $this->_getHelper('customer')
+              ->__('If there is an account associated with %s you will receive an email with a link to reset your password.',
+                $this->_getHelper('customer')->escapeHtml($email));
+
+          echo json_encode ( array (
+              'status' => true,
+              'code' => 0,
+              'message' => $message
+          ) );
+          return;
+      } else {
+          echo json_encode ( array (
+              'status' => false,
+              'code' => 4,
+              'message' => $this->__('Please enter your email.')
+          ) );
+          return;
+      }
+  }
+
+  //电话直接重置
 	public function mobileResetPwdAction(){
-		$mobil = Mage::app ()->getRequest ()->getParam ('mobil');
+		$mobil = Mage::app ()->getRequest ()->getParam ('default_mobile_number');
 		if(!$mobil){
 			echo json_encode ( array (
         'status' => false,
@@ -518,7 +583,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		echo json_encode ( array (
       'status' => true,
       'code' => 0,
-      'message' =>Mage::helper ( 'customer' )->__ ('Password Reset Success')
+      'message' =>Mage::helper ( 'customer' )->__ ('密码重置成功，你将会收到一条密码短信，可以使用该新密码进行登录。')
 			) );
 			return ;
 	}
@@ -629,30 +694,6 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		}
 	}
 
-	public function forgotpwdAction() {
-		$email = Mage::app ()->getRequest ()->getParam ( 'email' );
-		$session = Mage::getSingleton ( 'customer/session' );
-		$customer = Mage::registry ( 'current_customer' );
-		if (is_null ( $customer )) {
-			$customer = Mage::getModel ( 'customer/customer' )->setId ( null );
-		}
- 		if ($this->_user_isexists ( $email )) {
-			$customer = Mage::getModel ( 'customer/customer' )->setWebsiteId ( Mage::app ()->getStore ()->getWebsiteId () )->loadByEmail ( $email );
-			$this->_sendEmailTemplate ( $customer,self::XML_PATH_FORGOT_EMAIL_TEMPLATE, self::XML_PATH_FORGOT_EMAIL_IDENTITY, array (
-					'customer' => $customer
-			), $storeId );
-			echo json_encode ( array (
-			    'status' => true,
-					'code' => 0,
-					'message' => Mage::helper ( 'customer' )->__ ('Request has sent to your Email.')
-			) );
-		} else
-			echo json_encode ( array (
-			    'status' => false,
-					'code' => 1,
-					'message' => Mage::helper ( 'customer' )->__ ('No matched email data.')
-			) );
-	}
 	public function logoutAction() {
 		try {
 			Mage::getSingleton ( 'customer/session' )->logout();
@@ -1153,4 +1194,35 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		}
 	}
 
+    /**
+     * Retrieve customer session model object
+     *
+     * @return Mage_Customer_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('customer/session');
+    }
+    /**
+     * Get model by path
+     *
+     * @param string $path
+     * @param array|null $arguments
+     * @return false|Mage_Core_Model_Abstract
+     */
+    public function _getModel($path, $arguments = array())
+    {
+        return Mage::getModel($path, $arguments);
+    }
+
+    /**
+     * Get Helper
+     *
+     * @param string $path
+     * @return Mage_Core_Helper_Abstract
+     */
+    protected function _getHelper($path)
+    {
+        return Mage::helper($path);
+    }
 }

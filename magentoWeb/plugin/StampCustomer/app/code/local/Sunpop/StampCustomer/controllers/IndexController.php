@@ -1,4 +1,16 @@
 <?php
+/**
+ * * NOTICE OF LICENSE
+ * * This source file is subject to the Open Software License (OSL 3.0)
+ *
+ * Author: Ivan Deng
+ * QQ: 300883
+ * Email: 300883@qq.com
+ * @copyright  Copyright (c) 2008-2015 Sunpop Ltd. (http://www.sunpop.cn)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+header('Access-Control-Allow-Origin: *');
+header('P3P: CP=CAO PSA OUR');
 class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Action{
     /* public function IndexAction() {
 
@@ -77,7 +89,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 				$collection->addFieldToFilter('a_certspec', array('like' => "%".trim($data['a_certspec'])."%"));
 			}
 			$collection->addFieldToFilter('status', array('eq' => 1));
-			//$collection->setPageSize(20)->setCurPage(1);
+			$collection->setPageSize(30)->setCurPage(1);
 
 
 			if(count($collection)>0){
@@ -102,7 +114,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 				return;
 			}else{
 				$result['status'] = false;
-				$result['message'] = urlencode($this->__('结果为空!'));
+				$result['message'] = urlencode($this->__('搜索结果为空，请更改搜索条件或者手工输入！'));
 				$response = Mage::helper('core')->jsonEncode($result);
 				$this->getResponse()->setBody(urldecode($response));
 				return;
@@ -129,19 +141,19 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 		switch($verification){
 			case 1:
 				$result['status'] = false;
-				$result['message'] = urlencode($this->__('查询条件不能为空!'));
+				$result['message'] = '<h2 class="error">'.urlencode($this->__('查询条件不能为空!')).'</h2>';
 				$response = Mage::helper('core')->jsonEncode($result);
 				$this->getResponse()->setBody(urldecode($response));
 				return;
 			case 2:
 				$result['status'] = false;
-				$result['message'] = urlencode($this->__('姓名至少2字!'));
+				$result['message'] = '<h2 class="error">'.urlencode($this->__('姓名至少2字!')).'</h2>';
 				$response = Mage::helper('core')->jsonEncode($result);
 				$this->getResponse()->setBody(urldecode($response));
 				return;
 			case 3:
 				$result['status'] = false;
-				$result['message'] = urlencode($this->__('公司至少2字!'));
+				$result['message'] = '<h2 class="error">'.urlencode($this->__('公司至少2字!')).'</h2>';
 				$response = Mage::helper('core')->jsonEncode($result);
 				$this->getResponse()->setBody(urldecode($response));
 				return;
@@ -180,7 +192,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 
 			if(count($collection)>0){
 				$html = '';
-				$html .= '<table class="table table-hover table-striped table-bordered">
+				$html .= '<div class="table-responsive"><table class="table table-condensed table-hover table-bordered">
 						<tr>
 							<th>序号</th>
 							<th>姓名</th>
@@ -205,7 +217,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 					$html .= '<td class="a_expdate">'.$c->getAExpdate().'</td>';
 					$html .= '</tr>';
 				}
-				$html .= '</table>';
+				$html .= '</table></div>';
 				$html .='<script type="text/javascript">
 				jQuery(function($){
 					$(".info").click(function(){
@@ -246,7 +258,7 @@ class Sunpop_StampCustomer_IndexController extends Mage_Core_Controller_Front_Ac
 				return;
 			}else{
 				$result['status'] = false;
-				$result['message'] = urlencode($this->__('结果为空!'));
+				$result['message'] = '<h2 class="error">'.urlencode($this->__('搜索结果为空，请更改搜索条件或者手工输入！')).'</h2>';
 				$response = Mage::helper('core')->jsonEncode($result);
 				$this->getResponse()->setBody(urldecode($response));
 				return;

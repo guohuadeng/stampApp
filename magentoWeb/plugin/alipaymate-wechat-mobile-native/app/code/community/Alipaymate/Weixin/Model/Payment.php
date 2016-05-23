@@ -25,7 +25,7 @@ class Alipaymate_Weixin_Model_Payment extends Mage_Payment_Model_Method_Abstract
 
     public function __construct()
     {
-        if ($this->isWeixinBrowser() || $this->isMobileBrowser()) {
+        if ($this->isWeixinBrowser()) {
            $this->_canUseCheckout = false;
         }
         
@@ -52,7 +52,7 @@ class Alipaymate_Weixin_Model_Payment extends Mage_Payment_Model_Method_Abstract
         
         return false;
     }
-    
+
     
     /**
      * Get order model
@@ -189,9 +189,9 @@ class Alipaymate_Weixin_Model_Payment extends Mage_Payment_Model_Method_Abstract
         return Mage::getUrl('weixin/processing/redirect', array('_secure' => true));
     }
 
-	public function getReturnURL()
+	public function getReturnURL($orderId)
 	{
-        return Mage::getUrl('weixin/processing/return/', array('_secure' => true));
+        return Mage::getUrl('weixin/processing/return/', array('_secure' => true,'orderId' => $orderId));
 	}
 
 	public function getNotifyURL()
@@ -199,9 +199,9 @@ class Alipaymate_Weixin_Model_Payment extends Mage_Payment_Model_Method_Abstract
 		return Mage::getUrl('weixin/processing/notify/', array('_secure' => true));
 	}
 
-	public function getPaidURL()
+	public function getPaidURL($orderId)
 	{
-        return Mage::getUrl('weixin/processing/paid/', array('_secure' => true));
+        return Mage::getUrl('weixin/processing/paid/', array('_secure' => true,'orderId' => $orderId));
 	}
 
     public function getCode()
@@ -220,11 +220,15 @@ class Alipaymate_Weixin_Model_Payment extends Mage_Payment_Model_Method_Abstract
                 return false;
             }
 
-            if ($order->getStatus() != 'pending') {
+            if (!$order->canInvoice()) {
                 return false;
             }
 
-            if ($order->getPayment()->getMethodInstance()->getCode() != $this->getCode()) {
+            if ($this->isWeixinBrowser()) {//微信公众号支付必须到公众号内才显示
+                return false;
+            }
+            //微信扫码的不能换成微信公众号的支付，反之亦然，APP内的是另外的商户号，不受影响
+            if ($order->getPayment()->getMethodInstance()->getCode() == 'weixinmobile') {
                 return false;
             }
         } catch (Exception $e) {

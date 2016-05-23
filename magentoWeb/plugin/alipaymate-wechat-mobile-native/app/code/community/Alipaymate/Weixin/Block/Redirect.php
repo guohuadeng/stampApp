@@ -6,6 +6,14 @@ class Alipaymate_Weixin_Block_Redirect extends Mage_Core_Block_Abstract
 {
     protected function _toHtml()
     {
+        $request = $this->getRequest()->getParams();
+
+        if (isset($request['orderId']) && $request['orderId'] > '') {
+            $orderId = $request['orderId'];
+        } else {
+            $session = Mage::getSingleton('checkout/session');
+            $orderId = $session->getLastRealOrderId();
+        }
         $payment = Mage::getModel('weixin/payment');
         $config  = $payment->prepareConfig();
         $params  = $payment->prepareBizData();
@@ -21,8 +29,8 @@ class Alipaymate_Weixin_Block_Redirect extends Mage_Core_Block_Abstract
         $imgdata = 'data:image/png;base64,' . base64_encode(file_get_contents($tmpfile));
         unlink($tmpfile);
         
-        $returnUrl = $payment->getReturnURL();
-        $paidUrl   = $payment->getPaidURL();
+        $returnUrl = $payment->getReturnURL($orderId);
+        $paidUrl   = $payment->getPaidURL($orderId);
 
         $html = <<<EOT
 <!doctype html>
@@ -55,6 +63,7 @@ class Alipaymate_Weixin_Block_Redirect extends Mage_Core_Block_Abstract
             <div class="tip-text">
                 <p>请使用微信扫一扫</p>
                 <p>扫描二维码完成支付</p>
+                <p>微信内请长按二维码并识别</p>
             </div>
         </div>
      </div>
@@ -68,12 +77,14 @@ jQuery(document).ready(function($) {
                 { url: "{$paidUrl}", 
                   success: function(data) {                    
                     if ($.trim(data) == 'ok') {
+                      setTimeout(function() { //因为支付后订单仍要变更状态，故增加一点处理时间
                         $(window.location).attr('href', '{$returnUrl}');
+                        },1000);
                     }
                 }, 
                 complete: poll 
            });
-        }, 5000);
+        }, 3000);
     })();
 });
 </script>

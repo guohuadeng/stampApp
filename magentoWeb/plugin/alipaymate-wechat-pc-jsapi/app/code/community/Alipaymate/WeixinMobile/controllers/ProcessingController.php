@@ -23,15 +23,7 @@ class Alipaymate_WeixinMobile_ProcessingController extends Mage_Core_Controller_
     public function redirectAction()
     {
         try {
-            $request = $this->getRequest()->getQuery();
-
-            if (isset($request['orderId']) && $request['orderId'] > '') {
-                $orderId = $request['orderId'];
-            } else {
-                $session = $this->_getCheckout();
-                $orderId = $session->getLastRealOrderId();
-            }
-
+            $orderId = $this->_getOrderId();
             $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 
             if (!$order->getId()) {
@@ -55,10 +47,11 @@ class Alipaymate_WeixinMobile_ProcessingController extends Mage_Core_Controller_
      */
     public function returnAction()
     {
-        $session = $this->_getCheckout();
-
         try {
-            $orderId = $session->getLastRealOrderId();
+            $orderId = $this->_getOrderId();
+            $order = Mage::getModel('sales/order');
+            $order->loadByIncrementId($orderId);
+            $order_id = $order->getId();
 
             $payment = Mage::getModel('weixinmobile/payment');
             $config  = $payment->prepareConfig();
@@ -68,7 +61,13 @@ class Alipaymate_WeixinMobile_ProcessingController extends Mage_Core_Controller_
 
             // check order is paid?
             if ($weixin->paid('', $orderId)) {
-                header('Location: ' . Mage::getUrl('checkout/onepage/success', array('_secure' => true)));
+                //header('Location: ' . Mage::getUrl('checkout/onepage/success', array('_secure' => true)));
+                header('Location: ' . Mage::getUrl('sales/order/view', array(
+                  '_secure' => true,
+                  'order_id' => $order_id,
+                  'status' => true,
+                  'message' => Mage::helper('checkout')->__('Thank you for your purchase!')
+                )));
                 exit();
             }
         } catch(Exception $e) {
@@ -122,35 +121,45 @@ class Alipaymate_WeixinMobile_ProcessingController extends Mage_Core_Controller_
                 $order = Mage::getModel('sales/order');
                 $order->loadByIncrementId($orderId);
 
-                if ($order->getStatus() == 'pending') {
-                    // make invoice
-                    if ($order->canInvoice()) {
-                        $invoice = $order->prepareInvoice();
-                        $invoice->register()->capture();
-                        Mage::getModel('core/resource_transaction')
-                            ->addObject($invoice)
-                            ->addObject($invoice->getOrder())
-                            ->save();
-                    }
-
+                if ($order->canInvoice()) {
                     $status = Mage::getStoreConfig('payment/weixinmobile/order_status_payment_accepted');
+                    $paymentcode = $order->getPayment()->getMethodInstance()->getCode();
+                    $message = '';
+                    //change payment，and log，这是因为要适用于所有类型的微信支付
+                    $payment = $order->getPayment();
+                    if ($paymentcode!='weixinmobile') {
+                      $message = 'Payment change:'.$paymentcode.'>>weixinmobile. ';
+                      $payment->setMethod('weixinmobile'); // Assuming 'test' is updated payment method
+                      $payment->save();
+                      $helper->log('order payment', $message);
+                      }
+                    // make invoice
+                    $invoice = $order->prepareInvoice();
+                    $invoice->register()->capture();
+                    Mage::getModel('core/resource_transaction')
+                        ->addObject($invoice)
+                        ->addObject($invoice->getOrder())
+                        ->save();
 
-                    $helper->log('order status', $status);
+                    if ($order->canShip())  { //重新支付的话，如果已发货，则不需要再更改订单状态，开invoice已OK
+                      if (! $status) {
+                          $status = Mage_Sales_Model_Order::STATE_PROCESSING;
+                      }
+                      $helper->log('order status', $status);
 
-                    if (! $status) {
-                        $status = Mage_Sales_Model_Order::STATE_PROCESSING;
+                      $message = $message.Mage::helper('weixinmobile')->__('Payment successful') ;
+
+                      $order->addStatusToHistory($status, $message);
+                      $order->sendNewOrderEmail();
+                      $order->setEmailSent(true);
+                      $order->setIsCustomerNotified(true);
+                      $order->save();
                     }
-                    
-                    $order->addStatusToHistory($status, Mage::helper('weixinmobile')->__('Order status: payment successful'));
-                    $order->sendNewOrderEmail();
-                    $order->setEmailSent(true);
-                    $order->setIsCustomerNotified(true);
-                    $order->save();
                 }
 
                 $this->success();
             } catch (Exception $e) {
-                $helper->log('weixinmobile-notify', $e->getMessage());
+                $helper->log('weixinmobile-notify error', $e->getMessage());
                 $this->error();
             }
         }
@@ -171,6 +180,24 @@ class Alipaymate_WeixinMobile_ProcessingController extends Mage_Core_Controller_
         $xml = '<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[FAIL]]></return_msg></xml>';
         echo $xml;
         exit();
+    }
+
+    /**
+     * Get orderID model
+     *
+     * @return orderId
+     */
+    private function _getOrderId()
+    {
+        $request = $this->getRequest()->getParams();
+
+        if (isset($request['orderId']) && $request['orderId'] > '') {
+            $orderId = $request['orderId'];
+        } else {
+            $session = $this->_getCheckout();
+            $orderId = $session->getLastRealOrderId();
+        }
+		  return $orderId;
     }
 
 }

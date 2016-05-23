@@ -44,7 +44,7 @@
         
         if ($_model && method_exists($_model,'canRepay') && $_model->canRepay($_order)) {
 ?>
-            <a href="<?php echo $_model->getRepayUrl($_order); ?>" class="<?php echo $_method; ?>-repay link-repay"><?php echo $this->__('Repay') ?></a>
+            <a href="<?php echo $_model->getRepayUrl($_order); ?>" class="<?php echo $_method; ?>-repay link-repay btn btn-success"><?php echo $this->__('Repay') ?></a>
             <span class="separator">|</span>               
 <?php
         }
