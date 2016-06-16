@@ -59,6 +59,7 @@ class Sunpop_RestConnect_StoreController extends Mage_Core_Controller_Front_Acti
 		  //$wechatAppSign = '5fca0f59955deb2f755ae8d8d9b27b7a';
 		  $wechatAppSecret = '1370c0c44c0606228639a59bc125655e';
 		  }
+		$storeqq = '3462987106';
 
 		echo json_encode(array(
 				'store_id'=>$store_id,
@@ -77,6 +78,7 @@ class Sunpop_RestConnect_StoreController extends Mage_Core_Controller_Front_Acti
 				'skin_url'=> Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN),
 				'js_url'=> Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS),
 				'storelang'=> $storelang,
+				'storeqq'=> $storeqq,
 		    //'wechatAppKey' => $wechatAppKey,
 		    //'wechatAppSign' => $wechatAppSigh,
 		    'wechatAppSecret' => $wechatAppSecret
