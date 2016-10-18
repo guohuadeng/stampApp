@@ -1,7 +1,7 @@
 <?php
 $installer = $this;
 $installer->startSetup();
-
+/*
 $installer->run("
     create table if not exists {$this->getTable('social_login_weixin')} (
       id            int not null auto_increment,
@@ -13,17 +13,17 @@ $installer->run("
       city          varchar(64)  not null default '',
       province      varchar(64)  not null default '',
       country       char(2)      not null default '',
-      avatar         varchar(255) not null default '',
+      headimgurl    varchar(255) not null default '',
       unionid       varchar(64)  not null default '',
       refresh_token varchar(255) not null default '',
       primary key (id), unique(unionid)
     ) engine=innodb default charset=utf8;
 ");
-
-/*
-$installer->run("
-  alter table  {$this->getTable('social_login_weixin')} add COLUMN avatar VARCHAR(255) not null; //增加头像地址
-");
 */
+
+$installer->run("
+  alter table  {$this->getTable('social_login_weixin')} add `headimgurl` VARCHAR(255) not null;
+");
+
 
 $installer->endSetup();

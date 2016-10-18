@@ -14,7 +14,8 @@ $installer->run("
       province      varchar(64)  not null default '',
       country       char(2)      not null default '',
       unionid       varchar(64)  not null default '',
-      refresh_token varchar(255) not null default '',     
+      headimgurl    varchar(255) not null default '',
+      refresh_token varchar(255) not null default '',
       primary key (id), unique(unionid)
     ) engine=innodb default charset=utf8;
 ");

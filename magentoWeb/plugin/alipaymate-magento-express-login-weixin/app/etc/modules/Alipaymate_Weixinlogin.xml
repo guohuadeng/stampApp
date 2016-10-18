@@ -4,6 +4,7 @@
     <Alipaymate_Weixinlogin>
       <active>true</active>
       <codePool>community</codePool>
+	  <version>2.0</version>
     </Alipaymate_Weixinlogin>
   </modules>
 </config>

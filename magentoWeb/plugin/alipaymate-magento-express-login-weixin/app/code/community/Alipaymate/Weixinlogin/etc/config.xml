@@ -8,36 +8,49 @@
     </modules>
     <global>
         <models>
-            <weixinlogin>
-                <class>Alipaymate_Weixinlogin_Model</class>
-                <resourceModel>weixinlogin_resource</resourceModel>
-            </weixinlogin>
-
-            <weixinlogin_resource>
-                <class>Alipaymate_Weixinlogin_Model_Resource</class>
-                <deprecatedNode>weixinlogin_mysql4</deprecatedNode>
-                <entities>
-                    <identifiers>
+		  <weixinlogin>
+			<class>Alipaymate_Weixinlogin_Model</class>
+			<resourceModel>weixinlogin_mysql4</resourceModel>
+		  </weixinlogin>
+		  <weixinlogin_mysql4>
+			<class>Alipaymate_Weixinlogin_Model_Mysql4</class>
+			<entities>		  
+				  <sociallogin>
+					<table>social_login_weixin</table>
+				  </sociallogin>
+				  <identifiers>
                         <table>social_login_weixin</table>
                     </identifiers>
-                </entities>
-            </weixinlogin_resource>
-        </models>
-
-        <resources>
-            <weixinlogin_setup>
-                <setup>
-                    <module>Alipaymate_Weixinlogin</module>
-                </setup>
-            </weixinlogin_setup>
-        </resources>
+			</entities>
+		  </weixinlogin_mysql4>
+		</models>
+		<resources>
+		  <weixinlogin_setup>
+			<setup>
+			  <module>Alipaymate_Weixinlogin</module>
+			</setup>
+			<connection>
+			  <use>core_setup</use>
+			</connection>
+		  </weixinlogin_setup>
+		  <weixinlogin_write>
+			<connection>
+			  <use>core_write</use>
+			</connection>
+		  </weixinlogin_write>
+		  <weixinlogin_read>
+			<connection>
+			  <use>core_read</use>
+			</connection>
+		  </weixinlogin_read>
+		</resources>
 
         <blocks>
             <weixinlogin>
                 <class>Alipaymate_Weixinlogin_Block</class>
             </weixinlogin>
         </blocks>
-
+	
         <helpers>
             <weixinlogin>
                 <class>Alipaymate_Weixinlogin_Helper</class>
@@ -79,6 +92,18 @@
         </layout>
     </frontend>
 
+	 
+	 <admin>
+	  <routers>
+        <adminhtml>
+            <args>
+                <modules>
+                    <Alipaymate_Weixinlogin_Adminhtml before="Mage_Adminhtml">Alipaymate_Weixinlogin_Adminhtml</Alipaymate_Weixinlogin_Adminhtml>
+                </modules>
+            </args>
+        </adminhtml>
+    </routers>
+	</admin>
    <adminhtml>
         <translate>
             <modules>
@@ -89,5 +114,43 @@
                 </Alipaymate_Weixinlogin>
             </modules>
         </translate>
+		
+			<menu>
+				<customer translate="title" module="customer">
+					<children>
+					  <weixinlogin module="weixinlogin">
+						<title>Wechat fans</title>
+						<sort_order>120</sort_order>
+						<action>adminhtml/sociallogin/index</action>
+					  </weixinlogin>
+					</children>
+				</customer>
+			</menu>
+			<acl>
+			  <resources>
+				<all>
+				  <title>Allow Everything</title>
+				</all>
+				<admin>
+				  <children>
+					<customer translate="title" module="customer">
+					  <children>
+					  <weixinlogin translate="title">
+						<title>Wechat fans</title>
+						<sort_order>0</sort_order>
+					  </weixinlogin>
+					</children>
+					</customer>
+				  </children>
+				</admin>
+			  </resources>
+			</acl>
+		<layout>
+		  <updates>
+			<weixinlogin>
+			  <file>weixinlogin.xml</file>
+			</weixinlogin>
+		  </updates>
+		</layout>
     </adminhtml>
 </config>
