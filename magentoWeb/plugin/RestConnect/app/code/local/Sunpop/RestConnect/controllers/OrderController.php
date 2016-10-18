@@ -138,6 +138,8 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 			if($orderType == "notreceived"){
 				if(count($shipmentorderincrementid)>0){
 					$orderCollection->addFieldToFilter('increment_id',array('in'=>$shipmentorderincrementid));
+				} else  {
+					$orderCollection->addFieldToFilter('increment_id',array('in'=>array(0)));
 				}
 			}
 			if($orderType == "complete"){

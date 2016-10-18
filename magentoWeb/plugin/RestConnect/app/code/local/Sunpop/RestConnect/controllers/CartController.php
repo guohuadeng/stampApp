@@ -896,7 +896,13 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         }
         //不显示微信扫码和公众号支付
         unset ($methods['weixin']);
-        unset ($methods['weixinmobile']);
+        //如果是在公众号里访问，只显示公众号支付
+        if (stripos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
+          unset ($methods['weixinapp']);
+        }
+        else {
+          unset ($methods['weixinmobile']);
+        }
         echo json_encode($methods);
     }
 
