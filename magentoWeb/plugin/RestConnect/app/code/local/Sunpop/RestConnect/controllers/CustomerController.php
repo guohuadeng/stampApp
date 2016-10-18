@@ -24,11 +24,21 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 	const XML_PATH_GENERATE_HUMAN_FRIENDLY_ID   = 'customer/create_account/generate_human_friendly_id';
 
 	public function statusAction() {
+    /*
+    if (stripos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) { //如果是微信浏览器，返回登录oauth整合的url
+	    $weixin = Mage::getModel('weixinlogin/login');
+	    $wxURL = $weixin->getRedirectURL();
+	    }
+  */
+
+	  $weixin = Mage::getModel('weixinlogin/login');
+	  $wxURL = $weixin->getRedirectURL();
 		$result = array ();
 		if (!Mage::getSingleton ( 'customer/session' )->isLoggedIn ()) {
         $result = array (
           'status' => false,
           'code' => 1,
+          'wxurl' => $wxURL,
           'message' => Mage::helper ( 'customer' )->__ ('not_exists')
         );
 			} else {

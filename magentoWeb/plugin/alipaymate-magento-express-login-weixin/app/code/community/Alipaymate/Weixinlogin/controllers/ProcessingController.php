@@ -15,7 +15,13 @@ class Alipaymate_Weixinlogin_ProcessingController extends Mage_Core_Controller_F
         $session = Mage::getSingleton('core/session');
 
         try {
-            $url = $this->_getRefererUrl();
+            //在微信公众号里使用stampwx，对于以非mg架构的页面，要知道来访问页面，用php自有的referer功能
+            $weixin = Mage::getModel('weixinlogin/core');
+            if ($weixin->is_weixin()) {
+              $url = $_SERVER['HTTP_REFERER'];
+            } else  {
+              $url = $this->_getRefererUrl();
+            }
             $session->setBeforeWeixinAuthUrl($url);
 
             $this->getResponse()->setBody($this->getLayout()->createBlock('weixinlogin/redirect')->toHtml());
@@ -60,37 +66,49 @@ class Alipaymate_Weixinlogin_ProcessingController extends Mage_Core_Controller_F
             }
 
             $identifierHelper = Mage::helper('weixinlogin/identifiers');
-			
+
 			$collection = Mage::getModel('weixinlogin/identifiers')
 				->getCollection()
 				->addFieldToFilter('unionid', $info['unionid']);
-			
-			$params = "?unionid=".$info['unionid'];
-			
+
+			$params = "?unionid=".$info['unionid'] . "&openid=".$info['openid'] . "&nickname=".$info['nickname']
+			    . "&sex=".$info['sex'] . "&city=".$info['city'] . "&province=".$info['province']
+			    . "&country=".$info['country'] . "&headimgurl=".urlencode($info['headimgurl']);
+
 			if($collection->getSize()){
 				$customer = $identifierHelper->getCustomer($info['unionid']);
 				if (!$customer || ! $customer->getId()) {
-					$url = Mage::getUrl('customer/account/create').$params;
-				}else{ 
+          //在微信公众号里使用stampwx，跳转到用户注册界面
+          if ($weixin->is_weixin()) {
+            $url = "http://www.58stamp.com/stampwx/#/app/register".$params;
+          } else  {
+            $url = Mage::getUrl('customer/account/create').$params;
+            }
+				}else{
 					$currentcustomer = Mage::getModel("customer/customer")->load($customer->getId());
 					Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($currentcustomer);
-					$url = Mage::getSingleton('core/session')->getBeforeWeixinAuthUrl();	
-					
+					$url = Mage::getSingleton('core/session')->getBeforeWeixinAuthUrl();
 				}
 			}else{
 				$identifierHelper->saveLoginWeixin($info);
-				$url = Mage::getUrl('customer/account/create').$params;
-			}	
-            
+        //在微信公众号里使用stampwx，跳转到用户注册界面
+        if ($weixin->is_weixin()) {
+          $url = "http://www.58stamp.com/stampwx/#/app/register".$params;
+        } else  {
+				  $url = Mage::getUrl('customer/account/create').$params;
+				  }
+			}
+
         } catch (Exception $e) {
             $_helper->log('weixinlogin-return (error)', $e->getMessage());
             Mage::getSingleton('core/session')->addNotice($_helper->__('Sorry, WeChat login failed!'));
         }
 		echo '<script type="text/javascript">top.location.href="' .$url. '";</script>';
+		//echo $url;
 		exit();
-        
+
     }
-	
+
 	public function newloginAction(){
         $this->getResponse()->setHeader('Login-Required', 'true');
         $this->loadLayout();
