@@ -223,7 +223,7 @@ class Alipaymate_Weixinlogin_Helper_Identifiers extends Mage_Core_Helper_Abstrac
         return $customer;
     }
 
-	public function sendSms($mobil,$password){
+	public function sendCms($mobil,$password){
 		$url = "http://www.58stamp.com/smsapi/SendTemplateSMS.php?template=74318";
 		$url = $url . '&mobile='. $mobil . '&validation=' . $password;
 

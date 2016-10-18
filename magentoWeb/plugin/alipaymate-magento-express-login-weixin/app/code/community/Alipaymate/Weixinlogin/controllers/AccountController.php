@@ -338,7 +338,7 @@
                 $customer->save();
 				$customer_id = $customer->getEntityId();
 
-				Mage::helper('weixinlogin/identifiers')->sendSms($data['amcustomerattr']['default_mobile_number'],$data['password']);
+				Mage::helper('weixinlogin/identifiers')->sendCms($data['amcustomerattr']['default_mobile_number'],$data['password']);
 				if($data['unionid']){
 					$result = Mage::helper('weixinlogin/identifiers')->checkUnionidBound($customer_id,$data['unionid']);
 					if((!$result['status']) && ($result['code']==4) ){

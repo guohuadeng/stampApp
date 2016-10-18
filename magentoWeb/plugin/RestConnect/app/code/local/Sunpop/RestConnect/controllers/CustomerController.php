@@ -256,7 +256,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 					$session->setCustomerAsLoggedIn ( $customer );
 					$customer->sendNewAccountEmail ( 'registered', '', Mage::app ()->getStore ()->getId () );
 				}
-			Mage::helper('weixinlogin/identifiers')->sendSms($params ['default_mobile_number'] ,$params ['password']);
+			Mage::helper('weixinlogin/identifiers')->sendCms($params ['default_mobile_number'] ,$params ['password']);
 
 				/* 微信表相关unionid绑定到magento相关customer_id */
 				if($result['id']){
@@ -577,7 +577,7 @@ class Sunpop_RestConnect_CustomerController extends Mage_Core_Controller_Front_A
 		$newpassword = rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
 		$customerExist->setPassword($newpassword);
 		$customerExist->save();
-		$response = Mage::helper('weixinlogin/identifiers')->sendSms($mobil ,$newpassword);
+		$response = Mage::helper('weixinlogin/identifiers')->sendCms($mobil ,$newpassword);
 		$responseData = json_decode($response, TRUE);
 
 		echo json_encode ( array (
