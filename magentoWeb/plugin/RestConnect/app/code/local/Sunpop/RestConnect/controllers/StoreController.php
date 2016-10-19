@@ -79,6 +79,7 @@ class Sunpop_RestConnect_StoreController extends Mage_Core_Controller_Front_Acti
 				'js_url'=> Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS),
 				'storelang'=> $storelang,
 				'storeqq'=> $storeqq,
+				'storetel'=> Mage::getStoreConfig('general/store_information/phone'),
 		    //'wechatAppKey' => $wechatAppKey,
 		    //'wechatAppSign' => $wechatAppSigh,
 		    'wechatAppSecret' => $wechatAppSecret
