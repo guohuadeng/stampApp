@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+    <name>Raveinfosys_Deleteorder</name>
+    <version>1.0.10</version>
+    <stability>stable</stability>
+    <license>OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>This extension allows you to delete orders.</summary>
+    <description>Magento doesn't allow you to delete orders. You can only mark it to cancelled but you can't delete it. &amp;#xD;&#xD;
+        This extension allows you to seamlessly delete any order. We have provided three options to delete any order. &amp;#xD;&#xD;
+        1) option to delete any order from the order list page, 2) option to delete any order from the order page, &amp;#xD;&#xD;
+        3) option to delete mass order from the order list page. &#xD;
+  </description>
+    <notes>This version is properly tested on the following Magento CE versions: 1.5, 1.6, 1.7, 1.8, 1.9.0.1;&#xD;
+In this particular version we are supporting it to run on PHP V 7.0.99</notes>
+    <authors><author><name>Rave Infosys</name><user>raveinfo</user><email>magento@raveinfosys.com</email></author></authors>
+    <date>2016-08-26</date>
+    <time>05:35:51</time>
+    <contents><target name="magecommunity"><dir name="Raveinfosys"><dir name="Deleteorder"><dir name="Block"><dir name="Adminhtml"><dir name="Sales"><dir name="Order"><file name="Grid.php" hash="e872c7edf5167accefbe610f2018fe47"/><dir name="Render"><file name="Delete.php" hash="e749864749a96cc60fab8c01145ff2e6"/></dir><file name="View.php" hash="6a0f7c99e3ae18ad9f2ec64cb254879c"/></dir></dir></dir></dir><dir name="Helper"><file name="Data.php" hash="c169154213a43dffd8e20c11db9b4085"/></dir><dir name="controllers"><dir name="Adminhtml"><file name="DeleteorderController.php" hash="5fd6536b41a3785ed36cc1a92efb6849"/></dir></dir><dir name="etc"><file name="config.xml" hash="e880c5fe329fa7fea65fa25a0729ae27"/></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="deleteorder.xml" hash="7d07207d7c1103b44526c9344d593354"/></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Raveinfosys_Deleteorder.xml" hash="1d73a901977f08e90563dd8c5c8adb64"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>7.0.99</max></php></required></dependencies>
+</package>

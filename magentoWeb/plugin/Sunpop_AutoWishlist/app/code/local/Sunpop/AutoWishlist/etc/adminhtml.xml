@@ -9,7 +9,7 @@
 								<config>
 									<children>
 										<autowishlist translate="title" module="autowishlist">
-											<title>sunpop autoWishlist Section</title>
+											<title>Sunpop AutoWishlist Section</title>
 											<sort_order>0</sort_order>
 										</autowishlist>
 									</children>

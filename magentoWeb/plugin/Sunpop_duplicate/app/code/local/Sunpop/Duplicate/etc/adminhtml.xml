@@ -9,7 +9,7 @@
 								<config>
 									<children>
 										<duplicate translate="title" module="duplicate">
-											<title>duplicate Section</title>
+											<title>Sunpop Duplicate Section</title>
 											<sort_order>0</sort_order>
 										</duplicate>
 									</children>
