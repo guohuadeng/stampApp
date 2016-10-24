@@ -8,10 +8,14 @@ class Alipaymate_Weixinlogin_Block_Adminhtml_Template_Grid_Renderer_Image extend
     protected function _getValue(Varien_Object $row)
     {
         $val = $row->getData($this->getColumn()->getIndex());
-        $val = str_replace("no_selection", "", $val);
-        //$url = Mage::getBaseUrl('media') . 'catalog/product' . $val;
         $url =  $val;
-        $out = "<img src=". $url ." width='60px'/>";
+        if ($url=="no_selection" || $url =="")  {
+            $out = $this->__("No Uploaded File");
+          } elseif (filter_var ($url, FILTER_VALIDATE_URL))  {
+            $out = "<img src=". $url ." width='60px'/>";
+          } else  {
+          $out = "<img src=". Mage::getBaseUrl('media') .$url ." width='60px'/>";
+          }
         return $out;
     }
 }

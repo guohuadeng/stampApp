@@ -75,8 +75,7 @@ class Alipaymate_Weixinlogin_Block_Adminhtml_Sociallogin_Edit_Tab_Form extends M
 						$fieldset->addField('headimgurl', 'image', array(
 						'label' => Mage::helper('weixinlogin')->__('Headimgurl'),
 						'name' => 'headimgurl',
-						'note' => '(*.jpg, *.png, *.gif)',
-						"disabled"  => true
+						'note' => '(*.jpg, *.png, *.gif)'
 						));
 
 				if (Mage::getSingleton("adminhtml/session")->getSocialloginData())

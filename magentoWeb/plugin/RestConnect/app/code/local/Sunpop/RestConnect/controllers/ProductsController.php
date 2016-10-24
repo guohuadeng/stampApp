@@ -20,7 +20,7 @@ class Sunpop_RestConnect_ProductsController extends Mage_Core_Controller_Front_A
 		$selectid = 1;
 		$select = array ();
 		foreach ( $product->getOptions () as $o ) {
-			if (($o->getType () == "field") || ($o->getType () == "file")) {
+			if ($o->getType () == "field") {
 				$select [$selectid] = array (
 						'option_id' => $o->getId (),
 						'custom_option_type' => $o->getType (),
@@ -30,6 +30,23 @@ class Sunpop_RestConnect_ProductsController extends Mage_Core_Controller_Front_A
 						'price_type' => $o->getPriceType (),
 						'sku' => $o->getSku (),
 						'max_characters' => $o->getMaxCharacters ()
+				);
+			} elseif ($o->getType () == "file") {
+		    //$ofile =  Mage::getModel ( "catalog/product_option_type_file" );
+			  //var_dump(get_class_methods($ofileview));
+			  //return;
+				$select [$selectid] = array (
+						'option_id' => $o->getId (),
+						'custom_option_type' => $o->getType (),
+						'custom_option_title' => $o->getTitle (),
+						'is_require' => $o->getIsRequire (),
+						'price' => number_format ( Mage::helper ( 'directory' )->currencyConvert ( $o->getPrice (), $baseCurrency, $currentCurrency ), 2, '.', '' ),
+						'price_type' => $o->getPriceType (),
+						'sku' => $o->getSku (),
+						'max_characters' => $o->getMaxCharacters (),
+						'file_extension' => $o->getFileExtension (),
+						'image_sizex' => $o->getImageSizeX (),
+						'image_sizey' => $o->getImageSizeY ()
 				);
 			} else {
 				$max_characters = $o->getMaxCharacters ();
