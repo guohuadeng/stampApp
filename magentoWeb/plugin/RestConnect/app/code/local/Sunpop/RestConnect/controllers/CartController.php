@@ -42,7 +42,7 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         };
     }
     //返回微信app支付参数
-    protected function _paymentWeixinapp($order_id)
+    protected function _paymentWeixin($order_id, $paymentcode)
     {
         try {
           if (isset($order_id) && $order_id > '') {
@@ -55,10 +55,10 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
           $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 
           if (!$order->getId()) {
-              Mage::throwException(Mage::helper('weixinapp')->__('No order for processing'));
+              Mage::throwException(Mage::helper($paymentcode)->__('No order for processing'));
           }
 
-          $payment = Mage::getModel('weixinapp/payment');
+          $payment = Mage::getModel($paymentcode .DS. 'payment');
           $config = $payment->prepareConfig();
           $total_fee = $order->getGrandTotal();
 
@@ -1174,11 +1174,22 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
             } else if ($paymentcode == 'weixinapp') {
               $order->save();
               $order_id =  $order->getIncrementId();
-              $payconfig = $this->_paymentWeixinapp($order_id);
+              $payconfig = $this->_paymentWeixin($order_id, $paymentcode);
               $message = '生成订单 #'.$order_id.' 成功。';
               //$order->addStatusToHistory(Mage_Sales_Model_Order::STATE_PENDING,Mage_Sales_Model_Order::STATE_PENDING,$statusMessage, false);
               //$order->setState(Mage_Sales_Model_Order::STATE_PENDING,Mage_Sales_Model_Order::STATE_PENDING,$statusMessage, false);
-            }
+            } else if ($paymentcode == 'weixinmobile') {
+               $order->save();
+               $order_id =  $order->getIncrementId();
+               $payment = Mage::getModel('weixinmobile/payment');
+               $wx_repay_url = $payment->getRepayUrl($order);
+               $payconfig = array (
+                 'wx_repay_url' => $wx_repay_url
+               );
+               $message = '生成订单 #'.$order_id.' 成功。';
+               //$order->addStatusToHistory(Mage_Sales_Model_Order::STATE_PENDING,Mage_Sales_Model_Order::STATE_PENDING,$statusMessage, false);
+               //$order->setState(Mage_Sales_Model_Order::STATE_PENDING,Mage_Sales_Model_Order::STATE_PENDING,$statusMessage, false);
+             }
             $statusMessage = 'Order success '.$paymentcode;
 
             echo json_encode(array(

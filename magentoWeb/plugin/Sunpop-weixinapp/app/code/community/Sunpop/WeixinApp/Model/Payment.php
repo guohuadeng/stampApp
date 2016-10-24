@@ -48,7 +48,7 @@ class Sunpop_WeixinApp_Model_Payment extends Mage_Payment_Model_Method_Abstract
             $request = $_GET;
 
             // repay orderId in customer order list.
-            if (isset($request['orderId']) && $request['orderId'] > '') { 
+            if (isset($request['orderId']) && $request['orderId'] > '') {
                 $orderId = $request['orderId'];
                 $this->_order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
                 return $this->_order;
@@ -79,7 +79,7 @@ class Sunpop_WeixinApp_Model_Payment extends Mage_Payment_Model_Method_Abstract
     public function prepareConfig()
     {
         $config = array(
-            'trade_type'        => 'JSAPI',
+            'trade_type'        => 'APP',
             'mch_id'            => trim($this->getConfigData('mchid')),
             'key'               => trim($this->getConfigData('security_key')),
             'appid'             => trim($this->getConfigData('app_id')),
@@ -202,7 +202,7 @@ class Sunpop_WeixinApp_Model_Payment extends Mage_Payment_Model_Method_Abstract
             if ($this->getConfigData('enable_repay') <= 0) {
                 return false;
             }
-                        
+
             if ($this->getConfigData('active') <= 0) {
                 return false;
             }

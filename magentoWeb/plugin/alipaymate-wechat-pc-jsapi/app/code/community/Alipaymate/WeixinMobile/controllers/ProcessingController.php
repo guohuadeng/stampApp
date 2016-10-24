@@ -26,8 +26,8 @@ class Alipaymate_WeixinMobile_ProcessingController extends Mage_Core_Controller_
             $orderId = $this->_getOrderId();
             $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 
-            if (!$order->getId()) {
-                Mage::throwException(Mage::helper('weixinmobile')->__('No order for processing'));
+            if (!$order->getIncrementId()) {
+                Mage::throwException(Mage::helper('weixinmobile')->__($order->getIncrementId().'==No order for processing'));
             }
 
             $this->getResponse()->setBody($this->getLayout()->createBlock('weixinmobile/redirect')->toHtml());

@@ -90,9 +90,12 @@ class Sunpop_WeixinApp_Model_App
             'total_fee' => $this->_config['total_fee'],
             'spbill_create_ip' => $this->_config['spbill_create_ip'],
             'notify_url' => $this->_config['notify_url'],
-            'trade_type' => 'APP',
+            'trade_type' => $this->_config['trade_type']
         );
 
+        //add openid 如果是 jsapi,是否要写代码？
+        if ($this->_config['trade_type'] == 'JSAPI')
+            $params['openid'] = $this->_config['openid'];
         // add sign
         $params['sign'] = $this->calculateSign($params, $this->_config['key']);
 
