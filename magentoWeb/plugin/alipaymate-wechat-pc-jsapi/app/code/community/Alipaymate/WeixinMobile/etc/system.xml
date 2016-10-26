@@ -71,6 +71,16 @@
                             <show_in_store>0</show_in_store>
                         </app_secret>
 
+                        <weixin_pay_finish_url translate="label,comment">
+                          <label>Weixin Pay finish page</label>
+                          <comment>The URL in weixin browser, after pay finish(what ever success or fail)</comment>
+                          <frontend_type>text</frontend_type>
+                          <sort_order>7</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>0</show_in_store>
+                        </weixin_pay_finish_url>
+
                         <order_status_payment_accepted translate="label">
                             <label>Order status when payment accepted</label>
                             <frontend_type>select</frontend_type>
@@ -90,8 +100,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </enable_repay> 
-                        
+                        </enable_repay>
+
                         <show_logo translate="label">
                             <label>Show WeChat Logo</label>
                             <comment>Show WeChat logo on payment methods section</comment>
@@ -102,7 +112,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </show_logo>
-                        
+
                         <debug translate="label">
                             <label>Log</label>
                             <frontend_type>select</frontend_type>

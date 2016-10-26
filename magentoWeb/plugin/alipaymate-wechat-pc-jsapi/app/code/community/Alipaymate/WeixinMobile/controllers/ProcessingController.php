@@ -61,14 +61,20 @@ class Alipaymate_WeixinMobile_ProcessingController extends Mage_Core_Controller_
 
             // check order is paid?
             if ($weixin->paid('', $orderId)) {
-                //header('Location: ' . Mage::getUrl('checkout/onepage/success', array('_secure' => true)));
-                header('Location: ' . Mage::getUrl('sales/order/view', array(
-                  '_secure' => true,
-                  'order_id' => $order_id,
-                  'status' => true,
-                  'message' => Mage::helper('checkout')->__('Thank you for your purchase!')
-                )));
-                exit();
+              if (!empty($config['weixin_pay_finish_url'])) {  //公众号内
+                $params = '?orderid=' . $orderId . '&paid=1';
+                $url = $config['weixin_pay_finish_url'].$params;
+              } else {
+                $url = Mage::getUrl('sales/order/view', array(
+                                         '_secure' => true,
+                                         'order_id' => $order_id,
+                                         'status' => true,
+                                         'message' => Mage::helper('checkout')->__('Thank you for your purchase!')
+                                       ));
+              }
+              //header('Location: ' . Mage::getUrl('checkout/onepage/success', array('_secure' => true)));
+              header('Location: ' . $url);
+              exit();
             }
         } catch(Exception $e) {
             $session->addError($e->getMessage());
@@ -193,7 +199,10 @@ class Alipaymate_WeixinMobile_ProcessingController extends Mage_Core_Controller_
 
         if (isset($request['orderId']) && $request['orderId'] > '') {
             $orderId = $request['orderId'];
-        } else {
+        } elseif (isset($request['orderid']) && $request['orderid'] > '') {
+            $orderId = $request['orderid'];
+        }
+        else {
             $session = $this->_getCheckout();
             $orderId = $session->getLastRealOrderId();
         }

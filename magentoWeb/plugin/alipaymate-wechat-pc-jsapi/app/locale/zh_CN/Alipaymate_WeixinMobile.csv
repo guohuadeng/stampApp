@@ -2,6 +2,8 @@
 "Wexin Mobile Payment (JSAPI) - by Alipaymate.com","微信公众号支付 - by sunpop.cn"
 "Weixin","微信"
 "Weixin Payment","微信支付"
+"Weixin Pay finish page","微信公众号支付后跳转"
+"The URL in weixin browser, after pay finish(what ever success or fail)","微信公众号内，支付完成后（成功/失败）后跳转至页面"
 "Prepared to pay ...","准备支付中..."
 "Proccessing, Please wait a moment...","正在处理，请稍等..."
 "Enabled","启用"

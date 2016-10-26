@@ -9,12 +9,19 @@ class Alipaymate_WeixinMobile_Model_Core
 	private $_curl_timeout = 30;
 	private $_code = null;
 	private $_helper;
-	private $_config = array('notify_url' => '', 'trade_type' => '', 'appid' => '', 'secret' => '', 'mch_id' => '', 'key' => '', 'openid' => '', 'device_info' => '', 'nonce_str' => '', 'sign' => '', 'time_start' => '', 'time_expire' => '', 'limit_pay' => '', 'spbill_create_ip' => '');
+	private $_config = array('notify_url' => '', 'trade_type' => '', 'appid' => '', 'secret' => '', 'mch_id' => '', 'key' => '', 'openid' => '', 'device_info' => '', 'nonce_str' => '', 'sign' => '', 'time_start' => '', 'time_expire' => '', 'limit_pay' => '', 'spbill_create_ip' => '','weixin_pay_finish_url' => '');
 	private $_bizparam = array('out_trade_no' => '', 'body' => '', 'detail' => '', 'attach' => '', 'fee_type' => '', 'total_fee' => '', 'goods_tag' => '', 'product_id' => '');
 	public function __construct()
 	{
 		$this->getHelper();
 	}
+  public function is_weixin()
+  {
+      if (stripos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
+          return true;
+      }
+      return false;
+  }
 	public function getHelper()
 	{
 		if (!$this->_helper) {

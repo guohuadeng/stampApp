@@ -76,7 +76,6 @@ class Alipaymate_Weixinlogin_ProcessingController extends Mage_Core_Controller_F
 			    . "&country=".$info['country'] . "&headimgurl=".urlencode($info['headimgurl']);
 
 			if($collection->getSize()){ //有该粉丝信息的情况下
-				$identifierHelper->saveLoginWeixin($info);  //每次微信整合登录都存信息
 				$customer = $identifierHelper->getCustomer($info['unionid']);
 				if (!$customer || ! $customer->getId()) {
           //在微信公众号里使用stampwx，跳转到用户注册界面
@@ -93,7 +92,7 @@ class Alipaymate_Weixinlogin_ProcessingController extends Mage_Core_Controller_F
 			}else{  //没有该粉丝信息，存信息并注册
 				$identifierHelper->saveLoginWeixin($info);
         //在微信公众号里使用stampwx，跳转到用户注册界面
-        if ($weixin->is_weixin()) {
+        if ($weixin->is_weixin() && !empty($config['app_register2'])) {
           $url = $config['app_register2'].$params;
         } else  {
 				  $url = Mage::getUrl('customer/account/create').$params;

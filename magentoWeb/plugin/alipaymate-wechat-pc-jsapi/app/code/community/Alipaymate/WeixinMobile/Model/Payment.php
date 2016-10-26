@@ -26,7 +26,7 @@ class Alipaymate_WeixinMobile_Model_Payment extends Mage_Payment_Model_Method_Ab
         if (!$this->isWeixinBrowser()) {
             $this->_canUseCheckout = false;
         }
-        
+
         parent::__construct();
     }
 
@@ -51,7 +51,7 @@ class Alipaymate_WeixinMobile_Model_Payment extends Mage_Payment_Model_Method_Ab
             $request = $_GET;
 
             // repay orderId in customer order list.
-            if (isset($request['orderId']) && $request['orderId'] > '') { 
+            if (isset($request['orderId']) && $request['orderId'] > '') {
                 $orderId = $request['orderId'];
                 $this->_order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
                 return $this->_order;
@@ -87,6 +87,7 @@ class Alipaymate_WeixinMobile_Model_Payment extends Mage_Payment_Model_Method_Ab
             'key'               => trim($this->getConfigData('security_key')),
             'appid'             => trim($this->getConfigData('app_id')),
             'secret'            => trim($this->getConfigData('app_secret')),
+            'weixin_pay_finish_url'            => trim($this->getConfigData('weixin_pay_finish_url')),
             'spbill_create_ip'  => '',
             'device_info'       => 'WEB',
             'limit_pay'         => '',
@@ -189,7 +190,7 @@ class Alipaymate_WeixinMobile_Model_Payment extends Mage_Payment_Model_Method_Ab
 		return Mage::getUrl('weixinmobile/processing/notify/', array('_secure' => true));
 	}
 
-	public function getPaidURL($orderId)
+	public function getPaidURL($orderId)  //微信公众号内支付用不上
 	{
         return Mage::getUrl('weixinmobile/processing/paid/', array('_secure' => true,'orderId' => $orderId));
 	}
@@ -205,7 +206,7 @@ class Alipaymate_WeixinMobile_Model_Payment extends Mage_Payment_Model_Method_Ab
             if ($this->getConfigData('enable_repay') <= 0) {
                 return false;
             }
-                        
+
             if ($this->getConfigData('active') <= 0) {
                 return false;
             }
