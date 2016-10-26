@@ -18,6 +18,7 @@ class Alipaymate_Weixinlogin_Model_Core
                                 ,'secret'            => ''
                                 ,'appid2'            => ''
                                 ,'secret2'           => ''
+                                ,'app_register2'     => ''
                                 ,'mch_id'            => ''
                                 ,'key'               => ''
                                 ,'openid'            => ''

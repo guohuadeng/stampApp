@@ -15,6 +15,7 @@ class Alipaymate_Weixinlogin_Model_Login extends Mage_Core_Model_Abstract
             'secret'            => $this->getConfigData('customer/weixinlogin/app_secret'),
             'appid2'            => $this->getConfigData('customer/weixinlogin/app_id2'),
             'secret2'           => $this->getConfigData('customer/weixinlogin/app_secret2'),
+            'app_register2'     => $this->getConfigData('customer/weixinlogin/app_register2'),
             'return_url'        => $this->getReturnURL(),
         );
         return $config;

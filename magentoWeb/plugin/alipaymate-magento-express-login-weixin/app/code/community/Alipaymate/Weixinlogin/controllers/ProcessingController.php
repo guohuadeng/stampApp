@@ -75,12 +75,13 @@ class Alipaymate_Weixinlogin_ProcessingController extends Mage_Core_Controller_F
 			    . "&sex=".$info['sex'] . "&city=".$info['city'] . "&province=".$info['province']
 			    . "&country=".$info['country'] . "&headimgurl=".urlencode($info['headimgurl']);
 
-			if($collection->getSize()){
+			if($collection->getSize()){ //有该粉丝信息的情况下
+				$identifierHelper->saveLoginWeixin($info);  //每次微信整合登录都存信息
 				$customer = $identifierHelper->getCustomer($info['unionid']);
 				if (!$customer || ! $customer->getId()) {
           //在微信公众号里使用stampwx，跳转到用户注册界面
-          if ($weixin->is_weixin()) {
-            $url = "http://www.58stamp.com/stampwx/#/app/register".$params;
+          if ($weixin->is_weixin() && !empty($config['app_register2'])) {
+            $url = $config['app_register2'].$params;
           } else  {
             $url = Mage::getUrl('customer/account/create').$params;
             }
@@ -89,11 +90,11 @@ class Alipaymate_Weixinlogin_ProcessingController extends Mage_Core_Controller_F
 					Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($currentcustomer);
 					$url = Mage::getSingleton('core/session')->getBeforeWeixinAuthUrl();
 				}
-			}else{
+			}else{  //没有该粉丝信息，存信息并注册
 				$identifierHelper->saveLoginWeixin($info);
         //在微信公众号里使用stampwx，跳转到用户注册界面
         if ($weixin->is_weixin()) {
-          $url = "http://www.58stamp.com/stampwx/#/app/register".$params;
+          $url = $config['app_register2'].$params;
         } else  {
 				  $url = Mage::getUrl('customer/account/create').$params;
 				  }
