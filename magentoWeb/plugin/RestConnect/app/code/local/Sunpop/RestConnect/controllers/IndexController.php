@@ -12,6 +12,11 @@
 header('Access-Control-Allow-Origin: *');
 header('P3P: CP=CAO PSA OUR');
 class Sunpop_RestConnect_IndexController extends Mage_Core_Controller_Front_Action {
+	public function testAction() {
+	  $a = Mage::getModel("catalog/product_option_type_file");
+	  $startDelimiter = (false === strpos($url,'?'))? '?' : '&';
+	  var_dump(get_class_methods($a));
+	}
 	public function indexAction() {
 		$cmd = ($this->getRequest ()->getParam ( 'cmd' )) ? ($this->getRequest ()->getParam ( 'cmd' )) : 'daily_sale';
 		switch ($cmd) {

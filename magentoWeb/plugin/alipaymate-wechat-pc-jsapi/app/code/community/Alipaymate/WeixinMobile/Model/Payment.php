@@ -239,4 +239,9 @@ class Alipaymate_WeixinMobile_Model_Payment extends Mage_Payment_Model_Method_Ab
 
 	    return $url;
 	}
+	public function getRepayBaseUrl()
+	{
+	    $url = Mage::getUrl('weixinmobile/processing/redirect', array('_secure' => true));
+	    return $url;
+	}
 }

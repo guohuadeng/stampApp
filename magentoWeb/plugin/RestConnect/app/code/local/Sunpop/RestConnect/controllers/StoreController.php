@@ -61,6 +61,12 @@ class Sunpop_RestConnect_StoreController extends Mage_Core_Controller_Front_Acti
 		  }
 		$storeqq = '3462987106';
 
+    //如果是在公众号里访问，只返回微信支付url
+    if (stripos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
+       $payment = Mage::getModel('weixinmobile/payment');
+       $wx_repay_url = $payment->getRepayBaseUrl();
+       }
+
 		echo json_encode(array(
 				'store_id'=>$store_id,
 				'store_code'=>Mage::app()->getStore()->getCode(),
@@ -82,7 +88,8 @@ class Sunpop_RestConnect_StoreController extends Mage_Core_Controller_Front_Acti
 				'storetel'=> Mage::getStoreConfig('general/store_information/phone'),
 		    //'wechatAppKey' => $wechatAppKey,
 		    //'wechatAppSign' => $wechatAppSigh,
-		    'wechatAppSecret' => $wechatAppSecret
+		    'wechatAppSecret' => $wechatAppSecret,
+		    'wx_repay_url' => $wx_repay_url
 		));
 	}
 
