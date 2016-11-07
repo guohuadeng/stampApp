@@ -138,8 +138,8 @@ class Sunpop_RestConnect_WishlistController extends Mage_Core_Controller_Front_A
 				}
 			}
 
-			//$product = Mage::getModel ( 'catalog/product' )->setStoreId ( $item->getStoreId () )->load ( $item->getProductId () );
 			$product =  $item->getProduct();
+			$product1 = Mage::getModel ( 'catalog/product' )->setStoreId ( $item->getStoreId () )->load ( $item->getProductId () );
 			if ($product->getId ()) {
 				$name = $product->getName();
 				$items [] = array (
@@ -150,6 +150,7 @@ class Sunpop_RestConnect_WishlistController extends Mage_Core_Controller_Front_A
 						'final_price_with_tax' => number_format ( Mage::helper ( 'directory' )->currencyConvert ( $product->getFinalPrice (), $baseCurrency, $currentCurrency ), 2, '.', '' ),
 						'sku' => $product->getSku () ,
 						'symbol' => Mage::app ()->getLocale ()->currency ( Mage::app ()->getStore ()->getCurrentCurrencyCode () )->getSymbol (),
+						'iconfont' => $product1 ->getAIconfont(),
             'image_url' => $product->getImageUrl(),
             'image_thumbnail_url' => $product->getThumbnailUrl(),
             'image_small_url' => $product->getSmallImageUrl() ,

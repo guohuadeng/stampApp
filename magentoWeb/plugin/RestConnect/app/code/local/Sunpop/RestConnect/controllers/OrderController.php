@@ -196,6 +196,7 @@ class Sunpop_RestConnect_OrderController extends Mage_Core_Controller_Front_Acti
 				//print_r($_product->getData());exit;
 				$productname[$i]['id']= $_product->getId();
 				$productname[$i]['sku']= $_product->getSku();
+				$productname[$i]['iconfont']= $_product->getAIconfont();
 				$productname[$i]['name']= $item->getName();
 				$productname[$i]['price']= $item->getPrice();
 				$productname[$i]['qty']= $item->getQtyOrdered();

@@ -434,12 +434,15 @@ class Sunpop_RestConnect_CartController extends Mage_Core_Controller_Front_Actio
         $displayCartBothPrices = Mage::helper('tax')->displayCartBothPrices();
         $items = $quote->getAllVisibleItems();
         foreach ($items as $item) {
+            $productid = $item->getProduct()->getId();
+            $product = Mage::getModel ( "catalog/product" )->load ( $productid );
             $cartItemArr = array();
             $cartItemArr ['cart_item_id'] = $item->getId();
             $cartItemArr ['currency'] = $currency;
             $cartItemArr ['entity_type'] = $item->getProductType();
             $cartItemArr ['product_id'] = $item->getProduct()->getId();
             $cartItemArr ['item_title'] = strip_tags($item->getProduct()->getName());
+            $cartItemArr ['item_iconfont'] = $product ->getAIconfont();
             $cartItemArr ['qty'] = $item->getQty();
             $cartItemArr ['image_thumbnail_url'] = (string) Mage::helper('catalog/image')->init($item->getProduct(), 'thumbnail')->resize(75);
             $cartItemArr ['custom_option'] = $this->_getCustomOptions($item);
